@@ -1,1 +1,3 @@
+This sample code shows how you can connect to a Thorlabs CCS spectrometer. It uses 
 
+Please note that the resource name (“USB0::0x1313::…”) in the sample code needs to be adjusted to the used spectrometer type and unit.
