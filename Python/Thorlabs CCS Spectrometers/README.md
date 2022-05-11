@@ -1,6 +1,6 @@
 ## Included Examples
 
-### CCS Spectrometer Open and Read
+### Thorlabs CCS Spectrometer Open and Read
 This sample code shows how you can control a Thorlabs CCS spectrometer in Python.
 It uses the ctypes library to load the DLL file for these spectrometers and the Matplotlib library to plot the measured spectrum. These libraries need to be installed separately on the computer.
 
