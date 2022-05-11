@@ -7,10 +7,10 @@ All examples are split up by programming language and product type. Directions o
 
 ### Python Requirements
 
-Python examples make use of the Ctypes module, which can be installed using the command
+Python examples make use of the ctypes module, which can be installed using the command
 
 ```
 pip install ctypes
 ```
 
-if cytypes is not installed already.
+if ctypes is not installed already.
