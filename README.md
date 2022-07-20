@@ -1,5 +1,5 @@
 # Light_Analysis_Examples
-Software examples for Thorlabs' products that are used to measure light (e.g. Spectrometers, Wavefront Sensors, etc.)
+Software examples for Thorlabs' products that are used to measure light (e.g. CCS Series Spectrometers, Wavefront Sensors, etc.)
 
 ## Repo Organization
 All examples are split up by programming language and product type. Directions on using specific examples are given within the folders.
