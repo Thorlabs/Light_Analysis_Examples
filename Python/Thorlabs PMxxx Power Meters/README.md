@@ -8,8 +8,8 @@ It uses the ctypes library to load the DLL file for these power meters. This lib
 
 Please note that the code consists of two files:
 
-- TLPM.py: This file contains the class definition for the class TLPM. This class implements the methods ...
-- PMxxx using ctypes - Python 3.py: This is the actual example code. It connects to the power meter, makes the necessary settings and then reads and displays power values.
+- **TLPM.py:** This file contains the class definition for the class TLPM. This class implements the methods ...
+- **PMxxx using ctypes - Python 3.py:** This is the actual example code. It connects to the power meter, makes the necessary settings and then reads and displays power values.
 
 
 Additional Python example codes are included in the installation package of the "Optical Power Monitor" software. You can find these codes in this folder after the installation:
