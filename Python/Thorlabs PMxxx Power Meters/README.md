@@ -14,6 +14,6 @@ Please note that the code consists of two files:
 
 Additional Python example codes are included in the installation package of the "Optical Power Monitor" software. You can find these codes in this folder after the installation:
 
-'''
+```
 C:\Program Files (x86)\IVI Foundation\VISA\WinNT\TLPM\Examples\Python
-'''
+```
