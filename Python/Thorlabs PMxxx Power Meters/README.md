@@ -7,11 +7,29 @@ It uses the ctypes library to load the DLL file for these power meters. This lib
 
 Please note that the example consists of two files:
 
-- **TLPM.py:** This file contains the class definition for the class TLPM which also includes the method definitions. The constants which are used by this class are defined in this file as well.
+- **TLPM.py:** This file contains the class definition for the class TLPM which also includes the method definitions. The constants which are used by this class are defined here as well. Please note that the TLPM DLL files are loaded in the "LoadLibrary" commands in lines 239 and 241. Depending on the used programming environment ..., these lines might need to be changed slightly.
+
+This line.. in the current folder 
+
+```
+self.dll = cdll.LoadLibrary(".\TLPM_64.dll")
+```
+
+This line...:
+
+```
+self.dll = cdll.LoadLibrary("TLPM_64.dll")
+```
+
+This line full file path:
+
+```
+self.dll = cdll.LoadLibrary("C:\Program Files\IVI Foundation\VISA\Win64\Bin\TLPM_64.dll")
+```
 
 - **PMxxx using ctypes - Python 3.py:** This is the actual example code. It connects to the power meter, makes the necessary settings and then reads and displays power values.
 
-Please note that... in programming environments which have intelligent code completion features like e.g. Visual Studio Code.
+Please note that the information in the class definition can be used in programming environments which have intelligent code completion features (e.g. Visual Studio Code).
 
 Additional Python example codes are included in the installation package of the "Optical Power Monitor" software. You can find these codes in this folder after the installation:
 
