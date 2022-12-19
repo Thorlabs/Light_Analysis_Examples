@@ -1,13 +1,13 @@
 ## Included Example
 
 ### Thorlabs PMxxx Power Meters Control
-This sample code shows how you can control a Thorlabs PMxxx Power Meter in Python. It can be used with all types of Thorlabs power meters which use the TLPM driver.
+This sample code shows how you can control a Thorlabs PMxxx Power Meter in Python. It can be used with all types of Thorlabs power meters which are compatible with the TLPM drivers.
 
-It uses the ctypes library to load the DLL file for these power meters. This library needs to be installed separately on the computer.
+The code uses the ctypes library to load the DLL file for these power meters. The ctypes library needs to be installed separately on the computer.
 
 Please note that the example consists of two files:
 
-- **TLPM.py:** This file contains the class definition for the class TLPM which also includes the method definitions. The constants which are used by this class are defined here as well.
+- **TLPM.py:** This file contains the class definition of the class TLPM. It includes the definitions of methods and constants which are used by this class.
 
 Please note that the TLPM DLL files are loaded in the "LoadLibrary" commands in lines 239 and 241. Depending on the used programming environment and the system settings, these lines might need to be changed slightly to make sure that Python finds these files.
 
@@ -17,7 +17,7 @@ This line will look for the DLL file in the current folder :
 self.dll = cdll.LoadLibrary(".\TLPM_64.dll")
 ```
 
-This line will look for the DLL file in the ... folders:
+This line will look for the DLL file in the system folders:
 
 ```
 self.dll = cdll.LoadLibrary("TLPM_64.dll")
