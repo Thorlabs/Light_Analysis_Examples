@@ -158,8 +158,8 @@ namespace CCS___Absorption_Measurement
             }
             //Plot the spectrum
             Program program = new Program();
-            program.ChartAbsorption(Absorption, DataWavelength);
-            program.ChartOD(OD, DataWavelength);
+            program.ShowAbsorptionChart(Absorption, DataWavelength);
+            program.ShowODChart(OD, DataWavelength);
 
             //Dispose the device
             ccsSeries.Dispose();
@@ -180,7 +180,7 @@ namespace CCS___Absorption_Measurement
         /// <summary>
         /// plot the absorption spectrum
         /// </summary>
-        private void ChartAbsorption(double[] DataIntensity, double[] DataWavelength)
+        private void ShowAbsorptionChart(double[] DataIntensity, double[] DataWavelength)
         {
             var form1 = new Form();
             
@@ -217,7 +217,7 @@ namespace CCS___Absorption_Measurement
         /// <summary>
         /// plot the optical density spectrum
         /// </summary>
-        private void ChartOD(double[] DataIntensity, double[] DataWavelength)
+        private void ShowODChart(double[] DataIntensity, double[] DataWavelength)
         {
             var form1 = new Form();
 
