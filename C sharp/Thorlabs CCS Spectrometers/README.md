@@ -1,5 +1,9 @@
 ## Example Description
-This example shows how you can control a Thorlabs CCS spectrometer in C Sharp.The necessary settings are made; the continuous scanning and display are realized with a set integration time.
+These examples show how you can control a Thorlabs CCS spectrometer in C Sharp.
+- **CCS - Continuous Scan:**
+This example has a GUI interface, includes the initialization of the spectrometer and real-time spectrum display with a set integration time. 
+- **CCS - Absorption Measurement:**
+This example includes the initialization of the spectrometer, the calculation of absorption spectrum and optical density spectrum, the display of the spectrums and data storage.
 
 ## Instructions for Use
 
