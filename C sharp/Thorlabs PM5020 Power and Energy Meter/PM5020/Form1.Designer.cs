@@ -77,7 +77,6 @@ namespace PM5020
             this.groupBoxDataProcessing = new System.Windows.Forms.GroupBox();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
@@ -183,7 +182,7 @@ namespace PM5020
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(22, 371);
+            this.label7.Location = new System.Drawing.Point(22, 367);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(80, 20);
             this.label7.TabIndex = 13;
@@ -213,7 +212,7 @@ namespace PM5020
             // 
             // buttonZero1
             // 
-            this.buttonZero1.Location = new System.Drawing.Point(26, 266);
+            this.buttonZero1.Location = new System.Drawing.Point(26, 261);
             this.buttonZero1.Name = "buttonZero1";
             this.buttonZero1.Size = new System.Drawing.Size(80, 30);
             this.buttonZero1.TabIndex = 18;
@@ -225,7 +224,7 @@ namespace PM5020
             // checkBoxAutoRange1
             // 
             this.checkBoxAutoRange1.AutoSize = true;
-            this.checkBoxAutoRange1.Location = new System.Drawing.Point(26, 236);
+            this.checkBoxAutoRange1.Location = new System.Drawing.Point(26, 234);
             this.checkBoxAutoRange1.Name = "checkBoxAutoRange1";
             this.checkBoxAutoRange1.Size = new System.Drawing.Size(121, 24);
             this.checkBoxAutoRange1.TabIndex = 17;
@@ -235,7 +234,7 @@ namespace PM5020
             // 
             // textBoxAveraging1
             // 
-            this.textBoxAveraging1.Location = new System.Drawing.Point(26, 395);
+            this.textBoxAveraging1.Location = new System.Drawing.Point(26, 391);
             this.textBoxAveraging1.Name = "textBoxAveraging1";
             this.textBoxAveraging1.Size = new System.Drawing.Size(100, 26);
             this.textBoxAveraging1.TabIndex = 16;
@@ -244,7 +243,7 @@ namespace PM5020
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(132, 337);
+            this.label17.Location = new System.Drawing.Point(132, 333);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(23, 20);
             this.label17.TabIndex = 29;
@@ -264,7 +263,7 @@ namespace PM5020
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(22, 308);
+            this.label15.Location = new System.Drawing.Point(22, 304);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(70, 20);
             this.label15.TabIndex = 23;
@@ -272,11 +271,12 @@ namespace PM5020
             // 
             // textBoxBaseline1
             // 
-            this.textBoxBaseline1.Location = new System.Drawing.Point(26, 334);
+            this.textBoxBaseline1.Location = new System.Drawing.Point(26, 330);
             this.textBoxBaseline1.Name = "textBoxBaseline1";
             this.textBoxBaseline1.Size = new System.Drawing.Size(100, 26);
             this.textBoxBaseline1.TabIndex = 24;
             this.textBoxBaseline1.Tag = "0";
+            this.textBoxBaseline1.Text = "0";
             this.textBoxBaseline1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxBaseline1_KeyPressed);
             // 
             // comboBoxEnergyRange1
@@ -322,16 +322,17 @@ namespace PM5020
             // 
             // textBoxBaseline2
             // 
-            this.textBoxBaseline2.Location = new System.Drawing.Point(26, 335);
+            this.textBoxBaseline2.Location = new System.Drawing.Point(26, 331);
             this.textBoxBaseline2.Name = "textBoxBaseline2";
             this.textBoxBaseline2.Size = new System.Drawing.Size(100, 26);
             this.textBoxBaseline2.TabIndex = 32;
             this.textBoxBaseline2.Tag = "0";
+            this.textBoxBaseline2.Text = "0";
             this.textBoxBaseline2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxBaseline2_KeyPressed);
             // 
             // buttonZero2
             // 
-            this.buttonZero2.Location = new System.Drawing.Point(25, 266);
+            this.buttonZero2.Location = new System.Drawing.Point(25, 261);
             this.buttonZero2.Name = "buttonZero2";
             this.buttonZero2.Size = new System.Drawing.Size(77, 30);
             this.buttonZero2.TabIndex = 19;
@@ -343,7 +344,7 @@ namespace PM5020
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(132, 338);
+            this.label8.Location = new System.Drawing.Point(132, 334);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(23, 20);
             this.label8.TabIndex = 31;
@@ -352,7 +353,7 @@ namespace PM5020
             // checkBoxAutoRange2
             // 
             this.checkBoxAutoRange2.AutoSize = true;
-            this.checkBoxAutoRange2.Location = new System.Drawing.Point(26, 236);
+            this.checkBoxAutoRange2.Location = new System.Drawing.Point(26, 234);
             this.checkBoxAutoRange2.Name = "checkBoxAutoRange2";
             this.checkBoxAutoRange2.Size = new System.Drawing.Size(121, 24);
             this.checkBoxAutoRange2.TabIndex = 18;
@@ -363,7 +364,7 @@ namespace PM5020
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(22, 308);
+            this.label6.Location = new System.Drawing.Point(22, 304);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(70, 20);
             this.label6.TabIndex = 30;
@@ -371,7 +372,7 @@ namespace PM5020
             // 
             // textBoxAveraging2
             // 
-            this.textBoxAveraging2.Location = new System.Drawing.Point(25, 397);
+            this.textBoxAveraging2.Location = new System.Drawing.Point(25, 393);
             this.textBoxAveraging2.Name = "textBoxAveraging2";
             this.textBoxAveraging2.Size = new System.Drawing.Size(100, 26);
             this.textBoxAveraging2.TabIndex = 16;
@@ -380,7 +381,7 @@ namespace PM5020
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(22, 371);
+            this.label9.Location = new System.Drawing.Point(22, 367);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(80, 20);
             this.label9.TabIndex = 13;
@@ -546,7 +547,7 @@ namespace PM5020
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(769, 128);
+            this.label18.Location = new System.Drawing.Point(769, 144);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(175, 20);
             this.label18.TabIndex = 31;
@@ -554,26 +555,18 @@ namespace PM5020
             // 
             // label19
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(769, 162);
+            this.label19.Location = new System.Drawing.Point(769, 178);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(481, 20);
+            this.label19.Size = new System.Drawing.Size(514, 69);
             this.label19.TabIndex = 32;
-            this.label19.Text = "1. \"Channel1/2\" contains the settings for the sensor in Channel 1/2.";
-            // 
-            // label21
-            // 
-            this.label21.Location = new System.Drawing.Point(788, 188);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(438, 44);
-            this.label21.TabIndex = 34;
-            this.label21.Text = "When the parameters are modified successfully, the \"Status\" textbox will prompt y" +
-    "ou. ";
+            this.label19.Text = "1. \"Channel1/2\" Group Box contains the settings for the sensor in Channel 1/2. Wh" +
+    "en the parameters are modified successfully, the \"Status\" textbox will prompt yo" +
+    "u. ";
             // 
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(769, 241);
+            this.label22.Location = new System.Drawing.Point(769, 251);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(514, 20);
             this.label22.TabIndex = 35;
@@ -581,7 +574,7 @@ namespace PM5020
             // 
             // label24
             // 
-            this.label24.Location = new System.Drawing.Point(788, 266);
+            this.label24.Location = new System.Drawing.Point(769, 276);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(471, 52);
             this.label24.TabIndex = 37;
@@ -590,7 +583,7 @@ namespace PM5020
             // 
             // label25
             // 
-            this.label25.Location = new System.Drawing.Point(769, 318);
+            this.label25.Location = new System.Drawing.Point(769, 328);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(539, 41);
             this.label25.TabIndex = 38;
@@ -599,7 +592,7 @@ namespace PM5020
             // 
             // label26
             // 
-            this.label26.Location = new System.Drawing.Point(788, 359);
+            this.label26.Location = new System.Drawing.Point(769, 370);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(534, 41);
             this.label26.TabIndex = 39;
@@ -615,7 +608,6 @@ namespace PM5020
             this.Controls.Add(this.label25);
             this.Controls.Add(this.label24);
             this.Controls.Add(this.label22);
-            this.Controls.Add(this.label21);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.groupBoxDataProcessing);
@@ -695,7 +687,6 @@ namespace PM5020
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label25;
