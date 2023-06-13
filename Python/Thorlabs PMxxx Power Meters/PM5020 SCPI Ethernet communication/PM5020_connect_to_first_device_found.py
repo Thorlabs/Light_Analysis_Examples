@@ -1,4 +1,5 @@
 # Start a device search and open first device found
+from anyvisa import AnyVisa
 devices = []
 devices = AnyVisa.FindResources("?*")
 if devices:
