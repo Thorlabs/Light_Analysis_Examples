@@ -547,7 +547,7 @@ namespace PM5020
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(769, 144);
+            this.label18.Location = new System.Drawing.Point(769, 135);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(175, 20);
             this.label18.TabIndex = 31;
@@ -555,9 +555,9 @@ namespace PM5020
             // 
             // label19
             // 
-            this.label19.Location = new System.Drawing.Point(769, 178);
+            this.label19.Location = new System.Drawing.Point(769, 164);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(514, 69);
+            this.label19.Size = new System.Drawing.Size(307, 109);
             this.label19.TabIndex = 32;
             this.label19.Text = "1. \"Channel1/2\" Group Box contains the settings for the sensor in Channel 1/2. Wh" +
     "en the parameters are modified successfully, the \"Status\" textbox will prompt yo" +
@@ -565,36 +565,35 @@ namespace PM5020
             // 
             // label22
             // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(769, 251);
+            this.label22.Location = new System.Drawing.Point(769, 277);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(514, 20);
+            this.label22.Size = new System.Drawing.Size(291, 51);
             this.label22.TabIndex = 35;
             this.label22.Text = "2. \"Channel1/2 Value\" shows the power or energy value for Channel 1/2.";
             // 
             // label24
             // 
-            this.label24.Location = new System.Drawing.Point(769, 276);
+            this.label24.Location = new System.Drawing.Point(769, 320);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(471, 52);
+            this.label24.Size = new System.Drawing.Size(291, 85);
             this.label24.TabIndex = 37;
             this.label24.Text = "\"Calc Result\" shows the data procesing results. It\'s available only when two powe" +
     "r sensors or two energy sensors are connected.";
             // 
             // label25
             // 
-            this.label25.Location = new System.Drawing.Point(769, 328);
+            this.label25.Location = new System.Drawing.Point(769, 413);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(539, 41);
+            this.label25.Size = new System.Drawing.Size(291, 63);
             this.label25.TabIndex = 38;
             this.label25.Text = "3. \"Normalize Channel1\" calculates the ratio of channel2\'s value to channel1\'s va" +
     "lue.";
             // 
             // label26
             // 
-            this.label26.Location = new System.Drawing.Point(769, 370);
+            this.label26.Location = new System.Drawing.Point(769, 476);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(534, 41);
+            this.label26.Size = new System.Drawing.Size(291, 67);
             this.label26.TabIndex = 39;
             this.label26.Text = "\"Normalize Channel2\" calculates the ratio of channel1\'s value to channel2\'s value" +
     ".";
@@ -603,7 +602,7 @@ namespace PM5020
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1324, 559);
+            this.ClientSize = new System.Drawing.Size(1074, 559);
             this.Controls.Add(this.label26);
             this.Controls.Add(this.label25);
             this.Controls.Add(this.label24);

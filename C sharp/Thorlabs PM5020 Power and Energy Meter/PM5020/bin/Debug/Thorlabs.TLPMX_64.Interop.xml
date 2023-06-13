@@ -123,6 +123,110 @@
             
             </param>
         </member>
+        <member name="M:Thorlabs.TLPMX_64.Interop.TLPMX.#ctor(System.String,System.Boolean,System.Boolean,System.String)">
+            <summary>
+            This function initializes the instrument driver session and performs the following initialization actions:
+            
+            (1) Opens a session to the Default Resource Manager resource and a session to the specified device using the Resource Name.
+            (2) Performs an identification query on the instrument.
+            (3) Resets the instrument to a known state.
+            (4) Sends initialization commands to the instrument.
+            (5) Returns an instrument handle which is used to distinguish between different sessions of this instrument driver.
+            
+            Notes:
+            (1) Each time this function is invoked a unique session is opened.  
+            </summary>
+            <param name="Resource_Name">
+            This parameter specifies the device (resource) with which to establish a communication session. 
+            
+            The syntax for the Instrument Descriptor for USB interfaces:
+            
+            USB[board]::0x1313::product id::serial number[::interface number][::INSTR]
+                            
+            The syntax for the Instrument Descriptor for Bluetooth interfaces:
+            
+            ASRL&lt;port id&gt;[::INSTR]
+            
+            Optional segments are shown in square brackets ([]).
+            
+            Remote Access   visa://hostname[:port]/resource
+            
+            The default values for optional parameters are shown below.
+            
+            Optional Segment          Default Value
+            ---------------------------------------
+            board                     0
+            USB interface number      0
+            
+            The USB product id codes for supported instruments are shown below.
+            
+            Product ID   Instrument Type
+            -------------------------------------------------
+            0x8070       PM100D with DFU interface enabled
+            0x8071       PM100A with DFU interface enabled
+            0x8072       PM100USB with DFU interface enabled
+            0x8073       PM160 with DFU interface enabled
+            0x8074       PM160T with DFU interface enabled
+            0x8075       PM400 with DFU interface enabled
+            0x8078       PM100D with DFU interface disabled
+            0x8079       PM100A with DFU interface disabled
+            0x807A       PM103
+            0x807B       PM160 with DFU interface disabled
+            0x807C       PM160T with DFU interface disabled
+            0x807D       PM400 with DFU interface disabled
+            0x807E       PM103E
+            0x80B0       PM200
+            0x80BB       PM5020
+            
+            Example Resource Strings:
+            --------------------------------------------------------------
+            USB::0x1313::0x8070::M12345678::INSTR
+                                  PM100D with a serial number of
+                                  M12345678.
+            
+            USB::0x1313::0x80B0::M12345678::INSTR
+                                  PM200 with a serial number of
+                                  M12345678.
+            
+            ASRL3::INSTR
+                                  PM160(T) on serial port COM3 over 
+                                  bluetooth.
+            
+            visa://1.2.3.4/USB::0x1313::0x8071::M23456789::INSTR      
+                                  Remote access to the PM100A with a serial
+                                  number of M23456789 at the specified IP
+                                  address.
+            
+            visa://hostname/USB::0x1313::0x8072::M34567890::INSTR
+                                  Remote access to the PM100USB with a
+                                  serial number of M23456789 on the
+                                  specified host.
+            
+            Notes:
+            (1) You may use VISA &lt;Find Resources&gt; with an appropriate seach pattern to get the Resource Name for your device. 
+            For PM100x devices use: "USB?*::0x1313::0x807?::?*::INSTR" 
+            For PM200 devices use:  "USB?*::0x1313::0x80B?::?*::INSTR"
+            (2) You may use the driver functions in Resource Functions class for creating a list of available devices and getting the according Resource Name string. 
+            
+            </param>
+            <param name="ID_Query">
+            This parameter specifies whether an identification query is performed during the initialization process.
+            
+            VI_OFF (0): Skip query.
+            VI_ON  (1): Do query (default).
+            
+            </param>
+            <param name="Reset_Device">
+            This parameter specifies whether the instrument is reset during the initialization process.
+            
+            VI_OFF (0) - no reset 
+            VI_ON  (1) - instrument is reset (default)
+            
+            </param>
+            <param name="password">
+            Password for ethernet communication. 
+            </param>
+        </member>
         <member name="P:Thorlabs.TLPMX_64.Interop.TLPMX.Handle">
             <summary>
             Gets the instrument handle.
@@ -956,6 +1060,92 @@
             This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
             </returns>
         </member>
+        <member name="M:Thorlabs.TLPMX_64.Interop.TLPMX.setEncryption(System.String,System.String,System.Boolean)">
+            <summary>
+            Overwrites the system password used for authentication, Default password ist THORlabs
+            </summary>
+            <param name="oldPassword">old ASCII passwort string. Max length is 25. Min length is 5</param>
+            <param name="newPassword">new ASCII passwort string. Max length is 25. Min length is 5</param>
+            <param name="encryption">True if SCPI LAN interface should be crypted</param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLPMX_64.Interop.TLPMX.getEncryption(System.Text.StringBuilder,System.Boolean@)">
+            <summary>
+            Queries password used for authentication. Default password ist THORlabs. Only supported by local serial interface.
+            </summary>
+            <param name="password">used password</param>
+            <param name="encryption">True if SCPI LAN interface should be crypted</param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLPMX_64.Interop.TLPMX.setLANPropagation(System.Boolean)">
+            <summary>
+            Use this command to enable/disable LAN service propagation via UDP broadcast on port 270378. The broadcast is send as heatbeat every 800ms.
+            </summary>
+            <param name="enable">1 to enable service propagation. False to disable</param> 
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLPMX_64.Interop.TLPMX.getLANPropagation(System.Boolean@)">
+            <summary>
+            Use this command to test if LAN service propagation via UDP broadcast on port 270378 is active. The broadcast is send as heatbeat every 800ms.
+            </summary>
+            <param name="enable">1 to enable service propagation. False to disable</param> 
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLPMX_64.Interop.TLPMX.setEnableNetSearch(System.Boolean)">
+            <summary>
+             Enables the search for ethernet power meters
+            </summary> 
+            <param name="enable">enabled\disabled</param> 
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLPMX_64.Interop.TLPMX.getEnableNetSearch(System.Boolean@)">
+            <summary>
+              Disables the search for ethernet power meters and set the sub net mask
+            </summary> 
+            <param name="enable">enabled\disabled</param> 
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLPMX_64.Interop.TLPMX.setLookForInfoOnSearch(System.Boolean)">
+            <summary>
+            Enables or disables the posibility to get information on TLPMX_findRsrc.
+            If this is set to false the method TLPMX_getRsrcInfo will not retrive any information after TLPMX_findRsrc.
+            </summary> 
+            <param name="enable">enabled\disabled</param> 
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLPMX_64.Interop.TLPMX.getLookForInfoOnSearch(System.Boolean@)">
+             <summary>
+            Get if the posibility to get information on TLPMX_findRsrc is enabled.
+            If this is set to false the method TLPMX_getRsrcInfo will not retrive any information after TLPMX_findRsrc.
+             </summary> 
+             <param name="enable">enabled\disabled</param> 
+             <returns>
+             This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+             </returns>
+        </member>
+        <member name="M:Thorlabs.TLPMX_64.Interop.TLPMX.setNetSearchMask(System.String)">
+            <summary>
+             Set the sub net mask
+            </summary>
+            <param name="NetMask">sub net mask for the ethernet power meters search</param> 
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
         <member name="M:Thorlabs.TLPMX_64.Interop.TLPMX.setDeviceBaudrate(System.UInt32)">
             <summary>
             Tell the instrument which baudrate has to be used for the serial communication.
@@ -1535,6 +1725,58 @@
             This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
             </returns>
         </member>
+        <member name="M:Thorlabs.TLPMX_64.Interop.TLPMX.startZeroPos(System.UInt16)">
+            <summary>
+            This function starts the zeroing position procedure.
+            
+            Remark: 
+            Before starting the correction ensure light source is hitting the sensor area. Position is floating if no beam is hitting the sensor. 
+            This command only starts the zeroing procedure running in background for at least one second. During zero procedure, measuring is not possible. 
+            To test if zeroing is still running use the method getDarkAdjustState. To cancel it use cancelZeroPos.
+            </summary>
+            <param name="Channel">
+            Number of the sensor channel. 
+            
+            Default: 1 for non multi channel devices
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLPMX_64.Interop.TLPMX.cancelZeroPos(System.UInt16)">
+            <summary>
+            This function cancels a running zeroing position procedure.
+            
+            </summary>
+            <param name="Channel">
+            Number of the sensor channel. 
+            
+            Default: 1 for non multi channel devices
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLPMX_64.Interop.TLPMX.setZeroPos(System.Double,System.Double,System.UInt16)">
+            <summary>
+            This function sets the zero position values in µm.
+            </summary>
+            <param name="Zero_X">
+            This parameter sets the zero x value in µm.   
+            </param>
+            <param name="Zero_Y">
+            This parameter sets the zero y value in µm.  
+            </param>
+            <param name="Channel">
+            Number of the sensor channel. 
+            
+            Default: 1 for non multi channel devices
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Thorlabs.TLPMX_64.Interop.TLPMX.getZeroPos(System.Double@,System.Double@,System.UInt16)" -->
         <member name="M:Thorlabs.TLPMX_64.Interop.TLPMX.setBeamDia(System.Double,System.UInt16)">
             <summary>
             This function sets the users beam diameter in millimeter [mm].
@@ -4183,7 +4425,7 @@
             
             Set the bandwidth to high(setInputFilterState to OFF) and disable auto ranging(setPowerAutoRange to OFF)
             
-            Note: The function is only available on PM103.
+            Note: The function is only available on PM5020 and PM103.
             
             </summary>
             <param name="BaseTime">
@@ -4211,7 +4453,7 @@
             This function send the SCPI Command "CONF:ARR" to the device.
             Then is possible to call the methods 'startMeasurementSequence' and 'getMeasurementSequenceHWTrigger' to get the power data.
             
-            Note: The function is only available on PM103 and PM101 special.
+            Note: The function is only available on PM5020, PM103 and PM101 special.
             
             </summary>
             <param name="BaseTime">
@@ -4247,7 +4489,7 @@
             
             Set the bandwidth to high(setInputFilterState to OFF) and disable auto ranging(setPowerAutoRange to OFF)
             
-            Note: The function is only available on PM103.
+            Note: The function is only available on PM5020 and PM103.
             
             </summary>
             <param name="BaseTime">
@@ -4274,7 +4516,41 @@
             This function send the SCPI Command "CONF:ARR:CURR" to the device.
             Then is possible to call the methods 'startMeasurementSequence' and 'getMeasurementSequenceHWTrigger' to get the current data.
             
-            Note: The function is only available on PM103 and PM101 special.
+            Note: The function is only available on PM5020, PM103 and PM101 special.
+            
+            </summary>
+            <param name="BaseTime">
+            PM103:
+            interval between two measurements in the array in ?sec. The maximum resolution is 100 ?sec without averaging.
+            
+            PM101 special:
+            time to collect measurements.
+            </param>
+            <param name="Trigger_Horizontal_Position">
+            PM103:
+            Sets the horizontal position of trigger condition in the scope catpure (Between 1 and 9999)
+            
+            PM101 special:
+            Interval between measurements.
+            </param>
+            <param name="Channel">
+            Number of the sensor channel. 
+            
+            Default: 1 for non multi channel devices
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Thorlabs.TLPMX_64.Interop.TLPMX.measureVoltageMeasurementSequence(System.UInt32,System.UInt16)" -->
+        <member name="M:Thorlabs.TLPMX_64.Interop.TLPMX.measureVoltageMeasurementSequenceHWTrigger(System.UInt32,System.UInt32,System.UInt16)">
+            <summary>
+            This function send the SCPI Command "CONF:ARR:HWTrig:VOLT" to the device.
+            Then is possible to call the method 'getMeasurementSequenceHWTrigger' to get the current data.
+             
+            Set the bandwidth to high (setInputFilterState to OFF) and disable auto ranging ( setPowerAutoRange to OFF)
+            
+            Note: The function is only available on PM5020.
             
             </summary>
             <param name="BaseTime">
@@ -4600,6 +4876,59 @@
             
             PM101 special:
             Interval between measurements.
+            </param>
+            <param name="Channel">
+            Number of the sensor channel. 
+            
+            Default: 1 for non multi channel devices
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLPMX_64.Interop.TLPMX.confVoltageMeasurementSequence(System.UInt32,System.UInt16)">
+            <summary>
+            This function send the SCPI Command "CONF:ARR:VOLT" to the device.
+            Then is possible to call the method getMeasurementSequence to get the power data.
+            
+            Duration of measurement in µsec = Count* Interval
+            The maximum capture time is 1 sec regardless of the used interval
+            Set the bandwidth to high(setInputFilterState to OFF) and disable auto ranging(setPowerAutoRange to OFF)
+            
+            Note: The function is only available on PM5020.
+            </summary>
+            <param name="BaseTime">
+            interval between two measurements in the array in ?sec.
+            The maximum resolution is 100µsec without averaging
+            </param>
+            <param name="Channel">
+            Number of the sensor channel. 
+            
+            Default: 1 for non multi channel devices
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLPMX_64.Interop.TLPMX.confVoltageMeasurementSequenceHWTrigger(System.UInt16,System.UInt32,System.UInt32,System.UInt16)">
+            <summary>
+            This function send the SCPI Command "CONF:ARR:HWTrig:VOLT" to the device.
+            Then is possible to call the method getMeasurementSequenceHWTrigger to get the power data.
+             
+            Set the bandwidth to high (setInputFilterState to OFF) and disable auto ranging ( setPowerAutoRange to OFF)
+             
+            Note: The function is only available on PM5020.  
+            </summary>
+            <param name="TrigSrc"> 
+            trigger source: 1 = CH1, 2 = CH2, 3 = AUX I/O (ext. Front), 4 = TRIG (ext. Rear)
+            </param>
+            <param name="BaseTime"> 
+            interval between two measurements in the array in ?sec. The maximum resolution is 100 ?sec without averaging. 
+            </param>
+            <param name="Trigger_Horizontal_Position">
+            PM103:
+            Sets the horizontal position of trigger condition in the scope catpure (Between 1 and 9999)
+             
             </param>
             <param name="Channel">
             Number of the sensor channel. 
@@ -5224,6 +5553,100 @@
             </summary>
             <param name="Position">
             
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLPMX_64.Interop.TLPMX.setI2CMode(System.UInt16)">
+            <summary>
+            This setter changes the I2C speed and operating mode. By dafault I2C is controlled by the powermeter and SCPI I2C commands are disabled. 
+            It is mandatory to select a manual mode before SCPI I2C commands are enabled. 
+            The configuraiton is not stored for next boot. Be aware in manual mode the optional external environmental sensor will not longer be queried by the powermeter. 
+            The following modes are supported
+            INTER: I2C controlled by powermeter.SCPI I2C disabled.
+            SLOW: I2C controlled by SCPI commands in 100k standard speed.Powermeter does not access bus.
+            FAST: I2C controlled by SCPI commands in 400k fast speed.Powermeter does not access bus.
+            
+            Note: The function is only available on PM5020
+            </summary>
+            <param name="Mode">
+            INTER = 0,SLOW = 1,FAST = 1 new I2C operating mode and speed. See list in detail section.
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLPMX_64.Interop.TLPMX.getI2CMode(System.UInt16@)">
+            <summary>
+            The command queries the I2C speed and operating mode. 
+            INTER: I2C controlled by powermeter.SCPI I2C disabled.
+            SLOW: I2C controlled by SCPI commands in 100k standard speed.Powermeter does not access bus.
+            FAST: I2C controlled by SCPI commands in 400k fast speed.Powermeter does not access bus. 
+            Note: The function is only available on PM5020
+            </summary>
+            <param name="Mode">
+            INTER = 0,SLOW = 1,FAST = 1 new I2C operating mode and speed. See list in detail section.
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLPMX_64.Interop.TLPMX.I2CRead(System.UInt32,System.UInt32,System.UInt32@)">
+            <summary>
+            The command receives data from slave with given address.The function requires TLPMX_setI2CMode to be called once previously.
+            The command returns data as integer.Data is read synchronously with the SCPI command. 
+            Note: The function is only available on PM5020
+            </summary>
+            <param name="Address">
+            I2C slave address. Address are bit 7 to bit 1. Bit 0 is ignored.
+            </param>
+            <param name="Count">
+            amount of bytes to read from address. Needs to be less than 128.
+            </param>
+            <param name="ReadData">
+            received data.
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLPMX_64.Interop.TLPMX.I2CWrite(System.UInt32,System.String)">
+            <summary> 
+            The command transmits given data to slave with given address.The function requires TLPMX_setI2CMode to be called once previously. 
+            The transmission data is given as hexadecimal string parameter. The length needs to be a multiple of two as two hex digits encode a single byte. Leading zeros are mandatory. 
+            So to transfer byte 2 and 75 use string 024B.Hex digits are support upper or lowercase letters. The maximal length are 128 Bytes.Data is transferred synchronously with the SCPI command. 
+            If you want to read after writing some data you may use TLPMX_I2CWriteRead.
+            Note: The function is only available on PM5020
+            </summary>
+            <param name="Address">
+            I2C slave address. Address are bit 7 to bit 1. Bit 0 is ignored.
+            </param>
+            <param name="HexData">
+             transmission data as hexadecimal string without byte separator. Length always multiple of 2.
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLPMX_64.Interop.TLPMX.I2CWriteRead(System.UInt32,System.String,System.UInt32,System.UInt32@)">
+            <summary>
+            The command transmits given data to slave with given address following a bus reception from same device if transmission was successful.
+            This command is a convenience function for a CON:I2C#:WRIT followed by a CON:I2C#:READ? command sequence.
+            The maximal transmission and reception byte count is 128. For closer details of hexString format read TLPMX_I2CWrite command description. 
+            Note: The function is only available on PM5020
+            </summary>
+            <param name="Address">
+            I2C slave address. Address are bit 7 to bit 1. Bit 0 is ignored.
+            </param>
+            <param name="HexSendData">
+             transmission data as hexadecimal string without byte separator. Length always multiple of 2.
+            </param>
+            <param name="Count">
+             amount of bytes to read from address.
+            </param>
+            <param name="ReadData">
+             received data.
             </param>
             <returns>
             This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.

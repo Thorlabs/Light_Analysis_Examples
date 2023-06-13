@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
+using System.Security.Policy;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -19,6 +20,7 @@ namespace PM5020
         private TLPMX tlpmx;
         BackgroundWorker backgroundWorker1 = new BackgroundWorker();
         BackgroundWorker backgroundWorker2 = new BackgroundWorker();
+        BackgroundWorker backgroundWorker3 = new BackgroundWorker();
         ManualResetEvent manualReset = new ManualResetEvent(true);
 
         //save the Power or energy range values
@@ -28,16 +30,21 @@ namespace PM5020
         public Form1()
         {
             InitializeComponent();
-            //The background worker to display the realtime energy or power for both channels.
-            backgroundWorker1.DoWork += backgroundWorker1_Dowork_ValuesRefresh;
+            //The background worker to display the realtime energy or power for channel1.
+            backgroundWorker1.DoWork += backgroundWorker1_Dowork_Channel1Refresh;
             backgroundWorker1.ProgressChanged += BackgroundWorker1_ProgressChanged;
             backgroundWorker1.WorkerReportsProgress = true;
             backgroundWorker1.WorkerSupportsCancellation = true;
-            //The background worker to show the calculation result from the data processing functions.
-            backgroundWorker2.DoWork += backgroundWorker2_DoWork_CalcResultRefresh;
-            backgroundWorker2.ProgressChanged += BackgroundWorker2_ProgressChanged;
+            //The background worker to display the realtime energy or power for channel2.
+            backgroundWorker2.DoWork += backgroundWorker2_Dowork_Channel2Refresh;
+            backgroundWorker2.ProgressChanged += BackgroundWorker1_ProgressChanged;
             backgroundWorker2.WorkerReportsProgress = true;
             backgroundWorker2.WorkerSupportsCancellation = true;
+            //The background worker to show the calculation result from the data processing functions.
+            backgroundWorker3.DoWork += backgroundWorker3_DoWork_CalcResultRefresh;
+            backgroundWorker3.ProgressChanged += BackgroundWorker2_ProgressChanged;
+            backgroundWorker3.WorkerReportsProgress = true;
+            backgroundWorker3.WorkerSupportsCancellation = true;
 
         }
 
@@ -46,6 +53,10 @@ namespace PM5020
             throw new NotImplementedException();
         }
         private void BackgroundWorker2_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+        private void BackgroundWorker3_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             throw new NotImplementedException();
         }
@@ -74,7 +85,7 @@ namespace PM5020
             {
                 //set the cursor to busy when connecting and initializing the device
                 this.Cursor = Cursors.WaitCursor;
-                
+
                 //find availiable devices
                 HandleRef Instrument_Handle = new HandleRef();
                 TLPMX searchDevice = new TLPMX(Instrument_Handle.Handle);
@@ -83,7 +94,7 @@ namespace PM5020
                 if (resourceCount >= 1)
                 {
                     StringBuilder descr = new StringBuilder(1024);
-                    StringBuilder consoleName= new StringBuilder(1024);
+                    StringBuilder consoleName = new StringBuilder(1024);
                     StringBuilder consoleSerialNumber = new StringBuilder(1024);
 
                     //Connect the first power meter and get the device information
@@ -92,11 +103,11 @@ namespace PM5020
                     string firstPowermeterFound = descr.ToString();
                     tlpmx = new TLPMX(firstPowermeterFound, true, false);
                     textBoxStatus.Text = consoleSerialNumber.ToString() + " is connected.";
-                    
+
                     //Get the info about the connected sensors and the parameters
                     SensorChannelScan(Convert.ToString(consoleName));
                     GetCurrentParameters();
-                    
+
                     //change the color of the Connect button and enable Measurement buttons
                     buttonConnect.Enabled = false;
                     buttonConnect.BackColor = Color.PaleGreen;
@@ -111,7 +122,7 @@ namespace PM5020
                     this.Cursor = Cursors.Arrow;
                     return;
                 }
-                
+
                 this.Cursor = Cursors.Arrow;
             }
             catch (Exception ex)
@@ -135,13 +146,20 @@ namespace PM5020
             //detect if the sensors are connected and get the sensor types
             try
             {
-                int err = tlpmx.getSensorInfo(sensorData1, sensorData1, sensorData1, out sensorType1, out sensorSubType1, out short flag1, 1);
-                err = tlpmx.getSensorInfo(sensorData2, sensorData2, sensorData2, out sensorType2, out sensorSubType2, out short flag2, 2);
+                tlpmx.getSensorInfo(sensorData1, sensorData1, sensorData1, out sensorType1, out sensorSubType1, out short flag1, 1);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                textBoxStatus.Text = ex.Message;
-                return;
+                sensorType1 = 0x00;
+            }
+
+            try
+            {
+                tlpmx.getSensorInfo(sensorData2, sensorData2, sensorData2, out sensorType2, out sensorSubType2, out short flag2, 2);
+            }
+            catch (Exception ex)
+            {
+                sensorType2 = 0x00;
             }
 
             //sensorType = 0x00: no sensor
@@ -176,7 +194,7 @@ namespace PM5020
                     buttonZero2.Enabled = false;
                 }
                 else comboBoxEnergyRange2.Enabled = false;
-                
+
                 //if the senors in two channels are both power sensors or energy sensors, enable data processing
                 if ((sensorType1 == 0x03 && sensorType2 == 0x03) || (sensorType1 != 0x03 && sensorType2 != 0x03))
                 {
@@ -213,7 +231,7 @@ namespace PM5020
                 }
                 else comboBoxEnergyRange2.Enabled = false;
             }
-            
+
         }
 
         /// <summary>
@@ -228,7 +246,7 @@ namespace PM5020
                 {
                     int err = tlpmx.getWavelength(0, out double wavelength1, 1);
                     textBoxWavelength1.Text = wavelength1.ToString();
-                    
+
                     err = tlpmx.getAvgCnt(out short averageCount1, 1);
                     textBoxAveraging1.Text = averageCount1.ToString();
 
@@ -236,7 +254,7 @@ namespace PM5020
                     {
                         err = tlpmx.getPowerAutorange(out bool powerAuto, 1);
                         checkBoxAutoRange1.Checked = powerAuto;
-                        if (powerAuto == true) 
+                        if (powerAuto == true)
                             comboBoxPowerRange1.Enabled = false;
 
                         PowerRangeListCreate(comboBoxPowerRange1, 1);
@@ -245,10 +263,10 @@ namespace PM5020
                     if (comboBoxEnergyRange1.Enabled == true)
                     {
                         EnergyRangeListCreate(comboBoxEnergyRange1, 1);
-                    }   
+                    }
                 }
                 //get the settings of Channel 2
-                if (groupBoxChannel2.Enabled == true) 
+                if (groupBoxChannel2.Enabled == true)
                 {
                     int err = tlpmx.getWavelength(0, out double wavelength2, 2);
                     textBoxWavelength2.Text = wavelength2.ToString();
@@ -260,7 +278,7 @@ namespace PM5020
                     {
                         err = tlpmx.getPowerAutorange(out bool powerAuto, 2);
                         checkBoxAutoRange2.Checked = powerAuto;
-                        if (powerAuto == true) 
+                        if (powerAuto == true)
                             comboBoxPowerRange2.Enabled = false;
 
                         PowerRangeListCreate(comboBoxPowerRange2, 2);
@@ -282,111 +300,78 @@ namespace PM5020
         {
             if (backgroundWorker1.IsBusy != true)
             {
-                // run the "backgroundWorker1_Dowork_ValuesRefresh" method
-                backgroundWorker1.RunWorkerAsync();
-
-                // run the "backgroundWorker2_DoWork_CalcResultRefresh" method
-                backgroundWorker2.RunWorkerAsync();
+                // run the "backgroundWorker1_Dowork_Channel1Refresh" method
+                if (groupBoxChannel1.Enabled == true)
+                    backgroundWorker1.RunWorkerAsync();
 
                 buttonStartMeas.Enabled = false;
                 buttonStartMeas.BackColor = Color.PaleGreen;
             }
 
+            if (backgroundWorker2.IsBusy != true)
+            {
+                // run the "backgroundWorker2_Dowork_Channel2Refresh" method
+                if (groupBoxChannel2.Enabled == true)
+                    backgroundWorker2.RunWorkerAsync();
+
+                buttonStartMeas.Enabled = false;
+                buttonStartMeas.BackColor = Color.PaleGreen;
+            }
+
+            if (backgroundWorker3.IsBusy != true)
+            {
+                // run the "backgroundWorker3_DoWork_CalcResultRefresh" method
+                if (groupBoxDataProcessing.Enabled == true)
+                    backgroundWorker3.RunWorkerAsync();
+            }
         }
 
         /// <summary>
-        /// The background worker to show the realtime energy or power for both channels.
+        /// The background worker to show the realtime energy or power for channel1.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void backgroundWorker1_Dowork_ValuesRefresh(object sender, DoWorkEventArgs e)
+        private void backgroundWorker1_Dowork_Channel1Refresh(object sender, DoWorkEventArgs e)
         {
-            double powerValue1, powerValue2, energyValue1, energyValue2;
+            double powerValue1 = 0, energyValue1 = 0, powerRangeCurr1 = 0, energyRangeCurr1 = 0;
             //the background worker will be paused if the device is visited from other events
             manualReset.WaitOne();
-
             try
             {
                 while (backgroundWorker1.CancellationPending == false)
                 {
-                    if (groupBoxChannel1.Enabled == true)
+                    // the power value for Channel1 will be gotten if Channel1 is available and the sensor is a power sensor
+                    if (checkBoxAutoRange1.Enabled == true)
                     {
-                        // the power value for Channel1 will be gotten if Channel1 is available and the sensor is a power sensor
-                        if (checkBoxAutoRange1.Enabled == true)
+                        (powerValue1,powerRangeCurr1) = MeasureValue("power",1);
+                        //display the value if it's larger than the baseline
+                        if (powerValue1 > powerRangeCurr1 * Convert.ToDouble(textBoxBaseline1.Tag))
                         {
-                            tlpmx.measPower(out powerValue1, 1);
-                            //Only if the measured power is larger than baseline, it will be displayed.
-                            tlpmx.getPowerRange(0,out double powerRangeCurr1, 1);
-                            if (powerValue1 > powerRangeCurr1*Convert.ToDouble(textBoxBaseline1.Tag))
+                            if (textBoxValue1.InvokeRequired)
                             {
-                                if (textBoxValue1.InvokeRequired)
-                                {
-                                    Action<double> actionDelegate = (x) => { textBoxValue1.Text = x.ToString() + " W"; };
-                                    //The "Zeroing" button in the GUI enables substrating the background power. 
-                                    //The background power is saved to the tag object after clicking the "Zeroing" button.
-                                    textBoxValue1.Invoke(actionDelegate, powerValue1 - Convert.ToDouble(buttonZero1.Tag));
-                                }
-                                else textBoxValue1.Text = powerValue1.ToString() + " W";
-                            }  
-                        }
-                        // the energy value for Channel1 will be gotten if Channel1 is available and the sensor is an energy sensor
-                        else if (comboBoxEnergyRange1.Enabled == true)
-                        {
-                            tlpmx.measEnergy(out energyValue1, 1);
-                            //Only if the measured energy is larger than baseline, it will be displayed.
-                            tlpmx.getEnergyRange(0, out double energyRangeCurr1, 1);
-                            if (energyValue1 > energyRangeCurr1* Convert.ToDouble(textBoxBaseline1.Tag))
-                            {
-                                if (textBoxValue1.InvokeRequired)
-                                {
-                                    Action<double> actionDelegate = (x) => { textBoxValue1.Text = x.ToString() + " J"; };
-                                    textBoxValue1.Invoke(actionDelegate, energyValue1);
-                                }
-                                else textBoxValue1.Text = energyValue1.ToString() + " J";
+                                Action<double> actionDelegate = (x) => { textBoxValue1.Text = x.ToString() + " W"; };
+                                //The "Zeroing" button in the GUI enables substrating the background power. 
+                                //The background power is saved to the tag object after clicking the "Zeroing" button.
+                                textBoxValue1.Invoke(actionDelegate, powerValue1 - Convert.ToDouble(buttonZero1.Tag));
                             }
+                            else textBoxValue1.Text = powerValue1.ToString() + " W";
                         }
-
                     }
-
-                    if (groupBoxChannel2.Enabled == true)
+                    // the energy value for Channel1 will be gotten if Channel1 is available and the sensor is an energy sensor
+                    else if (comboBoxEnergyRange1.Enabled == true)
                     {
-                        // the power value for Channel2 will be gotten if Channel2 is available and the sensor is a power sensor
-                        if (checkBoxAutoRange2.Enabled == true)
+                        (energyValue1, energyRangeCurr1) = MeasureValue("energy", 1);
+                        //display the value if it's larger than the baseline
+                        if (energyValue1 > energyRangeCurr1 * Convert.ToDouble(textBoxBaseline1.Tag))
                         {
-                            tlpmx.measPower(out powerValue2, 2);
-                            //Only if the measured power is larger than baseline, it will be displayed.
-                            tlpmx.getPowerRange(0, out double powerRangeCurr2, 2);
-                            if (powerValue2 > powerRangeCurr2 * Convert.ToDouble(textBoxBaseline2.Tag))
+                            if (textBoxValue1.InvokeRequired)
                             {
-                                if (textBoxValue2.InvokeRequired)
-                                {
-                                    Action<double> actionDelegate = (x) => { textBoxValue2.Text = x.ToString() + " W"; };
-                                    //The "Zeroing" button in the GUI enables substrating the background power. 
-                                    //The background power is saved to the tag object after clicking the "Zeroing" button.
-                                    textBoxValue2.Invoke(actionDelegate, powerValue2 - Convert.ToDouble(buttonZero2.Tag));
-                                }
-                                else textBoxValue2.Text = powerValue2.ToString() + " W";
+                                Action<double> actionDelegate = (x) => { textBoxValue1.Text = x.ToString() + " J"; };
+                                textBoxValue1.Invoke(actionDelegate, energyValue1);
                             }
+                            else textBoxValue1.Text = energyValue1.ToString() + " J";
                         }
-                        // the energy value for Channel2 will be gotten if Channel2 is available and the sensor is an energy sensor
-                        else if (comboBoxEnergyRange2.Enabled == true)
-                        {                          
-                            int err = tlpmx.measEnergy(out energyValue2, 2);
-                            //Only if the measured energy is larger than baseline, it will be displayed.
-                            tlpmx.getEnergyRange(0, out double energyRangeCurr2, 2);
-                            if (energyValue2 > energyRangeCurr2 * Convert.ToDouble(textBoxBaseline2.Tag))
-                            {
-                                if (textBoxValue2.InvokeRequired)
-                                {
-                                    Action<double> actionDelegate = (x) => { textBoxValue2.Text = x.ToString() + " J"; };
-                                    textBoxValue2.Invoke(actionDelegate, energyValue2);
-                                }
-                                else textBoxValue2.Text = energyValue2.ToString() + " J";
-                            }
-                        }
-                   }
-
-                
+                    }
                 }
             }
             catch (Exception ex)
@@ -401,11 +386,100 @@ namespace PM5020
         }
 
         /// <summary>
+        /// The background worker to show the realtime energy or power for channel2.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void backgroundWorker2_Dowork_Channel2Refresh(object sender, DoWorkEventArgs e)
+        {
+            double powerValue2 = 0, energyValue2 = 0, powerRangeCurr2 = 0, energyRangeCurr2 = 0;
+            //the background worker will be paused if the device is visited from other events
+            manualReset.WaitOne();
+            try
+            {
+                while (backgroundWorker2.CancellationPending == false)
+                {
+                    // the power value for Channel2 will be gotten if Channel2 is available and the sensor is a power sensor
+                    if (checkBoxAutoRange2.Enabled == true)
+                    {
+                        (powerValue2, powerRangeCurr2) = MeasureValue("power", 2);
+                        //display the value if it's larger than the baseline
+                        if (powerValue2 > powerRangeCurr2 * Convert.ToDouble(textBoxBaseline2.Tag))
+                        {
+                            if (textBoxValue2.InvokeRequired)
+                            {
+                                Action<double> actionDelegate = (x) => { textBoxValue2.Text = x.ToString() + " W"; };
+                                //The "Zeroing" button in the GUI enables substrating the background power. 
+                                //The background power is saved to the tag object after clicking the "Zeroing" button.
+                                textBoxValue2.Invoke(actionDelegate, powerValue2 - Convert.ToDouble(buttonZero2.Tag));
+                            }
+                            else textBoxValue2.Text = powerValue2.ToString() + " W";
+                        }
+                    }
+                    // the energy value for Channel2 will be gotten if Channel2 is available and the sensor is an energy sensor
+                    else if (comboBoxEnergyRange2.Enabled == true)
+                    {
+                        (energyValue2, energyRangeCurr2) = MeasureValue("energy", 2);
+                        //display the value if it's larger than the baseline
+                        if (energyValue2 > energyRangeCurr2 * Convert.ToDouble(textBoxBaseline2.Tag))
+                        {
+                            if (textBoxValue2.InvokeRequired)
+                            {
+                                Action<double> actionDelegate = (x) => { textBoxValue2.Text = x.ToString() + " J"; };
+                                textBoxValue2.Invoke(actionDelegate, energyValue2);
+                            }
+                            else textBoxValue2.Text = energyValue2.ToString() + " J";
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                if (textBoxStatus.InvokeRequired)
+                {
+                    Action<Exception> actionDelegate = (x) => { textBoxStatus.Text = x.Message; };
+                    textBoxStatus.Invoke(actionDelegate, ex);
+                }
+                else textBoxStatus.Text = ex.Message;
+            }
+        }
+
+        /// <summary>
+        /// Get the power or energy values. valueType is "energy" or "power". channel is 1 or 2.
+        /// </summary>
+        /// <param name="valueType"></param>
+        /// <param name="channel"></param>
+        /// <returns></returns>
+        private (double,double) MeasureValue(string valueType, ushort channel)
+        {
+            double value = 0;
+            double currentRange = 0;
+            //lock statement is used to prevent backgroundWork1 and backgroundWorker from visiting the console at the same time.
+            lock (this)
+            {
+                if (valueType == "power")
+                {
+                    tlpmx.measPower(out value, channel);
+                    tlpmx.getPowerRange(0, out currentRange, channel);
+                }
+                    
+                else if (valueType == "energy")
+                {
+                    tlpmx.measEnergy(out value, channel);
+                    tlpmx.getEnergyRange(0, out currentRange, channel);
+                }
+                    
+            }
+            return (value,currentRange);
+        }
+
+        /// <summary>
         /// The background worker to show the calculation result from the data processing functions.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void backgroundWorker2_DoWork_CalcResultRefresh(object sender, DoWorkEventArgs e)
+        private void backgroundWorker3_DoWork_CalcResultRefresh(object sender, DoWorkEventArgs e)
         {
             while (backgroundWorker1.CancellationPending == false)
             {
@@ -496,6 +570,7 @@ namespace PM5020
         {
             backgroundWorker1.CancelAsync();
             backgroundWorker2.CancelAsync();
+            backgroundWorker3.CancelAsync();
 
             //release the "Start Measurement" button
             buttonStartMeas.Enabled = true;
@@ -511,12 +586,20 @@ namespace PM5020
 
                 if (!double.TryParse(textBoxWavelength1.Text, out double result) && textBoxWavelength1.Text != "")
                 {
-                    MessageBox.Show("Please input a valid number!");
+                    textBoxStatus.Text = "Please input a valid number!";
                     textBoxWavelength1.Text = "";
                 }
                 else if (textBoxWavelength1.Text != "")
                 {
-                    tlpmx.setWavelength(Convert.ToDouble(textBoxWavelength1.Text), 1);
+                    try
+                    {
+                        tlpmx.setWavelength(Convert.ToDouble(textBoxWavelength1.Text), 1);
+                    }
+                    catch (Exception ex)
+                    {
+                        textBoxStatus.Text = "Invalid wavelength!";
+                        return;
+                    }
                     tlpmx.getWavelength(0, out double wavelength1, 1);
                     if (wavelength1 == Convert.ToDouble(textBoxWavelength1.Text))
                     {
@@ -532,7 +615,6 @@ namespace PM5020
 
                         textBoxStatus.Text = "Wavelength of Channel1 is set to " + textBoxWavelength1.Text + " nm";
                     }
-
                 }
 
                 //continue the backgroundworker
@@ -627,17 +709,25 @@ namespace PM5020
 
             if (e.KeyChar == '\r')
             {
-                if (!uint.TryParse(textBoxAveraging1.Text, out uint result) && textBoxAveraging1.Text != "")
+                if (!uint.TryParse(textBoxAveraging1.Text, out uint result) && textBoxAveraging1.Text != " ")
                 {
-                    MessageBox.Show("Please input a valid number!");
+                    textBoxStatus.Text = "Please input a valid number!";
                     textBoxAveraging1.Text = "";
                 }
                 else
                 {
+                    uint averageCount = Convert.ToUInt16(textBoxAveraging1.Text);
+                    if (averageCount <1 || averageCount > 490)
+                    {
+                        //if the averaging count is larger than 490, the power or energy reading is easy to crash for PM5020
+                        textBoxStatus.Text = "Please input a number between 1 and 490";
+                        textBoxAveraging1.Text = "";
+                        return;
+                    }
                     tlpmx.setAvgCnt(Convert.ToInt16(textBoxAveraging1.Text), 1);
                     tlpmx.getAvgCnt(out Int16 AverageCount, 1);
                     if (AverageCount == Convert.ToInt16(textBoxAveraging1.Text))
-                        textBoxStatus.Text = "Average Count of Channel 1 is set to" + AverageCount;
+                        textBoxStatus.Text = "Average Count of Channel 1 is set to " + AverageCount;
                 }
             }
             //continue the backgroundworker
@@ -665,7 +755,7 @@ namespace PM5020
 
                 if (!double.TryParse(textBoxBaseline1.Text, out double result) && textBoxBaseline1.Text != "")
                 {
-                    MessageBox.Show("Please input a valid number!");
+                    textBoxStatus.Text = "Please input a valid number!";
                     textBoxBaseline1.Text = "";
                     return;
                 }
@@ -683,23 +773,29 @@ namespace PM5020
 
         private void textBoxWavelenght2_KeyPressed(object sender, KeyPressEventArgs e)
         {
-
             if (e.KeyChar == '\r')
             {
                 manualReset.Reset();
 
                 if (!double.TryParse(textBoxWavelength2.Text, out double result) && textBoxWavelength2.Text != "")
                 {
-                    MessageBox.Show("Please input a valid number!");
+                    textBoxStatus.Text = "Please input a valid number!";
                     textBoxWavelength2.Text = "";
                 }
                 else if (textBoxWavelength2.Text != "")
                 {
-                    tlpmx.setWavelength(Convert.ToDouble(textBoxWavelength2.Text), 2);
+                    try
+                    {
+                        tlpmx.setWavelength(Convert.ToDouble(textBoxWavelength2.Text), 2);
+                    }
+                    catch (Exception ex)
+                    {
+                         textBoxStatus.Text = "Invalid wavelength!";
+                        return;
+                    }
                     tlpmx.getWavelength(0, out double wavelength2, 2);
                     if (wavelength2 == Convert.ToDouble(textBoxWavelength2.Text))
                     {
-
                         //wavelength influences the power range. So the power range combo box need to be refreshed.
                         if (checkBoxAutoRange2.Enabled == true)
                         {
@@ -711,7 +807,6 @@ namespace PM5020
                         }
                         textBoxStatus.Text = "Wavelength of Channel2 is set to " + textBoxWavelength2.Text + " nm";
                     }
-
                 }
                 manualReset.Set();
             }
@@ -777,18 +872,19 @@ namespace PM5020
             tlpmx.setPowerAutoRange(checkBoxAutoRange2.Checked, 2);
             tlpmx.getPowerAutorange(out bool powerAuto, 2);
 
-            if (powerAuto == checkBoxAutoRange2.Checked == true)
+            if (powerAuto == true)
             {
                 textBoxStatus.Text = "Auto power range is activated for Channel2.";
                 comboBoxPowerRange2.Enabled = false;
             }
-            else if (powerAuto == checkBoxAutoRange2.Checked == false)
+            else if (powerAuto == false)
             {
                 textBoxStatus.Text = "Auto power range is cancelled for Channel2.";
                 comboBoxPowerRange2.Enabled = true;
 
                 PowerRangeListCreate(comboBoxPowerRange2, 2);
             }
+
             manualReset.Set();
         }
 
@@ -799,17 +895,25 @@ namespace PM5020
 
             if (e.KeyChar == '\r')
             {
-                if (!uint.TryParse(textBoxAveraging2.Text, out uint result) && textBoxAveraging2.Text != "")
+                if (!uint.TryParse(textBoxAveraging2.Text, out uint result) && textBoxAveraging2.Text != " ")
                 {
-                    MessageBox.Show("Please input a valid number!");
+                    textBoxStatus.Text = "Please input a valid number!";
                     textBoxAveraging2.Text = "";
                 }
                 else
                 {
+                    uint averageCount = Convert.ToUInt16(textBoxAveraging2.Text);
+                    if (averageCount < 1 || averageCount > 490)
+                    {
+                        //if the averaging count is larger than 490, the power or energy reading is easy to crash for PM5020
+                        textBoxStatus.Text = "Please input a number between 1 and 490";
+                        textBoxAveraging2.Text = "";
+                        return;
+                    }
                     tlpmx.setAvgCnt(Convert.ToInt16(textBoxAveraging2.Text), 2);
                     tlpmx.getAvgCnt(out Int16 AverageCount, 2);
                     if (AverageCount == Convert.ToInt16(textBoxAveraging2.Text))
-                        textBoxStatus.Text = "Average Count of Channel 2 is set to" + AverageCount;
+                        textBoxStatus.Text = "Average Count of Channel 2 is set to " + AverageCount;
                 }
             }
 
@@ -834,7 +938,7 @@ namespace PM5020
 
                 if (!double.TryParse(textBoxBaseline2.Text, out double result) && textBoxBaseline2.Text != "")
                 {
-                    MessageBox.Show("Please input a valid number!");
+                    textBoxStatus.Text = "Please input a valid number!";
                     textBoxBaseline2.Text = "";
                     return;
                 }
