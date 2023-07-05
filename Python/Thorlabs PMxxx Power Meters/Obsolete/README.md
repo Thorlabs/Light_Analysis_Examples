@@ -1,6 +1,6 @@
 ## Included Example
 
-### Thorlabs PMxxx Power Meters Control
+### Thorlabs PMxxx Power Meters Control with older TLPM drivers, now replaced by TLPMX driver
 This sample code shows how you can control a Thorlabs PMxxx Power Meter in Python. It can be used with all types of Thorlabs power meters which are compatible with the TLPM drivers.
 
 The code uses the ctypes library to load the DLL file for these power meters. The ctypes library needs to be installed separately on the computer.
