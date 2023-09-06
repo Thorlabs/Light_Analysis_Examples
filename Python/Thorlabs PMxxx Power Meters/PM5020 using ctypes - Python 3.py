@@ -394,26 +394,4 @@ if __name__ == "__main__":
     main()
     
 
-    
 
-"""
-
-
-
-time.sleep(5)
-
-power_measurements = []
-times = []
-count = 0
-while count < 20:
-    power =  c_double()
-    tlPM.measPower(byref(power), TLPM_SENSOR_CHANNEL1)
-    power_measurements.append(power.value)
-    times.append(datetime.now())
-    print(power.value)
-    count+=1
-    time.sleep(1)
-
-tlPM.close()
-print('End program')
-"""
