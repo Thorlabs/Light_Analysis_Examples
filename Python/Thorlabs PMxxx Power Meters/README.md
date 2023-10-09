@@ -38,6 +38,8 @@ self.dll = cdll.LoadLibrary("C:\Program Files\IVI Foundation\VISA\Win64\Bin\TLPM
 
 Please note that the information in the class definition can be used in programming environments which have intelligent code completion features (e.g. Visual Studio Code). So it is recommended to use a programming environment like this to take full advantage of the information in the class definition.
 
+- **PMxxx_SCPI:** This example shows how to use the SCPI commands in Python. The PyVISA module has to be installed on the computer. Switch drivers to VISA (PM100D) drivers.
+
 Additional Python example codes are included in the installation package of the "Optical Power Monitor" software. You can find these codes in this folder after the installation:
 
 ```
