@@ -5,7 +5,7 @@
 % Thorlabs DLL version: 6.0.282.119
 %% Notes: The example connects to a wavefront sensor, configures the camera, takes a spotfield image and displays it.
 % It uses functions from the C SDK 
-% Tested for DMP40-5C
+% Tested for WFS40-5C
 %
 clc;
 clear;
