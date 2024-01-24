@@ -1,9 +1,9 @@
 ## Included Example
 
-### WFS_Matlab
-This example shows how to initialize the wavefront sensor WFS20-*-,WFS31-* or WFS40-*  and configure the attached microlens array. This also goes through the suggested process for acquiring spotfield images and outputting calculation data like centroid and wavefront values. 
+### CCS_Spectrometer
+This example shows how to initialize the CCS100, CCS175 or CCS200 spectrometer. It sets the integration time, measures and displays the spectrum.
 
-The code uses the C library DLL file for the Wavefront Sensor.
+The code uses the C library DLL file for the CCS spectrometer TLCCS_64.
 
 In order to avoid error messages, comment out the “__fastcall” and “signed” calling conventions in the header file “visatype.h”
 in the folder: C:\Program Files\IVI Foundation\VISA\Win64\Include
