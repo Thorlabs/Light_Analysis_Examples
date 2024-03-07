@@ -6,7 +6,7 @@ Thorlabs Powermeter driver or directly with SCPI commands.
 
 There are three sub folders:
 
- - **TLPMX dll:** Code samples using the Thorlabs Power Meter driver dll. This is the more conviniant method. For closer info read [Readme](TLPMX dll/Readme.md).
- - **scpi:** Code examples using directly SCPI commands. This low level access allows direct access to the device functionality. For closer info read [Readme](scpi/Readme.md).
+ - **TLPMX dll:** Code samples using the Thorlabs Power Meter driver dll. This is the more conviniant method. For closer info read [Readme](TLPMX_dll).
+ - **scpi:** Code examples using directly SCPI commands. This low level access allows direct access to the device functionality. For closer info read [Readme](scpi).
  - **Obsolete:** This folder contains the sample codes for the obsoleted TLPM drivers.
  
