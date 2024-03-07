@@ -13,6 +13,7 @@ from ctypes import cdll, c_uint32,byref,create_string_buffer,c_bool, c_uint8, c_
 import matplotlib.pyplot as plt
 import TLBP2 
 import time
+import numpy
 
 def print_error_msg(bp2, errorCode):
     messageBuffer = create_string_buffer(1024)
@@ -136,7 +137,7 @@ def main():
                 slit_data = (TLBP2.BP2_SLIT_DATA * 4)()
                 calculation_result = (TLBP2.BP2_CALCULATIONS * 4)()
                 power = c_double()
-                powerSaturation = c_double()
+                powerSaturation = c_float()
                 power_intensities = (c_double * 7500)()# intensities for power window
                 print("Calling get_slit_scan_data")
                 res = bp2.get_slit_scan_data(slit_data, calculation_result, byref(power), byref(powerSaturation), power_intensities)
@@ -151,24 +152,24 @@ def main():
                 else:
                     print("The scan returned the error:", res)
                 
-                # get intensities for slit 0 and 1
-                power_window_saturation=c_double()
+                # get intensities for slit 1 and 2
+                power_window_saturation=c_float()
                 power=c_double()
                 sample_intensitiesx = (c_double * 7500)()
                 sample_intensitiesy = (c_double * 7500)()
                 sample_positionsx=(c_double * 7500)()
                 sample_positionsy=(c_double * 7500)()
-                bp2.request_scan_data(byref(power_window_saturation),byref(power),power_intensities)
+                bp2.request_scan_data(byref(power),byref(power_window_saturation),power_intensities)
                 bp2.get_sample_intensities(0,sample_intensitiesx,sample_positionsx)
                 bp2.get_sample_intensities(1,sample_intensitiesy,sample_positionsy)
 
-                # get Gaussian fit for slit 0 and 1
-                gaussian_fit_amplitudex=c_double()
-                gaussian_fit_amplitudey=c_double()
-                gaussian_fit_diameterx=c_double()
-                gaussian_fit_diametery=c_double()
-                gaussian_fit_percentagex=c_double()
-                gaussian_fit_percentagey=c_double()
+                # get Gaussian fit for slit 1 and 2
+                gaussian_fit_amplitudex=c_float()
+                gaussian_fit_amplitudey=c_float()
+                gaussian_fit_diameterx=c_float()
+                gaussian_fit_diametery=c_float()
+                gaussian_fit_percentagex=c_float()
+                gaussian_fit_percentagey=c_float()
                 gaussian_fit_intensitiesx = (c_double * 7500)()
                 gaussian_fit_intensitiesy = (c_double * 7500)()
                 bp2.get_slit_gaussian_fit(0,byref(gaussian_fit_amplitudex),byref(gaussian_fit_diameterx), byref(gaussian_fit_percentagex),gaussian_fit_intensitiesx)
@@ -179,12 +180,12 @@ def main():
                 print("The device status returned the error:", res)
             loopCnt+=1 
 
-        # Plot sample intensities for slit 0 for last scan           
+        # Plot sample intensities for slit 1 for last scan           
         fig,ax=plt.subplots()
         ax.plot(sample_positionsx, sample_intensitiesx)
-        plt.title('Intensities for Slit 0')
+        plt.title('Intensities for Slit 1')
 
-        #Plot Gaussian fit for slit 0
+        #Plot Gaussian fit for slit 1
         fig,ax=plt.subplots()
         ax.plot(sample_positionsx, gaussian_fit_intensitiesx)   
         plt.title('Gaussian Fit for Slit 0')     
@@ -194,12 +195,14 @@ def main():
         imagedata=((c_float*750)*750)()
         for ix in range(750):
             for iy in range(750):
-                ixz=ix*10
-                iyz=iy*10
+                ixz=(750-ix-1)*10
+                iyz=(750-iy-1)*10
                 imagedata[ix][iy]=sample_intensitiesx[ixz]*gaussian_fit_intensitiesx[ixz]*sample_intensitiesy[iyz]*gaussian_fit_intensitiesy[iyz];
 
+        
+        imagedata_t=numpy.transpose(imagedata)
         fig,ax=plt.subplots()
-        ax.imshow(imagedata,cmap='hot')
+        ax.imshow(imagedata_t,cmap='hot')
         plt.axis('off')
         plt.title('2D Reconstruction')
         plt.show()
