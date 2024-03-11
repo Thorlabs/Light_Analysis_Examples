@@ -1,59 +1,7 @@
-"""
-Example Thorlabs Power Meter Fast Measurement Mode
-Example Date of Creation                            2024-03-15
-Example Date of Last Modification on Github         2024-03-15
-Version of Python                                   3.11.2
-Version of the Thorlabs SDK used                    anyvisa0.3.0
-==================
-This examples shows how to access the Power Meter Fast Measurement data stream. For this
-example it is important to query the Meter as fast as possible to reduce data loss propability.
-The meter enqueues every millisecond up to 100 results and the fixed size queue length is limited
-to recent 10 ms of samples. 
-"""
-
 from anyvisa import AnyVisa
 import sys
 from datetime import datetime
 import struct
-
-def parseFastModeBinaryPM103(inst):
-    """
-    Parses PM103 tuple response
-    
-    Parameters
-    ----------
-    inst : anyvisa device 
-        The device anyvisa object used for communication
-    
-    Returns
-    -------
-    list
-        list of tuples with relative timestamp followed by measurement value
-    """
-    bytes = inst.read_bytes(4096)
-    byteCnt = len(bytes) - 1
-
-    i = 0
-    
-    #Device response length is 0 bytes long
-    if chr(bytes[0]) == '0':
-        return []
-    
-    #Find , in response before parsing binary data
-    for byte in bytes:
-        byte = chr(byte)
-        i+=1
-        if byte == ',':
-            break
-
-    res = []
-    #Parse binary tuple data
-    while i < byteCnt:
-        reltime = struct.unpack('<I', bytearray(bytes[i:i+4]))[0]
-        value   = struct.unpack('<f', bytearray(bytes[i+4:i+ 8]))[0]
-        res.append([reltime, value])
-        i += 8
-    return res
 
 def parseFastModeBinary(dev):
     """
@@ -128,8 +76,7 @@ def main():
         #Read as fast as possible and store in RAM
         while (len(res) < 1000):
             pm.write('ACQ1:FAST:FETC?')
-            res.extend(parseFastModeBinary(pm))       # Use for PM5020 and newer pm
-            #res.extend(parseFastModeBinaryPM103(pm)) # Use for PM103 and PM103E
+            res.extend(parseFastModeBinary(pm))
 
         #Create a unique file name based on date and time
         startDateTime = datetime.now()
