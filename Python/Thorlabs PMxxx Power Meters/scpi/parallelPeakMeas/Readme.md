@@ -1,16 +1,18 @@
-# PM5020 Ethernet Communication
+# Parallel Peak Measurement Example
 
-Pyvisa does not work to communicate with PM5020 via Ethernet with SCPI commands.
-We provide the Anyvisa library in folder XXXX.
-Installation with the command:
-```
-python -m pip install anyvisa*.whl
-```
+This command line sample demonstrates how to use multiple Thorlabs powermeters within one experiment to measure peak 
+energy in Joule simultaniously. The example is based on SCPI commands and rely on the anyvisa Thorlabs library. 
 
-## Included Examples
+You can download anyvisa library wheel in this Github repository. Please refer to this [README](TODO) how to install it. 
 
-### PM5020 connect to first device found
-The sample code shows how to connect to the first device found. 
+The code establishes a connection to all Power Meters and configures all of them with the same parameters. Once initialiiation is complete
+the program waits for any of the device to detect a peak. Once at least on meter measured a peak, the program tries to fetch a measurement
+from every other PM of the experiment. In case one of the meters did not detect a peak in time the file will contain any placeholder. 
+The measurement results or place holders are finally stored in .csv file.
 
-### PM5020 connect to known device
-The sample code shows how to connect to a device where serial number and IP address are known. 
+To terminate the program use `CTRL + C`. 
+
+## Supported Meters
+- PM103
+- PM103E
+- PM5020
