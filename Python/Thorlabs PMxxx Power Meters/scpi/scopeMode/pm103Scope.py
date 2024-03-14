@@ -7,28 +7,63 @@ import sys
 import matplotlib.pyplot as plt
 
 def fetchBinaryTuplePM103(inst):
-    length = 0
-    lenStr = ""
-    res = []
-    while length == 0:
-        byte = inst.read_bytes(1)
-        if byte == 0:
-            return res
-        if byte == b',':
-            length = int(lenStr)
-        else:
-            lenStr = lenStr + chr(byte[0])
+    """
+    Parses PM103 tuple response
+    
+    Parameters
+    ----------
+    inst : anyvisa device 
+        The device anyvisa object used for communication
+    
+    Returns
+    -------
+    list
+        list of tuples with timestamp followed by measurement value
+    """
+    bytes = inst.read_bytes(4096)
+    byteCnt = len(bytes) - 1
 
-    vals = inst.read_bytes(8 * length)
     i = 0
-    while i < 8 * length:
-        reltime = struct.unpack('<I', bytearray(vals[i:i+4]))[0]
-        value   = struct.unpack('<f', bytearray(vals[i+4:i+ 8]))[0]
+    
+    #Device response length is 0 bytes long
+    if chr(bytes[0]) == '0':
+        return []
+    
+    #Find , in response before parsing binary data
+    for byte in bytes:
+        byte = chr(byte)
+        i+=1
+        if byte == ',':
+            break
+
+    res = []
+    #Parse binary tuple data
+    while i < byteCnt:
+        reltime = struct.unpack('<I', bytearray(bytes[i:i+4]))[0]
+        value   = struct.unpack('<f', bytearray(bytes[i+4:i+ 8]))[0]
         res.append([reltime, value])
         i += 8
     return res
 
 def fetchBinaryData(inst):
+    """
+    Fetches the entire device scope buffer
+    
+    Parameters
+    ----------
+    inst : anyvisa device 
+        The device anyvisa object used for communication
+    
+    Returns
+    -------
+    list
+        list of all tuples with timestamp followed by power measurements
+
+    Raises
+    -------
+    ValueError
+        In case there is no data to fetch
+    """
     data = [] 
     inst.write("FETC:ARR? 0, 100")
     data.extend(fetchBinaryTuplePM103(inst))
@@ -42,6 +77,23 @@ def fetchBinaryData(inst):
     return data
 
 def plotData(data, hPos_t_us=None, triggerLevel=None, xLimit=10000):
+    """
+    Uses matplotlib to plot the channel measurement results
+    
+    Parameters
+    ----------
+    data : anyvisa device 
+        The device anyvisa object used for communication
+    
+    hPos_t_us : uint
+        horizontal position of trigger. Unit is microseconds. None for SW trigger.
+        
+    triggerLevel : float. None for SW trigger.
+        Scope trigger level in percent
+        
+    xLimit : uint
+        Limit of X axis. Max and default is 10000. Unit is microseconds.
+    """
     columns = list(zip(*data))
     plt.plot(columns[0], columns[1], '-or')
     
@@ -62,6 +114,21 @@ def plotData(data, hPos_t_us=None, triggerLevel=None, xLimit=10000):
     plt.show()
     
 def waitForTrigger(inst, timeout=50):
+    """
+    Wait for scope buffer beeing filled completey or raise timeout
+    
+    Parameters
+    ----------
+    inst : anyvisa device 
+        The device anyvisa object used for communication
+    timeout : uint
+        timeout in 100ms steps
+
+    Raises
+    -------
+    TimeoutError
+        If scope buffer is not filled in time. 
+    """
     timeoutCnt = 0
     while True:
         state = int(inst.query("FETC:STAT?").strip())
@@ -72,7 +139,7 @@ def waitForTrigger(inst, timeout=50):
             break; 
         if timeoutCnt > timeout:
             inst.write("ABOR") #Abort measureument
-            sys.exit("Waiting for trigger timed out")
+            TimeoutError("Waiting for trigger timed out")
 
 def normalizeScopeSampleTime(data):
     startTime = data[0][0]
@@ -83,6 +150,20 @@ def normalizeScopeSampleTime(data):
             sample[0] = 0xffffffff - startTime + sample[0]
 
 def pmSoftwareScopeMode(inst, powerRange_W = 0.1, avg=1, xLim=None):
+    """
+        Configures, executes single or dual channel software triggered scope mode and visualize result in graph.
+        
+        Parameters
+        ----------
+        inst : anyvisa device 
+            The device anyvisa object used for communication
+        powerRange_W : float
+            Manual measure range for the both or or both channels
+        avg : uint
+            Averaging of scope. Unit is samples. 1 results in 100 kSPS. 2 results in 50 kSPS.
+        xLim : uint
+            Limit range of graph X axis. Use None to show all data.
+    """
     print(">>PM103 Software scope mode example.")
     print(inst.query('SYST:ERR?').strip())
 
@@ -122,6 +203,27 @@ def pmSoftwareScopeMode(inst, powerRange_W = 0.1, avg=1, xLim=None):
 
 
 def pmHardwareScopeMode(inst, powerRange_W = 0.1, peakThresPerc = 40, trigSrc=1, avg=1, hPos = 0, xLim=None):
+    """
+        Configures, executes hardware triggered scope mode and visualize result in graph.
+        
+        Parameters
+        ----------
+        inst : anyvisa device 
+            The device anyvisa object used for communication
+        powerRange_W : float
+            Manual measure range for the both or or both channels
+        peakThresPerc : float
+            Trigger signal threshold in percent of measurement range. Only relevant when trigSrc is 1 or 2. 
+        trigSrc : uint
+            hardware trigger source. 1 for channel 1. 2 for channel 2. 3 for TODO
+        avg : uint
+            Averaging of scope. Unit is samples. 1 results in 100 kSPS. 2 results in 50 kSPS.
+        hPos : uint
+            Horizontal position of trigger. Unit is samples.
+        xLim : uint
+            Limit range of graph X axis. Use None to show all data.
+
+    """
     print(">>PM103 Hardware scope mode example.")
     print(inst.query('SYST:ERR?').strip())
 
@@ -156,13 +258,9 @@ def pmHardwareScopeMode(inst, powerRange_W = 0.1, peakThresPerc = 40, trigSrc=1,
 
     print(">>Fetch scope buffer results")
     data = fetchBinaryData(inst)
-    print("Start of raw scope data")
-    print(data[:5])
 
     print(">>Calculate delta t between scope samples")
     normalizeScopeSampleTime(data)
-    print("Start of data with normalized time")
-    print(data[:5])
 
     #use time of last sample as xLimit
     if xLim is None:
@@ -175,7 +273,6 @@ def pmHardwareScopeMode(inst, powerRange_W = 0.1, peakThresPerc = 40, trigSrc=1,
     plotData(data, None, None, xLim)
 
 def main():
-
     devicesList = AnyVisa.FindResources("USB?*::INSTR")
 
     if not devicesList:
@@ -184,10 +281,11 @@ def main():
 
     #Open device 0 out of find list for communication
     with devicesList[0] as pm:
+        print(pm, pm.lib())
         #pmSoftwareScopeMode(inst, powerRange_W = 0.1, avg=1, xLim=None)
-        #pmSoftwareScopeMode(pm, 0.01)
+        pmSoftwareScopeMode(pm, 0.01)
         #pmHardwareScopeMode(inst, powerRange_W = 0.1, peakThresPerc = 40, trigSrc=1, avg=1, hPos = 0, xLim=None):
-        pmHardwareScopeMode(pm, 0.004, 40, 2, 1, 100, 20000)
+        #pmHardwareScopeMode(pm, 0.004, 40, 2, 1, 100, 20000)
 
 
 if __name__ == '__main__':
