@@ -82,7 +82,7 @@ def normalizeScopeSampleTime(data):
         else:
             sample[0] = 0xffffffff - startTime + sample[0]
 
-def pm60_SoftwareScope(inst, powerRange_W = 0.1, avg=1, xLim=None):
+def pmSoftwareScopeMode(inst, powerRange_W = 0.1, avg=1, xLim=None):
     print(">>PM103 Software scope mode example.")
     print(inst.query('SYST:ERR?').strip())
 
@@ -94,8 +94,8 @@ def pm60_SoftwareScope(inst, powerRange_W = 0.1, avg=1, xLim=None):
     inst.write('INP:FILT 0')                       # Disable bandwidth limitation
     print(inst.query('SYST:ERR?').strip())         
 
-    print(f">>Configure software triggered scope mode. Use avg: {avg}")
-    inst.write("CONF:ARR "+str(avg)) 
+    print(f">>Configure SW triggered scope mode. Use avg: {avg}")
+    inst.write(f"CONF:ARR {avg}") 
     print(inst.query('SYST:ERR?').strip())
 
     print(">>Start measurement")
@@ -121,26 +121,30 @@ def pm60_SoftwareScope(inst, powerRange_W = 0.1, avg=1, xLim=None):
     plotData(data, None, None, xLim)
 
 
-def pm60_HardwareScope(inst, powerRange_W = 0.1, peakThresPerc = 40, trigSrc=1, avg=1, hPos = 0, xLim=None):
-    print(">>PM60 Hardware scope mode example.")
+def pmHardwareScopeMode(inst, powerRange_W = 0.1, peakThresPerc = 40, trigSrc=1, avg=1, hPos = 0, xLim=None):
+    print(">>PM103 Hardware scope mode example.")
     print(inst.query('SYST:ERR?').strip())
 
     inst.write("ABOR") #Abort any previous measureument
 
-    print(">>Prepare device for scope mode")
-    inst.write('SENS:POW:RANG '+str(powerRange_W)) # Disable autoranging and select fix range
-    print(inst.query('SYST:ERR?').strip())
-    inst.write('SENS:PEAK '+str(peakThresPerc)) # Set threshold for peak detection in percent.
-    print(inst.query('SYST:ERR?').strip())
-    print(f"Range: {powerRange_W}, Thresh:{peakThresPerc}")
-    
-    print(">>Configure scope mode. Use avg: "+str(avg))
-    inst.write("CONF:ARR:CHA")
-    inst.write(f"CONF{trigSrc}:ARR:HWT {avg}, {hPos}") 
+    print(">>Prepare device for hardware triggered scope mode")
+    inst.write(f'SENS:POW:RANG {powerRange_W}')    # Disable autoranging and select fix range
+    inst.write('SENS:FREQ:MODE CW')                # Select CW mode. In Peak mode scope is not available
+    inst.write('INP:FILT 0')                       # Disable bandwidth limitation
     print(inst.query('SYST:ERR?').strip())
 
-    print(">>Configure IO output pin")
-    inst.write("SOUR:DIG:PIN2:FUNC OALT")
+    #Select internal or external trigger
+    if True: #Set threshold for internal trigger
+        inst.write(f'SENS:PEAK{peakThresPerc}')    # Set threshold for peak detection in percent.
+        inst.write('SOUR:DIG:PIN1:FUNC OALT')      # Configure DIO1 to output pulse on trigger condition
+    else: #Configure IO pin for external trigger
+        inst.write('SOUR:DIG:PIN1:FUNC IALT')      # Select DIO1 as trigger input
+    print(inst.query('SYST:ERR?').strip())
+
+    print(f"Range: {powerRange_W}, Thresh:{peakThresPerc}")
+    
+    print(f">>Configure HW scope mode. Use avg: {avg}")
+    inst.write(f"CONF{trigSrc}:ARR:HWT {avg}, {hPos}") 
     print(inst.query('SYST:ERR?').strip())
 
     print(">>Start measurement")
@@ -167,7 +171,7 @@ def pm60_HardwareScope(inst, powerRange_W = 0.1, peakThresPerc = 40, trigSrc=1, 
     inst.write("ABOR") #Abort any previous measureument
 
 
-    print(">>Plot scope data with x limit "+str(xLim))
+    print(f">>Plot scope data with x limit {xLim}")
     plotData(data, None, None, xLim)
 
 def main():
@@ -178,11 +182,12 @@ def main():
         print("Did not find a single instrument for scope mode")
         sys.exit(1)
 
+    #Open device 0 out of find list for communication
     with devicesList[0] as pm:
-        #pm60_SoftwareScope(inst, powerRange_W = 0.1, avg=1, xLim=None)
-        pm60_SoftwareScope(pm, 0.01)
-        #pm60_HardwareScope(inst, powerRange_W = 0.1, peakThresPerc = 40, trigSrc=1, avg=1, hPos = 0, xLim=None):
-        #pm60_HardwareScope(pm, 0.004, 40, 2, 1, 100, 20000)
+        #pmSoftwareScopeMode(inst, powerRange_W = 0.1, avg=1, xLim=None)
+        #pmSoftwareScopeMode(pm, 0.01)
+        #pmHardwareScopeMode(inst, powerRange_W = 0.1, peakThresPerc = 40, trigSrc=1, avg=1, hPos = 0, xLim=None):
+        pmHardwareScopeMode(pm, 0.004, 40, 2, 1, 100, 20000)
 
 
 if __name__ == '__main__':
