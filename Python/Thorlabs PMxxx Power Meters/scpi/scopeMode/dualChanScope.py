@@ -16,7 +16,7 @@ import time
 import sys
 import matplotlib.pyplot as plt
 
-def fetchBinaryTriplet(inst, request):
+def fetchBinaryTriplet(inst):
     """
     Sends SCPI request to device and parses binary triplet response
     
@@ -24,17 +24,12 @@ def fetchBinaryTriplet(inst, request):
     ----------
     inst : anyvisa device 
         The device anyvisa object used for communication
-    
-    request : str
-        SCPI command sent to device
-    
+
     Returns
     -------
     list
         list of tripplets with timestamp followed by channel 0 and channel 1 measurements
-    """
-    inst.write(request)
-    
+    """    
     vals = inst.read_bytes(4096)
     length = struct.unpack('<I',  bytearray(vals[0     : 0 +  4]))[0]
     
@@ -68,11 +63,13 @@ def fetchBinaryData(inst):
         If there is no data to fetch
     """
     data = [] 
-    data.extend(fetchBinaryTriplet(inst, "FETC:ARR? 0, 100"))
+    inst.write("FETC:ARR? 0, 100")
+    data.extend(fetchBinaryTriplet(inst))
 
     if len(data) > 0:
         for x in range (100, 10000, 100):
-            data.extend(fetchBinaryTriplet(inst, f"FETCh:ARRay? {x}, 100"))
+            inst.write(f"FETCh:ARRay? {x}, 100")
+            data.extend(fetchBinaryTriplet(inst))
     else:
         raise ValueError("No data to fetch")
     return data
@@ -262,7 +259,7 @@ def dualChannelHardwareScope(inst, chan0, chan1, powerRange_W = 0.1, peakThresPe
         peakThresPerc : float
             Trigger signal threshold in percent of measurement range. Only relevant when trigSrc is 1 or 2. 
         trigSrc : uint
-            hardware trigger source. 1 for channel 1. 2 for channel 2. 3 for TODO
+            hardware trigger source. For closer details read SCPI command CONF:ARR:HWT dokumentation of device.
         avg : uint
             Averaging of scope. Unit is samples. 1 results in 100 kSPS. 2 results in 50 kSPS.
         hPos : uint
@@ -341,7 +338,6 @@ def dualChannelHardwareScope(inst, chan0, chan1, powerRange_W = 0.1, peakThresPe
     if trigSrc == 1 or trigSrc == 2:
         range = float(inst.query('SENS:POW:RANG?'))
         triggerThreshold_W = range * peakThresPerc / 100
-        print(range, triggerThreshold_W)
     
     #convert hpos from samples to time domain
     hPos_t_us = hPos * 10 * avg 
