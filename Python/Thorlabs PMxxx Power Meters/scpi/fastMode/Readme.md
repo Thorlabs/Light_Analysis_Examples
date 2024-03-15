@@ -13,7 +13,8 @@ Samples per Seconds.
 ## Limitations
 Please be aware the stream requires a high transfer bandwidth. Because of this you can not use 
 serial interface to query fast measurement data. Also slow network connections can cause a 
-loss of data. For closer details about scope mode read [SCPI command documentation](TODO). 
+loss of data. For closer details about scope mode read 
+[SCPI command documentation](../commandDocu/pm5020.html). 
 
 ## anyvisa python Library
 You can download anyvisa library wheel in this Github repository. Please refer to this [README](TODO) how to install it. 
