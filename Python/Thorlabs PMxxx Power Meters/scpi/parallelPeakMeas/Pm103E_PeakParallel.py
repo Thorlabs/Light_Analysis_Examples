@@ -1,10 +1,11 @@
 """
-Pm103E_PeakParallel.py
-Example Date of Creation: 2024-03-11
-Version of Python: 3.11
-Version of the Thorlabs SDK used: -
+Example Thorlabs Power Meter Parallel Peak Measurement
+Example Date of Creation                            2024-03-15
+Example Date of Last Modification on Github         2024-03-15
+Version of Python                                   3.11.2
+Version of the Thorlabs SDK used                    anyvisa0.3.0
 ==================
-Example Description: The example shows how to measure peaks of same experiment with multiple powermeters 
+The example shows how to measure peaks of same experiment with multiple powermeters 
 simulanioulsy and how to write results to a csv file.
 """
 from anyvisa import AnyVisa

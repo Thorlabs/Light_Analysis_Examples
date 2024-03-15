@@ -1,3 +1,16 @@
+"""
+Example Thorlabs Power Meter Fast Measurement Mode
+Example Date of Creation                            2024-03-15
+Example Date of Last Modification on Github         2024-03-15
+Version of Python                                   3.11.2
+Version of the Thorlabs SDK used                    anyvisa0.3.0
+==================
+This examples shows how to access the Power Meter Fast Measurement data stream. For this
+example it is important to query the Meter as fast as possible to reduce data loss propability.
+The meter enqueues every millisecond up to 100 results and the fixed size queue length is limited
+to recent 10 ms of samples. 
+"""
+
 from anyvisa import AnyVisa
 import sys
 from datetime import datetime
