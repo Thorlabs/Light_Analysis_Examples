@@ -1,4 +1,14 @@
-# -*- coding: utf-8 -*-
+"""
+Example Thorlabs Power Meter 103 Series Channel Scope Mode Example
+Example Date of Creation                            2024-03-15
+Example Date of Last Modification on Github         2024-03-15
+Version of Python                                   3.11.2
+Version of the Thorlabs SDK used                    anyvisa0.3.0
+==================
+This examples shows how to configure, execute and fetch results of scope measurement on PM103 series 
+using SCPI commands and anyvisa. The code contains scope configuration for software and hardware 
+triggered scope measurements. 
+"""
 
 from anyvisa import AnyVisa
 import struct
