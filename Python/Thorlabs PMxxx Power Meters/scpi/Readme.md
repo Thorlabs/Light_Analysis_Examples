@@ -1,7 +1,7 @@
 # PM5020 Ethernet Communication
 
 Pyvisa does not work to communicate with PM5020 via Ethernet with SCPI commands.
-We provide the Anyvisa library in folder XXXX.
+We provide the Anyvisa library in folder anyvisa.
 Installation with the command:
 ```
 python -m pip install anyvisa*.whl
