@@ -1,21 +1,33 @@
 # Scope Examples
-The Thorlabs Powermeters supports Scope Mode to measure and store a software or hardware triggered measurement sequence within the
-device memory. There is an example for dual channel PM5020 measurements and one for single channel Meters. 
+The Thorlabs Power Meters supports Scope Mode to measure and store a software or hardware triggered
+measurement sequence within the device memory. All python examples in this folder use direclty 
+text based SCPI commands with the Thorlabs anyVisa python library for device communication. 
 
-## Single Channel Scope Example
+The examples prepare the device for software or hardware triggered Scope Mode measurement, configure the
+Scope Measurement itself and fetch and plot the the results are finaly. For plotting the matplotlib 
+library is used. 
 
-The single channel scope measurement example 
+For more technical background information about scope mode refer to e.g. [SCPI command description](commandDocu/pm5020.html) html file.
 
-### Supported Meters
+The folder contains 3 examples
+## Single Channel Scope - singleChanScope.py
+Supported Meters
+- PM6x
+
+## PM103 Scope Example - pm103Scope.py
+Supported Meters
 - PM103
 - PM103E
-- PM6x
-## Dual Channel Scope Example
 
-
-### Supported Meters
+## Dual Channel Scope Example - dualChanScope.py
+Supported Meters
 - PM5020
 
-### anyvisa python Library
-You can download anyvisa library wheel in this Github repository. Please refer to this [README](TODO) how to install it. 
+## matplotlib python library
+You can download and install matplotlib library using pip. 
 
+```
+python -m pip install matplotlib
+```
+### anyvisa python Library
+You can download anyvisa library wheel in this Github repository. Please refer to this [README](anyvisa) how to install it. 
