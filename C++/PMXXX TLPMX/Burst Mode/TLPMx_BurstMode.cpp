@@ -16,7 +16,7 @@ int error_exit(ViSession instrHdl, ViStatus err)
     TLPMX_errorMessage (instrHdl, err, buf);
     cout << "ERROR 0x" << err << " - " << buf;
     // Close instrument hande if open
-    if(instrHdl != VI_NULL) 
+    if(instrHdl != nullptr) 
         TLPMX_close(instrHdl);
     return EXIT_FAILURE;
 }
@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
 #endif
     ViUInt32    deviceCount;
     //Search for power meters
-    ViStatus err = TLPMX_findRsrc (VI_NULL, &deviceCount);
+    ViStatus err = TLPMX_findRsrc (nullptr, &deviceCount);
     if(VI_SUCCESS != err)
        return err;
     
@@ -45,12 +45,12 @@ int main(int argc, char* argv[])
 
     //Get first device resource string
     static ViChar rsrcDescr[TLPM_BUFFER_SIZE];
-    err = TLPMX_getRsrcName (VI_NULL, 0, rsrcDescr);
+    err = TLPMX_getRsrcName (nullptr, 0, rsrcDescr);
     if(VI_SUCCESS != err)
         return err;
 
     //Connect to device via resource string
-    ViSession   instrHdl = VI_NULL;
+    ViSession   instrHdl = nullptr;
     cout << "Opening session to '"<< rsrcDescr << "' ..." << endl << endl;
     if((err = TLPMX_init(rsrcDescr, VI_ON, VI_OFF, &instrHdl))) 
         return error_exit(instrHdl, err);
@@ -151,7 +151,7 @@ int main(int argc, char* argv[])
 
 #if !defined(IS_DUAL_CHANNEL_TL_PM)
     //Fetch burst measurement results out of buffer
-    if((err = TLPMX_getBurstArraySamples(instrHdl, 0, samplesCount, timestamps, values, NULL)))
+    if((err = TLPMX_getBurstArraySamples(instrHdl, 0, samplesCount, timestamps, values, nullptr)))
         return error_exit(instrHdl, err);
 #else
     //Fetch burst measurement results out of buffer
