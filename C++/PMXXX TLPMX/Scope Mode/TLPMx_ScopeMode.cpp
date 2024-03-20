@@ -16,12 +16,12 @@ Once the sequence is complete you can fetch the results.
 
 using namespace std;
 
-static ViUInt32 timestamps[10000] = {0};
+static ViReal32 timestamps[1000] = {0};
 #if !defined(IS_DUAL_CHANNEL_TL_PM)
-static ViReal32 values[10000] = {0};
+static ViReal32 values[1000] = {0};
 #else
-static ViReal32 values1[10000] = {0};
-static ViReal32 values2[10000] = {0};
+static ViReal32 values1[1000] = {0};
+static ViReal32 values2[1000] = {0};
 #endif
 
 int error_exit(ViSession instrHdl, ViStatus err)
@@ -45,12 +45,12 @@ int softwareTriggeredScopeMeasurement(ViSession instrHdl)
     //================================================
     //Configure channel for scope power measurement
     constexpr ViUInt32 averaging = 2;
-    if((err = TLPMX_confPowerMeasurementSequenceHWTrigger(instrHdl, averaging, 1)))
+    if((err = TLPMX_confPowerMeasurementSequence(instrHdl, averaging, 1)))
         return err;
     
 #if defined(IS_DUAL_CHANNEL_TL_PM)
     //Configure channel for scope power measurement
-    if((err = TLPMX_confPowerMeasurementSequenceHWTrigger(instrHdl, averaging, 2)))
+    if((err = TLPMX_confPowerMeasurementSequence(instrHdl, averaging, 2)))
         return err;
 #endif   
     
@@ -58,17 +58,17 @@ int softwareTriggeredScopeMeasurement(ViSession instrHdl)
     //================================================
     //Start the scope measurement mode. 
     ViBoolean wasForcedTrigger;
-    if((err = TLPMX_startMeasurementSequence(instrHdl, 0, nullptr)))
+    if((err = TLPMX_startMeasurementSequence(instrHdl, 0, VI_NULL)))
         return err;
 
 
 #if !defined(IS_DUAL_CHANNEL_TL_PM)
-    //Fetch scope measurement results out of buffer
-    if((err = TLPMX_getMeasurementSequence(instrHdl, 10000, timestamps, values, nullptr)))
+    //Fetch scope measurement results out of buffer. 10 results in 10*100 = 1000 samples. Max depends on device.
+    if((err = TLPMX_getMeasurementSequence(instrHdl, 10, timestamps, values, VI_NULL)))
         return err;
 #else
-    //Fetch scope measurement results out of buffer
-    if((err = TLPMX_getMeasurementSequence(instrHdl, 10000, timestamps, values1, values2)))
+    //Fetch scope measurement results out of buffer. 10 results in 10*100 = 1000 samples. Max depends on device.
+    if((err = TLPMX_getMeasurementSequence(instrHdl, 10, timestamps, values1, values2)))
         return err;
 #endif
     return VI_SUCCESS;
@@ -97,17 +97,17 @@ int hardwareTriggeredScopeMeasurement(ViSession instrHdl)
     //================================================
     //Start the scope measurement mode. Now trigger is armed. 
     ViBoolean wasForcedTrigger;
-    if((err = TLPMX_startMeasurementSequence(instrHdl, 0, nullptr)))
+    if((err = TLPMX_startMeasurementSequence(instrHdl, 0, VI_NULL)))
         return err;
 
 
 #if !defined(IS_DUAL_CHANNEL_TL_PM)
-    //Fetch scope measurement results out of buffer
-    if((err = TLPMX_getMeasurementSequenceHWTrigger(instrHdl, 10000, timestamps, values, nullptr)))
+    //Fetch scope measurement results out of buffer. 10 results in 10*100 = 1000 samples. Max depends on device.
+    if((err = TLPMX_getMeasurementSequenceHWTrigger(instrHdl, 10, timestamps, values, VI_NULL)))
         return err;
 #else
-    //Fetch scope measurement results out of buffer
-    if((err = TLPMX_getMeasurementSequenceHWTrigger(instrHdl, 10000, timestamps, values1, values2)))
+    //Fetch scope measurement results out of buffer. 10 results in 10*100 = 1000 samples. Max depends on device.
+    if((err = TLPMX_getMeasurementSequenceHWTrigger(instrHdl, 10, timestamps, values1, values2)))
         return err;
 #endif
     return VI_SUCCESS;
@@ -168,42 +168,42 @@ int main(int argc, char* argv[])
     //Configure photodiode measurement for burst mode
     //================================================
     //Select CW measurement mode
-    if((res = TLPMX_setFreqMode(instrHdl, TLPM_FREQ_MODE_CW, 1)))
+    if((err = TLPMX_setFreqMode(instrHdl, TLPM_FREQ_MODE_CW, 1)))
         return error_exit(instrHdl, err);
  
    //Disable bandwidth limitation
-    if((res = TLPMX_setInputFilterState(instrHdl, VI_FALSE, 1)))
+    if((err = TLPMX_setInputFilterState(instrHdl, VI_FALSE, 1)))
         return error_exit(instrHdl, err);
     
     //Select manual range in Watt and disables auto ranging
-    if((res = TLPMX_setPowerRange(instrHdl, 0.005, 1))) ///TODO: Adjust to your experiment
+    if((err = TLPMX_setPowerRange(instrHdl, 0.005, 1))) ///TODO: Adjust to your experiment
         return error_exit(instrHdl, err);
 
     //Set trigger threshold level in percent
-    if((res = TLPMX_setPeakThreshold(instrHdl, 30, 1))) ///TODO: Adjust to your experiment
+    if((err = TLPMX_setPeakThreshold(instrHdl, 30, 1))) ///TODO: Adjust to your experiment
         return error_exit(instrHdl, err);
         
 #if defined(IS_DUAL_CHANNEL_TL_PM)
     //Select CW measurement mode
-    if((res = TLPMX_setFreqMode(instrHdl, TLPM_FREQ_MODE_CW, 2)))
+    if((err = TLPMX_setFreqMode(instrHdl, TLPM_FREQ_MODE_CW, 2)))
         return error_exit(instrHdl, err);
  
    //Disable bandwidth limitation
-    if((res = TLPMX_setInputFilterState(instrHdl, VI_FALSE, 2)))
+    if((err = TLPMX_setInputFilterState(instrHdl, VI_FALSE, 2)))
         return error_exit(instrHdl, err);
     
     //Select manual range in Watt and disables auto ranging
-    if((res = TLPMX_setPowerRange(instrHdl, 0.005, 2))) ///TODO: Adjust to your experiment
+    if((err = TLPMX_setPowerRange(instrHdl, 0.005, 2))) ///TODO: Adjust to your experiment
         return error_exit(instrHdl, err);
 
     //Set trigger threshold level in percent
-    if((res = TLPMX_setPeakThreshold(instrHdl, 30, 2))) ///TODO: Adjust to your experiment
+    if((err = TLPMX_setPeakThreshold(instrHdl, 30, 2))) ///TODO: Adjust to your experiment
         return error_exit(instrHdl, err);
 #endif
     
-    if((res = softwareTriggeredScopeMeasurement(instrHdl)))
+    if((err = softwareTriggeredScopeMeasurement(instrHdl)))
         return error_exit(instrHdl, err);
-    //if((res = hardwareTriggeredScopeMeasurement(instrHdl)))
+    //if((err = hardwareTriggeredScopeMeasurement(instrHdl)))
     //    return error_exit(instrHdl, err);
 
     cout << "Closing session to " << rsrcDescr << endl;
