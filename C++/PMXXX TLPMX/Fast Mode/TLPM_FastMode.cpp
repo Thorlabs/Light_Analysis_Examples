@@ -1,20 +1,26 @@
-// TLPMX32_BTH_Test.cpp : Defines the entry point for the console application.
+/*
+Thorlabs Power Meter Fast Measurement Mode
+Example Date of Creation                        2024-03-20
+Example Date of Last Modification on Github     2024-03-20
+Version of C++ used for Testing and IDE         Visual Studio
+Version of the Thorlabs SDK used.               TLPMx.dll 5.6.4847
+==================
+This example shows how to fetch the Thorlabs Power Meter Fast Measurement stream.
+The fast measurement stream allows to aquire all sampling results at maximum speed.
+*/
 
 #include "TLPMX.h"
 #include <iostream>
 
 using namespace std;
 
-/*---------------------------------------------------------------------------
-  Exit with error message
----------------------------------------------------------------------------*/
 int error_exit(ViSession instrHdl, ViStatus err)
 {
     ViChar buf[TLPM_ERR_DESCR_BUFFER_SIZE];
 
     // Print error
     TLPMX_errorMessage (instrHdl, err, buf);
-    cout << "ERROR 0x" << err << " - " << buf;
+    cout << "ERROR 0x" << hex << err << " - " << buf;
     // Close instrument hande if open
     if(instrHdl != VI_NULL) 
         TLPMX_close(instrHdl);

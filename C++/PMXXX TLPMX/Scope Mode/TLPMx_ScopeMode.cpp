@@ -1,4 +1,15 @@
-// TLPMX32_BTH_Test.cpp : Defines the entry point for the console application.
+/*
+Thorlabs Power Meter Scope Measurement Mode
+Example Date of Creation                        2024-03-20
+Example Date of Last Modification on Github     2024-03-20
+Version of C++ used for Testing and IDE         Visual Studio
+Version of the Thorlabs SDK used.               TLPMx.dll 5.6.4847
+==================
+This example shows how to configure and fetch a Thorlabs Power Meter for Software or Hardware 
+triggered Scope Measurement mode. In Scope mode the meter behaves like an oscilloscope and
+stores a fixed amount of samples within the device after a softwar or hardware trigger condition.
+Once the sequence is complete you can fetch the results.
+*/
 
 #include "TLPMX.h"
 #include <iostream>
@@ -13,16 +24,13 @@ static ViReal32 values1[10000] = {0};
 static ViReal32 values2[10000] = {0};
 #endif
 
-/*---------------------------------------------------------------------------
-  Exit with error message
----------------------------------------------------------------------------*/
 int error_exit(ViSession instrHdl, ViStatus err)
 {
     ViChar buf[TLPM_ERR_DESCR_BUFFER_SIZE];
 
     // Print error
     TLPMX_errorMessage (instrHdl, err, buf);
-    cout << "ERROR 0x" << err << " - " << buf;
+    cout << "ERROR 0x" << hex << err << " - " << buf;
     // Close instrument hande if open
     if(instrHdl != VI_NULL) 
         TLPMX_close(instrHdl);

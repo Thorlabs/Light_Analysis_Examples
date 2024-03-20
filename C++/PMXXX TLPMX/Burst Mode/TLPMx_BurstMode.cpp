@@ -1,20 +1,27 @@
-// TLPMX32_BTH_Test.cpp : Defines the entry point for the console application.
+/*
+Thorlabs Power Meter Burst Measurement Mode
+Example Date of Creation                        2024-03-20
+Example Date of Last Modification on Github     2024-03-20
+Version of C++ used for Testing and IDE         Visual Studio
+Version of the Thorlabs SDK used.               TLPMx.dll 5.6.4847
+==================
+This example shows how to configure and fetch a Thorlabs Power Meter for Burst Measurement mode.
+In Burst mode the meter stores a sequence of measurements in an device internal memory for every
+trigger condition. Once the measurement is complete you can fetch the results. 
+*/
 
 #include "TLPMX.h"
 #include <iostream>
 
 using namespace std;
 
-/*---------------------------------------------------------------------------
-  Exit with error message
----------------------------------------------------------------------------*/
 int error_exit(ViSession instrHdl, ViStatus err)
 {
     ViChar buf[TLPM_ERR_DESCR_BUFFER_SIZE];
 
     // Print error
     TLPMX_errorMessage (instrHdl, err, buf);
-    cout << "ERROR 0x" << err << " - " << buf;
+    cout << "ERROR 0x" << hex << err << " - " << buf;
     // Close instrument hande if open
     if(instrHdl != nullptr) 
         TLPMX_close(instrHdl);
