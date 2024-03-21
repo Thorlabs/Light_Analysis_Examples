@@ -1,12 +1,8 @@
-## Included Example
+## Included Examples
 
 ### Thorlabs PMxxx Power Meters
-In this folder you can find sample codes show how you can control a Thorlabs PMxxx Power Meter in Python. You can control the PM with the
-Thorlabs Powermeter driver or directly with SCPI commands. 
+In this folder you can find sample codes show how you can control a Thorlabs PMxxx Power Meter in C++ using the TLPMx driver dll. 
 
-There are three sub folders:
-
- - **TLPMX dll:** Code samples using the Thorlabs Power Meter driver dll named TLPMX. This is the more convenient method. For closer info read [Readme](TLPMX_dll).
- - **scpi:** Code examples using directly text based [SCPI](https://de.wikipedia.org/wiki/Standard_Commands_for_Programmable_Instruments) commands. This low level access allows direct access to the device functionality. For closer info read [Readme](scpi).
- - **Obsolete:** This folder contains the sample codes for the obsoleted TLPM drivers.
- 
+ - **Burst Mode:** This sample shows how to configure and use the Power Meter in burst mode. In burst mode an external hardware trigger causes a fixed amount of measurements beeing taken and stored in an device internal intermediate memory. For closer details read [Readme](Burst_Mode).
+ - **Fast Mode:** This sample shows how to configure and query the Power Meter fast measurement stream. Fast measurement stream contains all values beeing sampled by Meter. For closer details read [Readme](Fast_Mode).
+ - **Scope Mode:** This sample shows how to configure and use the Power Meter like an oszilloscope to measure software or hardware triggered fast signals. For closer details read [Readme](Scope_Mode).
