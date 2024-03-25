@@ -9,12 +9,12 @@ The scope mode stores all fast measurement results within a fixed size internal 
 buffer is full the scope is disarmed and results can be read out of buffer at any speed. 
 Every measurement result will be a tuple (single channel) or tripplet (dual channel). In hardware
 triggered scope measurement you can also see samples before the trigger condition. The meter might 
-support internal and external hardware trigger signals. 
+support internal and external hardware trigger signals. For closer details refer to the Scope Mode description in the [SCPI command](scpiTODO)
+description. 
 
 ## Limitations
 Please be aware the scope mode is only available in CW measurement mode. Peak measurement mode 
-is not supported. For closer details refer to the Scope Mode description in the [SCPI command](scpiTODO)
-description. 
+is not supported. 
 
 ## TLPMx.dll
 To get the TLPMx.dll install the Optical Power Monitor (OPM) Application. You can download it [OPM](https://www.thorlabs.com/software_pages/ViewSoftwarePage.cfm?Code=OPM)
