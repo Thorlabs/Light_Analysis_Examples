@@ -15,13 +15,6 @@ serial interface to query fast measurement data. Also slow network connections c
 loss of data. For closer details about scope mode read 
 [SCPI command documentation](../commandDocu/pm5020.html). 
 
-## TLPMx.dll
-To get the TLPMx.dll install the Optical Power Monitor (OPM) Application. You can download it [OPM](https://www.thorlabs.com/software_pages/ViewSoftwarePage.cfm?Code=OPM)
-here. After installation the .dll can be found in the folders:
-
-- 64-bit ```C:\Program Files\IVI Foundation\VISA\Win64\Bin```
-- 32-bit: ```C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin```
-
 ## Supported Meters
 - PM103
 - PM103E
