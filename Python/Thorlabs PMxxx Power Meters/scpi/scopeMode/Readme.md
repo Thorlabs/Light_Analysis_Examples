@@ -7,7 +7,7 @@ The examples prepare the device for software or hardware triggered Scope Mode me
 Scope Measurement itself and fetch and plot the the results are finaly. For plotting the matplotlib 
 library is used. 
 
-For more technical background information about scope mode refer to e.g. [SCPI command description](../commandDocu/pm5020.html) html file.
+For more technical background information about scope mode refer to SCPI command description. You can find a description for every Meter in the  [commandDocu](../commandDocu) folder. For example the PM103 [SCPI command description](https://htmlpreview.github.io/?https://github.com/Selanarixx/Light_Analysis_Examples/blob/develop/Python/Thorlabs%20PMxxx%20Power%20Meters/scpi/commandDocu/pm103.html) html file.
 
 The folder contains 3 examples
 ## Single Channel Scope - singleChanScope.py
