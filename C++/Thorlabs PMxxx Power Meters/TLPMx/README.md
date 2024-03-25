@@ -9,3 +9,10 @@ In this folder you can find sample codes show how you can control a Thorlabs PMx
 
 ## Environment
 The folder contains a Visual Studio Solution grouping all samples in this folders as projects.
+
+## TLPMx.dll
+To get the TLPMx.dll install the Optical Power Monitor (OPM) Application. You can download it [OPM](https://www.thorlabs.com/software_pages/ViewSoftwarePage.cfm?Code=OPM)
+here. After installation the .dll can be found in the folders:
+
+- 64-bit ```C:\Program Files\IVI Foundation\VISA\Win64\Bin```
+- 32-bit: ```C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin```
