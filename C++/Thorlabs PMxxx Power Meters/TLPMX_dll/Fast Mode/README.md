@@ -9,7 +9,8 @@ only buffers the recent 10 ms of data in the device. The fast measure stream doe
 averaging or dBm unit. Please refer to the Meter datasheet to get the fast mode data rate. 
 For PM5020 this is 100000 Samples per Seconds. 
 
-For more technical background information about Fast Mode refer to SCPI command description. You can find a description for every Meter in the commandDocu folder. For example the PM103 SCPI command description html file.
+For more technical background information about Burst Mode refer to SCPI command description. You can find a description for every Meter in the  [commandDocu](../../../../Python/Thorlabs%20PMxxx%20Power%20Meters/scpi/commandDocu) folder. For example the PM103 [SCPI command description](https://htmlpreview.github.io/?https://github.com/Selanarixx/Light_Analysis_Examples/blob/develop/Python/Thorlabs%20PMxxx%20Power%20Meters/scpi/commandDocu/pm103.html) html file.
+
 
 ## Limitations
 Please be aware the stream requires a high transfer bandwidth. Because of this you can not use 
