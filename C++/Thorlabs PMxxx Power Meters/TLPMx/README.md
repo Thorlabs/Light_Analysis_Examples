@@ -7,7 +7,7 @@ In this folder you can find sample codes show how you can control a Thorlabs PMx
  - **Fast Mode:** This sample shows how to configure and query the Power Meter fast measurement stream. Fast measurement stream contains all values beeing sampled by Meter. For closer details read [Readme](Fast%20Mode).
  - **Scope Mode:** This sample shows how to configure and use the Power Meter like an oszilloscope to measure software or hardware triggered fast signals. For closer details read [Readme](Scope%20Mode).
 
-## Environment
+## Build Environment and IDE
 The folder contains a Visual Studio Solution grouping all samples in this folders as projects.
 
 ## TLPMx.dll
