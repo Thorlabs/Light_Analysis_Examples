@@ -1,12 +1,28 @@
-## Included Example
+# C++ Fast Mode Example
+This C++ sample code demonstrates how to query fast measurement stream of Thorlabs Power Meter using the
+Thorlabs instrument driver TLPMx.dll. Fast mode allows to fetch all measurement results of the meter as constant data stream. 
 
-### Thorlabs PMxxx Power Meters
-In this folder you can find sample codes show how you can control a Thorlabs PMxxx Power Meter in Python. You can control the PM with the
-Thorlabs Powermeter driver or directly with SCPI commands. 
+# Details 
 
-There are three sub folders:
+The fast measure stream needs to be queried as fast as possible to prevent data loss. The meter 
+only buffers the recent 10 ms of data in the device. The fast measure stream does not support 
+averaging or dBm unit. Please refer to the Meter datasheet to get the fast mode data rate. 
+For PM5020 this is 100000 Samples per Seconds. 
 
- - **TLPMX dll:** Code samples using the Thorlabs Power Meter driver dll named TLPMX. This is the more convenient method. For closer info read [Readme](TLPMX_dll).
- - **scpi:** Code examples using directly text based [SCPI](https://de.wikipedia.org/wiki/Standard_Commands_for_Programmable_Instruments) commands. This low level access allows direct access to the device functionality. For closer info read [Readme](scpi).
- - **Obsolete:** This folder contains the sample codes for the obsoleted TLPM drivers.
- 
+## Limitations
+Please be aware the stream requires a high transfer bandwidth. Because of this you can not use 
+serial interface to query fast measurement data. Also slow network connections can cause a 
+loss of data. For closer details about scope mode read 
+[SCPI command documentation](../commandDocu/pm5020.html). 
+
+## TLPMx.dll
+To get the TLPMx.dll install the Optical Power Monitor (OPM) Application. You can download it [OPM](https://www.thorlabs.com/software_pages/ViewSoftwarePage.cfm?Code=OPM)
+here. After installation the .dll can be found in the folders:
+
+- 64-bit ```C:\Program Files\IVI Foundation\VISA\Win64\Bin```
+- 32-bit: ```C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin```
+
+## Supported Meters
+- PM103
+- PM103E
+- PM5020
