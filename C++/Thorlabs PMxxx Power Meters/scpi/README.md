@@ -2,6 +2,9 @@
 This example shows some of the functionality of PMXXX series power meter with SCPI commands.
 It demonstrates how to connect the power meter, make settings, and get the power values.
 
+## SCPI Command description
+You can find a SCPI command description for every Meter in the  [commandDocu](../../../Python/Thorlabs%20PMxxx%20Power%20Meters/scpi/commandDocu) folder. For example the PM103 [SCPI command description](https://htmlpreview.github.io/?https://github.com/Selanarixx/Light_Analysis_Examples/blob/develop/Python/Thorlabs%20PMxxx%20Power%20Meters/scpi/commandDocu/pm103.html) html file.
+
 ## Instructions for Use
 
 If Thorlabs's "Optical Power Monitor" software has already been installed in the PC, please switch the driver to "PM100D(NI-VISA)" before running the project. 
