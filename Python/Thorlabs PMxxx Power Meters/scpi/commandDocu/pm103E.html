@@ -587,7 +587,7 @@ div.scpiLongSpacer {
   </div>
   <div class="pageBody">
     <div id="SCPI_Desc">
-      <div class="verInfo">V 1.0.1 generated 05 Feb 2024, 15:21:42</div>
+      <div class="verInfo">V 1.0.2.138 generated 28 Mar 2024, 09:13:01</div>
       <p>This is the description of the <a target="_blank" href="https://www.thorlabs.com/">Thorlabs</a> PM103E remote interface. This single channel Power/Energy meter can be remotely controlled using the SCPI (Standard Commands for Programmable Instruments) interface.</p>
       <p>In 1975, the IEEE standardized a bus developed by Hewlett-Packard originally called HPIB (Hewlett-Packard Interface Bus), later changed to GPIB (General Purpose Interface Bus). 
         The standard was called IEEE 488 (IEEE 488.1) and it defined mechanical aspects of the bus. The later IEEE 488.2 defined its protocol properties. What was missing were set of 
@@ -810,7 +810,7 @@ div.scpiLongSpacer {
           <li>Set manual range (Disables auto ranging of PM103E automatically), command: SENSe#:POWer[:DC]:RANGe[:UPPer]</li>
           <li>Set full bandwidth for Photodiode sensors (no analog filter), command: INPut#[:PDIode]:FILTer[:LPASs][:STATe] 0</li>
           <li>Choose CW mode for Photodiode sensors, command: SENSe#:FREQuency:MODE CW</li>
-          <li>Set trigger threshold for internal hardware triggered signal, command: CONFigure#:ARRay:HWTrig (Not applicable for external triggering)</li>
+          <li>Set trigger threshold for internal hardware triggered signal, command: SENSe:PEAK (Not applicable for external triggering)</li>
         </ul>
       </p>
       <p>The scope mode is part of the MEAS SCPI command group. The basic command sequence looks like this:
@@ -921,7 +921,7 @@ div.scpiLongSpacer {
         <li>Set manual range (Disables auto ranging of PM103E automatically), command: SENSe#:POWer[:DC]:RANGe[:UPPer]</li>
         <li>When measuring pulsed or alternating signals, set full bandwidth for Photodiode sensors (no analog filter), command: INPut#[:PDIode]:FILTer[:LPASs][:STATe] 0</li>
         <li>Choose CW mode for Photodiode sensors, command: SENSe#:FREQuency:MODE CW</li>
-        <li>Set trigger threshold for internal hardware triggered signal, command: CONFigure#:ARRay:HWTrig (Not applicable for external triggering)</li>
+        <li>Set trigger threshold for internal hardware triggered signal, command: SENSe:PEAK (Not applicable for external triggering)</li>
       </ul>
     </p>
     <p>The burst mode is part of the MEAS SCPI command group. The basic command sequence looks like this:
