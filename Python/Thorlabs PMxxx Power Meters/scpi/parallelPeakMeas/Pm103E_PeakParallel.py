@@ -1,9 +1,8 @@
 """
 Example Thorlabs Power Meter Parallel Peak Measurement
-Example Date of Creation                            2024-03-15
-Example Date of Last Modification on Github         2024-03-15
-Version of Python                                   3.11.2
-Version of the Thorlabs SDK used                    anyvisa0.3.0
+Example Date of Creation: 2024-03-11
+Version of Python: 3.11
+Version of the Thorlabs SDK used: -                anyvisa0.3.0
 ==================
 The example shows how to measure peaks of same experiment with multiple powermeters 
 simulanioulsy and how to write results to a csv file.
@@ -93,6 +92,7 @@ def main():
     devicesList = []
     devicesList = AnyVisa.FindResources("?*")
     sorted(devicesList)
+
     devCnt = len(devicesList)
     print(f"Info: Found {devCnt} devices")
     for dev in devicesList:
@@ -111,7 +111,7 @@ def main():
     recordCounter = 1
 
     try:
-        #estapblish connection to all found devices
+        #establish connection to all found devices
         for pmToOpen in devicesList:
             pmToOpen.open()
             pms.append(pmToOpen)
@@ -120,7 +120,7 @@ def main():
         for pm in pms:
             configure_pm_peak_meas(pm)
 
-        #prepare the peak measureent
+        #prepare the peak measurement
         for pm in pms:
             pm.write("CONF:ENER")
             err = test_system_error(pm)
@@ -144,7 +144,7 @@ def main():
                 #Print sensor info Name, Serial and CalDate
                 fp.write(f"Sensor {x}, {sensInfos[0]},{sensInfos[1]},{sensInfos[2]}\n")
 
-            #Seperate header and record with an additional empty line
+            #Separate header and record with an additional empty line
             fp.write("\n")
 
             #Write record columns description header line
@@ -159,11 +159,12 @@ def main():
                 #Initate a new measurement state
                 if state == PM_PeakState.INIT:
                     for pm in pms:
+                        pm.write("ABOR")
                         pm.write("INIT")
                         err = test_system_error(pm)
                         if err[0] != 0:
                             raise Exception("Failed to initiate energy measurement")
-                    state = PM_PeakState.WAIT_FOR_PEAK   
+                    state = PM_PeakState.WAIT_FOR_PEAK
 
                 #Wait for trigger state
                 elif state == PM_PeakState.WAIT_FOR_PEAK:
@@ -179,13 +180,13 @@ def main():
                             break
                     
                     if state == PM_PeakState.WAIT_FOR_PEAK:
-                        time.sleep(0.05) #Sleep for 50 ms and try again
+                        time.sleep(0.01) #Sleep for 10 ms and try again
 
                 #Triggered State. At least one PM received a Peak
                 elif state == PM_PeakState.TRIGGERED:
                     #Try to fetch peak measure result of all PM
                     for x in range(devCnt):
-                        #Fechted result for this meter already?
+                        #Fetched result for this meter already?
                         if fetchRes[x] is None:
                             #Test if meter has data to fetch
                             fetchState = int(pms[x].query("FETC:STAT?"))
@@ -196,14 +197,14 @@ def main():
                         if None in fetchRes:
                             fetchRepCnt += 1
                             #Timeout on fetching results?
-                            if fetchRepCnt > 3:
+                            if fetchRepCnt > 10:
                                 #Abort any ongoing measurement
                                 for x in range(devCnt):
                                     if fetchRes[x] is None:
                                         pms[x].write("ABOR")
-                                state = PM_PeakState.FETCHED_SOME #We fechted only some results
+                                state = PM_PeakState.FETCHED_SOME #We fetched only some results
                             else:
-                                time.sleep(0.05) #Sleep for 50 ms and try again
+                                time.sleep(0.01) #Sleep for 10 ms and try again
                         else:
                             state = PM_PeakState.FETCHED_ALL #We fetched all res
 
@@ -232,9 +233,14 @@ def main():
                     state = PM_PeakState.INIT
                     print(f"Warning: Peak recorded only by {devFound} PM")
     
-    #Catch keyboard exception CTRL + C to abort program excecution
+    #Catch keyboard exception CTRL + C to abort program execution
     except KeyboardInterrupt:
-        pass
+        #Try to abort all ongoing measurements on the meters on exit of application
+        for dev in devicesList:
+            try:
+                dev.write("ABOR")
+            except Exception:
+                pass
 
     #Ensure all resources are released in case of success or error
     finally:
