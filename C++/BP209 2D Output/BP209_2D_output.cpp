@@ -118,7 +118,7 @@ int main(int argc, char* argv)
 	}
 	else
 	{
-		printf("Invalid Input! The scanning method is set to slit scanning method.\n");
+		printf("Invalid Input! The scanning method is set to slit scanning mode.\n");
 		res = TLBP2_set_scanning_method(m_instrumentHandle, 0, 0);
 		res = TLBP2_set_scanning_method(m_instrumentHandle, 1, 0);
 		res = TLBP2_set_scanning_method(m_instrumentHandle, 2, 0);
@@ -217,7 +217,7 @@ int main(int argc, char* argv)
 			printf("25um Slit Y Gaussian Fit Diameter: %f\n", calculation_result_knife[1].gaussianFitDiameter);
 		}
 		else
-			printf("Fail to recontrucion the knife edge data\n");
+			printf("Fail to reconstruct the knife edge data\n");
 	}
 
 	// release the device
