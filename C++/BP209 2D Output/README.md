@@ -19,16 +19,15 @@ P.S. Recent Versions of OpenCV only provide 64-bit libs and dlls. To build a 32-
 
 ### Link libraries with the Project
 Guides written for this example is written with Microsoft's Visual Studio in mind. Other IDEs can be used, but instructions are not provided in this repository.
-1. Create a new VC++ project file or open the existing VC++ project file
+1. Create a new VC++ project file or open the existing VC++ project file 
 2. Link the OpenCV library with Microsoft's Visual Studio:
     - Open Project\Properties\Configuration Properties\VC++ Directories\General
     - Enter the path **...\opencv\build\include** into Include Directories
     - Enter the path **...\opencv\build\x64\vc16\lib** into Library Directories
-
 3. Under the Solution Explorer, right click the Source Files, then add the BP209_2D_output.cpp to the Source Files
 4. Set the path of the BP209 header file according to the bit of the project you want to build:
     - Open Project\Properties\Configuration Properties\C/C++\General
-    - Enter the path of the header files into Additional include Directories (**C:\Program Files (x86)\IVI Foundation\VISA\WinNT\include** or **C:\Program Files\IVI Foundation\VISA\Win64\include**)
+    - Enter the path of the header files into Additional Include Directories (**C:\Program Files (x86)\IVI Foundation\VISA\WinNT\include** or **C:\Program Files\IVI Foundation\VISA\Win64\include**)
 5. Set the path of the BP209 library according to the bit of the project you want to build:
     - Open Project\Properties\Configuration Properties\Linker\General
     - Enter the path of the library files into Additional Library Directories (**C:\Program Files (x86)\IVI Foundation\VISA\WinNT\lib\msc** or **C:\Program Files\IVI Foundation\VISA\Win64\Lib_x64\msc**)
