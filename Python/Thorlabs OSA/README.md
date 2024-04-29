@@ -14,7 +14,7 @@ There are 5 examples in this folder, additionally the python SDK is located in .
 * [Example 5 - Continuous peak track, plotting peakposition over time](./Thorlabs_OSA_example_05.py)
 
 ### Requirements
-The examples require an installation of ThorSpectra 3.21. The python library requires
+The examples require an installation of ThorSpectra 3.31. The python library requires
 numpy, and the examples utilize matplotlib for plotting.
 
 In case FTSLib.dll is not found, please edit the last line of ./pyOSA/FTSLib.py to
