@@ -4,7 +4,7 @@ The sample code shows how to control a BP209 beam profiler in C++. In the exampl
 The code uses OpenCV library to create the images. The OpenCV library needs to be installed on the computer. 
 
 ## Instructions for Use
-### Install and setup OpenCV for C++ in Windows
+### Install and Setup OpenCV for C++ in Windows
 Please follow the steps below to setup the OpenCV for C++ in Windows. Please skip this section if OpenCV has set already. 
 1. Download the OpenCV from its official website https://opencv.org/releases/. For a Windows System, please click on the 'Windows' button. 
 2. Run the downloaded executable file and extract the OpenCV to the target folder.
@@ -12,12 +12,13 @@ Please follow the steps below to setup the OpenCV for C++ in Windows. Please ski
     - In Windows System, right-click on 'This PC', then press on 'Properties'. Then press on 'Advanced system settings'. A new window will open.  
     - Click on 'Environmental Variable' from there. Another window will open.   
     - In the "System variables' use the scroll bar and select 'Path'. Then click 'Edit'. Another window will open.  
-    - Click 'New' and 'Browse', then find the location of the Extracted OpenCV folder. There's a folder named 'bin' under **...\opencv\build\x64\vc16**, Please add the path of 'bin' to the 'Edit environment variable' then click 'OK' to finish the environmental Variables setting.  
+    - Click 'New' and 'Browse', then find the location of the Extracted OpenCV folder. There's a folder named 'bin' under **...\opencv\build\x64\vc16**, Please add the path of 'bin' to the 'Edit environment variable' then click 'OK' to finish the environmental Variables setting.
+4. Restart the computer. 
 
 P.S. Recent Versions of OpenCV only provide 64-bit libs and dlls. To build a 32-bit version, please refer to the guides in https://docs.opencv.org/4.x/d3/d52/tutorial_windows_install.html  
 
 
-### Link libraries with the Project
+### Link Libraries with the Project
 Guides written for this example is written with Microsoft's Visual Studio in mind. Other IDEs can be used, but instructions are not provided in this repository.
 1. Create a new VC++ project file or open the existing VC++ project file 
 2. Link the OpenCV library with Microsoft's Visual Studio:
