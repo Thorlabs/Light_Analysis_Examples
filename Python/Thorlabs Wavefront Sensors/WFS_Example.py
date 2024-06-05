@@ -14,7 +14,7 @@ def main():
     lib.WFS_GetInstrumentListLen(None,byref(num_devices))
 
     #if no devices connected, close the program
-    if num_devices == 0:
+    if num_devices.value == 0:
         print("No availble devices.... closing program")
         quit()
     
