@@ -1,9 +1,0 @@
-C:\Users\zizhang\OneDrive - THORLABS Inc\Documents\global software (local)\CCS - Absorption Measurement\CCS - Absorption Measurement\bin\Debug\CCS - Absorption Measurement.exe.config
-C:\Users\zizhang\OneDrive - THORLABS Inc\Documents\global software (local)\CCS - Absorption Measurement\CCS - Absorption Measurement\bin\Debug\CCS - Absorption Measurement.exe
-C:\Users\zizhang\OneDrive - THORLABS Inc\Documents\global software (local)\CCS - Absorption Measurement\CCS - Absorption Measurement\bin\Debug\CCS - Absorption Measurement.pdb
-C:\Users\zizhang\OneDrive - THORLABS Inc\Documents\global software (local)\CCS - Absorption Measurement\CCS - Absorption Measurement\obj\Debug\CCS - Absorption Measurement.csproj.AssemblyReference.cache
-C:\Users\zizhang\OneDrive - THORLABS Inc\Documents\global software (local)\CCS - Absorption Measurement\CCS - Absorption Measurement\obj\Debug\CCS - Absorption Measurement.csproj.SuggestedBindingRedirects.cache
-C:\Users\zizhang\OneDrive - THORLABS Inc\Documents\global software (local)\CCS - Absorption Measurement\CCS - Absorption Measurement\obj\Debug\CCS - Absorption Measurement.csproj.CoreCompileInputs.cache
-C:\Users\zizhang\OneDrive - THORLABS Inc\Documents\global software (local)\CCS - Absorption Measurement\CCS - Absorption Measurement\obj\Debug\CCS - Absorption Measurement.csproj.CopyComplete
-C:\Users\zizhang\OneDrive - THORLABS Inc\Documents\global software (local)\CCS - Absorption Measurement\CCS - Absorption Measurement\obj\Debug\CCS - Absorption Measurement.exe
-C:\Users\zizhang\OneDrive - THORLABS Inc\Documents\global software (local)\CCS - Absorption Measurement\CCS - Absorption Measurement\obj\Debug\CCS - Absorption Measurement.pdb
