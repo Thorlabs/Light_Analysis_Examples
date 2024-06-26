@@ -2,6 +2,7 @@
 //Example Date of Last Modification on Github 2024 - 02 - 01
 //Version of C++ used for Testing and IDE: C++ 14, Visual Studio 2022
 //Version of the NI-VISA Driver used: 24.0
+//Example Description: This example shows some of the functionality of PMXXX series power meter with SCPI commands.
 
 #include "stdlib.h"
 #include "stdio.h"
