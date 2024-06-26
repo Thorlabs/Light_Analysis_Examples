@@ -1,3 +1,8 @@
+//Example Date of Creation(YYYY - MM - DD) 2024 - 02 - 01
+//Example Date of Last Modification on Github 2024 - 02 - 01
+//Version of C++ used for Testing and IDE: C++ 14, Visual Studio 2022
+//Version of the NI-VISA Driver used: 24.0
+
 #include "stdlib.h"
 #include "stdio.h"
 #include "iostream"
