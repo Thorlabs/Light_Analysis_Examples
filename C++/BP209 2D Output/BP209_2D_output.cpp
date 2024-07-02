@@ -2,6 +2,9 @@
 //Example Date of Last Modification on Github 2024 - 04 - 24
 //Version of C++ used for Testing and IDE: C++ 14, Visual Studio 2022
 //Version of the Thorlabs SDK used : Beam version 9.1.5787.560
+//Example Description: The sample code shows how to control a BP209 beam profiler in C++. 
+//In the example the available beam profilers are found, a connection is established, several parameters are set, 
+//several output values are displayed and a 2D image is shown.
 
 #include "string"
 #include "stdio.h"

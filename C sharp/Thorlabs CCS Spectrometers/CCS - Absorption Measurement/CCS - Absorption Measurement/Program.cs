@@ -1,4 +1,11 @@
-﻿using System;
+//Example Date of Creation(YYYY - MM - DD) 2023 - 02 - 15
+//Example Date of Last Modification on Github 2023 - 03 - 15
+//Version of .NET Framework used for Testing: 4.7.2
+//Version of the Thorlabs Dll: 2.0.0.0
+//Example Description: This example includes the initialization of the spectrometer.
+//The calculation of absorption spectrum and optical density spectrum, the display of the spectrums and data storage.
+
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
