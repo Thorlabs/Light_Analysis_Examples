@@ -59,7 +59,7 @@ Device Manager (Experts only). Once the runtime is installed and driver has been
 via command. 
 
 ```
-python -m pip install nivisa
+python -m pip install pyvisa
 ```
 
 Note: pyvisa does communicate with Thorlabs Ethernet or Bluetooth LE device interfaces.
