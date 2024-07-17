@@ -1,3 +1,13 @@
+"""
+Example Title: TLBC2_sample_2D_output.py
+Example Date of Creation: 2024-07-16
+Example Date of Last Modification on Github: 2024-07-16
+Version of Python used for Testing: 3.11
+Version of the Thorlabs SDK used: Beam 9.1
+==================
+Example Description
+"""
+
 import os
 import TLBC2
 import matplotlib.pyplot as plt
@@ -76,7 +86,8 @@ def main():
         if err != 0:
             error_exit(bc2, err) 
 
-        print("Model:", modelName.value.decode('utf_8'))
+        print("Connected to")
+        print("Model:", modelName.value.decode('latin-1'))
         print("Serial number:", serialNumber.value.decode('utf_8'))
 
         driverRev = create_string_buffer(1024)
@@ -106,6 +117,17 @@ def main():
             error_exit(bc2, err) 
         
         print("Wavelength: {wavelength:.2f} nm".format(wavelength = wavelength.value))
+
+        err = bc2.set_attenuation(c_double(40))
+        if err != 0:
+            error_exit(bc2, err)        
+        
+        attenuation = c_double(0)
+        err = bc2.get_attenuation(byref(attenuation))
+        if err != 0:
+            error_exit(bc2, err) 
+        
+        print("Attenuation set to : {attenuation:.2f} dB".format(attenuation = attenuation.value))
 
         err = bc2.set_clip_level(c_double(0.135))
         if err != 0:
@@ -170,21 +192,10 @@ def main():
         if err != 0:
             error_exit(bc2, err) 
 
-        #switch to precision mode (fast or precise)
-        err = bc2.set_precision_mode(TLBC2.TLBC1_Precision_Mode_Precise)
-        if err != 0:
-            error_exit(bc2, err) 
-
-        precision_mode = c_uint8(0)
-        err = bc2.get_precision_mode(byref(precision_mode))
-        if err != 0:
-            error_exit(bc2, err) 
-
         # set binning mode
         err = bc2.set_binning(c_uint8(TLBC2.TLBC2_Binning_2))
         if err != 0:
             error_exit(bc2, err) 
-
 
         #noise level of the camera
         blackLevel = c_double(0)
@@ -206,7 +217,7 @@ def main():
                 if(scan_data.isValid):
                     print("Peak Value: {peak:.2f}, Position X: {posx:d}, Position Y: {posy:d}".format(peak = scan_data.peakIntensity, posx = scan_data.profilePeakPosX, posy = scan_data.profilePeakPosY))
                     print("Beam Width Clip X: {clipx:.2f}, Beam Width Clip Y: {clipy:.2f}".format(clipx = scan_data.beamWidthClipX, clipy = scan_data.beamWidthClipY))
-                    print("Total power: {power:.2f}\n".format( power = scan_data.totalPower))
+                    print("Total power: {power:.2f} dBm\n".format( power = scan_data.totalPower))
                 else:
                     print("Scan invalid {index:d}\n".format(index = j))
 
@@ -215,7 +226,8 @@ def main():
             error_exit(bc2, err)
 
         # read out the scan data
-        pixeldata=(((c_ubyte*2448)*2048)*2)()
+        #pixeldata=(((c_ubyte*2448)*2048)*2)()
+        pixeldata=(((c_ubyte*1224)*1024)*2)()
         width, height=c_ushort(0),c_ushort(0)
         bytesPerPixel=c_ubyte(2)
   
@@ -225,7 +237,7 @@ def main():
 
         #show image
         imagedataFlat = np.frombuffer(pixeldata, dtype='uint16')
-        imagedata = np.array_split(imagedataFlat, 2048)
+        imagedata = np.array_split(imagedataFlat, 1024)
 
         fig,ax=plt.subplots()
         ax.imshow(imagedata,cmap='cool')
@@ -235,6 +247,8 @@ def main():
         print(inst)
     except TypeError as inst:
         print(inst)
+
+    bc2.close()
         
 
     

@@ -6,28 +6,28 @@ anyvisa library. Some others use the third-party pyvisa python library based on 
 
 ## Included Examples
 
+### Simple Example
+The example ```PMxxx_SCPI_pyvisa.py``` shows how to to open a powermeter connected with USB using the pyvisa library, make settings and get measurement values.
+
 ### Fast Mode
 Demonstrates how to query fast measurement stream of Thorlabs Power Meter. 
 Fast mode allows to fetch all measurement results of the meter as constant data stream.
-For closer details refer to [Readme](fastMode).
+For closer details refer to [Readme](fastMode). Available for PM103, PM103E and PM5020.
 
 ### Parallel Peak Measurement Example
 Demonstrates how to use multiple Thorlabs Power Meters within one experiment to measure 
 peak energy in Joule simultaniously. The example is based on SCPI commands and uses the anyvisa Thorlabs library.
-For closer details refer to [Readme](parallelPeakMeas).
+For closer details refer to [Readme](parallelPeakMeas).  Available for PM103, PM103E and PM5020.
 
 ### Scope Examples
 The Thorlabs Power Meters supports Scope Mode to measure and store a software or hardware triggered measurement sequence within the device memory.
-For closer details refer to [Readme](scopeMode).
+For closer details refer to [Readme](scopeMode). Available for PM6x, PM103, PM103E and PM5020.
 
 ### Open Anyvisa
 Minimal template script ```PMxxx_SCPI_OpenAnyvisa.py``` to open a known instrument resource using anvisa library.
 
 ### Search Anyvisa
 Minimal template script ```PMxxx_SCPI_SearchAnyvisa.py``` to run instrument search and open one of the devices found using anvisa library.
-
-### Open Pyvsia
-Minimal template script ```PMxxx_SCPI_pyvisa.py``` to to open a known instrument resource using pyvisa library.
 
 ## SCPI Command documentation
 For most of the Thorlabs Powermeter there is a detail [SCPI command documentation](commandDocu) in .html file format available. 
@@ -59,7 +59,7 @@ Device Manager (Experts only). Once the runtime is installed and driver has been
 via command. 
 
 ```
-python -m pip install nivisa
+python -m pip install pyvisa
 ```
 
 Note: pyvisa does communicate with Thorlabs Ethernet or Bluetooth LE device interfaces.
