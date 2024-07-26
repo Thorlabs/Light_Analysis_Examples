@@ -2,6 +2,8 @@
 //Example Date of Last Modification on Github 2024 - 07 - 26
 //Version of C++ used for Testing and IDE: C++ 14, Visual Studio 2022
 //Version of the Thorlabs SDK used : ThorSpectra version 3.25
+//Example Description: This example shows how to search the available CCS spectrometers, 
+//connect the spectrometer, set the integration time and save the spectrum to the file. 
 
 #include "stdio.h"
 #include "stdlib.h"
