@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-Example of C Libraries for CCS Spectrometers in Python with CTypes
-
+Example Title: CCS using ctypes - Python 3.py
+Example Date of Creation(YYYY-MM-DD): 2022-05-11
+Example Date of Last Modification on Github: 2022-05-11
+Version of Python/.NET/Matlab/C++ used for Testing and IDE: 3.10.0
+Version of the Thorlabs SDK used: ThorSpectra version 3.25
+==================
+Example Description: This example shows the basic operation of a CCS spectrometer. The necessary settings are made, a spectrum is recorded and then plotted.
 """
 import os
 import time
