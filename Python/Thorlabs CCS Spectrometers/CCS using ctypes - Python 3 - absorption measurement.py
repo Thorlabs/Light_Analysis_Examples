@@ -3,7 +3,7 @@
 Example Title: CCS using ctypes - Python 3 - absorption measurement.py
 Example Date of Creation(YYYY-MM-DD): 2022-11-30
 Example Date of Last Modification on Github: 2022-11-30
-Version of Python/.NET/Matlab/C++ used for Testing and IDE: 3.10.0
+Version of Python used for Testing and IDE: 3.10.0
 Version of the Thorlabs SDK used: ThorSpectra version 3.25
 ==================
 Example Description: This example shows a more advanced operation for an absorption measurement. 
