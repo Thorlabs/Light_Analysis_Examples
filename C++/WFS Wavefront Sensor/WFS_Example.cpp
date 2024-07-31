@@ -2,6 +2,9 @@
 //Example Date of Last Modification on Github 2024 - 06 - 11
 //Version of C++ used for Testing and IDE: C++ 14, Visual Studio 2022
 //Version of the Thorlabs SDK used : Wavefront Sensor Software version 6.1
+//Example Description: The sample code shows how to control a WFS wavefront sensor in C++. 
+//In the example the available wavefront sensors are found, a connection is established, 
+//several parameters including black level, noise floor and pupil are set, beam position and wavefront value are measured and displayed.
 
 #include <stdlib.h>
 #include <stdio.h>
