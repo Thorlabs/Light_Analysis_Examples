@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-Example of C Libraries for CCS Spectrometers in Python with CTypes
-
-The example uses the driver file TLCCS_32/64.dll. A documentation of the functions in these files can be found here:
-
-C:\Program Files\IVI Foundation\VISA\Win64\TLCCS\Manual
-
+Example Title: CCS using ctypes - Python 3 - absorption measurement.py
+Example Date of Creation(YYYY-MM-DD): 2022-11-30
+Example Date of Last Modification on Github: 2022-11-30
+Version of Python/.NET/Matlab/C++ used for Testing and IDE: 3.10.0
+Version of the Thorlabs SDK used: ThorSpectra version 3.25
+==================
+Example Description: This example shows a more advanced operation for an absorption measurement. 
+A reference spectrum (without sample) and a spectrum with sample is recorded. 
+The absorption and the optical density of the sample are calculated from these spectra. All the data is plotted.
 """
 
 import os
