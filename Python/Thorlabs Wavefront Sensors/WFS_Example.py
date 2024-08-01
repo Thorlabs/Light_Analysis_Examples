@@ -1,3 +1,14 @@
+"""
+Example Title: WFS_Example.py
+Example Date of Creation(YYYY-MM-DD): 2023-02-07
+Example Date of Last Modification on Github: 2023-02-07
+Version of Python used for Testing and IDE: 3.10.0
+Version of the Thorlabs SDK used: WFS Wavefront Sensors Software Version 6.1
+==================
+Example Description: This example shows how to initialize the wavefront sensor and configure the attached microlens array. 
+This also goes through the suggested process for acquiring spotfield images and outputting calculation data like centroid and wavefront values.
+"""
+
 import os
 import sys
 import time
