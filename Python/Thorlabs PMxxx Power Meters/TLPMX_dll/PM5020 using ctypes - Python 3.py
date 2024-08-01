@@ -1,3 +1,15 @@
+"""
+Example Title: PM5020 using ctypes - Python 3.py
+Example Date of Creation(YYYY-MM-DD): 2023-07-26
+Example Date of Last Modification on Github: 2023-07-26
+Version of Python used for Testing and IDE: 3.10.0
+Version of the Thorlabs SDK used: Thorlabs Optical Power Meter Version 6.0
+==================
+Example Description: It connects to the PM5020 dual channel power meter, makes the necessary settings and then reads and displays power values. 
+This sample is also compatible with single-channel consoles like PM100D.
+"""
+
+
 from datetime import datetime
 from ctypes import *
 from TLPMX import TLPMX
