@@ -1,3 +1,13 @@
+"""
+Example Title: PMxxx using ctypes - Python 3.py
+Example Date of Creation(YYYY-MM-DD): 2023-02-07
+Example Date of Last Modification on Github: 2023-02-07
+Version of Python used for Testing and IDE: 3.10.0
+Version of the Thorlabs SDK used: Thorlabs Optical Power Meter Version 6.0
+==================
+Example Description: It connects to the power meter, makes the necessary settings and then reads and displays power values.
+"""
+
 from datetime import datetime
 from ctypes import cdll,c_long, c_ulong, c_uint32,byref,create_string_buffer,c_bool,c_char_p,c_int,c_int16,c_double, sizeof, c_voidp
 from TLPMX import TLPMX
