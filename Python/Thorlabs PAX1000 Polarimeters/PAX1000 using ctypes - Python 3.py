@@ -1,7 +1,12 @@
 """
-Example Application for PAX1000 Polarimeters in Python with CTypes
-
-Tested with Python 3.10.0 (64 bit)
+Example Title: PAX1000 using ctypes - Python 3.py
+Example Date of Creation(YYYY-MM-DD): 2022-08-25
+Example Date of Last Modification on Github: 2022-08-25
+Version of Python used for Testing and IDE: 3.10.0
+Version of the Thorlabs SDK used: PAX1000 Software Version 1.2
+==================
+Example Description: This example shows how to scan the available PAX1000, connect the PAX1000, make necessary settings 
+and get the azimuth and ellipticity value. 
 """
 
 import os

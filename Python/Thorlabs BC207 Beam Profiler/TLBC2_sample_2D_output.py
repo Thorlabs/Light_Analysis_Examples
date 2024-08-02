@@ -5,7 +5,8 @@ Example Date of Last Modification on Github: 2024-07-16
 Version of Python used for Testing: 3.11
 Version of the Thorlabs SDK used: Beam 9.1
 ==================
-Example Description
+Example Description: The sample code shows how to control a BC207 beam profiler in Python. In the example the available beam profilers are found, 
+a connection is extablished, several parameters are set, several output values are displayed and a 2D image is shown.
 """
 
 import os

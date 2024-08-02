@@ -1,3 +1,14 @@
+"""
+Example Title: ERM200_sample.py
+Example Date of Creation(YYYY-MM-DD): 2023-08-02
+Example Date of Last Modification on Github: 2023-08-02
+Version of Python used for Testing and IDE: 3.10.0
+Version of the Thorlabs SDK used: ERM200 version 1.0
+==================
+Example Description: This example shows how to scan the available ERM200, connect the ERM200, make necessary settings and get the ER value. 
+"""
+
+
 import os
 import time
 from ctypes import * 

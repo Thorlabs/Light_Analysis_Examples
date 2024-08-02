@@ -2,7 +2,7 @@
 # Created Date: 2024-05-28
 # Last modified date: 2024-05-28
 # Python Version: 3.10.6
-# Thorlabs DLL version: Kinesis 1.1.0.0
+# Thorlabs DLL version: PNA1 Intensity Noise Analyzer Software 1.1.0.0
 
 import na_sdk as na
 import matplotlib.pyplot as mpl
