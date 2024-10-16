@@ -1,0 +1,14 @@
+C:\Users\zizhang\OneDrive - THORLABS Inc\Documents\4. SW Project\BP209 Beam Profile c sharp\Thorlabs.BP2_CSharpDemo\bin\Debug\Thorlabs.BP2_CSharpDemo.exe.config
+C:\Users\zizhang\OneDrive - THORLABS Inc\Documents\4. SW Project\BP209 Beam Profile c sharp\Thorlabs.BP2_CSharpDemo\bin\Debug\Thorlabs.BP2_CSharpDemo.exe
+C:\Users\zizhang\OneDrive - THORLABS Inc\Documents\4. SW Project\BP209 Beam Profile c sharp\Thorlabs.BP2_CSharpDemo\bin\Debug\Thorlabs.BP2_CSharpDemo.pdb
+C:\Users\zizhang\OneDrive - THORLABS Inc\Documents\4. SW Project\BP209 Beam Profile c sharp\Thorlabs.BP2_CSharpDemo\obj\Debug\Thorlabs.BP2_CSharpDemo.csproj.AssemblyReference.cache
+C:\Users\zizhang\OneDrive - THORLABS Inc\Documents\4. SW Project\BP209 Beam Profile c sharp\Thorlabs.BP2_CSharpDemo\obj\Debug\Thorlabs.BP2_CSharpDemo.csproj.SuggestedBindingRedirects.cache
+C:\Users\zizhang\OneDrive - THORLABS Inc\Documents\4. SW Project\BP209 Beam Profile c sharp\Thorlabs.BP2_CSharpDemo\obj\Debug\Thorlabs.BP2_CSharpDemo.Form1.resources
+C:\Users\zizhang\OneDrive - THORLABS Inc\Documents\4. SW Project\BP209 Beam Profile c sharp\Thorlabs.BP2_CSharpDemo\obj\Debug\Thorlabs.BP2_CSharpDemo.Properties.Resources.resources
+C:\Users\zizhang\OneDrive - THORLABS Inc\Documents\4. SW Project\BP209 Beam Profile c sharp\Thorlabs.BP2_CSharpDemo\obj\Debug\Thorlabs.BP2_CSharpDemo.csproj.GenerateResource.cache
+C:\Users\zizhang\OneDrive - THORLABS Inc\Documents\4. SW Project\BP209 Beam Profile c sharp\Thorlabs.BP2_CSharpDemo\obj\Debug\Thorlabs.BP2_CSharpDemo.csproj.CoreCompileInputs.cache
+C:\Users\zizhang\OneDrive - THORLABS Inc\Documents\4. SW Project\BP209 Beam Profile c sharp\Thorlabs.BP2_CSharpDemo\obj\Debug\Thorlabs.BP2_CSharpDemo.csproj.CopyComplete
+C:\Users\zizhang\OneDrive - THORLABS Inc\Documents\4. SW Project\BP209 Beam Profile c sharp\Thorlabs.BP2_CSharpDemo\obj\Debug\Thorlabs.BP2_CSharpDemo.exe
+C:\Users\zizhang\OneDrive - THORLABS Inc\Documents\4. SW Project\BP209 Beam Profile c sharp\Thorlabs.BP2_CSharpDemo\obj\Debug\Thorlabs.BP2_CSharpDemo.pdb
+C:\Users\zizhang\OneDrive - THORLABS Inc\Documents\4. SW Project\BP209 Beam Profile c sharp\Thorlabs.BP2_CSharpDemo\bin\Debug\Thorlabs.TLBP2_64.Interop.dll
+C:\Users\zizhang\OneDrive - THORLABS Inc\Documents\4. SW Project\BP209 Beam Profile c sharp\Thorlabs.BP2_CSharpDemo\bin\Debug\Thorlabs.TLBP2_64.Interop.xml
