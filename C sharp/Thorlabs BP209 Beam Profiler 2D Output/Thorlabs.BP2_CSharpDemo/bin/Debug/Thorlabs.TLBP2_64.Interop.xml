@@ -1,0 +1,3168 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Thorlabs.TLBP2_64.Interop</name>
+    </assembly>
+    <members>
+        <member name="T:Thorlabs.TLBP2.Interop.bp2_calculations">
+            <summary>
+            structure to handle the calculation results of a measurements
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.bp2_calculations.IsValid">
+            <summary>
+            Are all calculation results valid?
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.bp2_calculations.PeakIndex">
+            <summary>
+            Index of the sample that contains the peak
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.bp2_calculations.PeakPosition">
+            <summary>
+            Position of highest intensity in the y profile in µm
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.bp2_calculations.PeakIntensity">
+            <summary>
+            Profile intensity in percent (range measured from the dark level to the upper value of the AD converter) 
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.bp2_calculations.CentroidIndex">
+            <summary>
+            Index of the sample that is nearest to the centroid position
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.bp2_calculations.CentroidPos">
+            <summary>
+            Calculated centroid position in µm
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.bp2_calculations.BeamWidthClip">
+            <summary>
+            Beam width in µm measured from the peak to the clip level left and right
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.bp2_calculations.GaussianFitAmplitude">
+            <summary>
+            intensity of the gaussian curve in digits. Can get higher than the peak intensity.
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.bp2_calculations.GaussianFitCentroid">
+            <summary>
+            Position of the centroid
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.bp2_calculations.GaussianFitDiameter">
+            <summary>
+            diameter of the gaussian curve
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.bp2_calculations.GaussianFitPercentage">
+            <summary>
+            percentage of the fit between the gaussian curve and the scan data
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.bp2_calculations.GaussianFitCurve">
+            <summary>
+            array of intensities of the gaussian curve
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.bp2_calculations.BesselFitPercentage">
+            <summary>
+            percentage of the fit between the bessel curve and the scan data
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.bp2_calculations.BesselFitCurve">
+            <summary>
+            array of intensities of the bessel curve
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.bp2_calculations.Sigma">
+            <summary>
+            sigma value of the beam
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.bp2_calculations.CalculationAreaLeftBorder">
+            <summary>
+            left border of the calculation area
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.bp2_calculations.CalculationAreaRightBorder">
+            <summary>
+            right border of the calculation area
+            </summary>
+        </member>
+        <member name="T:Thorlabs.TLBP2.Interop.bp2_device">
+            <summary>
+            structure to handle the resource names of the connected BP2 instruments
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.bp2_device.ResourceString">
+            <summary>
+            VISA resource string which identifies an instrument.
+            </summary>
+        </member>
+        <member name="T:Thorlabs.TLBP2.Interop.TLBP2">
+            <summary>
+            Class TLBP2
+            </summary>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.Finalize">
+            <summary>
+            Closes the instrument and releases all resources.
+            </summary>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.#ctor(System.IntPtr)">
+            <summary>
+            This function creates an IVI instrument driver session, typically using the C session instrument handle.
+            </summary>
+            <param name="Instrument_Handle">
+            The instrument handle that is used to create an IVI instrument driver session.
+            </param>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.#ctor(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            This function initializes the instrument driver session and performs the following initialization actions:
+            
+            (1) Opens a session to the Default Resource Manager resource and a session to the selected device using the Resource Name.
+            (2) Performs an identification query on the Instrument.
+            (3) Resets the instrument to a known state.
+            (4) Sends initialization commands to the instrument.
+            (5) Returns an instrument handle which is used to differentiate between different sessions of this instrument driver.
+            
+            Notes:
+            (1) Each time this function is invoked an unique session is opened. 
+            
+            
+            The instrument starts with these parameter:
+            
+            Drum circum             DRUM_CIRCUM
+            Clip Level:             13.5%
+            Average mode:           floating
+            Average count:          1 ( = no averaging; every scan is used)
+            Base line mode:         BP2_BASELINE_MODE_DARK_WINDOW (base line is the mean intentsity of the dark window)
+            Beam width correction:  active
+            Max hold:               inactive
+            Auto gain:              inactive
+            Wavelength:             minimum wavelength the instrument supports
+            ROI:                    not used ( the scan window is 9mm)
+            Reference Position      BP2_REFERENCE_POSITION_PRESET_SENSOR_CENTER
+            Drum speed:             0 Hz
+            Speed Correction        inactive
+            Power sample count:     2128
+            
+            If the parameter "Reset Device" is set to VI_TRUE then these parameter are changed:
+            Drum speed:     6 Hz
+            Auto gain:      active
+            
+            For each slit these parameter are resetted:
+            Scanning Method         BP2_Slit_Scanning
+            Base Line Mode          BP2_BASELINE_MODE_DARK_WINDOW
+            Base Line Value         0
+            Beam Width Correction   active 
+            Sample count            7500
+            Gain:                   1
+            Samples frequency:      2 MHz
+            Bandwidth:              111 kHz
+            
+            all other parameter are read out of the instrument:
+            
+            default user power factor: 1
+            
+            Length Slit 1: 9mm
+            Length Slit 2: 9mm
+            Length Slit 3: 9mm
+            Length Slit 4: 9mm
+            Width Slit 1: 25?m
+            Width Slit 2: 25?m
+            Width Slit 3: 5?m
+            Width Slit 4: 5?m
+            Orientation Slit 1: X
+            Orientation Slit 2: Y
+            Orientation Slit 3: X
+            Orientation Slit 4: Y
+            
+            </summary>
+            <param name="Resource_Name">
+            This parameter specifies the interface of the device that is to be initialized. The exact syntax to be used for this parameter is shown in the note below. 
+            
+            The resource name can be taken from the function "getConnectedDevices" or the NI Measurement &amp; Automation Explorer.
+            
+            
+            
+            </param>
+            <param name="ID_Query">
+            Performs an In-System Verification.
+            Checks if the resource matches the BP2 vendor and product id.
+            </param>
+            <param name="Reset_Device">
+            Performs Reset operation and places the instrument in a pre-defined reset state.
+            </param>
+        </member>
+        <member name="P:Thorlabs.TLBP2.Interop.TLBP2.Handle">
+            <summary>
+            Gets the instrument handle.
+            </summary>
+            <value>
+            The value is the IntPtr that represents the handle to the instrument.
+            </value>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_connected_devices(Thorlabs.TLBP2.Interop.bp2_device[],System.UInt32@)">
+            <summary>
+            Gets a list of connected devices.
+            If this function is called with the parameter "Device_List" as VI_NULL, the function just returns the Device_Count.
+            The Device_List has to be initialized with Device_Count elements.
+            
+            ViUInt32 deviceCount;
+            ViStatus err = TLBP2_get_connected_deviced(vi, VI_NULL, &amp;deviceCount);
+            
+            BP2_DEVICE* deviceList = (BP2_DEVICE*) malloc(sizeof(BP2_DEVICE)*deviceCount);
+            err = TLBP2_get_connected_deviced(vi, deviceList, &amp;deviceCount);
+            
+            ...
+            
+            free(deviceList);
+            </summary>
+            <param name="Device_List">
+            The initialized list of BP2_DEVICE is filled with the information of the connected devices. If the parameter is VI_NULL, the parameter will be ignored. The list has to be initialized with the number of elements that is given by the Device_Count parameter. Maximal BP2_MAX_DEVICE_COUNT (10) devices can be connected.
+            </param>
+            <param name="Device_Count">
+            Returns the number of connected devices.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS            Connected devices query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.self_test(System.Int16@,System.Text.StringBuilder)">
+            <summary>
+            This function causes the instrument to perform a self-test and returns the result of that self-test.
+            </summary>
+            <param name="Self_Test_Result">
+            Numeric result from self-test operation 
+            0 = no error (test passed).
+            </param>
+            <param name="Self_Test_Message">
+            Self-test status message.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS              Self-test operation successful
+            VI_WARN_NSUP_SELF_TEST  Self-test not supported
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.reset">
+            <summary>
+            Places the instrument in a default state.
+            These parameter are resetted:
+            
+            - Drum speed         = 6 Hz
+            - Auto Gain          = active.
+            - Drum circum        = DRUM_CIRCUM
+            - Clip Level         = 13.5%
+            - Averaging          = inactive (set mode to floating and count to 1)
+            - Max Hold           = inactive
+            - Speed Correction   = inactive
+            - Reference Position = BP2_REFERENCE_POSITION_PRESET_SENSOR_CENTER
+            
+            For each slit these parameter are resetted:
+            - Scanning Method       = BP2_Slit_Scanning
+            - Base Line Mode        = BP2_BASELINE_MODE_DARK_WINDOW
+            - Base Line Value       = 0
+            - Beam Width Correction = active
+            
+            </summary>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS              Reset operation successful.
+            VI_WARN_NSUP_RESET      Reset not supported.
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.revision_query(System.Text.StringBuilder,System.Text.StringBuilder)">
+            <summary>
+            This function returns the revision of the instrument driver and the firmware revision of the instrument being used.
+            </summary>
+            <param name="Instrument_Driver_Revision">
+            Instrument driver revision.
+            </param>
+            <param name="Firmware_Revision">
+            Instrument firmware revision.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS               Revision query successful
+            VI_WARN_NSUP_REV_QUERY   Instrument revision query not supported
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.error_query(System.Int32@,System.Text.StringBuilder)">
+            <summary>
+            This function queries the instrument and returns instrument-specific error information.
+            </summary>
+            <param name="Error_Code">
+            Instrument error code returned by driver functions.
+            </param>
+            <param name="Error_Message">
+            Error message.
+            The message buffer has to be intialized with 256 bytes.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Error query operation successful
+            VI_WARN_NSUP_ERROR_QUERY  Error query not supported
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_service_mode(System.Byte)">
+            <summary>
+            The protected service functions have to be enabled with this function.
+            Please enter the access code to enable all the service functions.
+            For users of the instrument who need some of the functions may find the corresponding function in the tree "Configuration Functions".
+            </summary>
+            <param name="Password">
+            Password to enable the service functions.
+            The password is only used for Thorlabs internal production and is not available for customers.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Set acces code successful.
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_instrument_name(System.Text.StringBuilder)">
+            <summary>
+            Get the model name of the slit beam profiler (e.g. "BP209-VIS").
+            </summary>
+            <param name="Instrument_Name">
+            To get the instrument name the name buffer has to be initialized with 256 bytes and will be filled with the instrument name by this function.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Get the instrument name.
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_instrument_name(System.String)">
+            <summary>
+            Sets the instrument name. The service mode has to be enabled to use this function.
+            </summary>
+            <param name="Instrument_Name">
+            Instrument name with a maximal length of 10 characters.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS          Set the instrument name successful.
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_serial_number(System.Text.StringBuilder)">
+            <summary>
+            Gets the serial number from the instrument.
+            </summary>
+            <param name="Serial_Number">
+            Serial number of the instrument.
+            The buffer for the serial number has to be initialized with 256 bytes.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Get the serial number.
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_serial_number(System.String)">
+            <summary>
+            Sets the serial number in ASCII format. (e.g. M00123456).
+            Format of the serial number: M + eight numerics + '\0'
+            
+            The service mode has to be enabled to use this function.
+            </summary>
+            <param name="Serial_Number">
+            Sets the serial number.
+            Maximal 10 Bytes: 9 characters + '\0'.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Set serial number successful.
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_elapsed_time_counter(System.UInt16@,System.Byte@,System.Byte@,System.Byte@,System.Byte@)">
+            <summary>
+            Gets the duration of the use of the device.
+            The elapsed time is separated into Years, Months, Days, Hours and Minutes.
+            </summary>
+            <param name="Years">
+            Get the elapsed years.
+            </param>
+            <param name="Months">
+            Get the elapsed months.
+            </param>
+            <param name="Days">
+            Get the elapsed days.
+            </param>
+            <param name="Hours">
+            Get the elapsed hours.
+            </param>
+            <param name="Minutes">
+            Get the elapsed minutes.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS              query of the elapsed time successful.
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.update_elapsed_time_counter">
+            <summary>
+            Updates the elapsed time in the device.
+            Should be set periodically but not more than every 10 Minutes to protect the EEPROM of the device.
+            </summary>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS              updating of the elapsed time successful.
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_cpld_version(System.Text.StringBuilder)">
+            <summary>
+            Gets the version from the cpld inside the instrument.
+            The cpld version is written during the upload of the firmware.
+            </summary>
+            <param name="CPLD_Version">
+            Cpld version of the instrument.
+            The buffer for the cpld version has to be initialized with minimum 5 bytes.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Get the cpld version.
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_wavelength_range(System.UInt16@,System.UInt16@)">
+            <summary>
+            Gets the wavelength range the instruments supports.
+            The wavelength range can differ from the instrument model.
+            </summary>
+            <param name="Min_Wavelength">
+            Lower bound of the wavelength range in nm.
+            </param>
+            <param name="Max_Wavelength">
+            Upper bound of the wavelength range in nm.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Wavelength range query successful
+            
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_wavelength_range(System.UInt16,System.UInt16)">
+            <summary>
+            Sets the supported wavelength for the instrument in ?m.
+            The service mode has to be enabled to use this function.
+            </summary>
+            <param name="Min_Wavelength">
+            Minimum wavelength in nm.
+            </param>
+            <param name="Max_Wavelength">
+            Maximum wavelength in nm.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Set Wavelength operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_start_offset_range(System.UInt16@,System.UInt16@)">
+            <summary>
+            Gets the start offset range the instruments supports.
+            
+            
+            </summary>
+            <param name="Min_Offset">
+            Lower bound of the offset range in digits.
+            </param>
+            <param name="Max_Offset">
+            Upper bound of the offset range in digits.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Offset range query successful
+            
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_start_offset(System.UInt16@)">
+            <summary>
+            Gets the programmed start value of the offset where the instrument starts securely.
+            </summary>
+            <param name="Start_Offset">
+            Start Offset in digits.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Start Offset query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_start_offset(System.UInt16)">
+            <summary>
+            Sets the start value for the offset where the instrument starts under every conditions.
+            The service mode has to be enabled to use this function.
+            </summary>
+            <param name="Offset">
+            Offset in digits. Maximal 0xFFFF.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Set Offset operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_drum_circum(System.Double@)">
+            <summary>
+            Gets the current operating drum circum in ?m/sqrt(2).
+            </summary>
+            <param name="Drum_Circum">
+            Drum Circum in ?m/sqrt(2).
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Drum Circum query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_drum_circum(System.Double)">
+            <summary>
+            Sets the current operating drum circum in ?m/sqrt(2).
+            The service mode has to be enabled to use this function.
+            </summary>
+            <param name="Drum_Circum">
+            Drum Circum in ?m/sqrt(2).
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Set Drum Circum operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_fwbias_range(System.UInt16@,System.UInt16@)">
+            <summary>
+            Gets the forward bias range the photodiode of the instrument supports.
+            
+            
+            </summary>
+            <param name="Min_FWBias">
+            Lower bound of the forward bias in digits.
+            </param>
+            <param name="Max_FWBias">
+            Upper bound of the forward bias in digits.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                FW Bias range query successful
+            
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_fwbias(System.UInt16@)">
+            <summary>
+            Gets the current operating forward bias.
+            </summary>
+            <param name="FW_Bias">
+            Forward bias in digits.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Forward bias query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_fwbias(System.UInt16)">
+            <summary>
+            Sets the current operating forward bias in digits.
+            </summary>
+            <param name="FW_Bias">
+            Forward bias in digits.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Set forward bias operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_slit_parameter(System.Byte[],System.Byte[],System.Byte[],System.Byte[])">
+            <summary>
+            Gets the number of slits, the used slits, the slit lengths and widths.
+            
+            The buffer has to be initialized for maximal BP2_MAX_SLIT_COUNT slits.
+            </summary>
+            <param name="Slit_Used">
+            Gets the information if the slit is used.
+            0 = slit is not available
+            1 = slit is usable
+            </param>
+            <param name="Slit_Length">
+            Get the length in mm of each of the BP2_MAX_SLIT_COUNT slits.
+            </param>
+            <param name="Slit_Width">
+            Get the width in ?m of each of the BP2_MAX_SLIT_COUNT slits.
+            </param>
+            <param name="Slit_Orientation">
+            Get the orientation of the BP2_MAX_SLIT_COUNT slits.
+            0 = X
+            1 = Y
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Slit parameter query successful
+            
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_slit_parameter(System.Byte[],System.Byte[],System.Byte[],System.Byte[])">
+            <summary>
+            Sets the number of slits, the used slits, the slit lengths and widths.
+            Maximal BP2_MAX_SLIT_COUNT slits can be used.
+            The service mode has to be enabled to use this function.
+            </summary>
+            <param name="Slit_Used">
+            Sets if the slit has to be used.
+            
+            0 = do not use the slit
+            1 = the slit can be used.
+            </param>
+            <param name="Slit_Length">
+            Set the length in mm of each of the BP2_MAX_SLIT_COUNT slits.
+            </param>
+            <param name="Slit_Width">
+            Set the width in ?m of each of the BP2_MAX_SLIT_COUNT slits.
+            </param>
+            <param name="Slit_Orientation">
+            Set the orientation of the BP2_MAX_SLIT_COUNT slits.
+            0 = X
+            1 = Y
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Slit parameter query successful
+            
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_sensor_response(System.Byte@,System.UInt16@,System.UInt16@,System.Byte@,System.Int16[])">
+            <summary>
+            This function returns the sensitivity curve for the photidiode in combination with the nd filter for the power measurement.
+            </summary>
+            <param name="Response_Data_Count">
+            Get the number of valid data. Maximal 20 data can be returned.
+            </param>
+            <param name="Lowest_Wavelength">
+            Get the lowest wavelength in nm.
+            </param>
+            <param name="Highest_Wavelength">
+            Get the highest wavelength in nm.
+            </param>
+            <param name="Wavelength_Step">
+            Get the step in nm between two data.
+            </param>
+            <param name="Response_Data">
+            Buffer which contains maximal 20 data.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS              sensor response query successful
+            
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_sensor_response(System.Byte,System.UInt16,System.UInt16,System.Byte,System.Int16[])">
+            <summary>
+            Sets sensitivity curve for the photodiode.
+            The curve for a VIS model differs from a UV model.
+            The service mode has to be enabled to use this function.
+            </summary>
+            <param name="Response_Data_Count">
+            Set the number of valid data. Maximal 20 data can be set.
+            </param>
+            <param name="Lowest_Wavelength">
+            Set the lowest wavelength in nm.
+            </param>
+            <param name="Highest_Wavelength">
+            Set the highest wavelength in nm.
+            </param>
+            <param name="Wavelength_Step">
+            Set the step in nm between two data.
+            </param>
+            <param name="Response_Data">
+            Buffer which contains maximal 20 data.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Setting the sensor response successful
+            
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_construction_parameter(System.Byte@,System.Byte@,System.Byte@,System.Text.StringBuilder)">
+            <summary>
+            Gets the date and name of the construction.
+            </summary>
+            <param name="Constrution_Year">
+            Year of the construction.
+            </param>
+            <param name="Constrution_Month">
+            Month of the construction.
+            </param>
+            <param name="Constrution_Day">
+            Day of the construction.
+            </param>
+            <param name="Assembler_Name">
+            Name of the assembler.
+            The buffer can be filled with 8 characters.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS              Construction parameter query successful
+            
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_construction_parameter(System.Byte,System.Byte,System.Byte,System.String)">
+            <summary>
+            Sets name and date of the construction.
+            The service mode has to be enabled to use this function.
+            </summary>
+            <param name="Constrution_Year">
+            Get the number of mounted slits.
+            </param>
+            <param name="Constrution_Month">
+            Get the number of mounted slits.
+            </param>
+            <param name="Constrution_Day">
+            Get the number of mounted slits.
+            </param>
+            <param name="Assembler_Name">
+            Name of the assembler. The buffer can contain up to 8 characters + '\0'.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS        Setting the construction parameter successful
+            
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_calibration_parameter(System.Byte@,System.Byte@,System.Byte@,System.Text.StringBuilder,System.Text.StringBuilder,System.Text.StringBuilder)">
+            <summary>
+            Gets the parameter of the calibration.
+            </summary>
+            <param name="Calibration_Year">
+            Year of the calibration.
+            </param>
+            <param name="Calibration_Month">
+            Month of the calibration.
+            </param>
+            <param name="Calibration_Day">
+            Day of the calibration.
+            </param>
+            <param name="Calibration_Firmware">
+            Minimum size of the firmware buffer is 8 characters.
+            </param>
+            <param name="Calibration_SW_Version">
+            Length of the version buffer minimum 8 characters.
+            </param>
+            <param name="Assembler_Name">
+            Name of the assembler with maximal 8 characters.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS           Calibration parameter query successful
+            
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_calibration_parameter(System.Byte,System.Byte,System.Byte,System.String,System.String,System.String)">
+            <summary>
+            Sets the parameter of the calibration.
+            The service mode has to be enabled to use this function.
+            </summary>
+            <param name="Calibration_Year">
+            Year of the calibration.
+            </param>
+            <param name="Calibration_Month">
+            Month of the calibration.
+            </param>
+            <param name="Calibration_Day">
+            Day of the calibration.
+            </param>
+            <param name="Calibration_Firmware">
+            Minimum size of the firmware buffer is 8 characters.
+            </param>
+            <param name="Calibration_SW_Version">
+            Minimum size of the firmware buffer is 8 characters.
+            </param>
+            <param name="Assembler_Name">
+            Name of the assembler with maximal 8 characters.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS    Setting the calibration parameter successful
+            
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_slit_position_range(System.UInt16@,System.UInt16@)">
+            <summary>
+            Gets the position range of the slits.
+            
+            
+            </summary>
+            <param name="Min_Position">
+            Lower bound of the slit position in digits.
+            </param>
+            <param name="Max_Position">
+            Upper bound of the slit position in digits.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Slit position range query successful
+            
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_slit_positions(System.Int16[])">
+            <summary>
+            Gets the current operating positions of the slits.
+            </summary>
+            <param name="Slit_Positions">
+            Array of positions with maximal MEAS_WINDOW_COUNT entries.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Slit positions query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_slit_positions(System.Int16[])">
+            <summary>
+            Sets the current operating slit positions in digits.
+            These values are used until the device is connected. Unplug the device will reset the positions to the last saved values.
+            
+            Default values:
+            
+            Slit_Positions[0] = 215; // position of the power window
+            Slit_Positions[1] = 482; // position of the power dark window
+                    
+            Slit_Positions[2] = 632; // position of the first slit
+            Slit_Positions[3] = 898; // position of the first dark window
+            
+            Slit_Positions[4] = 1048;// position of the second slit
+            Slit_Positions[5] = 1315;// position of the second dark window
+            
+            Slit_Positions[6] = 1465;// position of the third slit
+            		Slit_Positions[7] = 1732;	// position of the third dark window
+            
+            		Slit_Positions[8] = 1882;	// position of the fourth slit
+            		Slit_Positions[9] = 2149;	// position of the fourth dark window 	
+            </summary>
+            <param name="Slit_Positions">
+            Array with positions of the slits. Array has MEAS_WINDOW_COUNT entries.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS             Set slit positions operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.save_slit_positions(System.Int16[])">
+            <summary>
+            Sets the current operating slit positions in digits and stores them into the eeprom. 
+            The service mode has to be enabled to use this function.
+            </summary>
+            <param name="Slit_Positions">
+            Array with positions of the slits. Array has MEAS_WINDOW_COUNT entries.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS             Save slit positions operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_slit_positions_roi(System.Int16[])">
+            <summary>
+            Gets the current operating positions of the slits in the ROI mode.
+            </summary>
+            <param name="Slit_Positions_ROI">
+            Array of positions with maximal MEAS_WINDOW_COUNT entries.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Slit positions roi query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_slit_positions_roi(System.Int16[])">
+            <summary>
+            Sets the current operating slit positions in the ROI mode.
+            These values are only available until unplugging the instrument.
+            </summary>
+            <param name="Slit_Positions_ROI">
+            Array of ROI positions of the slits with MEAS_WINDOW_COUNT entries.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS          Set slit positions roi operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.save_slit_positions_roi(System.Int16[])">
+            <summary>
+            Sets the current operating slit positions for the ROI in digits and stores them into the eeprom. 
+            The service mode has to be enabled to use this function.
+            </summary>
+            <param name="Slit_Positions_ROI">
+            Array with positions of the ROI slits. Array has MEAS_WINDOW_COUNT entries.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS             Save slit positions operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_motor_dac_range(System.UInt16@,System.UInt16@)">
+            <summary>
+            Gets the motor dac range the instruments supports.
+            
+            
+            </summary>
+            <param name="Min_DAC_Value">
+            Lower bound of the motor dac value in digits.
+            </param>
+            <param name="Max_DAC_Value">
+            Upper bound of the motor dac value in digits.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Motor dac range query successful
+            
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_motor_dac(System.UInt16@)">
+            <summary>
+            Gets the current operating motor dac value.
+            </summary>
+            <param name="Motor_DAC_Value">
+            DAC value for the motor.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Motor dac value query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_motor_dac(System.UInt16)">
+            <summary>
+            Set the DAC value for the motor.
+            </summary>
+            <param name="Motor_DAC_Value">
+            Set the DAC value for the motor.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS             Set motor DAC value operation successful.
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_motor_dac_5_20hz(System.UInt16@,System.UInt16@)">
+            <summary>
+            Gets the current stored DAC value where the drum has a rotation frequency of 5 and 20 Hz.
+            </summary>
+            <param name="DAC_Value_5Hz">
+            Calibrated dac value for a drum rotation of 5 Hz.
+            </param>
+            <param name="DAC_Value_20Hz">
+            Calibrated dac value for a drum rotation of 20 Hz.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS               calibrated dac value query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_motor_dac_5_20hz(System.UInt16,System.UInt16)">
+            <summary>
+            Sets the DAC value where the drum has a rotation frequency of 5 and 20 Hz.
+            The service mode has to be enabled to use this function.
+            </summary>
+            <param name="DAC_Value_5Hz">
+            Calibrated dac value where the drum rotates with 5 Hz.
+            </param>
+            <param name="DAC_Value_20Hz">
+            Calibrated dac value where the drum rotates with 20Hz.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS       Calibrated dac values operation successful.
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_motor_dac_2_5_20hz(System.UInt16@,System.UInt16@,System.UInt16@)">
+            <summary>
+            Gets the current stored DAC value where the drum has a rotation frequency of 2, 5 and 20 Hz.
+            </summary>
+            <param name="DAC_Value_2Hz">
+            Calibrated dac value for a drum rotation of 2 Hz.
+            </param>
+            <param name="DAC_Value_5Hz">
+            Calibrated dac value for a drum rotation of 5 Hz.
+            </param>
+            <param name="DAC_Value_20Hz">
+            Calibrated dac value for a drum rotation of 20 Hz.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS               calibrated dac value query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_motor_dac_2_5_20hz(System.UInt16,System.UInt16,System.UInt16)">
+            <summary>
+            Sets the DAC value where the drum has a rotation frequency of 2, 5 and 20 Hz.
+            The service mode has to be enabled to use this function.
+            </summary>
+            <param name="DAC_Value_2Hz">
+            Calibrated dac value where the drum rotates with 2 Hz.
+            </param>
+            <param name="DAC_Value_5Hz">
+            Calibrated dac value where the drum rotates with 5 Hz.
+            </param>
+            <param name="DAC_Value_20Hz">
+            Calibrated dac value where the drum rotates with 20Hz.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS       Calibrated dac values operation successful.
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_construction_operating_hours_counter(System.UInt16@,System.Byte@,System.Byte@)">
+            <summary>
+            Gets the elapsed time to the last construction date.
+            </summary>
+            <param name="Days">
+            Days to the last construction.
+            </param>
+            <param name="Hours">
+            Hours to the last construction.
+            </param>
+            <param name="Minutes">
+            MInutes to the last construction.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS           construction hour query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_calibration_operating_hours_counter(System.UInt16@,System.Byte@,System.Byte@)">
+            <summary>
+            Gets the elapsed time to the last calibration date.
+            </summary>
+            <param name="Days">
+            Elapsed days to the last calibration.
+            </param>
+            <param name="Hours">
+            Elapsed hours to the last calibration.
+            </param>
+            <param name="Minutes">
+            Elapsed minutes to the last calibration.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS           calibration hour query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.reset_calibration_operating_hours_counter">
+            <summary>
+            Resets the calibration date to the current date.
+            </summary>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS           Set calibration date operation successful.
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.reset_construction_operating_hours_counter">
+            <summary>
+            Resets the construction date to the current date.
+            </summary>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS          Set construction date operation successful.
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_power_factor(System.Double@)">
+            <summary>
+            Get the Power Correction Factor from the eeprom of the device.
+            </summary>
+            <param name="Power_Factor">
+            Get the Power Correction Factor.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Power factor query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_power_factor(System.Double)">
+            <summary>
+            Set the Power Correction Factor and stores the value in the eeprom of the device.
+            The service mode needs to be enabled to use this function.
+            </summary>
+            <param name="Power_Factor">
+            Set the Power Correction Factor.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Set power factor operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_device_status(System.UInt16@)">
+            <summary>
+            This function queries the status register of the BP2.
+            
+            
+            </summary>
+            <param name="Device_Status">
+            This parameter returns the instruments status.
+            
+            // a new scan is available
+            BP2_STATUS_SCAN_AVAILABLE     0x00000001  
+            
+            // the drum speed has been stabilized 
+            BP2_STATUS_DRUM_STABILIZED    0x00000002 
+            
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                device status query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_slit_samples_count_range(System.UInt16@,System.UInt16@)">
+            <summary>
+            Gets the range of sample counts the instrument supports.
+            The sample count depends on the drum speed and the sample frequency.
+            </summary>
+            <param name="Min_Sample_Count">
+            Lower bound of the sample count.
+            </param>
+            <param name="Max_Sample_Count">
+            Upper bound of the sample count.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Sample count range query successful
+            
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_slit_samples_counts(System.Int16[])">
+            <summary>
+            Gets the current operating slit sample buffer.
+            </summary>
+            <param name="Sample_Count_Buffer">
+            Buffer which contains the sample count for each slit.
+            Size of the buffer is BP2_MAX_SLIT_COUNT * 2 bytes = 8 bytes.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Sample count buffer query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_slit_samples_counts(System.Int16[])">
+            <summary>
+            Sets the current operating sample count for each slit.
+            Setting the sample count may change the sample frequency.
+            
+            Remark: Using the function "Set Drum Speed Extended" will overwrite the manual set sample count.
+            </summary>
+            <param name="Sample_Count_Buffer">
+            Buffer which contains the sample count for each slit.
+            Size of the buffer is BP2_MAX_SLIT_COUNT * 2 bytes = 8 bytes.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS         Set sample count buffer operation successful.
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_slit_samples_frequency_range(System.Single@,System.Single@)">
+            <summary>
+            Gets the sample frequency range the instruments supports in kHz.
+            
+            
+            </summary>
+            <param name="Min_Samples_Frequency">
+            Lower bound of the samples frequency in kHz.
+            </param>
+            <param name="Max_Samples_Frequency">
+            Upper bound of the samples frequency in kHz.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS            Samples frequency range query successful.
+            
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_slit_samples_frequencies(System.Double[])">
+            <summary>
+            Gets the current operating samples frequency for each slit in kHz.
+            </summary>
+            <param name="Samples_Frequencies_Buffer">
+            Buffer for the samples frequencies in kHz.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Samples frequencies query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_slit_samples_frequencies(System.Double[])">
+            <summary>
+            Sets the current operating samples frequency for each slit.
+            
+            Remark: Using the function "Set Drum Speed Extended" will overwrite the manual set sample count.
+            </summary>
+            <param name="Samples_Frequencies">
+            Frequency for the samples of each slit.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS          Set samples frequencies operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_offset_range(System.UInt16@,System.UInt16@)">
+            <summary>
+            Gets the offset range to correct the dark level.
+            
+            
+            </summary>
+            <param name="Min_Offset">
+            Lower bound of the offset range in digits.
+            </param>
+            <param name="Max_Offset">
+            Upper bound of the offset range in digits.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Offset range query successful
+            
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_offsets(System.Int16[],System.UInt16@)">
+            <summary>
+            Gets the currently used offset values for the slits.
+            </summary>
+            <param name="Offset_Slits">
+            Array of offset value for the slits in digits.
+            </param>
+            <param name="Offset_Power">
+            Offset value for the power window in digits.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Start Offset query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_offsets(System.Int16[],System.UInt16)">
+            <summary>
+            Sets the currently used offset values for the slits.
+            </summary>
+            <param name="Offset_Slits">
+            Array of offset value for the slits in digits.
+            </param>
+            <param name="Offset_Power">
+            Array of offset value for the power window in digits.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Set Offset operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_gain_range(System.Byte@,System.Byte@)">
+            <summary>
+            Get the range of the gain the instrument supports.
+            </summary>
+            <param name="Min_Gain">
+            Lower bound of the gain range.
+            </param>
+            <param name="Max_Gain">
+            Upper bound of the gain range.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Get gain range operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_gains(System.Byte[],System.Byte@)">
+            <summary>
+            Gets the gains for each slit.
+            </summary>
+            <param name="Gain_Buffer">
+            Buffer of BP2_MAX_SLIT_COUNT elements which contains the gain for each slit.
+            </param>
+            <param name="Gain_Power">
+            Get the gain for the power window.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Gain query operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_gains(System.Byte[],System.Byte)">
+            <summary>
+            Set the gains for each slit.
+            </summary>
+            <param name="Gain_Buffer">
+            Buffer of BP2_MAX_SLIT_COUNT elements which contains the gain for each slit.
+            </param>
+            <param name="Gain_Power">
+            Set the gain for the power window.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Set gains operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_auto_gain(System.Boolean@)">
+            <summary>
+            Gets the automatic calculation of the gain.
+            Manual setting of a gain value will fail when auto gain is activated.
+            </summary>
+            <param name="Auto_Gain">
+            Get the configuration if automatic calculation of the gain is activated.
+            VI_ON  = auto gain is active
+            VI_OFF = auto gain is inactive
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Auto gain query operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_auto_gain(System.Boolean)">
+            <summary>
+            Sets the automatic calculation of the gain.
+            The gain will be corrected with every measurement and take effect in the next measurement.
+            
+            Manual setting of a gain value will fail when auto gain is activated.
+            </summary>
+            <param name="Auto_Gain">
+            Set the configuration if automatic calculation of the gain has to be activated.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Set auto gain operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_bandwidth_range(System.Double@,System.Double@)">
+            <summary>
+            Gets the bandwidth range in kHz the instruments supports.
+            
+            default: 16.00 to 2500 kHz
+            </summary>
+            <param name="Min_Bandwidth">
+            Lower bound of the bandwith range in kHz.
+            </param>
+            <param name="Max_Bandwidth">
+            Upper bound of the bandwith range in kHz.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Bandwidth range query successful
+            
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_bandwidths(System.Double[])">
+            <summary>
+            Gets the bandwidth for each slit.
+            </summary>
+            <param name="Bandwidth_Buffer">
+            Buffer which contains the bandwidth for each of the maximal BP2_MAX_SLIT_COUNT slit.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS               Bandwidth query operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_bandwidths(System.Double[])">
+            <summary>
+            Sets the bandwidth for each slit.
+            </summary>
+            <param name="Bandwidth_Buffer">
+            Buffer which contains the bandwidth for each of the BP2_MAX_SLIT_COUNT slit.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Set bandwidth operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_drum_speed_range(System.Double@,System.Double@)">
+            <summary>
+            Gets the speed range the instruments supports.
+            Default: 2.0 to 20.0 Hz.
+            </summary>
+            <param name="Min_Speed">
+            Lower bound of the speed range in drum rotation per second.
+            </param>
+            <param name="Max_Speed">
+            Upper bound of the speed range in drum rotation per second.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Speed range query successful.
+            
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_drum_speed(System.Double@)">
+            <summary>
+            Gets the speed of the drum rotation per second.
+            </summary>
+            <param name="Drum_Speed">
+            Speed of the drum in rotation per second.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Speed query successful
+            
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_drum_speed(System.Double)">
+            <summary>
+            Sets the speed of the drum in rotations per seconds.
+            
+            To use the full slit length (9mm) for your measurements, adopt the sample count and frequency to the new scan rate.
+            
+            Set the freqencies with the function "set_samples_frequencies":
+            sample_frequency_kHz = (sample_count / 1000) * (get_drum_circum / 1000 / slit_length_mm) *drum_speed_Hz.
+            
+            sample_frequency_kHz = (7500 / 1000) * ((55800*PI) / sqrt(2.0) / 1000 / 9)*10
+            
+            For a sample count of 7500 and a scan rate of 10 Hz, the samples frequency is 1033 kHz.
+            </summary>
+            <param name="Drum_Speed">
+            sets the speed of the drum in rotations per seconds.
+            Range of the speed: 0 to 20 U/sec.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Set speed operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_drum_speed_ex(System.Double,System.UInt16@,System.Double@)">
+            <summary>
+            Sets the speed of the drum in rotations per seconds.
+            
+            The sample count and freqency is changed automatically.
+            </summary>
+            <param name="Drum_Speed">
+            sets the speed of the drum in rotations per seconds.
+            Range of the speed: 2 to 20 U/sec.
+            </param>
+            <param name="Sample_Count">
+            Count of samples for a slit.
+            </param>
+            <param name="Sample_Resolution">
+            Mean distance in ?m between two samples.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Set speed operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.add_drum_speed_offset(System.Single)">
+            <summary>
+            Adds a speed to the current drum speed to correct the motor speed. Please call "Set Drum Speed" to see the effect. With "Clear Drum Offset" the offset can be resetted.
+            </summary>
+            <param name="Drum_Speed_Offset">
+            corrects the speed of the drum in rotations per seconds.
+            Range of the correction speed: -3.0 to 3.0 U/sec.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS           Set correction speed operation successful.
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.clear_drum_speed_offset">
+            <summary>
+            Clears the drum speed offset. This function is useful if the dum speed has been changed.
+            </summary>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS         Clear correction speed operation successful.
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_speed_correction(System.Boolean@)">
+            <summary>
+            Gets the automatic correction of the drum speed.
+            The target drum speed can be set by the function "set_drum_speed".
+            The drum speed will be corrected if the measured drum speed differs from the target drum speed by more than 0.5Hz.
+            The drum speed can increase with higher temperature or during longer measurements.
+            </summary>
+            <param name="Auto_Correction">
+            Get the configuration if automatic correction of the drum speed is activated.
+            VI_ON  = auto correction is active
+            VI_OFF = auto correction is inactive
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Auto correction query operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_speed_correction(System.Boolean)">
+            <summary>
+            With a higher temperature or longer measurements the drum speed can increase. This causes a complession of the beam profile in the calculation results. Then the beam profile may be clipped and the calculation results have false values. To avoid the drift the speed correction can be activated. If the measured drum speed differs from the target drum speed of more than 0.5 Hz the speed will corrected. This has the effect that the centroid moves to a new position if the speed correction is done. The effect depends on the position of the base line and the noise of the signal.
+            </summary>
+            <param name="Auto_Correction">
+            Activate the automatic correction of the drum speed.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Set correction operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_averaged_drum_speed(System.Double@)">
+            <summary>
+            Gets the speed of the drum rotation per second.
+            The drum speed is calculated from the 156 segments of the elapsed time measurement.
+            </summary>
+            <param name="Averaged_Drum_Speed">
+            Speed of the drum in rotation per second.
+            The value is the sum of the 156 elapsed times, divided by 156 and multiplied by 156.25. This value is more stable than the "Get Drum Speed" measurement.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Averaged drum speed query successful
+            
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_user_power_factor_range(System.Double@,System.Double@)">
+            <summary>
+            Gets the range for the power factor.
+            </summary>
+            <param name="Min_Power_Factor">
+            Lower bound of the power factor.
+            </param>
+            <param name="Max_Power_Factor">
+            Upper bound of the power factor.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Power factor range query successful
+            
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_user_power_factor(System.Double@)">
+            <summary>
+            Get the User Power Correction Factor.
+            This factor takes effect on the calculation of the total power.
+            Total Power = Measured Power * User Factor.
+            </summary>
+            <param name="Power_Factor">
+            Get the Power Correction Factor.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Power factor query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_user_power_factor(System.Double)">
+            <summary>
+            Set the User Power Correction Factor.
+            This factor takes effect on the calculation of the total power.
+            Total Power = Power calculated from the slit measurement * User Factor.
+            
+            To set the user power factor:
+            1. measure the power of your light source with an external power meter
+            2. set the user power factor to 1.0 and get the Total Power from the slit measurement.
+            3. Calculate the power factor. User power factor = external measured power / slit measured power.
+            
+            </summary>
+            <param name="Power_Factor">
+            Set the Power Correction Factor.
+            The power factor can be set in a range from 0.01 to 65.0.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Set power factor operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_wavelength(System.Double@)">
+            <summary>
+            Returns the currently used wavelength in nm.
+            </summary>
+            <param name="Wavelength">
+            Get the currently used wavelength in nm.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Wavelength query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_wavelength(System.Double)">
+            <summary>
+            Set the wavelength in nm.
+            </summary>
+            <param name="Wavelength">
+            Set the wavelength in nm for calculations.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Set wavelength operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_use_roi(System.Boolean@)">
+            <summary>
+            Returns if the instrument uses a smaller ROI than the slit aperture.
+            </summary>
+            <param name="Use_ROI">
+            Get the use of the ROI.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Use ROI query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_use_roi(System.Boolean)">
+            <summary>
+            Activates or deactivates the use of the ROI.
+            </summary>
+            <param name="Use_ROI">
+            Sets the use of the ROI on or off.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Setting the ROI Use successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_averaging(System.Byte@,System.Byte@)">
+            <summary>
+            Returns the number of scans which are averaged and the used averaging mode.
+            </summary>
+            <param name="Number_of_Scans_Averaged">
+            Get the number of scans that are averaged.
+            1 = No Averaing
+            2... 100 the intensities are summed over the scans and averaged.
+            All Calculations are done on the averaged data.
+            </param>
+            <param name="Average_Mode">
+            Mode how the scans are averaged.
+            0 = Rolling Averaging (The average over the last x measurements is calculated)
+            1 = Floating Averaging ( The new scan is added to the averaged scans)
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Averaging query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_averaging(System.Byte,System.Byte)">
+            <summary>
+            Sets the number of scans which are averaged and the avaraging mode.
+            </summary>
+            <param name="Number_of_Scans_Averaged">
+            Set the number of scans that are averaged.
+            1 = No Averaing
+            2... 100 the intensities are summed over the scans and averaged.
+            All Calculations are done on the averaged data.
+            </param>
+            <param name="Average_Mode">
+            Mode how the scans are averaged.
+            0 = Rolling Averaging (The last x scans are summed up and averaged)
+            1 = Floating Averaging ( The new scan is added to the averaged scans)
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Setting the Averaging successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_scanning_method(System.Byte,System.Byte@)">
+            <summary>
+            Returns the mode of a slit which is used to reconstruct the beam profile.
+            </summary>
+            <param name="Slit_Index">
+            The reconstruction mode of the slit identified by the index.
+            Slit index range: 0 to BP2_MAX_SLIT_COUNT - 1
+            </param>
+            <param name="Scanning_Method">
+            Mode how the scans are reconstructed.
+            0 = Slit scanning
+            1 = Knife-Edge Mode
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Reconstruction mode query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_scanning_method(System.Byte,System.Byte)">
+            <summary>
+            Sets the mode of a slit which is used to reconstruct the beam profile.
+            </summary>
+            <param name="Slit_Index">
+            The reconstruction mode of the slit identified by the index.
+            Slit index range: 0 to BP2_MAX_SLIT_COUNT - 1
+            </param>
+            <param name="Scanning_Method">
+            Mode how the scans are reconstructed.
+            0 = Slit scanning
+            1 = Derivated
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS           Setting the reconstruction mode successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_clip_level(System.Single@)">
+            <summary>
+            Returns the clip level where the calculations are made.
+            </summary>
+            <param name="Clip_Level">
+            Clip Level in a range from 0.0 to 1.0.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Clip Level query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_clip_level(System.Single)">
+            <summary>
+            Set the clip level where the beam width is calculated.
+            </summary>
+            <param name="Clip_Level">
+            Set the Clip Level in ragen from 0.0 to 1.0. 0.135 and 0.50 are common values.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Setting the clip level successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_max_hold(System.Boolean@)">
+            <summary>
+            Returns the use of the max hold function for a slit.
+            </summary>
+            <param name="Max_Hold">
+            Is the max hold mode used?
+            ON  = Max hold is active
+            OFF = Max hold is inactive
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Max Hold use query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_max_hold(System.Boolean)">
+            <summary>
+            Sets if only the maximum values of all scans are used for the calculation.
+            </summary>
+            <param name="Max_Hold">
+            Set the Use of Max Hold.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS           Setting the use of Max Hold successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_base_line(System.Byte,System.Byte@,System.Single@)">
+            <summary>
+            Set the Auto Base Line Correction if the slit measurement contains a lot of ambient light. This measurement will reduce the influence of the ambient light.
+            
+            The base line calculated from the dark windows will be placed by the mean of the first 10 samples of the slit measurement.
+            Be sure that the beam profile is in the middle of the slit window and only the ambient light is measured within the first 10 samples.
+            </summary>
+            <param name="Slit_Index">
+            Index of the slit.
+            </param>
+            <param name="Mode">
+            Returns the mode how the base line is calculated.
+            
+            Mean of the intensities of the dark window.     (0)
+            Mean of the first 10 samples of the slit window (1)
+            Fixed user base line value                      (2)
+            </param>
+            <param name="Base_Line">
+            Returns the used base line fo the mode 'User Base Level'.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS            Success of the base line query.
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_base_line(System.Byte,System.Byte,System.Single)">
+            <summary>
+            Sets a digit value for the base line or automatic.
+            </summary>
+            <param name="Slit_Index">
+            Index of the slit.
+            </param>
+            <param name="Mode">
+            Change the mode how the base line is calculated.
+            
+            Mean of the intensities of the dark window.     (0)
+            Mean of the first 10 samples of the slit window (1)
+            Fixed user base line value                      (2)
+            
+            </param>
+            <param name="Base_Line">
+            Manual digit value for the base line. This parameter has to be set if the mode is set to "User Base Level". Fo all other modes, this parameter is ignored.
+            
+            BaseLine &lt;= 0.1: The base line is calculated automatically from the dark windows.
+            
+            Base Line &gt; 0.1: The base line from the dark window is replaced by the Base Line value. The Base Line value is up to 65.535 digits.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS           Setting the base line successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_beam_width_correction(System.Byte,System.Boolean@)">
+            <summary>
+            Gets a correction for beam width smaller than the slit with.
+            </summary>
+            <param name="Slit_Index">
+            Index of the slit.
+            </param>
+            <param name="Beam_Width_Correction">
+            Enables the correction.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS          Query the beam width correction successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_beam_width_correction(System.Byte,System.Boolean)">
+            <summary>
+            Sets a correction for beam width smaller than the slit with.
+            </summary>
+            <param name="Slit_Index">
+            Index of the slit.
+            </param>
+            <param name="Beam_Width_Correction">
+            Enables the correction.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS          Setting the beam width correction successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_calculation_area(System.Byte,System.Boolean@,System.Single@,System.Single@,System.Single@)">
+            <summary>
+            Returns the calculation area for the slit where the calculations are made.
+            </summary>
+            <param name="Slit_Index">
+            Index of the slit.
+            </param>
+            <param name="Mode">
+            Mode for the calculation area.
+            VI_ON  = automatic (default)
+            VI_OFF = manual
+            </param>
+            <param name="Automatic_Mode_Clip_Level">
+            Get the clip level for the automatic calculation area.
+            The clip level is a threshold from the peak intensity to the base line which includes the samples for calculation.
+            Clip Level in a range from 0.0 to 13.5.
+            </param>
+            <param name="Left_Border">
+            Position in ?m where the left border for the calculation area is.
+            </param>
+            <param name="Right_Border">
+            Position in ?m where the right border for the calculation area is.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS          Calculation Area query successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_calculation_area(System.Byte,System.Boolean,System.Single,System.Single,System.Single)">
+            <summary>
+            Sets the calculation area for the slit where the calculations are made.
+            </summary>
+            <param name="Slit_Index">
+            Index of the slit.
+            </param>
+            <param name="Mode">
+            Set the calculation area either automatic or manual.
+            Automatic = 1 = VI_ON  = true
+            Manual    = 0 = VI_OFF = false
+            
+            If the mode is set to "Automatic" then the parameter "Automatic Mode Clip Level" has to be set. The parameter "Left Border" and "Right Border" are ignored.
+            
+            If the mode is set to "Manual" then the parameter "Left Border" and "Right Border" have to be set. The parameter "Automatic Mode Clip Level" is ignored.
+            </param>
+            <param name="Automatic_Mode_Clip_Level">
+            Set the clip level for the automatic calculation area. This parameter has to be set with the "Automatic Mode".
+            The clip level is a threshold in percent between the peak intensity and the base line.
+            A clip level of 0.01 means that beginning at the peak position and lookking in both directions to the edges of the measurement window, all samples that have an intensity higher than 1% of the range between the peak and the base line are used for calculations. With the first sample in each direction that is below the threshold, all further samples are not used.
+            
+            </param>
+            <param name="Left_Border">
+            Position in ?m where the left border of the calculation area is.
+            The range for the left border is from 0 to 9000?m. Samples that are below the border are not used for the calculations.
+            </param>
+            <param name="Right_Border">
+            Position in ?m where the right border for the calculation area is.
+            The range for the right border is from 0 to 9000?m. Samples that are greater the border are not used for the calculations.
+            The right border has to be a greater value than the left border.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS         Setting the Calculation Area successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_position_correction(System.Boolean@)">
+            <summary>
+            Gets a correction for the centroid and peak position. The correction translates the centroid and peak position under the influence of the bandwidth, gain and drum speed.
+            </summary>
+            <param name="Position_Correction">
+            Enables the position correction.
+            
+            ON  = Position correction is active
+            OFF = Position correction is deactive
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS          Query the position correction successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_position_correction(System.Boolean)">
+            <summary>
+            Sets a correction for the centroid and peak position. The correction translates the centroid and peak position under the influence of the bandwidth, gain and drum speed. This correction is used for this calculation result:
+            - centroid position
+            - peak position
+            - positions arrays for the slits
+            </summary>
+            <param name="Position_Correction">
+            Enables the position correction.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS          Setting the position correction successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_reference_position(System.Byte,System.Byte@,System.Double@)">
+            <summary>
+            Gets the position offset which is added to the centroid and peak position.
+            </summary>
+            <param name="Slit_Index">
+            Index of the slit.
+            </param>
+            <param name="Preset">
+            Either fix the offset to a calulation parameter or set a user defined offset.
+            0 = Sensor Center
+            1 = Roi Center
+            2 = Peak Position
+            3 = Centroid Position
+            4 = User Position
+            </param>
+            <param name="Reference_Position">
+            Offset to the calculation parameter centroid and peak position in ?m.
+            Corrected Centroid Position = Reference Position - Centroid position
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS          Query the reference position successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.set_reference_position(System.Byte,System.Byte,System.Double)">
+            <summary>
+            Gets the position offset which is added to the centroid and peak position.
+            This parameter only is used if the positin correction is activated with the function "set_position_correction(VI_TRUE)".
+            </summary>
+            <param name="Slit_Index">
+            Index of the slit.
+            </param>
+            <param name="Preset">
+            Either fix the offset to a calulation parameter or set a user defined offset.
+            0 = Sensor Center
+            1 = Roi Center
+            2 = Peak Position
+            3 = Centroid Position
+            4 = User Position
+            </param>
+            <param name="Reference_Position">
+            Offset to the calculation parameter centroid and peak position in ?m.
+            Corrected Centroid Position = Reference Position - Centroid position
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS          Setting the reference position successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_slit_scan_data(Thorlabs.TLBP2.Interop.bp2_slit_data[],Thorlabs.TLBP2.Interop.bp2_calculations[],System.Double@,System.Single@,System.Double[])">
+            <summary>
+            This function reads out the processed scan data. 
+            The beam profile is analyzed for each of the maximal BP2_MAX_SLIT_COUNT slits independently.
+            </summary>
+            <param name="Slit_Data">
+            This buffer contains the data of each of the BP2_MAX_SLIT_COUNT slits. Please provide an array of BP2_MAX_SLIT_COUNT structures of BP2_SLIT_DATA.
+            
+            
+            To identify a slit, please use the function get_slit_parameter.
+            </param>
+            <param name="Calculation_Results">
+            Fills the data buffer with the calculation result for each slit.
+            The parameter is optional. You may pass VI_NULL if you don't need this parameter.
+            Please provide an array of BP2_MAX_SLIT_COUNT structures of BP2_CALCULATIONS.
+            </param>
+            <param name="Power">
+            Returns the power in mW of the drum segment with the ND filter.
+            You may pass VI_NULL if you don't need this parameter.
+            </param>
+            <param name="Power_Window_Saturation">
+            Returns the saturation of the power window in percent.
+            You may pass VI_NULL if you don't need this parameter.
+            </param>
+            <param name="Power_Intensities">
+            Fills a buffer of minimum 2128 entries with the intensities from the power window. You may pass VI_NULL if you don't need this parameter.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS         Get the measurement data operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_knife_edge_reconstruction(Thorlabs.TLBP2.Interop.bp2_slit_data[],Thorlabs.TLBP2.Interop.bp2_calculations[],System.UInt16[],Thorlabs.TLBP2.Interop.bp2_slit_data[],Thorlabs.TLBP2.Interop.bp2_calculations[])">
+            <summary>
+            This function calculates the knife edge data from the slit data.
+            </summary>
+            <param name="Slit_Data">
+            A buffer of max 7500 entries with the intensites of the slit data. The base level is substracted from the intensities. Max intensity value is 32767.
+            </param>
+            <param name="Calculation_Results">
+            A buffer with the calculation result for each slit.
+            </param>
+            <param name="Slit_Indices">
+            This array contains the information if the knife edge is calculated for this slit. If this parameter is not used, all slits become the knife edge data. This parameter is useful to increase the performance by suppress the calculation on slits that are not of interest.
+            
+            
+            Example for the calculation on the last two slits:
+            slit_indices[0] = VI_FALSE;
+            slit_indices[1] = VI_FALSE;
+            slit_indices[2] = VI_TRUE;
+            slit_indices[3] = VI_TRUE;
+            </param>
+            <param name="Slit_Data_Knife_Edge">
+            Fills the data buffer of max 7500 entries with the intensites of the slit data. The base level is substracted from the intensities. Max intensity value is 32767.
+            </param>
+            <param name="Calculation_Results_Knife_Edge">
+            Fills the data buffer with the calculation result for each slit.
+            The parameter is optional. If the calculations are not needed, please use VI_NULL as value instead of the calculations buffer.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS         Get the measurement data operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_drum_elapsed_times(System.Int16[])">
+            <summary>
+            This function reads out the measured elapsed times between two impulses. 156 Impulses are measured for each drum rotation.
+            </summary>
+            <param name="Elapsed_Time_Buffer">
+            Array with the measurement of the elapsed times in ?sec between the 156 impulses per drum rotation.
+            
+            The array has ELAPSED_TIME_COUNTS entries.
+            Size of the buffer: 156 Words = 312 Bytes. 
+            
+            To get the drum rotation frequency multiply the mean of the elapsed times with 156.25.
+            
+            ( The encoder creates 2500 impulses. Every 16 impulses the elapsed time is measured =&gt; 156.25 measurements per drum roration).
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS                Read of the elapsed times successful.
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.request_scan_data(System.Double@,System.Single@,System.Double[])">
+            <summary>
+            This function reads a new measurement from the device and stores the calculation results internally.
+            </summary>
+            <param name="Power">
+            Returns the power in mW of the drum segment with the ND filter.
+            </param>
+            <param name="Power_Window_Saturation">
+            Returns the saturation of the power window in percent.
+            If the parameter is not needed, use VI_NULL as value instead.
+            </param>
+            <param name="Power_Intensities">
+            Fills a buffer of minimum 2128 entries with the intensities from the power window. If the values are not needed please use the value VI_NULL instead of a buffer.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS         Request measurement successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_scan_data_information(System.Byte,System.UInt16@,System.Single@)">
+            <summary>
+            This function reads out the processed scan data. 
+            </summary>
+            <param name="Slit_Index">
+            Index of the slit which should be analyzed.
+            To identify a slit, please use the function get_slit_parameter.
+            </param>
+            <param name="Sample_Count">
+            Number of samples which are taken for the slit during the scan.
+            </param>
+            <param name="Dark_Level">
+            Dark level intensity in digits.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS         Get the measurement data operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_sample_intensities(System.Byte,System.Double[],System.Double[])">
+            <summary>
+            This function reads out the processed scan data. 
+            </summary>
+            <param name="Slit_Index">
+            Index of the slit which data is of interest.
+            To identify a slit, please use the function get_slit_parameter.
+            </param>
+            <param name="Sample_Intensities">
+            Fills the data buffer of max 7500 entries with the intensites of the slit data. The base level is substracted from the intensities. Max intensity value is 65535.
+            </param>
+            <param name="Sample_Positions">
+            Fills the data buffer of max 7500 entries with the positions of the slit data in ?m.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS         Get the measurement data operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_slit_peak(System.Byte,System.UInt16@,System.Single@,System.Single@)">
+            <summary>
+            This function reads out measured peak parameter.
+            </summary>
+            <param name="Slit_Index">
+            Index of the slit of which the peak interests.
+            </param>
+            <param name="Peak_Index">
+            Index of the peak in the data intensity buffer.
+            </param>
+            <param name="Peak_Position">
+            Position of the peak in ?m beginning from the first data in the intensity buffer.
+            </param>
+            <param name="Peak_Intensity">
+            Intensity of the peak in digits. The dark level is substracted.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS         Get peak parameter operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_slit_centroid(System.Byte,System.UInt16@,System.Single@)">
+            <summary>
+            This function reads out the centroid parameter.
+            </summary>
+            <param name="Slit_Index">
+            The index of the slit which should be analyzed for it's centroid.
+            </param>
+            <param name="Centroid_Index">
+            Index of the centroid in the intensity buffer.
+            </param>
+            <param name="Centroid_Position">
+            Position of the centroid in ?m beginning from the first data in the intensity buffer.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS       Get the centroid parameter operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_slit_beam_width(System.Byte,System.Single@,System.Single@)">
+            <summary>
+            This function reads out the beam with measured at the clip level.
+            </summary>
+            <param name="Slit_Index">
+            Index of the slit which should give the beam width.
+            </param>
+            <param name="Beam_Width_Clip">
+            Beam width in ?m measured at the clip level.
+            </param>
+            <param name="Sigma_Width">
+            The sigma width is calculated of all scan data of this slit.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS         Get the beam width operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.get_slit_gaussian_fit(System.Byte,System.Single@,System.Single@,System.Single@,System.Double[])">
+            <summary>
+            This function reads out the gaussian parameter.
+            </summary>
+            <param name="Slit_Index">
+            Index of the slit which is analyzed for it's gaussian parameter.
+            </param>
+            <param name="Gaussian_Fit_Amplitude">
+            Intensity of the calculated gaussian fit curve. The intensity can be higher than the peak intensity of the beam.
+            </param>
+            <param name="Gaussian_Fit_Diameter">
+            Diameter of the gaussian curve.
+            </param>
+            <param name="Gaussian_Fit_Percentage">
+            Fit percentage of the gaussian curve to the scan data.
+            </param>
+            <param name="Gaussian_Fit_Intensities">
+            Array of maximal 7500 entries which contains the gaussian curve.
+            </param>
+            <returns>
+            Operational return status. Contains either a completion code or an error code. Instrument driver specific codes that may be returned in addition to the VISA error codes defined in VPP-4.3 and vendor specific codes, are as follows.
+            
+            Completition Codes
+            ----------------------------------------------------------------
+            VI_SUCCESS       Get the gaussian parameter operation successful
+            
+            
+            Vendor Specific Codes
+            ----------------------------------------------------------------
+            For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.TLBP2.Dispose">
+            <summary>
+            Closes the instrument and releases all resources.
+            </summary>
+        </member>
+        <member name="T:Thorlabs.TLBP2.Interop.TLBP2BaseLineModes">
+            <summary>
+            Modes to set the source of the base line calculation
+            Used for the function set_base_line()
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.TLBP2BaseLineModes.Bp2BaselineModeDarkWindow">
+            <summary>
+            The base line is the mean intensity of the dark window
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.TLBP2BaseLineModes.Bp2BaselineModeFirstSamples">
+            <summary>
+            The base line is the mean intensity of the first 10 samples of the slit window
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.TLBP2BaseLineModes.Bp2BaselineModeUserValue">
+            <summary>
+            The base line value is given by the user
+            </summary>
+        </member>
+        <member name="T:Thorlabs.TLBP2.Interop.TLBP2AverageModes">
+            <summary>
+            Modes for calculating the average
+            Used for the function set_average_mode()
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.TLBP2AverageModes.Bp2AverageModeRolling">
+            <summary>
+            The average over the last x measurements is calculated
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.TLBP2AverageModes.Bp2AverageModeFloating">
+            <summary>
+            The new scan is added to the averaged scans
+            </summary>
+        </member>
+        <member name="T:Thorlabs.TLBP2.Interop.BP2_ResourceManager">
+            <summary>
+            This class let the VISA Runtime search for connected devices
+            </summary>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.BP2_ResourceManager.FindRsc(System.String)">
+            <summary>
+            The computer is parsed for connected devices which match the given expression
+            </summary>
+            <param name="expression">search parameter for a device</param>
+            <returns>list of connected devices with its resource string which matches the expression</returns>
+        </member>
+        <member name="M:Thorlabs.TLBP2.Interop.BP2_ResourceManager.FindRscBP2">
+            <summary>
+            The computer is parsed for connected <c>Thorlabs Beam Profiler instruments BP1</c>
+            </summary>
+            <returns>list of connected BP1 instruments and its resource strings</returns>
+        </member>
+        <member name="T:Thorlabs.TLBP2.Interop.bp2_slit_data">
+            <summary>
+            structure to handle the slit data of a measurement
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.bp2_slit_data.SlitSampleCount">
+            <summary>
+            count of samples for the slit
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.bp2_slit_data.SlitDarkLevel">
+            <summary>
+            dark level in digits
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.bp2_slit_data.SlitSamplesIntensities">
+            <summary>
+             intensities in digits. The dark level is subtracted.
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.bp2_slit_data.SlitSamplesPositions">
+            <summary>
+             positions of the samples in µm
+            </summary>
+        </member>
+        <member name="F:Thorlabs.TLBP2.Interop.bp2_slit_data.EncoderIncrements">
+            <summary>
+            count of encoder increments for this slit
+            </summary>
+        </member>
+    </members>
+</doc>

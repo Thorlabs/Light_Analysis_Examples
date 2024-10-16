@@ -37,6 +37,10 @@ self.dll = cdll.LoadLibrary("C:\Program Files\IVI Foundation\VISA\Win64\Bin\TLPM
 - **PM5020 using ctypes - Python 3.py:** It connects to the PM5020 dual channel power meter, makes the necessary 
                                         settings and then reads and displays power values. 
 
+- **PM103E_ctypes_connectwithNetSearch:** Find and connect to the PM103E setting a network mask
+
+- **PM103E_ctypes_connectwithIP:** Connect to PM103E using the IP of the powermeter
+
 Additional Python example codes are included in the installation package of the "Optical Power Monitor" software. You can find these codes in this folder after the installation:
 
 ```

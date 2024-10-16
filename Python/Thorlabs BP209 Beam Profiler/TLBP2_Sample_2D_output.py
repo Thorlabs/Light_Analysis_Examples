@@ -1,11 +1,12 @@
 """
-Example Title
+Example Title: TLBP2_Sample_2D_output.py
 Example Date of Creation(YYYY-MM-DD) 2024-03-01
 Example Date of Last Modification on Github 2024-03-01
-Version of Python/.NET/Matlab/C++ used for Testing and IDE
+Version of Python used for Testing: 3.11
 Version of the Thorlabs SDK used: Beam version 9.1.5787.615 
 ==================
-Example Description
+Example Description: The sample code shows how to control a BP209 beam profiler in Python. In the example the available beam profilers are found, 
+a connection is extablished, several parameters are set, several output values are displayed, intensity curves and a 2D reconstruction image are shown.
 """
 
 import os
