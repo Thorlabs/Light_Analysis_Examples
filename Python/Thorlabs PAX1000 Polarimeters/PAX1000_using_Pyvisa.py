@@ -30,15 +30,15 @@ print(result)
 """
 Measurement modes:
     IDLE: Value 0, no measurements are taken.</li>
-    H512: Value 1, 0.5 revolutions for one measurement, 512 points for FFT.</li>
-    H1024:Value 2, 0.5 revolutions for one measurement, 1024 points for FFT</li>
-    H2048:Value 3. 0.5 revolutions for one measurement, 2048 points for FFT</li>
-    F512:Value 4, 1 revolution for one measurement, 512 points for FFT.</li>
-    F1024:Value 5, 1 revolution for one measurement, 1024 points for FFT</li>
-    F2048:Value 6, 1 revolution for one measurement, 2048 points for FFT</li>
-    D512:Value 7, 2 revolutions for one measurement, 512 points for FFT</li>
-    D1024:Value 8, 2 revolutions for one measurement, 1024 points for FFT</li>
-    D2048:Value 9, 2 revolutions for one measurement, 2048 points for FFT.</li>
+    H512: Value 1, 0.5 revolutions for one measurement, 512 points for FFT
+    H1024:Value 2, 0.5 revolutions for one measurement, 1024 points for FFT
+    H2048:Value 3. 0.5 revolutions for one measurement, 2048 points for FFT
+    F512:Value 4, 1 revolution for one measurement, 512 points for FFT
+    F1024:Value 5, 1 revolution for one measurement, 1024 points for FFT
+    F2048:Value 6, 1 revolution for one measurement, 2048 points for FFT
+    D512:Value 7, 2 revolutions for one measurement, 512 points for FFT
+    D1024:Value 8, 2 revolutions for one measurement, 1024 points for FFT
+    D2048:Value 9, 2 revolutions for one measurement, 2048 points for FFT
 """
 
 #INP:ROT:VEL 200.0
