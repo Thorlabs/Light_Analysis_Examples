@@ -5061,11 +5061,8 @@ class TLPMX:
 
 	def getShutterInterlock(self, interlockState):
 		"""
-		This function sets the state of the fan to 
-		
-		OFF (0)
-		FULL (1)
-		
+		This function returns the shutter interlock state.
+	
 		Note: The function is only available on PM5020
 		
 		Args:
@@ -5097,10 +5094,7 @@ class TLPMX:
 
 	def getShutterPosition(self, position):
 		"""
-		This function sets the state of the fan to 
-		
-		OFF (0)
-		FULL (1)
+		This function returns the shutter position.
 		
 		Note: The function is only available on PM5020
 		
@@ -5292,10 +5286,7 @@ class TLPMX:
 
 	def getFanVoltage(self, voltage, channel):
 		"""
-		This function sets the state of the fan to 
-		
-		OFF (0)
-		FULL (1)
+		This function returns the fan voltage.
 		
 		Note: The function is only available on PM5020
 		
@@ -5335,11 +5326,8 @@ class TLPMX:
 
 	def getFanRpm(self, maxRPM, targetRPM, channel):
 		"""
-		This function sets the state of the fan to 
-		
-		OFF (0)
-		FULL (1)
-		
+		This function returns RPM parameters of the fan.
+	
 		Note: The function is only available on PM5020
 		
 		Args:
@@ -5447,10 +5435,7 @@ class TLPMX:
 
 	def getFanAdjustParameters(self, voltageMin, voltageMax, temperatureMin, temperatureMax, channel):
 		"""
-		This function sets the state of the fan to 
-		
-		OFF (0)
-		FULL (1)
+		This function returns adjustable fan parameters.
 		
 		Note: The function is only available on PM5020
 		
