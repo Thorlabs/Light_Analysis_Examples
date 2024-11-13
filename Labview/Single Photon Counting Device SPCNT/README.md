@@ -1,5 +1,5 @@
 # SPCNT Example
-Shows how to connect to the SPCNT and measure frequency".
+Shows how to connect to the SPCNT and measure frequency
 
 Tested with SPCNT and SPDMA\
 Labview 2023 Q3, 64 Bit\
