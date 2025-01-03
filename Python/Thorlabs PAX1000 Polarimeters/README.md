@@ -9,4 +9,4 @@ Please note that the code connects to the first available PAX1000 device. If you
 lib.TLPAX_getRsrcName(instrumentHandle, 0, resource)
 
 ### PAX1000 using Pyvisa
-This sample code shows how to read measurement values in binary format, using Pyvisa and SCPI commands. This is useful for fast aquisition.
+This sample code shows how to read measurement values in binary format, using Pyvisa and SCPI commands. This is useful for fast aquisition. The firmware version should be V1.2.1 or higher to run the example.
