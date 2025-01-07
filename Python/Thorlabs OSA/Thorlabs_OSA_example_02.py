@@ -1,11 +1,11 @@
 """
 Thorlabs_OSA_example_02
 Example Date of Creation: 2024-04-24
-Example Date of Last Modification on Github: 2024-04-24
+Example Date of Last Modification on Github: 2024-12-20
 Version of Python: 3.12.2
-Version of the Thorlabs SDK used: ThorSpectra 3.31
+Version of the Thorlabs SDK used: ThorSpectra 3.35
 ==================
-Example Description: Measure spectra with different resolutions and sensitvities
+Example Description: Measure spectra with different resolutions and sensitivities
 Save the result in .spf2 file format.
 """
 from itertools import product
@@ -85,5 +85,4 @@ for res, sens in product(available_resolutions, available_sensitivities):
     res_for_filename = res.replace(" ", "")
     sens_for_filename = sens.replace(" ", "")
     # Note: this path need to be changed to suit your computer
-    #pyOSA.save_file_spf2(spectrum, f"C:\\temp2\\spectrum_{model}_{res_for_filename}Res_{sens_for_filename}Sens.spf2") 
     pyOSA.core.save_spf2_file(spectrum, f"C:\\temp\\spectrum_{model}_{res_for_filename}Res_{sens_for_filename}Sens.spf2") 

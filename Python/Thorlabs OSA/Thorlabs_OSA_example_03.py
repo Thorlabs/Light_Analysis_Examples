@@ -1,9 +1,9 @@
 """
 Thorlabs_OSA_example_03
 Example Date of Creation: 2024-04-24
-Example Date of Last Modification on Github: 2024-04-24
+Example Date of Last Modification on Github: 2024-12-20
 Version of Python: 3.12.2
-Version of the Thorlabs SDK used: ThorSpectra 3.31
+Version of the Thorlabs SDK used: ThorSpectra 3.35
 ==================
 Example Description: Load and plot spectrum or interferogram from an .spf2 file.
 """
@@ -35,7 +35,7 @@ filetypes = (("SPF2 files", "*.spf2"), ("All files", "*.*"))
 filename = tkinter.filedialog.askopenfilename(filetypes=filetypes)
 measurements = pyOSA.core.load_spf2_file(filename)
 
-# For the purpose of this example, we want to use just a single spectrum or interferogram.
+# For the purpose of this example, we want to use just a single spectrum or interferogram
 measurement = measurements[0]
 
 if not measurement.is_valid():
@@ -46,13 +46,12 @@ if measurement.is_spectrum():
     # measurement contains a spectrum
     measurement_type_str = 'Spectrum' # Used for the plot
 
-    # Unit conversion - It is possible to convert the spectrum to specific x- and y-axis units.
+    # Unit conversion - It is possible to convert the spectrum to specific x- and y-axis units
     measurement.convert_spectrum(x_unit=x_unit_to_use, y_unit=y_unit_to_use)
 
     # Peak detection
     # It is possible to adjust the threshold level, peaks below this threshold are ignored
     # If the threshold argument is omitted, the threshold is automatically adjusted
-    # peak_centers, peak_heights, peak_widths, peak_lefts, peak_rights = OSA_core.apply_peak_track_on_spectrum([measurement])
     threshold = measurement.y_min + (measurement.y_max - measurement.y_min) * 0.5
     max_nr_of_found_peaks = 10  # Maximum nr of peaks found and returned
     min_peak_height_db = 3      # The min height, measured from the peak height and down, for a peak to be considered as peak
@@ -64,7 +63,7 @@ if measurement.is_spectrum():
 
 elif measurement.is_interferogram():
 
-    # measurement contains an interferogram
+    # Measurement contains an interferogram
     measurement_type_str = 'Interferogram' # Used for the plot
 
     # Wavelength meter applied on the interferogram
@@ -76,7 +75,7 @@ elif measurement.is_interferogram():
           f'{wavemeter_value} ± {wavemeter_error} {pyOSA.units.get_formatted_x_unit(x_unit_to_use)}\n')
 
 else:
-    print('Error: This file does not contain neither a spectrum nor an interferogram. Program will exit.')
+    print('Error: This file contains neither a spectrum nor an interferogram. Program will exit.')
     sys.exit()
 
 # Now the x and y values can be obtained from spectrum/interferogram
@@ -95,7 +94,7 @@ plt.plot(x, y)
 if measurement.is_spectrum():
     for peak_center, peak_height in zip(peak_centers, peak_heights):
         if peak_center > 0:
-            # x-value > 0 -> this is found peak
+            # x-value > 0 -> this is a found peak
             plt.scatter(peak_center, peak_height)
 plt.title(f'{filename}\n{measurement_type_str} from {model} ({resolution} Res. & {sensitivity} Sens.)')
 plt.xlabel(measurement.get_xlabel())

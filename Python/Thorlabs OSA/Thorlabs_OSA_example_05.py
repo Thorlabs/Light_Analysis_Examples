@@ -1,11 +1,11 @@
 """
 Thorlabs_OSA_example_05
 Example Date of Creation: 2024-04-24
-Example Date of Last Modification on Github: 2024-04-24
+Example Date of Last Modification on Github: 2024-12-20
 Version of Python: 3.12.2
-Version of the Thorlabs SDK used: ThorSpectra 3.31
+Version of the Thorlabs SDK used: ThorSpectra 3.35
 ==================
-Example Description: Continously measure spectra, find the highest peak, and plot
+Example Description: Continuously measure spectra, find the highest peak, and plot
 the peak position over time.
 """
 from matplotlib import pyplot as plt
@@ -48,7 +48,7 @@ for data in osa.acquire_continuous():
     # We have the data
     spectrum = data["spectrum"]
 
-    # Lets do some analysis
+    # Let's do some analysis
     peaks = pyOSA.analysis.peak_track(spectrum)
 
     # Format the output of the analysis

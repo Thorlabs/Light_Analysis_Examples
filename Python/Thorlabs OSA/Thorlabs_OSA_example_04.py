@@ -1,11 +1,11 @@
 """
 Thorlabs_OSA_example_04
 Example Date of Creation: 2024-04-24
-Example Date of Last Modification on Github: 2024-04-24
+Example Date of Last Modification on Github: 2024-12-20
 Version of Python: 3.12.2
-Version of the Thorlabs SDK used: ThorSpectra 3.31
+Version of the Thorlabs SDK used: ThorSpectra 3.35
 ==================
-Example Description: Continous acquisition combined with wavemeter and peakdetection.
+Example Description: Continuous acquisition combined with wavemeter and peak detection.
 """
 from matplotlib import pyplot as plt
 import pyOSA
@@ -49,7 +49,7 @@ for acquisition in osa.acquire_continuous(interferogram=True, spectrum=True):
     # For Redstone instruments we would need to specify interferogram detector
     #igram = data["interferogram", "Detector 1"]
 
-    # Lets do some analysis
+    # Let's do some analysis
     peaks = pyOSA.analysis.peak_track(spectrum)
     wavedata = pyOSA.analysis.wavemeter(igram)
 
@@ -70,7 +70,7 @@ for acquisition in osa.acquire_continuous(interferogram=True, spectrum=True):
     ax1.set_title(spectrumstr)
     ax1.plot(x,y)
 
-    # And lets plot the interferogram
+    # And let's plot the interferogram
     x = igram.get_x()
     y = igram.get_y()
     xlabel = igram.get_xlabel()
