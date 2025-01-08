@@ -1,15 +1,14 @@
 """
 Thorlabs_OSA_example_01
 Example Date of Creation: 2024-04-24
-Example Date of Last Modification on Github: 2024-04-24
+Example Date of Last Modification on Github: 2024-12-20
 Version of Python: 3.12.2
-Version of the Thorlabs SDK used: ThorSpectra 3.31
+Version of the Thorlabs SDK used: ThorSpectra 3.35
 ==================
 Example Description: Read a spectrum from a Thorlabs Optical Spectrum analyzer
 """
 import logging
 import pyOSA
-from matplotlib import pyplot as plt
 print("""
 
 ################################################################################
@@ -40,7 +39,7 @@ acquisitions = osa.acquire(number_of_acquisitions=1)
 acquisition = acquisitions[-1]
 spectrum = acquisition["spectrum"]
 
-# Now the x- and y-values can be obtained from spectrum.
+# Now the x- and y-values can be obtained from spectrum
 x = spectrum.get_x()
 y = spectrum.get_y()
 
@@ -48,11 +47,8 @@ y = spectrum.get_y()
 xlabel = spectrum.get_xlabel()
 ylabel = spectrum.get_ylabel()
 
-# Plot the measured spectrum
-plt.figure()
-plt.plot(x, y)
-plt.xlabel(xlabel)
-plt.ylabel(ylabel)
-plt.show()
+# Print the measured spectrum
+print(xlabel, x)
+print(ylabel, y)
 
 print("fin")
