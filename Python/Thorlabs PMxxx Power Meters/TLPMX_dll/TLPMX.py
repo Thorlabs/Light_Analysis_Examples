@@ -23,6 +23,7 @@ TLPM_PID_PM101 = (0x807E)  # reserved
 TLPM_PID_PMTest = (0x807F)  # PM Test Platform
 TLPM_PID_PM200 = (0x80B0)  # PM200
 TLPM_PID_PM5020 = (0x80BB)  # PM5020 1 channel benchtop powermeter (Interface 0 TMC, Interface 1 DFU)
+TLPM_PID_PM6x_DFU = (0x80B4)  # PM6x on USB with DFU interface enabled (Interface 0 TMC, Interface 1 DFU)
 TLPM_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && (VI_ATTR_MODEL_CODE==0x8070 || VI_ATTR_MODEL_CODE==0x8078)}"
 PM100A_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && (VI_ATTR_MODEL_CODE==0x8071 || VI_ATTR_MODEL_CODE==0x8079)}"
 PM100USB_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && VI_ATTR_MODEL_CODE==0x8072}"
@@ -45,10 +46,12 @@ PMxxx_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && (VI_ATTR_MODEL_CODE=
 "VI_ATTR_MODEL_CODE==0x8076 || VI_ATTR_MODEL_CODE==0x807E || " \
 "VI_ATTR_MODEL_CODE==0x8077 || VI_ATTR_MODEL_CODE==0x807F || " \
 "VI_ATTR_MODEL_CODE==0x807A || VI_ATTR_MODEL_CODE==0x80BB ||" \
-"VI_ATTR_MODEL_CODE==0x80B0)}"
+"VI_ATTR_MODEL_CODE==0x80B0 || VI_ATTR_MODEL_CODE==0x80B4)}"
 PMBT_FIND_PATTERN = "ASRL?*::INSTR{VI_ATTR_MANF_ID==0x1313 && (VI_ATTR_MODEL_CODE==0x807C || VI_ATTR_MODEL_CODE==0x807B)}"
 PMUART_FIND_PATTERN_VISA = "ASRL?*::INSTR"
 PMUART_FIND_PATTERN_COM = "COM?*"
+PMNET_FIND_PATTERN = "TCPIP?*:INSTR{VI_ATTR_TCPIP_DEVICE_NAME==\"PM5020\" || VI_ATTR_TCPIP_DEVICE_NAME==\"PM103E\"}"
+PMBTH_FIND_PATTERN = "BTHLE?*"
 TLPM_BUFFER_SIZE = 256  # General buffer size
 TLPM_ERR_DESCR_BUFFER_SIZE = 512  # Buffer size for error messages
 VI_INSTR_WARNING_OFFSET = (0x3FFC0900 )
@@ -65,6 +68,10 @@ TLPM_ATTR_AUTO_VAL = (9)
 TLPM_DEFAULT_CHANNEL = (1)
 TLPM_SENSOR_CHANNEL1 = (1)
 TLPM_SENSOR_CHANNEL2 = (2)
+TLPM_TRIGGER_SRC_CHANNEL_1 = (1)
+TLPM_TRIGGER_SRC_CHANNEL_2 = (2)
+TLPM_TRIGGER_SRC_FRONT_AUX = (3)
+TLPM_TRIGGER_SRC_REAR = (4)
 TLPM_INDEX_1 = (1)
 TLPM_INDEX_2 = (2)
 TLPM_INDEX_3 = (3)
@@ -215,6 +222,12 @@ TLPM_ANALOG_ROUTE_PUR = (0)
 TLPM_ANALOG_ROUTE_CBA = (1)
 TLPM_ANALOG_ROUTE_CMA = (2)
 TLPM_ANALOG_ROUTE_GEN = (3)
+TLPM_MEAS_POWER = (0)
+TLPM_MEAS_CURRENT = (1)
+TLPM_MEAS_VOLTAGE = (2)
+TLPM_MEAS_PDENSITY = (3)
+TLPM_MEAS_ENERGY = (4)
+TLPM_MEAS_EDENSITY = (5)
 TLPM_IODIR_INP = (VI_OFF)
 TLPM_IODIR_OUTP = (VI_ON)
 TLPM_IOLVL_LOW = (VI_OFF)
@@ -249,6 +262,7 @@ SENSOR_SUBTYPE_THERMO_STD_T = 0x12  # Standard thermopile sensor (with temperatu
 SENSOR_SUBTYPE_PYRO_ADAPTER = 0x01  # Pyroelectric adapter (no temperature sensor)
 SENSOR_SUBTYPE_PYRO_STD = 0x02  # Standard pyroelectric sensor (no temperature sensor)
 SENSOR_SUBTYPE_PYRO_STD_T = 0x12  # Standard pyroelectric sensor (with temperature sensor)
+TLPM_SENS_FLAG_IS_UNDEFINED = 0x0000  # Undefined sensor
 TLPM_SENS_FLAG_IS_POWER = 0x0001  # Power sensor
 TLPM_SENS_FLAG_IS_ENERGY = 0x0002  # Energy sensor
 TLPM_SENS_FLAG_IS_RESP_SET = 0x0010  # Responsivity settable
@@ -348,6 +362,41 @@ class TLPMX:
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
+	def initWithEncryption(self, IDQuery, reset, password, pInstr):
+		"""
+		This function initializes the instrument driver session and performs the following initialization actions:
+		
+		(1) Opens a session to the Default Resource Manager resource and a session to the specified device using the Resource Name.
+		(2) Performs an identification query on the instrument.
+		(3) Resets the instrument to a known state.
+		(4) Sends initialization commands to the instrument.
+		(5) Returns an instrument handle which is used to distinguish between different sessions of this instrument driver.
+		
+		Notes:
+		(1) Each time this function is invoked a unique session is opened.  
+		
+		Args:
+			IDQuery(c_int16) : This parameter specifies whether an identification query is performed during the initialization process.
+			
+			VI_TRUE  (1): Do query (default).
+			VI_FALSE (0): Skip query.
+			
+			
+			reset(c_int16) : This parameter specifies whether the instrument is reset during the initialization process.
+			
+			VI_TRUE  (1) - instrument is reset (default)
+			VI_FALSE (0) - no reset 
+			
+			
+			password(create_string_buffer(1024)) : Password for encryption over ethernet communication.
+			pInstr(ViPSession use with byref) : This parameter returns an instrument handle that is used in all subsequent calls to distinguish between different sessions of this instrument driver.
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_initWithEncryption(self.devSession, IDQuery, reset, password, pInstr)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
 	def close(self):
 		"""
 		This function closes the instrument driver session.
@@ -366,6 +415,8 @@ class TLPMX:
 		
 		Note:
 		(1) The function additionally stores information like system name about the found resources internally. This information can be retrieved with further functions from the class, e.g. <Get Resource Description> and <Get Resource Information>.
+		
+		(2) To list Ethernet and Bluetooth devices, enable the search for these devices with functions setEnableNetSearch and setEnableBthSearch.
 		
 		
 		Args:
@@ -1467,6 +1518,73 @@ class TLPMX:
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
+	def startZeroPos(self, channel):
+		"""
+		Use this command to start a background task to measure the actual beam position and use it as position correction in the future. Before starting the correction ensure light source is hitting the sensor area. Position is floating if no beam is hitting the sensor. This command only starts the zeroing procedure running in background for at least one second. During zero procedure, measuring is not possible. To test if zeroing is still running use SENS#:CORR:COLL:ZERO:STAT? or poll for Zeroing flag in STAT:OPER:COND?. If you want to abort previously started procedure use the SENS#:CORR:COLL:POS:ZERO:ABOR command. If zeroing is complete (by error or success) you may want to test for error using SYST:ERR? command. If you want to set a custom zero value use command. Zero parameter is not stored persistently. It will be lost after reboot!
+		
+		Supported by PM400 firmware 1.5.0 and newer.
+		
+		Args:
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_startZeroPos(self.devSession, channel)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def cancelZeroPos(self, channel):
+		"""
+		Use this command to abort a previously started position zero correction. The zeroing of position is running as asynchronous background operation. Aborting the sequence will end the background operation and enables measuring with the old zero value. To start a new zeroing use SENS#:CORR:COLL:POS:ZERO command.
+		
+		
+		Args:
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_cancelZeroPos(self.devSession, channel)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def setZeroPos(self, zeroX, zeroY, channel):
+		"""
+		Use this command to set beam position zero correction coordinate in um. Zero parameter is not stored persistently. It will be lost after reboot!
+		
+		Args:
+			zeroX(c_double) : This parameter set the zero x in µm.
+			zeroY(c_double) : This parameter set the zero y in µm.
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_setZeroPos(self.devSession, zeroX, zeroY, channel)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def getZeroPos(self, pZeroX, pZeroY, channel):
+		"""
+		Use this command to get beam position zero correction coordinate in um. To update the zero value you can either call SENS#:CORR:COLL:POS:ZERO or the command. Zero parameter is not stored persistently. It will be lost after reboot!
+		
+		Args:
+			pZeroX(c_double use with byref) : This parameter returns the zero x value in µm.
+			pZeroY(c_double use with byref) : This parameter returns the zero y value in µm.
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_getZeroPos(self.devSession, pZeroX, pZeroY, channel)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
 	def setBeamDia(self, beamDiameter, channel):
 		"""
 		This function sets the users beam diameter in millimeter [mm].
@@ -1831,7 +1949,7 @@ class TLPMX:
 		This function returns the actual voltage range value.
 		
 		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM160T, PM200, PM400.
+		(1) The function is only available on PM100D, PM100A, PM100USB, PM160T, PM200, PM400, PM5020, PM6x.
 		
 		
 		Args:
@@ -2395,7 +2513,9 @@ class TLPMX:
 			  TLPM_POWER_UNIT_WATT (0): power in Watt
 			  TLPM_POWER_UNIT_DBM  (1): power in dBm
 			
-			channel(c_uint16)
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -2414,7 +2534,9 @@ class TLPMX:
 			Return values:
 			  TLPM_POWER_UNIT_WATT (0): power in Watt
 			  TLPM_POWER_UNIT_DBM  (1): power in dBm
-			channel(c_uint16)
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -2438,7 +2560,9 @@ class TLPMX:
 			sensorPosition(c_uint16 use with byref) : The position of the sencor switch of a Thorlabs S130C
 			1 = 5mW
 			2 = 500mW
-			channel(c_uint16)
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -2457,7 +2581,9 @@ class TLPMX:
 			
 			VI_ON: The user power calibration is used
 			VI_OFF: The user power calibration is ignored in the power measurements
-			channel(c_uint16)
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -2476,7 +2602,9 @@ class TLPMX:
 			
 			VI_ON: The user power calibration is used
 			VI_OFF: The user power calibration is ignored in the power measurements
-			channel(c_uint16)
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -2497,7 +2625,9 @@ class TLPMX:
 			The array must contain <points counts> entries.
 			powerCorrectionFactors( (c_double * arrayLength)()) : Array of power correction factorw that correspond to the wavelength array. 
 			The array must contain <points counts> entries, same as wavelenght to build wavelength - power correction factors pairs.
-			channel(c_uint16)
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -2523,7 +2653,9 @@ class TLPMX:
 			sensorPosition(c_uint16) : The position of the sencor switch of a Thorlabs S130C
 			1 = 5mW
 			2 = 500mW
-			channel(c_uint16)
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -2539,7 +2671,9 @@ class TLPMX:
 		This function will wait 2 seconds until the sensor has been reinitialized.
 		
 		Args:
-			channel(c_uint16)
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -3776,6 +3910,25 @@ class TLPMX:
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
+	def measDualChannelSimultaneous(self, measurement, resultChannel1, resultChannel2):
+		"""
+		This function is used to obtain frequency readings from the instrument. 
+		
+		Notes:
+		(1) The function is only available on PM100D, PM100A, PM100USB, PM200, PM400.
+		
+		
+		Args:
+			measurement(c_uint16)
+			resultChannel1(c_double use with byref) : This parameter returns the actual measured frequency of the input signal. 
+			resultChannel2(c_double use with byref) : This parameter returns the actual measured frequency of the input signal. 
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_measDualChannelSimultaneous(self.devSession, measurement, resultChannel1, resultChannel2)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
 	def measAuxAD0(self, voltage, channel):
 		"""
 		This function is used to obtain voltage readings from the instrument's auxiliary AD0 input. 
@@ -3949,7 +4102,9 @@ class TLPMX:
 		Args:
 			xPosition(c_double use with byref) : This parameter returns the actual measured x position in µm
 			yPosition(c_double use with byref) : This parameter returns the actual measured y position in µm
-			channel(c_uint16)
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -3970,7 +4125,9 @@ class TLPMX:
 			voltage2(c_double use with byref)
 			voltage3(c_double use with byref)
 			voltage4(c_double use with byref)
-			channel(c_uint16)
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -4056,20 +4213,24 @@ class TLPMX:
 
 	def measPowerMeasurementSequence(self, baseTime, channel):
 		"""
-		This function send the SCPI Command "CONF:ARR:POW" to the device.
-		Then is possible to call the method 'getMeasurementSequence' to get the power data.
+		This function send the SCPI Command "MEAS:ARR" to the device.
+		To receive the measurement data, call "getMeasurementSequence".
 		
-		Duration of measurement in µsec = Count * Interval
-		The maximum capture time is 1 sec regardless of the used interval
+		PM101, PM400:
+		Starts a software triggered power measurement sequence. The array mode always stores 10000 power samples in Watt or dBm with 10 kHz in an internal buffer. So max time resolution between the samples is 100 us. Once the buffer is full the command will return the first sample. During the measurement the remote interface will block and can not process any further SCPI requests. To query the rest of samples continue to call FETC? with an index. Alternatively call FETC:ARR? multiple times afterwards. This SCPI command is a convenience function that includes the SCPI command sequence ABOR, MEAS:ARR:CURR?, INIT and finally FETC:ARR?. Ensure the product of BaseTime / 100 * samples is always smaller or equal 10000. Normally it makes sense to disable bandwidth limitation for this measurement mode DIAG#:INP:PDI:BWID. SENS#:AVER is not applied for array mode. Also relative power measurements (See SENS#:POW:REF) are not supported in array mode.
 		
-		Set the bandwidth to high(setInputFilterState to OFF) and disable auto ranging(setPowerAutoRange to OFF)
+		PM103:
+		This software triggered scope mode is only available for photodiode power sensors in CW mode. For checking measure mode of photodiode use command SENS#:FREQ:MODE?. The scope mode stores 10k power samples in Watt with given averaging at max 100 kHz in an internal buffer. So max time resolution between the samples is 10 us. With the internal sample buffer of 10000 will end up in a capture time of 100 ms with highest resolution. For example, setting an averaging of 2 will give 200 ms capture time. Once the buffer is full the command will return the first 100 samples as binary tuples. To query the rest of samples call FETC:ARR? multiple times afterwards. Please read this FETC:ARR? for data format description. This SCPI command is a convenience function that includes the SCPI command sequence ABOR#, CONF#:ARR, INIT# and finally FETC:ARR?. If you want to use a hardware trigger to horizontal lock the signal use MEAS#:ARR:HWT?.
 		
-		Note: The function is only available on PM103.
+		PM5020, PM6x:
+		This software triggered scope mode is only available for thermal and photodiode power sensors in CW mode. For checking measure mode of photodiode use command SENS#:FREQ:MODE?. The scope mode stores 10k samples with given averaging at max 100 kHz in an internal buffer. So max time resolution between the samples is 10 us. With the internal sample buffer of 10000 will end up in a capture time of 100 ms with highest resolution. For example, setting an averaging of 2 will give 200 ms capture time. The function will configure all channels that are connected and in a valid mode for power scope measurement. If none of the channels support this mode an error will be issued. Once the buffer is full the command will return the first 100 samples as binary triples. To query the rest of samples call FETC:ARR? multiple times afterwards. Please read this FETC:ARR? for data format description. This SCPI command is a convenience function that includes the SCPI command sequence ABOR#, CONF#:ARR:CHA, CONF:ARR, INIT# and finally FETC:ARR?. If you want to use a hardware trigger to horizontal lock the signal use MEAS#:ARR:HWT?.
+		
+		Note: The function is only available on PM101, PM400, PM103x, PM6x and PM5020.
 		
 		
 		Args:
 			baseTime(c_uint32) : interval between two measurements in the array in µsec.
-			The maximum resolution is 100µsec without averaging
+			The maximum resolution is defined in the device specifications.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -4082,22 +4243,22 @@ class TLPMX:
 
 	def measPowerMeasurementSequenceHWTrigger(self, baseTime, hPos, channel):
 		"""
+		This function send the SCPI Command "MEAS:ARR:HWT" to the device.
+		To receive the measurement data, call "getMeasurementSequence".
+		
 		PM103:
 		This function send the SCPI Command "CONF:ARR:HWTrig:POW" to the device.
 		Then is possible to call the methods 'startMeasurementSequence' and  'getMeasurementSequenceHWTrigger' to get the power data.
 		 
 		Set the bandwidth to high (setInputFilterState to OFF) and disable auto ranging (setPowerAutoRange to OFF)
 		
-		PM101 special:
-		This function send the SCPI Command "CONF:ARR" to the device.
-		Then is possible to call the methods 'startMeasurementSequence' and 'getMeasurementSequenceHWTrigger' to get the power data.
 		
-		Note: The function is only available on PM103 and PM101 special.
+		Note: The function is only available on PM5020, PM103x, PM6x.
 		
 		
 		Args:
 			baseTime(c_uint32) : PM103:
-			interval between two measurements in the array in µsec. The maximum resolution is 100 µsec without averaging.
+			interval between two measurements in the array in µsec. The maximum resolution is defined in the device specifications..
 			
 			PM101 special:
 			time to collect measurements.
@@ -4118,7 +4279,7 @@ class TLPMX:
 
 	def measureCurrentMeasurementSequence(self, baseTime, channel):
 		"""
-		This function send the SCPI Command "CONF:ARR:CURR" to the device.
+		This function send the SCPI Command "MEAS:ARR:CURR" to the device.
 		Then is possible to call the method 'getMeasurementSequence' to get the power data.
 		 
 		Duration of measurement in µsec = Count* Interval
@@ -4126,12 +4287,12 @@ class TLPMX:
 		
 		Set the bandwidth to high(setInputFilterState to OFF) and disable auto ranging(setPowerAutoRange to OFF)
 		
-		Note: The function is only available on PM103.
+		Note: The function is only available on PM103, PM6x and PM5020.
 		
 		
 		Args:
 			baseTime(c_uint32) : interval between two measurements in the array in µsec.
-			The maximum resolution is 100µsec without averaging
+			The maximum resolution is defined in the device specifications.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -4144,21 +4305,18 @@ class TLPMX:
 
 	def measureCurrentMeasurementSequenceHWTrigger(self, baseTime, hPos, channel):
 		"""
-		This function send the SCPI Command "CONF:ARR:HWTrig:CURR" to the device.
+		This function send the SCPI Command "MEAS:ARR:HWTrig:CURR" to the device.
 		Then is possible to call the method 'getMeasurementSequenceHWTrigger' to get the current data.
 		 
 		Set the bandwidth to high (setInputFilterState to OFF) and disable auto ranging ( setPowerAutoRange to OFF)
 		
-		PM101 special:
-		This function send the SCPI Command "CONF:ARR:CURR" to the device.
-		Then is possible to call the methods 'startMeasurementSequence' and 'getMeasurementSequenceHWTrigger' to get the current data.
 		
-		Note: The function is only available on PM103 and PM101 special.
+		Note: The function is only available on PM103, PM6x and PM5020.
 		
 		
 		Args:
 			baseTime(c_uint32) : PM103:
-			interval between two measurements in the array in µsec. The maximum resolution is 100 µsec without averaging.
+			interval between two measurements in the array in µsec. The maximum resolution is defined in the device specifications.
 			
 			PM101 special:
 			time to collect measurements.
@@ -4179,7 +4337,7 @@ class TLPMX:
 
 	def measureVoltageMeasurementSequence(self, baseTime, channel):
 		"""
-		This function send the SCPI Command "CONF:ARR:CURR" to the device.
+		This function send the SCPI Command "MEAS:ARR:VOLT" to the device.
 		Then is possible to call the method 'getMeasurementSequence' to get the power data.
 		 
 		Duration of measurement in µsec = Count* Interval
@@ -4192,7 +4350,7 @@ class TLPMX:
 		
 		Args:
 			baseTime(c_uint32) : interval between two measurements in the array in µsec.
-			The maximum resolution is 100µsec without averaging
+			The maximum resolution is defined in the device specifications.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -4205,7 +4363,7 @@ class TLPMX:
 
 	def measureVoltageMeasurementSequenceHWTrigger(self, baseTime, hPos, channel):
 		"""
-		This function send the SCPI Command "CONF:ARR:HWTrig:CURR" to the device.
+		This function send the SCPI Command "MEAS:ARR:HWTrig:VOLT" to the device.
 		Then is possible to call the method 'getMeasurementSequenceHWTrigger' to get the current data.
 		 
 		Set the bandwidth to high (setInputFilterState to OFF) and disable auto ranging ( setPowerAutoRange to OFF)
@@ -4215,7 +4373,7 @@ class TLPMX:
 		
 		Args:
 			baseTime(c_uint32) : PM103:
-			interval between two measurements in the array in µsec. The maximum resolution is 100 µsec without averaging.
+			interval between two measurements in the array in µsec. The maximum resolution is defined in the device specifications.
 			
 			PM101 special:
 			time to collect measurements.
@@ -4239,7 +4397,7 @@ class TLPMX:
 		This function can be used to get the measurement state information before doing a fetch.
 		
 		Notes:
-		(1) The function is only available on PM5020.
+		(1) The function is only available on PM103, PM5020.
 		
 		
 		Args:
@@ -4258,11 +4416,33 @@ class TLPMX:
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
+	def blockFetch(self, timeout, result, channel):
+		"""
+		Blocks defined time until previously initiated measurement is complete and returns result finally.
+		Same as FETC#? but waits for result only defined of time. In case of timeout the function return 0. Otherwise recent measurement result is returned. In case of timeout you might want to call ABOR# to discard the measurement. 
+		
+		Notes:
+		(1) The function is only available on PM103, PM5020.
+		
+		
+		Args:
+			timeout(c_uint32) :  time in ms to wait for data to be fetched.
+			result(c_double use with byref) :  measurement result. May be 0 for timeout, INFINITY or -INFINITY if signal out of measurement range.
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_blockFetch(self.devSession, timeout, result, channel)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
 	def resetFastArrayMeasurement(self, channel):
 		"""
 		This function resets the array measurement.
 		
-		Note: The function is only available on PM103.
+		Note: The function is only available on PM103, PM5020.
 		
 		
 		Args:
@@ -4273,6 +4453,26 @@ class TLPMX:
 			int: The return value, 0 is for success
 		"""
 		pInvokeResult = self.dll.TLPMX_resetFastArrayMeasurement(self.devSession, channel)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def confFastArrayMeasurement(self, measurement, channel):
+		"""
+		This function is used to conffiure the fast array measurement of power values
+		After calling this method, wait some milliseconds to call the method TLPM_getNextFastArrayMeasurement.
+		
+		Remark:
+		This function starts a new measurement cycle and after finishing measurement the result is received. Subject to the actual Average Count this may take up to seconds.   
+		
+		Args:
+			measurement(c_uint16)
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_confFastArrayMeasurement(self.devSession, measurement, channel)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
@@ -4391,7 +4591,7 @@ class TLPMX:
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
-	def getNextFastArrayMeasurement(self, count, timestamps, values, values2, channel):
+	def getNextFastArrayMeasurement(self, count, timestamps, values, channel):
 		"""
 		This function is used to obtain measurements from the instrument. 
 		The result are timestamp - value pairs.
@@ -4401,19 +4601,52 @@ class TLPMX:
 		This function starts a new measurement cycle and after finishing measurement the result is received. Subject to the actual Average Count this may take up to seconds.
 		
 		Args:
-			count(c_uint16 use with byref) : The count of timestamp - measurement value pairs
+			count(c_uint32 use with byref) : The count of timestamp - measurement value pairs
 			The value will be 200
 			timestamps( (c_uint32 * arrayLength)()) : Buffer containing up to 200 timestamps.
 			This are raw timestamps and are NOT in ms.
 			values( (c_float * arrayLength)()) : Buffer containing up to 200 measurement values.
-			values2( (c_float * arrayLength)()) : Array of power/current measurements. The size of this array is 100 * baseTime.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
 		Returns:
 			int: The return value, 0 is for success
 		"""
-		pInvokeResult = self.dll.TLPMX_getNextFastArrayMeasurement(self.devSession, count, timestamps, values, values2, channel)
+		pInvokeResult = self.dll.TLPMX_getNextFastArrayMeasurement(self.devSession, count, timestamps, values, channel)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def getNextFastArrayMeasurementRelativeTime(self, count, timestamps, values, channel):
+		"""
+		This function is used to obtain measurements from the instrument. 
+		The result are timestamp - value pairs.
+		The timestamps are relative to the first timestamp in µsec.
+		
+		
+		Remark:
+		This function starts a new measurement cycle and after finishing measurement the result is received. Subject to the actual Average Count this may take up to seconds.
+		
+		Args:
+			count(c_uint32 use with byref) : The count of timestamp - measurement value pairs
+			The value will be 200
+			timestamps( (c_uint32 * arrayLength)()) : Buffer containing up to 200 timestamps.
+			This are timestamps in µsec relative to the first timestamp.
+			
+			e.g.
+			timestamp [0] = 0
+			timestamp [1] = 10
+			timestamp [2] = 20
+			
+			means that the time difference between the samples are 10 µsec.
+			
+			values( (c_float * arrayLength)()) : Buffer containing up to 200 measurement values.
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_getNextFastArrayMeasurementRelativeTime(self.devSession, count, timestamps, values, channel)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
@@ -4443,12 +4676,18 @@ class TLPMX:
 		
 		Set the bandwidth to high(setInputFilterState to OFF) and disable auto ranging(setPowerAutoRange to OFF)
 		
-		Note: The function is only available on PM103.
+		Note: The function is only available on PM101, PM103, PM5020, PM400, PM6x.
 		
 		
 		Args:
-			baseTime(c_uint32) : interval between two measurements in the array in µsec.
-			The maximum resolution is 100µsec without averaging
+			baseTime(c_uint32) : PM101, PM400:
+			The array mode always stores 10000 power values in W or dBm with 10 kHz in an internal buffer. So max time resolution between the samples is 100 us. Ensure the product of BaseTime / 100 * samples is always smaller or equal 10000. Also keep BaseTime a multiple of 100
+			
+			time in us between the samples. Needs to be >= 100
+			
+			PM103, PM5020, PM6x:
+			scope capture devisor for 100 kHz sample rate of scope mode. 0 is not allowed.
+			
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -4461,34 +4700,27 @@ class TLPMX:
 
 	def confPowerMeasurementSequenceHWTrigger(self, trigSrc, baseTime, hPos, channel):
 		"""
-		PM103:
-		This function send the SCPI Command "CONF:ARR:HWTrig:POW" to the device.
-		Then is possible to call the methods 'startMeasurementSequence' and  'getMeasurementSequenceHWTrigger' to get the power data.
-		 
-		Set the bandwidth to high (setInputFilterState to OFF) and disable auto ranging (setPowerAutoRange to OFF)
+		This function send the SCPI Command "CONF:ARR:HWT" to the device.
+		Then is possible to call the method 'getMeasurementSequence' to get the power data.
 		
-		PM101 special:
-		This function send the SCPI Command "CONF:ARR" to the device.
-		Then is possible to call the methods 'startMeasurementSequence' and 'getMeasurementSequenceHWTrigger' to get the power data.
-		
-		Note: The function is only available on PM103 and PM101 special.
+		Note: The function is only available on PM5020, PM103, PM6x.
 		
 		
 		Args:
-			trigSrc(c_uint16) : PM103:
-			interval between two measurements in the array in µsec. The maximum resolution is 100 µsec without averaging.
+			trigSrc(c_uint16)
+			baseTime(c_uint32) : PM103:
+			interval between two measurements in the array in µsec. The maximum resolution is defined in the device specifications.
 			
 			PM101 special:
 			time to collect measurements.
-			baseTime(c_uint32) : PM103:
+			hPos(c_uint32) : PM103:
 			Sets the horizontal position of trigger condition in the scope catpure (Between 1 and 9999)
 			
 			PM101 special:
 			Interval between measurements.
-			hPos(c_uint32) : Number of the sensor channel. 
+			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
-			channel(c_uint16)
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -4506,12 +4738,12 @@ class TLPMX:
 		
 		Set the bandwidth to high(setInputFilterState to OFF) and disable auto ranging(setPowerAutoRange to OFF)
 		
-		Note: The function is only available on PM103.
+		Note: The function is only available on  PM101, PM103, PM400, PM6x, PM5020.
 		
 		
 		Args:
 			baseTime(c_uint32) : interval between two measurements in the array in µsec.
-			The maximum resolution is 100µsec without averaging
+			The maximum resolution is defined in the device specifications.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -4529,28 +4761,24 @@ class TLPMX:
 		 
 		Set the bandwidth to high (setInputFilterState to OFF) and disable auto ranging ( setPowerAutoRange to OFF)
 		
-		PM101 special:
-		This function send the SCPI Command "CONF:ARR:CURR" to the device.
-		Then is possible to call the methods 'startMeasurementSequence' and 'getMeasurementSequenceHWTrigger' to get the current data.
-		
-		Note: The function is only available on PM103 and PM101 special.
+		Note: The function is only available on PM103, PM5020, PM6x.
 		
 		
 		Args:
-			trigSrc(c_uint16) : PM103:
-			interval between two measurements in the array in µsec. The maximum resolution is 100 µsec without averaging.
+			trigSrc(c_uint16)
+			baseTime(c_uint32) : PM103:
+			interval between two measurements in the array in µsec. The maximum resolution is defined in the device specifications.
 			
 			PM101 special:
 			time to collect measurements.
-			baseTime(c_uint32) : PM103:
+			hPos(c_uint32) : PM103:
 			Sets the horizontal position of trigger condition in the scope catpure (Between 1 and 9999)
 			
 			PM101 special:
 			Interval between measurements.
-			hPos(c_uint32) : Number of the sensor channel. 
+			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
-			channel(c_uint16)
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -4586,7 +4814,30 @@ class TLPMX:
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
-	def startMeasurementSequence(self, autoTriggerDelay, triggerForced, channel):
+	def confPDENMeasurementSequence(self, baseTime, channel):
+		"""
+		Configures power density array measurement.
+		
+		Use this command to configure the measure system for array power density measurement in W/cm^2. The command does not start the measurement. The configuration is only required once. Afterwards you control the measure system by using ABOR, INIT and FETC:ARR? finally.
+		The array mode always stores 10000 power values in W or dBm with 10 kHz in an internal buffer. So max time resolution between the samples is 100 us. Ensure the product of delta_t / 100 * samples is always smaller or equal 10000. Also keep delta_t a multiple of 100. Normally it makes sense to disable bandwidth limitation for this measurement mode by using DIAG#:INP:PDI:BWID. SENS#:AVER is not applied for array mode. Also relative power measurements (See SENS#:POW:REF) are not supported in array mode.
+		
+		Note: The function is only available on PM101, PM400.
+		
+		
+		Args:
+			baseTime(c_uint32) : interval between two measurements in the array in µsec.
+			The maximum resolution is defined in the device specifications.
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_confPDENMeasurementSequence(self.devSession, baseTime, channel)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def startMeasurementSequence(self, autoTriggerDelay, triggerForced):
 		"""
 		This function send the SCPI Command "INIT" to the device.
 		
@@ -4599,7 +4850,7 @@ class TLPMX:
 		Just the INIT command is send to the device.
 		
 		
-		Note: The function is only available on PM103 and PM101 special. 
+		Note: The function is only available on PM103, PM6x, PM5020 and PM101. 
 		
 		
 		
@@ -4618,17 +4869,14 @@ class TLPMX:
 			
 			PM101 special:
 			Not used.
-			channel(c_uint16) : Number of the sensor channel. 
-			
-			Default: 1 for non multi channel devices
 		Returns:
 			int: The return value, 0 is for success
 		"""
-		pInvokeResult = self.dll.TLPMX_startMeasurementSequence(self.devSession, autoTriggerDelay, triggerForced, channel)
+		pInvokeResult = self.dll.TLPMX_startMeasurementSequence(self.devSession, autoTriggerDelay, triggerForced)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
-	def getMeasurementSequence(self, baseTime, timeStamps, values, values2, channel):
+	def getMeasurementSequence(self, baseTime, timeStamps, values, values2):
 		"""
 		 Should be called if the methods confPowerMeasurementSequence and startMeasurementSequence were called first.
 		 
@@ -4638,7 +4886,7 @@ class TLPMX:
 		The maximum capture time is 1 sec regardless of the used inteval
 		Set the bandwidth to high(setInputFilterState to OFF) and disable auto ranging(setPowerAutoRange to OFF)
 		
-		Note: The function is only available on PM103.
+		Note: The function is only available on PM103x, PM6x, PM5020 and PM101.
 		
 		
 		Args:
@@ -4649,60 +4897,14 @@ class TLPMX:
 			timeStamps( (c_float * arrayLength)()) : Array of time stamps in ms. The size of this array is 100 * baseTime.
 			values( (c_float * arrayLength)()) : Array of power/current measurements. The size of this array is 100 * baseTime.
 			values2( (c_float * arrayLength)()) : Array of power/current measurements. The size of this array is 100 * baseTime.
-			channel(c_uint16) : Number of the sensor channel. 
-			
-			Default: 1 for non multi channel devices
 		Returns:
 			int: The return value, 0 is for success
 		"""
-		pInvokeResult = self.dll.TLPMX_getMeasurementSequence(self.devSession, baseTime, timeStamps, values, values2, channel)
+		pInvokeResult = self.dll.TLPMX_getMeasurementSequence(self.devSession, baseTime, timeStamps, values, values2)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
-	def getMeasurementSequenceHWTrigger(self, baseTime, timeStamps, values, values2, channel):
-		"""
-		Should be called if the method confPowerMeasurementSequenceHWTrigger and startMeasurementSequence were called first, (or confCurrentMeasurementSequenceHWTrigger and startMeasurementSequence)
-		
-		PM103: 
-		 This function fills the given array with (100 * baseTime) measurements from the device, external triggered.
-		 Set the bandwidth to high(setInputFilterState to OFF) and disable auto ranging(setPowerAutoRange to OFF)
-		 
-		PM101 special:
-		This function fills the Values array with measurements from the device, external triggered.
-		The size of measurements to set in the array is in the parameter Base Time. Base Time is equal to the time of measurement through the intervall between each measurement. These parameters are set in the method confPowerMeasurementSequenceHWTrigger. 
-		 
-		
-		 Note: The function is only available on PM103 and PM101 special (Not HWT). 
-		
-		
-		Args:
-			baseTime(c_uint32) : PM103:
-			The amount of samples to collect in the internal interation of the method. The value can be from 1 to 100.
-			PM101:
-			Size of measuremnts to collect from the PM101. Time of measurement / intervall.
-			timeStamps( (c_float * arrayLength)()) : PM103:
-			Array of time stamps in ms. The size of this array is 100 * baseTime.
-			
-			PM101 special:
-			Not used.
-			values( (c_float * arrayLength)()) : PM103:
-			Array of power/current measurements. The size of this array is 100 * baseTime.
-			
-			PM101:
-			Array of power/current measurements. The size of this array is the time of measurement through the interval.
-			
-			values2( (c_float * arrayLength)()) : Array of power/current measurements. The size of this array is 100 * baseTime.
-			channel(c_uint16) : Number of the sensor channel. 
-			
-			Default: 1 for non multi channel devices
-		Returns:
-			int: The return value, 0 is for success
-		"""
-		pInvokeResult = self.dll.TLPMX_getMeasurementSequenceHWTrigger(self.devSession, baseTime, timeStamps, values, values2, channel)
-		self.__testForError(pInvokeResult)
-		return pInvokeResult
-
-	def confBurstArrayMeasurementChannel(self, channel):
+	def confBurstArrayMeasPowerChannel(self, channel):
 		"""
 		This function is used to configure the burst array measurement of each channel.
 		
@@ -4714,35 +4916,71 @@ class TLPMX:
 		Returns:
 			int: The return value, 0 is for success
 		"""
-		pInvokeResult = self.dll.TLPMX_confBurstArrayMeasurementChannel(self.devSession, channel)
+		pInvokeResult = self.dll.TLPMX_confBurstArrayMeasPowerChannel(self.devSession, channel)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
-	def confBurstArrayMeasPowerTrigger(self, initDelay, burstCount, averaging):
+	def confBurstArrayMeasCurrentChannel(self, channel):
 		"""
+		Use this command during scope mode configuration to configure channel of scope for current measurement.
+		
 		
 		Args:
-			initDelay(c_uint32)
-			burstCount(c_uint32)
-			averaging(c_uint32)
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
 		Returns:
 			int: The return value, 0 is for success
 		"""
-		pInvokeResult = self.dll.TLPMX_confBurstArrayMeasPowerTrigger(self.devSession, initDelay, burstCount, averaging)
+		pInvokeResult = self.dll.TLPMX_confBurstArrayMeasCurrentChannel(self.devSession, channel)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
-	def confBurstArrayMeasCurrentTrigger(self, initDelay, burstCount, averaging):
+	def confBurstArrayMeasVoltageChannel(self, channel):
 		"""
+		Use this command during scope mode configuration to configure channel of scope for voltage measurement.
+		
 		
 		Args:
-			initDelay(c_uint32)
-			burstCount(c_uint32)
-			averaging(c_uint32)
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
 		Returns:
 			int: The return value, 0 is for success
 		"""
-		pInvokeResult = self.dll.TLPMX_confBurstArrayMeasCurrentTrigger(self.devSession, initDelay, burstCount, averaging)
+		pInvokeResult = self.dll.TLPMX_confBurstArrayMeasVoltageChannel(self.devSession, channel)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def confBurstArrayMeasTrigger(self, trgSource, initDelay, burstCount, averaging):
+		"""
+		This function is used to configure the burst array measurement trigger.
+		All entered values are multiplied internally by 10µs. The sum of all values is the burst sequence time.
+		
+		E.g. 
+		Init Delay 5
+		Burst Count 2
+		Averaging 3
+		=> Burst Sequence time = (InitDelay + (Burst Count * Averaging))*10µs = (5+2*3)*10µs =110µs
+		
+		
+		Args:
+			trgSource(c_uint32) : Trigger source. 
+			
+			1(default) signal of channel 1
+			2 signal of channel 2
+			3 signal of front AUX 
+			4 signal of rear trigger
+			initDelay(c_uint32) : Init Delay time in 10µs.
+			E.g. 5 means 5*10µs = 50µs 
+			burstCount(c_uint32) : Enter the Sequence Count in 10µs for the burst sequence time.
+			E.g. Sequence count = 2: Burst Sequence time = (InitDelay + (SequenceCount * Averaging)) * 10µs
+			averaging(c_uint32) : Average time in 10µs
+			E.g. Entered 3 means averaging of 30µs
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_confBurstArrayMeasTrigger(self.devSession, trgSource, initDelay, burstCount, averaging)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
@@ -4776,7 +5014,7 @@ class TLPMX:
 		Args:
 			startIndex(c_uint32)
 			sampleCount(c_uint32)
-			timeStamps( (c_float * arrayLength)()) : Buffer containing the samples.
+			timeStamps( (c_uint32 * arrayLength)()) : Buffer containing the samples.
 			
 			Buffer size: Samples Count * 2
 			values( (c_float * arrayLength)())
@@ -4785,6 +5023,23 @@ class TLPMX:
 			int: The return value, 0 is for success
 		"""
 		pInvokeResult = self.dll.TLPMX_getBurstArraySamples(self.devSession, startIndex, sampleCount, timeStamps, values, values2)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def disableArrayMeasurementChannel(self, channel):
+		"""
+		Use this command during scope mode configuration to disable measurement of channel of scope or burst mode. 
+		If no sensor is connected disabling channel is not possible.
+		
+		
+		Args:
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_disableArrayMeasurementChannel(self.devSession, channel)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
@@ -5061,10 +5316,7 @@ class TLPMX:
 
 	def getShutterInterlock(self, interlockState):
 		"""
-		This function sets the state of the fan to 
-		
-		OFF (0)
-		FULL (1)
+		This method checks if the interlock is closed or not. Only with an plugged in interlock the shutter can be opened. If the interlock is removed the shutter will close immediately. The interlock state is also masked in the SCPI Auxiliary Detail register bit 10. 
 		
 		Note: The function is only available on PM5020
 		
@@ -5079,10 +5331,7 @@ class TLPMX:
 
 	def setShutterPosition(self, position):
 		"""
-		This function sets the state of the fan to 
-		
-		OFF (0)
-		FULL (1)
+		This method sets the shutter set state. If the interlock is closed this method results in an change of the shutter state. If the interlock is open the method only changes the set value without a mechanically effect. If the interlock is plugged in later the shutter will open then. It is not possible to read back the set value. 
 		
 		Note: The function is only available on PM5020
 		
@@ -5097,11 +5346,7 @@ class TLPMX:
 
 	def getShutterPosition(self, position):
 		"""
-		This function sets the state of the fan to 
-		
-		OFF (0)
-		FULL (1)
-		
+		This method checks if the shutter is currently open or closed. The shutter state is monitored by a internal light barrier. So even if it is mechanically blocked this method returns the real state. The actual shutter state is also masked in the SCPI Auxiliary Detail register bit 11. 
 		Note: The function is only available on PM5020
 		
 		Args:
@@ -5271,10 +5516,10 @@ class TLPMX:
 
 	def setFanVoltage(self, voltage, channel):
 		"""
-		This function sets the state of the fan to 
+		Calling this method sets the fix voltage parameter for fan open loop operating mode. In open mode the fan speed is not controlled. The fan controller simply outputs a fixed voltage. This modus allows to operate 12V or 5V fans. If another operating mode is selected this function simply sets voltage parameter. If open loop mode is currently selected the function will set the parameter and update the fan controller output voltage simultaneously.
 		
-		OFF (0)
-		FULL (1)
+		Outputing more than 5V for a 5V fan can cause damage.
+		If the given voltage is to low the fan might not start spinning.
 		
 		Note: The function is only available on PM5020
 		
@@ -5292,10 +5537,7 @@ class TLPMX:
 
 	def getFanVoltage(self, voltage, channel):
 		"""
-		This function sets the state of the fan to 
-		
-		OFF (0)
-		FULL (1)
+		Use this method to read back the output voltage of fan. 
 		
 		Note: The function is only available on PM5020
 		
@@ -5313,10 +5555,10 @@ class TLPMX:
 
 	def setFanRpm(self, maxRPM, targetRPM, channel):
 		"""
-		This function sets the state of the fan to 
+		Use this method to update the fan closed loop speed parameters. If fan controller is currently configured for another mode this function simply updates the parameters. If the fan controller is configured for closed loop mode the function updates the parameters and changes the fan speed set point simultaneously. To change the operating mode use SetFanMode. This mode is only possible to operate 12V fans. To calculate the internal RPM count registers it is mandatory to set the maximal expected speed out of fan. The implemented fan speed control is reacting slowly.
 		
-		OFF (0)
-		FULL (1)
+		Only available for 12V fans with 3 wire tacho signal.
+		Control of fan speed is slow and can take several seconds.
 		
 		Note: The function is only available on PM5020
 		
@@ -5335,10 +5577,10 @@ class TLPMX:
 
 	def getFanRpm(self, maxRPM, targetRPM, channel):
 		"""
-		This function sets the state of the fan to 
+		Use this method to read the closed loop fan speed set parameters. 
 		
-		OFF (0)
-		FULL (1)
+		Only available for 12V fans with 3 wire tacho signal.
+		Control of fan speed is slow and can take several seconds.
 		
 		Note: The function is only available on PM5020
 		
@@ -5423,10 +5665,9 @@ class TLPMX:
 
 	def setFanAdjustParameters(self, voltageMin, voltageMax, temperatureMin, temperatureMax, channel):
 		"""
-		This function sets the state of the fan to 
+		This method sets the temperature fan voltage adjustment points used by Powermeter to control the fan speed based on temperature measurement. This function will simply update the adjustment points. If fan controller operates in control mode the new parameters are used immediately. Use the method SetFanMode to change the operating mode and GetFanTemperatureSource to select the temperature measure source. The fan speed control is updated at 2 Hz and implements a 3% hysteresis when head or external NTC is chilling. Between the given points a logarithmic curve is fitted to calculate fan speed at measured temperature. The control parameters are stored persistently and are used at restart automatically.
 		
-		OFF (0)
-		FULL (1)
+		The control uses 3 Kelvin hysteresis before disabling fan again.
 		
 		Note: The function is only available on PM5020
 		
@@ -5447,10 +5688,7 @@ class TLPMX:
 
 	def getFanAdjustParameters(self, voltageMin, voltageMax, temperatureMin, temperatureMax, channel):
 		"""
-		This function sets the state of the fan to 
-		
-		OFF (0)
-		FULL (1)
+		This command reads back the automatically fan speed control adjustment parameters.
 		
 		Note: The function is only available on PM5020
 		
@@ -5466,6 +5704,38 @@ class TLPMX:
 			int: The return value, 0 is for success
 		"""
 		pInvokeResult = self.dll.TLPMX_getFanAdjustParameters(self.devSession, voltageMin, voltageMax, temperatureMin, temperatureMax, channel)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def setLaserState(self, state, frequency, duration):
+		"""
+		Use this command to enable or disable the fibre laser in CW or TTL modulated mode. The function allows to enable the timer for a defined period or endless for CW and TTL mode. The time resolution is limited by the modulation frequency in TTL mode. The maximal duration is 10 seconds. Modulation is limited to 100 Hz. Use frequency 0 for CW mode. The laser might be disabled in any case.
+		
+		Note: The function is only available on PM61.
+		
+		Args:
+			state(c_int16) : 1 to enable. 0 for disable.
+			frequency(c_uint32) : Optional! modulation frequency <= 100Hz. 0 for CW.
+			duration(c_uint32) :  Optional! duration of laser sequence in ms. Resolution depends on frequ. Set to 65535 for endless.
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_setLaserState(self.devSession, state, frequency, duration)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def getLaserState(self, state):
+		"""
+		Use this command to enable or disable the fibre laser in CW or TTL modulated mode. The function allows to enable the timer for a defined period or endless for CW and TTL mode. The time resolution is limited by the modulation frequency in TTL mode. The maximal duration is 10 seconds. Modulation is limited to 100 Hz. Use frequency 0 for CW mode. The laser might be disabled in any case.
+		
+		Note: The function is only available on PM61.
+		
+		Args:
+			state(c_int16 use with byref) :  1 if enabled. 0 for disabled.
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_getLaserState(self.devSession, state)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
@@ -5681,7 +5951,7 @@ class TLPMX:
 			
 			Notes:
 			(1) The array must contain at least TLPM_BUFFER_SIZE (256) elements ViChar[256].
-			channel(c_uint16) : Number if the channel. 
+			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
 		Returns:
@@ -5831,13 +6101,49 @@ class TLPMX:
 			 TLPM_SENS_FLAG_IS_WAVEL_SET 0x0020 // Wavelength settable
 			 TLPM_SENS_FLAG_IS_TAU_SET   0x0040 // Time constant settable
 			 TLPM_SENS_FLAG_HAS_TEMP     0x0100 // With Temperature sensor
-			channel(c_uint16) : Number if the channel. 
+			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
 		Returns:
 			int: The return value, 0 is for success
 		"""
 		pInvokeResult = self.dll.TLPMX_getSensorInfo(self.devSession, name, snr, message, pType, pStype, pFlags, channel)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def importSettingsFromJson(self, adapt, settings):
+		"""
+		Use this function to import a previously stored parameter set again. The command will parse the JSON input and apply the parameter value. To export use the function exportSettingsAsJson. 
+		It is possible to import parameters within a sensor family. For example you might import parameters exported for a photodiode when another photodiode is currenlty connected. 
+		Use the adapt parameter to allow the command to change the parameters when out of range.
+		When adaption is not allowed or input data is invalid for any other reason a SCPI error is enqueued. Use SYST:ERR? to check if import was successful.
+		If JSON input string is longer than 240 chars the input data needs to be split into multiple calls of this command.The JSON fragment data is buffered and reassembled in the device memory.
+		Once all data is transmited(detected by curly bracket counting) it gets parsed and executed.You can obmit any buffered input data by sending magic character #.
+		
+		Args:
+			adapt(c_int16) : true to adapt parameters to ranges. False to generate error when out of range. 
+			settings(create_string_buffer(1024)) :  device parameters as single line JSON format string. May be a substring of json line if larger 240 chars.
+			
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_importSettingsFromJson(self.devSession, adapt, settings)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def exportSettingsAsJson(self, settings, settingsSize):
+		"""
+		Use this command to export the persistently stored device parameters as single line JSON string.
+		Some parameters like zeroing are not exported as the value is not valid for future imports. Use importSettingsFromJson to import the parameter set again.
+		
+		
+		Args:
+			settings(create_string_buffer(1024)) : Device parameters as single line JSON string 
+			settingsSize(c_uint32) : Size of buffer used to get the parameters
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_exportSettingsAsJson(self.devSession, settings, settingsSize)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
@@ -5945,13 +6251,12 @@ class TLPMX:
 
 	def setIPMask(self, IPMask):
 		"""
-		Tell the instrument which ip address the device has to commuicate with.
-		This value is stored inside the instrument. 
+		Use this command to change IPv4 netmask of device. If DHCP is enabled the function simply updates the static IPv4 netmask without applying configuration to the network interface. If DHCP is disabled the command also applies configuration to the network interface.
 		
 		
 		
 		Args:
-			IPMask(create_string_buffer(1024)) : This parameter specifies the baudrate in bits/sec.
+			IPMask(create_string_buffer(1024)) : Pv4 netmask string. Bytes separated by fullstop.
 			
 		Returns:
 			int: The return value, 0 is for success
@@ -5962,13 +6267,12 @@ class TLPMX:
 
 	def getIPMask(self, IPMask):
 		"""
-		Tell the instrument which ip address the device has to commuicate with.
-		This value is stored inside the instrument. 
+		Use this command to query IPv4 netmask of device. If DHCP is enabled and no IP has been assigned yet the result might be "0.0.0.0". If DHCP is disabled the static IPv4 netmask will be returned.
 		
 		
 		
 		Args:
-			IPMask(create_string_buffer(1024)) : This parameter specifies the baudrate in bits/sec.
+			IPMask(create_string_buffer(1024)) : IPv4 netmask string. Bytes separated by fullstop.
 			
 		Returns:
 			int: The return value, 0 is for success
@@ -6164,6 +6468,185 @@ class TLPMX:
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
+	def setEncryption(self, oldPassword, newPassword, encryption):
+		"""
+		Overwrites the system password used for authentication, Default password ist THORlabs
+		
+		
+		
+		Args:
+			oldPassword(c_char_p) : old ASCII passwort string. Max length is 25. Min length is 5
+			
+			newPassword(c_char_p) : new ASCII passwort string. Max length is 25. Min length is 5
+			
+			encryption(c_int16) : True if SCPI LAN interface should be crypted
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_setEncryption(self.devSession, oldPassword, newPassword, encryption)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def getEncryption(self, password, encryption):
+		"""
+		Queries password used for authentication. Default password ist THORlabs. Only supported by local serial interface.
+		
+		
+		Args:
+			password(create_string_buffer(1024)) : used password
+			
+			encryption(c_int16 use with byref) : True if SCPI LAN interface should be crypted
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_getEncryption(self.devSession, password, encryption)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def setLANPropagation(self, enable):
+		"""
+		Use this command to enable/disable LAN service propagation via UDP broadcast on port 270378. The broadcast is send as heatbeat every 800ms.
+		
+		
+		
+		Args:
+			enable(c_int16) : 1 to enable service propagation. False to disable
+			
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_setLANPropagation(self.devSession, enable)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def getLANPropagation(self, enable):
+		"""
+		Use this command to test if LAN service propagation via UDP broadcast on port 270378 is active. The broadcast is send as heatbeat every 800ms.
+		
+		
+		
+		Args:
+			enable(c_int16 use with byref) : 1 to enable service propagation. False to disable
+			
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_getLANPropagation(self.devSession, enable)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def setEnableNetSearch(self, enable):
+		"""
+		Enables the ethernet devices search for the actual instance.
+		
+		
+		
+		
+		Args:
+			enable(c_int16)
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_setEnableNetSearch(self.devSession, enable)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def getEnableNetSearch(self, enable):
+		"""
+		Disables the ethernet devices search for the actual instance.
+		
+		
+		
+		Args:
+			enable(c_int16 use with byref)
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_getEnableNetSearch(self.devSession, enable)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def setLookForInfoOnSearch(self, enable):
+		"""
+		Enables or disables the posibility to get information on TLPMX_findRsrc.
+		If this is set to false the method TLPMX_getRsrcInfo will not retrive any information after TLPMX_findRsrc.
+		
+		
+		
+		
+		Args:
+			enable(c_int16) : Enables or disables the posibility to get information on TLPMX_findRsrc.
+			If this is set to false the method TLPMX_getRsrcInfo will not retrive any information after TLPMX_findRsrc.
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_setLookForInfoOnSearch(self.devSession, enable)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def getLookForInfoOnSearch(self, enable):
+		"""
+		Get if the posibility to get information on TLPMX_findRsrc is enabled.
+		If this is set to false the method TLPMX_getRsrcInfo will not retrive any information after TLPMX_findRsrc.
+		
+		
+		Args:
+			enable(c_int16 use with byref) : Get if the posibility to get information on TLPMX_findRsrc is enabled.
+			If this is set to false the method TLPMX_getRsrcInfo will not retrive any information after TLPMX_findRsrc.
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_getLookForInfoOnSearch(self.devSession, enable)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def setNetSearchMask(self, netMask):
+		"""
+		Sets the default network mask for search ethernet devices on the computer.
+		
+		
+		
+		Args:
+			netMask(c_char_p) : The default net mask on the computer for network search.
+			
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_setNetSearchMask(self.devSession, netMask)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def setEnableBthSearch(self, enable):
+		"""
+		Enables the bluetooth devices search for the actual instance.
+		
+		
+		
+		
+		Args:
+			enable(c_int16)
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_setEnableBthSearch(self.devSession, enable)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def getEnableBthSearch(self, enable):
+		"""
+		Disables the bluetooth devices search for the actual instance.
+		
+		
+		
+		Args:
+			enable(c_int16 use with byref)
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_getEnableBthSearch(self.devSession, enable)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
 	def setDeviceBaudrate(self, baudrate):
 		"""
 		Tell the instrument which baudrate has to be used for the serial communication.
@@ -6222,6 +6705,110 @@ class TLPMX:
 			int: The return value, 0 is for success
 		"""
 		pInvokeResult = self.dll.TLPMX_getDriverBaudrate(self.devSession, baudrate)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def listDirectory(self, path, offset):
+		"""
+		Browses flash file system content
+		
+		Notes:
+		(1) The function is only available on PM6x.
+		
+		
+		Args:
+			path(c_char_p) : path of folder to list. Has to end with wildcard.
+			offset(c_uint32) :  offset to list content. 0 for start.
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_listDirectory(self.devSession, path, offset)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def fileOpen(self, path):
+		"""
+		Openes a file from flash file system for reading
+		
+		Notes:
+		(1) The function is only available on PM6x.
+		
+		
+		Args:
+			path(c_char_p) :  path of file to open
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_fileOpen(self.devSession, path)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def fileRead(self, offset, length, asHex):
+		"""
+		Reads block out of flash file system file
+		
+		Notes:
+		(1) The function is only available on PM6x.
+		
+		
+		Args:
+			offset(c_uint32) : offset in file where to start reading. 0 for start.
+			length(c_uint32)
+			asHex(c_int16) :  Optional! 1 to return file content as hex string. Use 0 for binary files. Use 1 for text files (Default)
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_fileRead(self.devSession, offset, length, asHex)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def fileClose(self):
+		"""
+		Call this method initially to open a file from device flash memory for reading via remote interface. It is the first command of the sequence SYST:FILE:OPEN?, SYST:FILE:READ? and SYST:FILE:CLOSE. Only one file can be opened for reading at the same time. If the memory is currely mounted to USB interface this method will result in an error.Binary and text files can be opened for reading.
+		
+		Notes:
+		(1) The function is only available on PM6x.
+		
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_fileClose(self.devSession)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def deviceParamsImport(self, adapt, JSONData):
+		"""
+		Use this command to import a previously stored parameter set again. The command will parse the JSON input and apply the parameter value. To export parameter set use SYST:PARA:EXPO:JSON?. It is possible to import parameters within a sensor family. For example you might import parameters exported for a photodiode when another photodiode is currenlty connected. Use the adapt parameter to allow the command to change the parameters when out of range. When adaption is not allowed or input data is invalid for any other reason a SCPI error is enqueued. Use SYST:ERR? to check if import was successful.
+		If JSON input string is longer than 240 chars the input data needs to be split into multiple calls of this command. The JSON fragment data is buffered and reassembled in the device memory. Once all data is transmited (detected by curly bracket counting) it gets parsed and executed. You can obmit any buffered input data by sending magic character #. 
+		
+		Notes:
+		(1) The function is only available on PM6x, PM103, PM5020.
+		
+		
+		Args:
+			adapt(c_int16) : true to adapt parameters to ranges. False to generate error when out of range.
+			JSONData(c_char_p) :  device parameters as single line JSON format string. May be a substring of json line if larger 240 chars.
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_deviceParamsImport(self.devSession, adapt, JSONData)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def deviceParamsExport(self, JSONData):
+		"""
+		Use this command to export the persistently stored device parameters as single line JSON string. Some parameters like zeroing are not exported as the value is not valid for future imports. Use SYST:PARA:IMPO:JSON to import the parameter set again.
+		
+		Notes:
+		(1) The function is only available on PM6x, PM103, PM5020.
+		
+		
+		Args:
+			JSONData(create_string_buffer(1024)) : device parameters as single line JSON string.
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_deviceParamsExport(self.devSession, JSONData)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 

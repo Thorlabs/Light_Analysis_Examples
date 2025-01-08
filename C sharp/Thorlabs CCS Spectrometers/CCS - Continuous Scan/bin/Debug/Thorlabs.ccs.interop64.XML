@@ -1,0 +1,603 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Thorlabs.ccs.interop64</name>
+    </assembly>
+    <members>
+        <member name="M:Thorlabs.ccs.interop64.TLCCS.#ctor(System.IntPtr)">
+            <summary>
+            This function creates an IVI instrument driver session, typically using the C session instrument handle.
+            </summary>
+            <param name="Instrument_Handle">
+            The instrument handle that is used to create an IVI instrument driver session.
+            </param>
+        </member>
+        <member name="M:Thorlabs.ccs.interop64.TLCCS.#ctor(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            This function initializes the instrument driver session and performs the following initialization actions:
+            
+            (1) Opens a session to the Default Resource Manager resource and a session to the specified device using the Resource Name  specified.
+            (2) Performs an identification query on the instrument.
+            (3) Resets the instrument to a known state.
+            (4) Sends initialization commands to the instrument.
+            (5) Returns an instrument handle which is used to distinguish between different sessions of this instrument driver.
+            
+            Notes:
+            (1) Each time this function is invoked a unique session is opened.  
+            </summary>
+            <param name="Resource_Name">
+            This parameter specifies the device that is to be initialized (Resource Name). The syntax for this parameter is shown below.
+            
+            "USB0::0x1313::0x8080::DEVICE-SERIAL-NUMBER::RAW"
+            
+            For remote VISA sessions use. "VISA://HOSTNAME[:PORT]/USB0::0x1313::0x8080::DEVICE-SERIAL-NUMBER::RAW". 
+            Where HOSTNAME is the name of the machine running the VISA server and PORT is the TCP port of the VISA server.
+            
+            Notes: 
+            (1) You may use VISA &lt;Find Resources&gt; to get the Resource Name for your device. Use "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 &amp;&amp; VI_ATTR_MODEL_CODE==0x8080}" as a search string for &lt;Find Resources&gt;.
+            
+            </param>
+            <param name="ID_Query">
+            This parameter specifies whether an identification query is performed during the initialization process.
+            
+            VI_OFF (0): Skip query.
+            VI_ON  (1): Do query (default).
+            
+            </param>
+            <param name="Reset_Device">
+            This parameter specifies whether the instrument is reset during the initialization process.
+            
+            VI_OFF (0) - no reset 
+            VI_ON  (1) - instrument is reset (default)
+            
+            </param>
+        </member>
+        <member name="M:Thorlabs.ccs.interop64.TLCCS.setIntegrationTime(System.Double)">
+            <summary>
+            This function sets the optical integration time in seconds [s].
+            </summary>
+            <param name="Integration_Time__s_">
+            This parameter accepts the optical integration time for the CCS in seconds [s].
+                      
+            Valid range:   CCS_SERIES_MIN_INT_TIME (1.0E-5) ...
+                           CCS_SERIES_MAX_INT_TIME (6.0E+1)
+            
+            Default value: 1.0E-3.
+            
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.ccs.interop64.TLCCS.getIntegrationTime(System.Double@)">
+            <summary>
+            This function queries the integration time.
+                  
+            Note:
+            The value this function returns is (reverse) calculated from discrete timer counter values of the CCS and may therfore slightly differ from the value set with the function 'Set Interagtion Time'.
+            
+            </summary>
+            <param name="Integration_Time__s_">
+            This parameter returns the optical integration time in seconds [s].
+            
+            
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.ccs.interop64.TLCCS.startScan">
+            <summary>
+            This function triggers the the CCS to take one single scan.
+                  
+            Note:
+            The scan data can be read out with the function 'Get Scan Data'
+            Use 'Get Device Status' to check the scan status.
+            </summary>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.ccs.interop64.TLCCS.startScanCont">
+            <summary>
+            This function starts the CCS scanning continuously. Any other function except 'Get Scan Data' and 'Get Device Status' will stop the scanning.
+            
+            Note:
+            The scan data can be read out with the function 'Get Scan Data' 
+            Use 'Get Device Status' to check the scan status.
+            </summary>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.ccs.interop64.TLCCS.startScanExtTrg">
+            <summary>
+            This function arms the external trigger of the CCS. A following low to high transition at the trigger input of the CCS starts a scan.
+            
+            Note:
+            When you issue a read command 'Get Scan Data' before the CCS was triggered you will get a timeout error. Use 'Get Device Status' to check the scan status.
+            
+            </summary>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.ccs.interop64.TLCCS.startScanContExtTrg">
+            <summary>
+            This function arms the CCS for scanning after an external trigger. A following low to high transition at the trigger input of the CCS then starts a scan. The CCS will rearm immediately after the scan data is readout. Any other function except 'Get Scan Data' or 'Get Device Status' will stop the scanning. 
+            
+            Note:
+            The scan data can be read out with the function 'Get Scan Data' 
+            
+            
+            Note:
+            When you issue a read command 'Get Scan Data' before the CCS was triggered you will get a timeout error. Use 'Get Device Status' to check the scan status.
+            </summary>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.ccs.interop64.TLCCS.getDeviceStatus(System.Int32@)">
+            <summary>
+            This function retrieves the status of the CCS. You can use this function to detect if an external trigger has already occurred.
+            
+            Note:
+            The values anove are defined in the drivers header file.
+            
+            
+            
+            </summary>
+            <param name="Device_Status">
+            This parameter returns the instruments status (4 bytes).
+            You can mask out the relevant status bits.
+            
+            // CCS waits for new scan to execute 
+            CCS_SERIES_STATUS_SCAN_IDLE            0x0002
+            
+            // scan in progress  
+            CCS_SERIES_STATUS_SCAN_TRIGGERED       0x0004
+            
+            // scan starting  
+            CCS_SERIES_STATUS_SCAN_START_TRANS     0x0008
+              
+            // scan is done, waiting for data transfer to PC
+            CCS_SERIES_STATUS_SCAN_TRANSFER        0x0010
+            
+            // same as IDLE except that external trigger is armed    
+            CCS_SERIES_STATUS_WAIT_FOR_EXT_TRIG    0x0080
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.ccs.interop64.TLCCS.getScanData(System.Double[])">
+            <summary>
+            This function reads out the processed scan data.
+            
+            Note:
+            When the raw scan data is overexposed, so that a proper data processing is not possible, the function returns
+            
+            VI_ERROR_SCAN_DATA_INVALID
+            
+            and all data points are set to zero (0.0).
+            
+            </summary>
+            <param name="Data">
+            This parameter returns the processed scan data.
+            
+            Note:
+            The array must contain at least CCS_SERIES_NUM_PIXELS (3648) elements (ViReal64[CCS_SERIES_NUM_PIXELS]). 
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.ccs.interop64.TLCCS.getRawScanData(System.Int32[])">
+            <summary>
+            This function gets data of one scan. 
+            
+            Note:
+            In external triggered mode, when you issue this command before the CCS was triggered you will get a timeout error.
+            
+            </summary>
+            <param name="Scan_Data_Array">
+            This parameter returns the unprocessed scanned data. The values represent the AD converted values. 
+            
+            
+            Note:
+            The array must contain at least CCS_SERIES_NUM_RAW_PIXELS (3694) elements (ViUInt16[CCS_SERIES_NUM_RAW_PIXELS]). 
+            
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.ccs.interop64.TLCCS.setWavelengthData(System.Int32[],System.Double[],System.Int32)">
+            <summary>
+            This function stores data for user-defined pixel-wavelength correlation to the instrument's nonvolatile memory.
+            
+            The given data pair arrays are used to interpolate the pixel-wavelength correlation array returned by the CCSseries_getWavelengthData function. 
+            
+            Note: In case the interpolated pixel-wavelength correlation contains negative values, or the values are not strictly increasing the function returns with error VI_ERROR_INV_USER_DATA.
+            
+            </summary>
+            <param name="Pixel_Data_Array">
+            This parameter accepts the pixel values of the pixel/wavelength data pairs. The valid range for pixel values is from 0 up to CCS_SERIES_NUM_PIXEL - 1 (3647).
+            
+            
+            Note:
+            The array must contain at least CCS_SERIES_MIN_NUM_USR_ADJ (4) elements and at most CCS_SERIES_MAX_NUM_USR_ADJ (10) elements. 
+            
+            
+            </param>
+            <param name="Wavelength_Data_Array">
+            This parameter accepts the wavelength values of the pixel/wavelength data pairs in nm. The wavelength value has to be positive.
+            
+            
+            Note:
+            The array must contain at least CCS_SERIES_MIN_NUM_USR_ADJ (4) elements and at most CCS_SERIES_MAX_NUM_USR_ADJ (10) elements.
+            
+            </param>
+            <param name="Buffer_Length">
+            This parameter accepts the number of elements in the Pixel Data Array and the Wavelength Data Array. 
+            
+            Note:
+            This value has to be at least CCS_SERIES_MIN_NUM_USR_ADJ (4) and at most CCS_SERIES_MAX_NUM_USR_ADJ (10). 
+            
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.ccs.interop64.TLCCS.getWavelengthData(System.Int16,System.Double[],System.Double@,System.Double@)">
+            <summary>
+            This function returns data for the pixel-wavelength correlation.
+            The maximum and the minimum wavelength are additionally provided in two separate return values.
+            
+            Note:
+            If you do not need either of these values you may pass NULL.
+            
+            
+            The value returned in Wavelength_Data_Array[0] is the wavelength at pixel 1, this is also the minimum wavelength, the value returned in Wavelength_Data_Array[1] is the wavelength at pixel 2 and so on until Wavelength_Data_Array[CCS_SERIES_NUM_PIXELS-1] which provides the wavelength at pixel CCS_SERIES_NUM_PIXELS (3648). This is the maximum wavelength.
+            
+            </summary>
+            <param name="Data_Set">
+            This parameter specifies which calibration data set has to be used for generating the wavelength data array.
+            
+            Values:
+            CCS_SERIES_CAL_DATA_SET_FACTORY (0) - Use factory adjustment data to generate the wavelength data array.
+            
+            CCS_SERIES_CAL_DATA_SET_USER (1) - Use user-defined adjustment data to generate the wavelength data array. (see also function CCSseries_setWavelengthData)
+            </param>
+            <param name="Wavelength_Data_Array">
+            This parameter returns the wavelength data.
+            
+            
+            Note:
+            The array must contain at least CCS_SERIES_NUM_PIXELS (3648) elements (ViReal64[CCS_SERIES_NUM_PIXELS]). If you do not need the array you may pass NULL for this parameter.
+            
+            </param>
+            <param name="Minimum_Wavelength">
+            This parameter returns the minimum wavelength in nanometers (nm). It is the same value as returned in Wavelength Data Array position 0.
+            
+            
+            Note:
+            You mas pass NULL for this parameter.. 
+            
+            </param>
+            <param name="Maximum_Wavelength">
+            This parameter returns the maximum wavelength in nanometers (nm). It is the same value as returned in Wavelength Data Array position CCS_SERIES_NUM_PIXELS - 1 (3647).
+            
+            
+            Note:
+            You mas pass NULL for this parameter.. 
+            
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.ccs.interop64.TLCCS.getUserCalibrationPoints(System.Int32[],System.Double[],System.Int32@)">
+            <summary>
+            This function returns the user-defined pixel-wavelength correlation supporting points. These given data pair arrays are used by the driver to interpolate the pixel-wavelength correlation array returned by the CCSseries_getWavelengthData function. 
+            
+            Note:
+            If you do not need either of these values you may pass NULL.
+            The function returns with error VI_ERROR_CCS_SERIES_NO_USER_DATA if no user calibration data is present in the instrument's nonvolatile memory.
+            </summary>
+            <param name="Pixel_Data_Array">
+            This parameter will receive the pixel values of the user-defined pixel/wavelength data pairs. 
+            
+            
+            Note:
+            The array must contain CCS_SERIES_MAX_NUM_USR_ADJ (10) elements. 
+            You may pass NULL.
+            </param>
+            <param name="Wavelength_Data_Array">
+            This parameter will receive the wavelength values of the user-defined pixel/wavelength data pairs. 
+            
+            
+            Note:
+            The array must contain CCS_SERIES_MAX_NUM_USR_ADJ (10) elements. 
+            You may pass NULL.
+            </param>
+            <param name="Buffer_Length">
+            This parameter receives the number of elements in the Pixel Data Array and the Wavelength Data Array. 
+            
+            Note:
+            You may pass NULL. In case no user calibration data is present the parameter will be set to 0.
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.ccs.interop64.TLCCS.setAmplitudeData(System.Double[],System.Int32,System.Int32,System.Int32)">
+            <summary>
+            This function stores data for user-defined pixel-amplitude correction factors to the instrument's nonvolatile memory.
+            
+            The factor array can be used to correct the amplitudes of each pixel returned by the CCSseries_getScanData function. 
+            
+            </summary>
+            <param name="Amplitude_Correction_Factors">
+            This parameter accepts the amplitude correction factor array. 
+            
+            Note:
+            The array must be at least of Buffer Length size
+            
+            </param>
+            <param name="Buffer_Length">
+            This parameter indicates the length of the amplitude correction factor array. Buffer Length values from given parameter Amplitude_Correction_Factors[] will replace the data stored in the user amplitude correction factor array.
+            
+            
+            Note:
+            This value has to be in the range of 1 to CCS_SERIES_NUM_PIXELS (3648). The sum of this parameter and the parameter Buffer Start must not exceed CCS_SERIES_NUM_PIXELS (3648).
+            
+            </param>
+            <param name="Buffer_Start">
+            This parameter is the start index for the amplitude correction factor array. From this point on the data given in the parameter Amplitude_Correction_Factors[] will replace the data stored in the user amplitude correction factor array.
+            
+            
+            Note:
+            This value has to be in the range of
+            0 to CCS_SERIES_NUM_PIXELS  - 1 (3647).
+            The sum of this parameter and the parameter Buffer_Length must not exceed CCS_SERIES_NUM_PIXELS (3648).
+            
+            </param>
+            <param name="Mode">
+            This parameter indicates the mode of setting the amplitude correction factor array.
+            
+            If mode is set to ACOR_APPLY_TO_MEAS (1) the data will be applied for the current measurements but will not go into the device's non volatile memory.
+            
+            If mode is set to ACOR_APPLY_TO_MEAS_NVMEM (2) the data will be  applied to the current measurements and will be additionally stored in the device's non volatile memory.
+            
+            
+            Note:
+            If mode is set to any other value the function will return error VI_ERROR_INV_PARAMETER (0xBFFF0078).
+            
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.ccs.interop64.TLCCS.getAmplitudeData(System.Double[],System.Int32,System.Int32,System.Int32)">
+            <summary>
+            This function returns data for the user-defined amplitude correction factors.  
+            
+            Note:
+            The value returned in Amplitude_Correction_Factors[0] is the amplitude correction factor at pixel 1, the value returned in Amplitude_Correction_Factors[1] is the amplitude correction factor at pixel 2 and so on until Amplitude_Correction_Factors[CCS_SERIES_NUM_PIXELS-1] which provides the amplitude correction factor at pixel CCS_SERIES_NUM_PIXELS (3648). 
+            
+            </summary>
+            <param name="Amplitude_Correction_Factors">
+            This parameter accepts the amplitude correction factor array. 
+            
+            Note:
+            The array must be at least of Buffer Length size
+            
+            </param>
+            <param name="Buffer_Start">
+            This parameter is the start index for the amplitude correction factor array. From this point on the data stored in the user amplitude correction factor array will be stored in the parameter Amplitude_Correction_Factors[].
+            
+            
+            Note:
+            This value has to be in the range of
+            0 to CCS_SERIES_NUM_PIXELS - 1 (3647).
+            The sum of this parameter and the parameter Buffer_Length must not exceed CCS_SERIES_NUM_PIXELS (3648).
+            
+            </param>
+            <param name="Buffer_Length">
+            This parameter indicates the length of the amplitude correction factor array. Buffer length values from given parameter Amplitude_Correction_Factors[] will replace the data stored in the user amplitude correction factor array.
+            
+            
+            Note:
+            This value has to be in the range of 1 to CCS_SERIES_NUM_PIXELS (3648). The sum of this parameter and the parameter Buffer Start must not exceed CCS_SERIES_NUM_PIXELS (3648).
+            
+            </param>
+            <param name="Mode">
+            This parameter indicates the mode of getting the amplitude correction factor array.
+            
+            If mode is set to ACOR_FROM_CURRENT (1) the data will be retrieved from the currently used amplitude correction factors.
+            
+            If mode is set to ACOR_FROM_NVMEM (2) the data will be read out from the device's non volatile memory and additionally applied to the current measurements.
+            
+            
+            Note:
+            If mode is set to any other value the function will return error VI_ERROR_INV_PARAMETER (0xBFFF0078).
+            
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.ccs.interop64.TLCCS.identificationQuery(System.Text.StringBuilder,System.Text.StringBuilder,System.Text.StringBuilder,System.Text.StringBuilder,System.Text.StringBuilder)">
+            <summary>
+            This function returns the device identification information.
+            </summary>
+            <param name="Manufacturer_Name">
+            This parameter returns the manufacturer name.
+            
+            Notes:
+            (1) The array must contain at least 256 elements ViChar[256].
+            (2) You may pass VI_NULL if you do not need this value.
+            
+            </param>
+            <param name="Device_Name">
+            This parameter returns the device name.
+            
+            Notes:
+            (1) The array must contain at least 256 elements ViChar[256].
+            (2) You may pass VI_NULL if you do not need this value.
+            
+            </param>
+            <param name="Serial_Number">
+            This parameter returns the device serial number.
+            
+            Notes:
+            (1) The array must contain at least 256 elements ViChar[256].
+            (2) You may pass VI_NULL if you do not need this value.
+            
+            </param>
+            <param name="Firmware_Revision">
+            This parameter returns the device firmware revision.
+            
+            Notes:
+            (1) The array must contain at least 256 elements ViChar[256].
+            (2) You may pass VI_NULL if you do not need this value.
+            
+            </param>
+            <param name="Instrument_Driver_Revision">
+            This parameter returns the driver revision.
+            
+            Notes:
+            (1) The array must contain at least 256 elements ViChar[256].
+            (2) You may pass VI_NULL if you do not need this value.
+            
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.ccs.interop64.TLCCS.revisionQuery(System.Text.StringBuilder,System.Text.StringBuilder)">
+            <summary>
+            This function returns the revision numbers of the instrument driver and the device firmware.
+            </summary>
+            <param name="Instrument_Driver_Revision">
+            This parameter returns the instrument driver revision.
+            
+            Notes:
+            (1) The 32 bits of revision are divided into 12 bits for major revision (MSB), 12 bits for minor revision and 8 bits for subminor revision (LSB). You can use the macros provided in the header file to extract major, minor, subminor from the revision provided here.
+            
+            RevMajor    = CCS_SERIES_EXTRACT_MAJOR(revision);
+            RevMinor    = CCS_SERIES_EXTRACT_MINOR(revision);
+            RevSubminor = CCS_SERIES_EXTRACT_SUBMINOR(revision);
+            
+            (2) You may pass VI_NULL if you do not need this value.
+            
+            </param>
+            <param name="Firmware_Revision">
+            This parameter returns the instrument firmware revision.
+            
+            Notes:
+            (1) The 32 bits of revision are divided into 12 bits for major revision (MSB), 12 bits for minor revision and 8 bits for subminor revision (LSB). You can use the macros provided in the header file to extract major, minor, subminor from the revision provided here.
+            
+            RevMajor    = CCS_SERIES_EXTRACT_MAJOR(revision);
+            RevMinor    = CCS_SERIES_EXTRACT_MINOR(revision);
+            RevSubminor = CCS_SERIES_EXTRACT_SUBMINOR(revision);
+            
+            (2) You may pass VI_NULL if you do not need this value.
+            
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.ccs.interop64.TLCCS.reset">
+            <summary>
+            This function resets the device.
+            </summary>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.ccs.interop64.TLCCS.selfTest(System.Int16@,System.Text.StringBuilder)">
+            <summary>
+            This function runs the device self test routine and returns the test result.
+            </summary>
+            <param name="Self_Test_Result">
+            This parameter contains the value returned from the device self test routine. A returned zero value indicates a successful run, a value other than zero indicates failure.
+            </param>
+            <param name="Self_Test_Message">
+            This parameter returns the instrument's self test message.
+            
+            Notes: The array must contain at least 256 elements ViChar[256].
+            You may pass VI_NULL if you do not need this value.
+            
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.ccs.interop64.TLCCS.errorQuery(System.Int32@,System.Text.StringBuilder)">
+            <summary>
+            This function queries the instrument's error queue manually. 
+            Use this function to query the instrument's error queue if the driver's error query mode is set to manual query. 
+            
+            Note: The returned values are stored in the drivers error store. You may use &lt;Error Message&gt; to get a descriptive text at a later point of time.
+            </summary>
+            <param name="Error_Number">
+            This parameter returns the instrument error number.
+            
+            Note: You may pass VI_NULL if you don't need this value.
+            
+            </param>
+            <param name="Error_Message">
+            This parameter returns the instrument error message.
+            
+            Notes: The array must contain at least 256 elements ViChar[256].
+            You may pass VI_NULL if you do not need this value.
+            
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.ccs.interop64.TLCCS.setUserText(System.String)">
+            <summary>
+            This function transfers a user definable text and saves it in the nonvolatile memory of the CCS.
+            
+            </summary>
+            <param name="User_Text">
+            This parameter specifies a user definable string.
+            
+            Note: 
+            The string will be truncated to CCS_SERIES_MAX_USER_NAME_SIZE-1 (31) characters. The number of characters stored in the CCS is always CCS_SERIES_MAX_USER_NAME_SIZE (32), the last character stored is always the NUL character.
+            
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="M:Thorlabs.ccs.interop64.TLCCS.getUserText(System.Text.StringBuilder)">
+            <summary>
+            This function receives a user defined text stored in the nonvolatile memory of the CCS.
+            </summary>
+            <param name="User_Text">
+            This parameter returns a user defined string.
+            
+            Note: 
+            The buffer must contain at least CCS_SERIES_MAX_USER_NAME_SIZE (32) elements (ViChar[CCS_SERIES_MAX_USER_NAME_SIZE]).
+            
+            </param>
+            <returns>
+            This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+            </returns>
+        </member>
+        <member name="P:Thorlabs.ccs.interop64.TLCCS.Handle">
+            <summary>
+            Gets the instrument handle.
+            </summary>
+            <value>
+            The value is the IntPtr that represents the handle to the instrument.
+            </value>
+        </member>
+    </members>
+</doc>
