@@ -1,6 +1,6 @@
 # TLBC2 sample 2D output
 
-The sample code shows how to control a BC207 beam profiler in Python.
+The sample code shows how to control a BC207 or BC210 beam profiler in Python.
 In the example the available beam profilers are found, a connection is extablished, several parameters are set, several output values are displayed and a 2D image is shown.
  
 The code uses the Python wrapper TLBC2.py, which loads the dll file for the beam profiler.
