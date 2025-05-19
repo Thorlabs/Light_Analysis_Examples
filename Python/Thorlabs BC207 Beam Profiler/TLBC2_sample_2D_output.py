@@ -1,9 +1,9 @@
 """
 Example Title: TLBC2_sample_2D_output.py
 Example Date of Creation: 2024-07-16
-Example Date of Last Modification on Github: 2024-07-16
+Example Date of Last Modification on Github: 2025-05-19
 Version of Python used for Testing: 3.11
-Version of the Thorlabs SDK used: Beam 9.1
+Version of the Thorlabs SDK used: Beam 9.2
 ==================
 Example Description: The sample code shows how to control a BC207 beam profiler in Python. In the example the available beam profilers are found, 
 a connection is extablished, several parameters are set, several output values are displayed and a 2D image is shown.
@@ -228,7 +228,8 @@ def main():
 
         # read out the scan data
         #pixeldata=(((c_ubyte*2448)*2048)*2)()
-        pixeldata=(((c_ubyte*1224)*1024)*2)()
+        pixeldata=(((c_ubyte*1224)*1024)*2)() #use for BC207 beam profiler
+        #pixeldata=(((c_ubyte*2048)*1496)*2)() #use for BC210 beam profiler
         width, height=c_ushort(0),c_ushort(0)
         bytesPerPixel=c_ubyte(2)
   
@@ -237,8 +238,9 @@ def main():
             error_exit(bc2, err) 
 
         #show image
-        imagedataFlat = np.frombuffer(pixeldata, dtype='uint16')
-        imagedata = np.array_split(imagedataFlat, 1024)
+        #imagedataFlat = np.frombuffer(pixeldata, dtype='uint16') 
+        imagedata = np.array_split(imagedataFlat, 1024) #use for BC207 beam profiler
+        #imagedata = np.array_split(imagedataFlat, 1496)  #use for BC210 beam profiler
 
         fig,ax=plt.subplots()
         ax.imshow(imagedata,cmap='cool')
