@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <!-- Cross-Platform build -->
+    <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
+        <TargetFrameworks>net48;net8.0</TargetFrameworks>
+        <DefineConstants>$(DefineConstants);IS_WINDOWS_NT</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(OS)' != 'Windows_NT' ">
+        <TargetFramework>net8.0</TargetFramework>
+        <DefineConstants>$(DefineConstants);NOT_WINDOWS_NT</DefineConstants>
+    </PropertyGroup>
+    
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <LangVersion>10</LangVersion>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>CctSdkCSharpExample</RootNamespace>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="Thorlabs.ManagedDevice" Version="1.0.20" />
+        <PackageReference Include="Thorlabs.ManagedDevice.SerialPortDriver" Version="1.0.20" />
+        <PackageReference Include="Thorlabs.ManagedDevice.EthernetPortDriver" Version="1.0.20" />
+        <PackageReference Include="Thorlabs.ManagedDevice.JetiBoardDriver" Version="1.0.20" />
+		<PackageReference Include="Thorlabs.ManagedDevice.CompactSpectrographDriver" Version="1.0.20" />
+    </ItemGroup>
+
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
+		<!-- Reference of the .NET Logging library is needed when build for .NET Framework 4.8 -->
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
+	</ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Thorlabs.SharedUtils" Version="1.1.2" />
+        <PackageReference Include="Thorlabs.SpectraData" Version="1.1.7" />
+    </ItemGroup>
+	
+	<!-- Code Sign of build output can be involved, if Digital Signature is configured
+	     Pre-built binaries of the .NET SDK Examples, provided via installer, are digitally signed -->
+	<Target Name="CodeSign" AfterTargets="PostBuildEvent">
+		<!-- Code Sign in CI/CD Pipeline, if applicable assets have been provided -->
+		<Exec Command="$(SignToolPath) sign /debug /f &quot;$(PfxFile)&quot; /p $(SignPassword) /t $(TimestampSrv) /v &quot;$(TargetPath)&quot;"
+			  Condition=" '$(SignToolPath)' != '' " />
+	    <!-- For cross-platform application in .NET 8 -->
+		<Exec Command="$(SignToolPath) sign /debug /f &quot;$(PfxFile)&quot; /p $(SignPassword) /t $(TimestampSrv) /v &quot;$(TargetDir)$(AssemblyName)$(_NativeExecutableExtension)&quot;"
+			  Condition=" '$(SignToolPath)' != '' And $(UseAppHost) == 'true'" />
+	</Target>
+
+</Project>
