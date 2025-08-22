@@ -7,7 +7,7 @@ anyvisa library. Some others use the third-party pyvisa python library based on 
 ## Included Examples
 
 ### Simple Example
-The example ```PMxxx_SCPI_pyvisa.py``` shows how to to open a powermeter connected with USB using the pyvisa library, make settings and get measurement values.
+The example ```PMxxx_SCPI_pyvisa.py``` shows how to to open a powermeter connected with USB using the pyvisa library, make settings and get measurement values. It will not work for ethernet connection, check the anyvisa examples for that case.
 
 ### Fast Mode
 Demonstrates how to query fast measurement stream of Thorlabs Power Meter. 
@@ -24,7 +24,7 @@ The Thorlabs Power Meters supports Scope Mode to measure and store a software or
 For closer details refer to [Readme](scopeMode). Available for PM6x, PM103, PM103E and PM5020.
 
 ### Open Anyvisa
-Minimal template script ```PMxxx_SCPI_OpenAnyvisa.py``` to open a known instrument resource using anvisa library.
+Minimal template script ```PMxxx_SCPI_OpenAnyvisa.py``` to open a known instrument resource using anyvisa library.
 
 ### Search Anyvisa
 Minimal template script ```PMxxx_SCPI_SearchAnyvisa.py``` to run instrument search and open one of the devices found using anvisa library.
