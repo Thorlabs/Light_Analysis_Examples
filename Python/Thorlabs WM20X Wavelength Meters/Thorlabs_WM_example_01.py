@@ -3,6 +3,8 @@ Thorlabs_VM_example_01
 Example Date of Creation: 2025-08-22
 Example Date of Last Modification on Github: 2025-08-22
 Version of Python: 3.12.4
+Version of Platform Firmware: 0.9.12
+Version of Interferometer Firmware: 0.58
 ==================
 Example Description: Read the wavelength from Thorlabs Wavelength Meter WM20X using TCP
 """
