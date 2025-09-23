@@ -8,3 +8,7 @@ Please note that the code connects to the first available ERM2xx device. If you 
 
 lib.TLERM200_getRsrcName(erm_handle, 0, resource)
 
+### ERM200_PyVisa.py
+This sample code shows how you can control a Thorlabs ERM200, ERM210 or ERM220 extinction ratio meter in Python with SCPI commands and PyVisa.
+Use Visa drivers to run the example.
+
