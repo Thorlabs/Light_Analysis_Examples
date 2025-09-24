@@ -2352,7 +2352,7 @@ class TLPMX:
 			
 			Return values:
 			  TLPM_AUTORANGE_POWER_OFF (0): power auto range disabled
-			  TLPM_AUTORANGE_POWER_ON  (0): power auto range enabled
+			  TLPM_AUTORANGE_POWER_ON  (1): power auto range enabled
 			
 			channel(c_uint16) : Number of the sensor channel. 
 			
