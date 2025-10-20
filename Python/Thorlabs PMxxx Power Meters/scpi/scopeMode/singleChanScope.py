@@ -1,9 +1,9 @@
 """
 Example Thorlabs Power Meter Singlel Channel Scope Mode Example
 Example Date of Creation                            2024-03-15
-Example Date of Last Modification on Github         2024-03-15
-Version of Python                                   3.11.2
-Version of the Thorlabs SDK used                    anyvisa0.3.0
+Example Date of Last Modification on Github         2025-10-20
+Version of Python                                   3.11.2, 3.13
+Version of the Thorlabs SDK used                    anyvisa 0.3.0, 0.3.3
 ==================
 This examples shows how to configure, execute and fetch results of scope measurement on single channel
 power meters (Except PM103) using SCPI commands and anyvisa. The code contains scope configuration for 
