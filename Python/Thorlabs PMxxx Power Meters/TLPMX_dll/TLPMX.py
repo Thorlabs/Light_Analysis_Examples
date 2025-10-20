@@ -24,20 +24,22 @@ TLPM_PID_PMTest = (0x807F)  # PM Test Platform
 TLPM_PID_PM200 = (0x80B0)  # PM200
 TLPM_PID_PM5020 = (0x80BB)  # PM5020 1 channel benchtop powermeter (Interface 0 TMC, Interface 1 DFU)
 TLPM_PID_PM6x_DFU = (0x80B4)  # PM6x on USB with DFU interface enabled (Interface 0 TMC, Interface 1 DFU)
-TLPM_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && (VI_ATTR_MODEL_CODE==0x8070 || VI_ATTR_MODEL_CODE==0x8078)}"
-PM100A_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && (VI_ATTR_MODEL_CODE==0x8071 || VI_ATTR_MODEL_CODE==0x8079)}"
-PM100USB_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && VI_ATTR_MODEL_CODE==0x8072}"
-PM160USB_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && (VI_ATTR_MODEL_CODE==0x8073 || VI_ATTR_MODEL_CODE==0x807B)}"
-PM160TUSB_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && (VI_ATTR_MODEL_CODE==0x8074 || VI_ATTR_MODEL_CODE==0x807C)}"
-PM200_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && VI_ATTR_MODEL_CODE==0x80B0}"
-PM400_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && (VI_ATTR_MODEL_CODE==0x8075 || VI_ATTR_MODEL_CODE==0x807D)}"
-PM101_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && (VI_ATTR_MODEL_CODE==0x8076)}"
-PM102_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && (VI_ATTR_MODEL_CODE==0x8077)}"
-PM103_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && VI_ATTR_MODEL_CODE==0x807A}"
-PMTest_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && VI_ATTR_MODEL_CODE==0x807F}"
+TLPM_PID_PM100Dx_DFU = (0x8099)  # PM100D2\D3 Generation on USB with DFU interface enabled (Interface 0 TMC, Interface 1 DFU)
+TLPM_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && (VI_ATTR_MODE _CODE==0x8070 || VI_ATTR_MODE _CODE==0x8078)}"
+PM100A_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && (VI_ATTR_MODE _CODE==0x8071 || VI_ATTR_MODE _CODE==0x8079)}"
+PM100USB_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && VI_ATTR_MODE _CODE==0x8072}"
+PM160USB_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && (VI_ATTR_MODE _CODE==0x8073 || VI_ATTR_MODE _CODE==0x807B)}"
+PM160TUSB_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && (VI_ATTR_MODE _CODE==0x8074 || VI_ATTR_MODE _CODE==0x807C)}"
+PM200_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && VI_ATTR_MODE _CODE==0x80B0}"
+PM400_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && (VI_ATTR_MODE _CODE==0x8075 || VI_ATTR_MODE _CODE==0x807D)}"
+PM101_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && (VI_ATTR_MODE _CODE==0x8076)}"
+PM102_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && (VI_ATTR_MODE _CODE==0x8077)}"
+PM103_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && VI_ATTR_MODE _CODE==0x807A}"
+PMTest_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && VI_ATTR_MODE _CODE==0x807F}"
 PM100_FIND_PATTERN = "USB?*::0x1313::0x807?::?*::INSTR"
-PM5020_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && VI_ATTR_MODEL_CODE==0x80BB}"
-PMxxx_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && (VI_ATTR_MODEL_CODE==0x8070 || VI_ATTR_MODEL_CODE==0x8078 || " \
+PM5020_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && VI_ATTR_MODE _CODE==0x80BB}"
+PM100D3rdGen_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && VI_ATTR_MODE _CODE==0x8099}"
+PMxxx_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && (VI_ATTR_MODE _CODE==0x8070 || VI_ATTR_MODE _CODE==0x8078 || " \
 "VI_ATTR_MODEL_CODE==0x8071 || VI_ATTR_MODEL_CODE==0x8079 || " \
 "VI_ATTR_MODEL_CODE==0x8072 || " \
 "VI_ATTR_MODEL_CODE==0x8073 || VI_ATTR_MODEL_CODE==0x807B || " \
@@ -45,12 +47,23 @@ PMxxx_FIND_PATTERN = "USB?*INSTR{VI_ATTR_MANF_ID==0x1313 && (VI_ATTR_MODEL_CODE=
 "VI_ATTR_MODEL_CODE==0x8075 || VI_ATTR_MODEL_CODE==0x807D || " \
 "VI_ATTR_MODEL_CODE==0x8076 || VI_ATTR_MODEL_CODE==0x807E || " \
 "VI_ATTR_MODEL_CODE==0x8077 || VI_ATTR_MODEL_CODE==0x807F || " \
+"VI_ATTR_MODEL_CODE==0x8099 ||" \
 "VI_ATTR_MODEL_CODE==0x807A || VI_ATTR_MODEL_CODE==0x80BB ||" \
 "VI_ATTR_MODEL_CODE==0x80B0 || VI_ATTR_MODEL_CODE==0x80B4)}"
-PMBT_FIND_PATTERN = "ASRL?*::INSTR{VI_ATTR_MANF_ID==0x1313 && (VI_ATTR_MODEL_CODE==0x807C || VI_ATTR_MODEL_CODE==0x807B)}"
+PMBT_FIND_PATTERN = "ASR ?*::INSTR{VI_ATTR_MANF_ID==0x1313 && (VI_ATTR_MODE _CODE==0x807C || VI_ATTR_MODE _CODE==0x807B)}"
 PMUART_FIND_PATTERN_VISA = "ASRL?*::INSTR"
 PMUART_FIND_PATTERN_COM = "COM?*"
-PMNET_FIND_PATTERN = "TCPIP?*:INSTR{VI_ATTR_TCPIP_DEVICE_NAME==\"PM5020\" || VI_ATTR_TCPIP_DEVICE_NAME==\"PM103E\"}"
+PMNET_FIND_PATTERN = "TCPIP?*::INSTR{(VI_ATTR_TCPIP_DEVICE_NAME==\"PM5020\" || VI_ATTR_TCPIP_DEVICE_NAME==\"PM103E\" || " \
+"VI_ATTR_TCPIP_DEVICE_NAME==\"PM60\" || VI_ATTR_TCPIP_DEVICE_NAME==\"PM61\" || " \
+"VI_ATTR_TCPIP_DEVICE_NAME==\"PM62\" || VI_ATTR_TCPIP_DEVICE_NAME==\"PM63\" || VI_ATTR_TCPIP_DEVICE_NAME==\"PM64\" ||" \
+"VI_ATTR_TCPIP_DEVICE_NAME==\"PM400\" || " \
+"VI_ATTR_TCPIP_DEVICE_NAME==\"PM100D3\" || VI_ATTR_TCPIP_DEVICE_NAME==\"PM100D2\" || " \
+"VI_ATTR_TCPIP_DEVICE_NAME==\"PM103\" || VI_ATTR_TCPIP_DEVICE_NAME==\"PM103A\" || VI_ATTR_TCPIP_DEVICE_NAME==\"PM103R\" || VI_ATTR_TCPIP_DEVICE_NAME==\"PM103U\" || " \
+"VI_ATTR_TCPIP_DEVICE_NAME==\"PM102\" || VI_ATTR_TCPIP_DEVICE_NAME==\"PM102A\" || VI_ATTR_TCPIP_DEVICE_NAME==\"PM102R\" || VI_ATTR_TCPIP_DEVICE_NAME==\"PM102U\" || " \
+"VI_ATTR_TCPIP_DEVICE_NAME==\"PM101\" || VI_ATTR_TCPIP_DEVICE_NAME==\"PM101A\" || VI_ATTR_TCPIP_DEVICE_NAME==\"PM101R\" || VI_ATTR_TCPIP_DEVICE_NAME==\"PM101U\" || " \
+"VI_ATTR_TCPIP_DEVICE_NAME==\"PM100USB\" || " \
+"VI_ATTR_TCPIP_DEVICE_NAME==\"PM100D\" || VI_ATTR_TCPIP_DEVICE_NAME==\"PM100A\" || VI_ATTR_TCPIP_DEVICE_NAME==\"PM200\" || " \
+"VI_ATTR_TCPIP_DEVICE_NAME==\"PM160\" || VI_ATTR_TCPIP_DEVICE_NAME==\"PM160T\")}"
 PMBTH_FIND_PATTERN = "BTHLE?*"
 TLPM_BUFFER_SIZE = 256  # General buffer size
 TLPM_ERR_DESCR_BUFFER_SIZE = 512  # Buffer size for error messages
@@ -143,8 +156,8 @@ TLPM_STATBIT_OPER_SETT = (0x0002)  # < The instrument is waiting for signals it 
 TLPM_STATBIT_OPER_RANG = (0x0004)  # < The instrument is currently changing its range.
 TLPM_STATBIT_OPER_SWE = (0x0008)  # < A sweep is in progress.
 TLPM_STATBIT_OPER_MEAS = (0x0010)  # < The instrument is actively measuring.
-TLPM_STATBIT_OPER_TRIG = (0x0020)  # < The instrument is in a �wait for trigger� state of the trigger model.
-TLPM_STATBIT_OPER_ARM = (0x0040)  # < The instrument is in a �wait for arm� state of the trigger model.
+TLPM_STATBIT_OPER_TRIG = (0x0020)  # < The instrument is in a ?wait for trigger? state of the trigger model.
+TLPM_STATBIT_OPER_ARM = (0x0040)  # < The instrument is in a ?wait for arm? state of the trigger model.
 TLPM_STATBIT_OPER_CORR = (0x0080)  # < The instrument is currently performing a correction (Auto-PID tune).
 TLPM_STATBIT_OPER_SENS = (0x0100)  # < Optical powermeter sensor connected and operable.
 TLPM_STATBIT_OPER_DATA = (0x0200)  # < Measurement data ready for fetch.
@@ -202,6 +215,8 @@ TLPM_AUTORANGE_CURRENT_OFF = (0)
 TLPM_AUTORANGE_CURRENT_ON = (1)
 TLPM_CURRENT_REF_OFF = (0)
 TLPM_CURRENT_REF_ON = (1)
+TLPM_AUTORANGE_ENERGY_OFF = (0)
+TLPM_AUTORANGE_ENERGY_ON = (1)
 TLPM_ENERGY_REF_OFF = (0)
 TLPM_ENERGY_REF_ON = (1)
 TLPM_FREQ_MODE_CW = (0)
@@ -222,6 +237,9 @@ TLPM_ANALOG_ROUTE_PUR = (0)
 TLPM_ANALOG_ROUTE_CBA = (1)
 TLPM_ANALOG_ROUTE_CMA = (2)
 TLPM_ANALOG_ROUTE_GEN = (3)
+TLPM_ANALOG_ROUTE_FUNC = (4)
+TLPM_ANALOG_ROUTE_CUST = (5)
+TLPM_ANALOG_ROUTE_GDBM = (6)
 TLPM_MEAS_POWER = (0)
 TLPM_MEAS_CURRENT = (1)
 TLPM_MEAS_VOLTAGE = (2)
@@ -269,6 +287,19 @@ TLPM_SENS_FLAG_IS_RESP_SET = 0x0010  # Responsivity settable
 TLPM_SENS_FLAG_IS_WAVEL_SET = 0x0020  # Wavelength settable
 TLPM_SENS_FLAG_IS_TAU_SET = 0x0040  # Time constant tau settable
 TLPM_SENS_FLAG_HAS_TEMP = 0x0100  # Temperature sensor included
+TLPM_SENS_XFLAG_AUTORANGE = 0x0001  # can auto range
+TLPM_SENS_XFLAG_IS_ADAPTER = 0x0002  # is adapter
+TLPM_SENS_XFLAG_IS_WAVEL_SET = 0x0004  # Energy sensor
+TLPM_SENS_XFLAG_IS_RESP_SET = 0x0008  # Wavelength settable
+TLPM_SENS_XFLAG_IS_ACC_SET = 0x0010  # can set acceleration
+TLPM_SENS_XFLAG_IS_BW_SET = 0x0020  # can set bandwidth
+TLPM_SENS_XFLAG_DECT_PEAK = 0x0040  # can detect peak
+TLPM_SENS_XFLAG_MEAS_FREQ = 0x0080  # can meas frequency
+TLPM_SENS_XFLAG_IS_ZERO_SET = 0x0100  # can start zeroing
+TLPM_SENS_XFLAG_IS_TAU_SET = 0x0200  # can set tau
+TLPM_SENS_XFLAG_MEAS_POS = 0x0400  # can meas position x,y
+TLPM_SENS_XFLAG_PHOTOMETRIC = 0x0800  # can meas photometric
+TLPM_SENS_XFLAG_HAS_TEMP = 0x1000  # Temperature sensor included
 
 class TLPMX:
 
@@ -302,11 +333,13 @@ class TLPMX:
 		"""
 		if sizeof(c_voidp) == 4:
 			dll_name = "TLPMX_32.dll"
-			dllabspath = os.path.dirname(os.path.abspath(__file__)) + os.path.sep + dll_name
+#			dllabspath = os.path.dirname(os.path.abspath(__file__)) + os.path.sep + dll_name
+			dllabspath = "C:\\Program Files (x86)\\IVI Foundation\\VISA\\WinNT\\Bin\\" + dll_name
 			self.dll = cdll.LoadLibrary(dllabspath)
 		else:
 			dll_name = "TLPMX_64.dll"
-			dllabspath = os.path.dirname(os.path.abspath(__file__)) + os.path.sep + dll_name
+#			dllabspath = os.path.dirname(os.path.abspath(__file__)) + os.path.sep + dll_name
+			dllabspath = "C:\\Program Files\\IVI Foundation\\VISA\\Win64\\Bin\\" + dll_name
 			self.dll = cdll.LoadLibrary(dllabspath)
 
 		self.devSession = c_long()
@@ -388,7 +421,7 @@ class TLPMX:
 			VI_FALSE (0) - no reset 
 			
 			
-			password(create_string_buffer(1024)) : Password for encryption over ethernet communication.
+			password(c_char_p) : Password for encryption over ethernet communication.
 			pInstr(ViPSession use with byref) : This parameter returns an instrument handle that is used in all subsequent calls to distinguish between different sessions of this instrument driver.
 		Returns:
 			int: The return value, 0 is for success
@@ -414,7 +447,7 @@ class TLPMX:
 		This function finds all driver compatible devices attached to the PC and returns the number of found devices.
 		
 		Note:
-		(1) The function additionally stores information like system name about the found resources internally. This information can be retrieved with further functions from the class, e.g. <Get Resource Description> and <Get Resource Information>.
+		(1) The function additionally stores information like system name about the found resources internally. This information can be retrieved with further functions from the class, e.g. <Get Resource Description> and :func:`getRsrcInfo`.
 		
 		(2) To list Ethernet and Bluetooth devices, enable the search for these devices with functions setEnableNetSearch and setEnableBthSearch.
 		
@@ -431,10 +464,10 @@ class TLPMX:
 
 	def getRsrcName(self, index, resourceName):
 		"""
-		This function gets the resource name string needed to open a device with <Initialize>.
+		This function gets the resource name string needed to open a device with :func:`init`.
 		
 		Notes:
-		(1) The data provided by this function was updated at the last call of <Find Resources>.
+		(1) The data provided by this function was updated at the last call of :func:`findRsrc`.
 		
 		Args:
 			index(c_uint32) : This parameter accepts the index of the device to get the resource descriptor from.
@@ -442,7 +475,7 @@ class TLPMX:
 			Notes: 
 			(1) The index is zero based. The maximum index to be used here is one less than the number of devices found by the last call of <Find Resources>.
 			
-			resourceName(create_string_buffer(1024)) : This parameter returns the resource descriptor. Use this descriptor to specify the device in <Initialize>.
+			resourceName(create_string_buffer(1024) use with byref) : This parameter returns the resource descriptor. Use this descriptor to specify the device in <Initialize>.
 			
 			Notes:
 			(1) The array must contain at least TLPM_BUFFER_SIZE (256) elements ViChar[256].
@@ -458,7 +491,7 @@ class TLPMX:
 		This function gets information about a connected resource.
 		
 		Notes:
-		(1) The data provided by this function was updated at the last call of <Find Resources>.
+		(1) The data provided by this function was updated at the last call of :func:`findRsrc`.
 		
 		Args:
 			index(c_uint32) : This parameter accepts the index of the device to get the resource descriptor from.
@@ -466,19 +499,19 @@ class TLPMX:
 			Notes: 
 			(1) The index is zero based. The maximum index to be used here is one less than the number of devices found by the last call of <Find Resources>.
 			
-			modelName(create_string_buffer(1024)) : This parameter returns the model name of the device.
+			modelName(create_string_buffer(1024) use with byref) : This parameter returns the model name of the device.
 			
 			Notes:
 			(1) The array must contain at least TLPM_BUFFER_SIZE (256) elements ViChar[256].
 			(2) You may pass VI_NULL if you do not need this parameter.
 			(3) Serial interfaces over Bluetooth will return the interface name instead of the device model name.
-			serialNumber(create_string_buffer(1024)) : This parameter returns the serial number of the device.
+			serialNumber(create_string_buffer(1024) use with byref) : This parameter returns the serial number of the device.
 			
 			Notes:
 			(1) The array must contain at least TLPM_BUFFER_SIZE (256) elements ViChar[256].
 			(2) You may pass VI_NULL if you do not need this parameter.
 			(3) The serial number is not available for serial interfaces over Bluetooth.
-			manufacturer(create_string_buffer(1024)) : This parameter returns the manufacturer name of the device.
+			manufacturer(create_string_buffer(1024) use with byref) : This parameter returns the manufacturer name of the device.
 			
 			Notes:
 			(1) The array must contain at least TLPM_BUFFER_SIZE (256) elements ViChar[256].
@@ -501,6 +534,8 @@ class TLPMX:
 		"""
 		This function writes the content of any writable instrument register. Refer to your instrument's user's manual for more details on status structure registers.
 		
+		Remarks:
+		(1) Be aware the condition and the event registers are read only!
 		
 		Args:
 			reg(c_int16) : Specifies the register to be used for operation. This parameter can be any of the following constants:
@@ -626,6 +661,9 @@ class TLPMX:
 	def readRegister(self, reg, value):
 		"""
 		This function reads the content of any readable instrument register. Refer to your instrument's user's manual for more details on status structure registers.
+		
+		Remarks:
+		(1) Reading the event register will clear the event bitmask
 		
 		
 		Args:
@@ -772,16 +810,17 @@ class TLPMX:
 
 	def sendNTPRequest(self, timeMode, timeZone, IPAddress):
 		"""
-		This function sets the system date and time of the powermeter.
+		This function sends a (Network Time Protocol) NTP - Request to given IP address to update date and time of the powermeter automatically using an external time server. 
 		
 		Notes:
 		(1) Date and time are displayed on instruments screen and are used as timestamp for data saved to memory card.
-		(2) The function is only available on PM100D, PM200, PM400.
+		(2) The function is only available on PM5020
+		(3) Requires an active Ethernet connection with the route to the requested server.
 		
 		Args:
-			timeMode(c_int16)
-			timeZone(c_int16)
-			IPAddress(create_string_buffer(1024))
+			timeMode(c_int16) : 0 for wintertime. 1 for summertime
+			timeZone(c_int16) : Local time zone offset for GMT. Berlin is +1
+			IPAddress(c_char_p) :  IP address of used NTP server. By default PTB server is used.
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -795,7 +834,6 @@ class TLPMX:
 		
 		Notes:
 		(1) Date and time are displayed on instruments screen and are used as timestamp for data saved to memory card.
-		(2) The function is only available on PM100D, PM200, PM400.
 		
 		Args:
 			year(c_int16) : This parameter specifies the actual year in the format yyyy e.g. 2009.
@@ -821,7 +859,6 @@ class TLPMX:
 		
 		Notes:
 		(1) Date and time are displayed on instruments screen and are used as timestamp for data saved to memory card.
-		(2) The function is only available on PM100D, PM200, PM400.
 		
 		Args:
 			year(c_int16 use with byref) : This parameter specifies the actual year in the format yyyy.
@@ -843,7 +880,7 @@ class TLPMX:
 		
 		Notes:
 		(1) Date and time are displayed on instruments screen and are used as timestamp for data saved to memory card.
-		(2) The function is only available on PM5020
+		(2) The function is available on PM5020, PM6x, PM100Dx
 		
 		Args:
 			timeMode(c_int16)
@@ -860,7 +897,7 @@ class TLPMX:
 		
 		Notes:
 		(1) Date and time are displayed on instruments screen and are used as timestamp for data saved to memory card.
-		(2) The function is only available on PM5020.
+		(2) The function is available on PM5020, PM6x and PM100Dx
 		
 		Args:
 			timeMode(c_int16 use with byref)
@@ -913,12 +950,11 @@ class TLPMX:
 
 	def getBatteryVoltage(self, voltage):
 		"""
-		This function is used to obtain the battery voltage readings from the instrument.
+		This function is used to obtain the battery voltage readings from the instrument. It optains the latest battery voltage measurement result.
 		
-		Remark:
-		(1) This function is only supported with the PM160 and PM160T.
-		(2) This function obtains the latest battery voltage measurement result.
-		(3) With the USB cable connected this function will obtain the loading voltage. Only with USB cable disconnected (Bluetooth connection) the actual battery voltage can be read. 
+		Remarks:
+		(1) Supported for PM160, PM160T, PM6x, PM100Dx
+		(2) if USB cable connected: this function will obtain the loading voltage. Only with USB cable disconnected (Bluetooth connection) the actual battery voltage can be read. 
 		
 		Args:
 			voltage(c_double use with byref) : This parameter returns the battery voltage in volts [V].
@@ -949,7 +985,6 @@ class TLPMX:
 	def getDispBrightness(self, pVal):
 		"""
 		This function returns the display brightness.
-		
 		
 		Args:
 			pVal(c_double use with byref) : This parameter returns the display brightness. Value range is 0.0 to 1.0.
@@ -996,9 +1031,9 @@ class TLPMX:
 
 	def beep(self):
 		"""
-		Plays a beep sound.
+		Plays a beep sound. 
 		
-		Note: Only supported by PM5020.
+		Note: Supported by PM5020, PM400, PM60, PM100Dx
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -1008,11 +1043,11 @@ class TLPMX:
 
 	def setInputFilterState(self, inputFilterState, channel):
 		"""
-		This function sets the instrument's photodiode input filter state.
+		This functionto enables or disables the bandwidth limitation of the photodiode sensor signal amplifier. This command is useful for CW signals to suppress noise. For modulated signals ensure bandwidth is set to high. 
 		
-		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM200, PM400.
-		
+		Remarks:
+		(1) When active bandwidth is limited to approximately 3 Hz.
+		(2) Photodiode only!
 		
 		Args:
 			inputFilterState(c_int16) : This parameter specifies the input filter mode.
@@ -1032,11 +1067,11 @@ class TLPMX:
 
 	def getInputFilterState(self, inputFilterState, channel):
 		"""
-		This function returns the instrument's photodiode input filter state.
+		This function tests if the bandwidth limitation of the photodiode sensor signal amplifier is enabled or disabled. This command is useful for CW signals to suppress noise. For modulated signals ensure bandwidth is set to high. 
 		
-		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM200, PM400.
-		
+		Remarks:
+		(1) When active bandwidth is limited to approximately 3 Hz.
+		(2) Photodiode only!
 		
 		Args:
 			inputFilterState(c_int16 use with byref) : This parameter returns the input filter state.
@@ -1107,14 +1142,11 @@ class TLPMX:
 
 	def setAccelMode(self, accelMode, channel):
 		"""
-		This function sets the thermopile acceleration auto mode.
-		
-		While thermopile acceleration improves displaying changing measurement values it unfortunately adds extra noise which can become noticeable on constant values measurements. With acceleration mode set to AUTO the instrument enables the acceleration circuitry after big measurement value changes for five times of "Tau". See also functions <Set Thermopile Accelerator Tau> and <Set Thermopile Accelerator State>.
-		
-		With calling <Set Thermopile Accelerator State> the accelerator mode will always be reset to MANUAL.
+		Enables or disables the thermopile sensor value prediction algorithm. Thermopile sensors can respond slowly to rapid changes in light intensity. The prediction algorithm automatically calculates the resulting power, following a logarithmic function during positive jumps and a 1/e function during negative jumps. The sensor behaves like a capacitor, and in both scenarios, the signal reaches 99% of its final level after a time period of 5 Tau, at which point the prediction is automatically halted. Tau is a sensor-specific constant stored in the head's EEPROM.
 		
 		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM160T, PM200, PM400.
+		(1) The function is only available on powermeters withThermopile sensor support.
+		(2) For adapter sensors (Without EEPROM), Tau can be modified using the setAccelTau function
 		
 		
 		Args:
@@ -1139,7 +1171,7 @@ class TLPMX:
 		This function returns the thermopile acceleration mode.
 		
 		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM160T, PM200, PM400.
+		(1) The function is only available on powermeters withThermopile sensor support.
 		
 		
 		Args:
@@ -1164,12 +1196,11 @@ class TLPMX:
 		This function sets the thermopile acceleration time constant in seconds [s].
 		
 		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM200, PM400.
+		(1) Applies only for Thermopile adapter sensors without EEPROM
 		
 		
 		Args:
 			accelTau(c_double) : This parameter specifies the thermopile acceleration time constant in seconds [s].
-			
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -1185,8 +1216,8 @@ class TLPMX:
 		This function returns the thermopile acceleration time constant in seconds [s].
 		
 		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM200, PM400.
-		
+		(1) Note: The function is only available on powermeters with Thermopile sensor support.
+		(2) Tau is stored in the sensor head EEPROM
 		
 		Args:
 			attribute(c_int16) : This parameter specifies the value to be queried.
@@ -1211,11 +1242,10 @@ class TLPMX:
 
 	def setInputAdapterType(self, type, channel):
 		"""
-		This function sets the sensor type to assume for custom sensors without calibration data memory connected to the instrument.
+		Changes the default adapter sensor type. Adapters are sensors that do not have a head EEPROM. If no sensor is currently connected, this function will update the default adapter sensor type. If an adapter is connected, the function will re-enumerate the new adapter type on the Powermeter. The adapter type is stored persistently and will be automatically reused after a reboot.
 		
-		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM200, PM400.
-		
+		Remarks:
+		(1) For every Powermeter only the specified sensor types are supported. 
 		
 		Args:
 			type(c_int16) : This parameter specifies the custom sensor type.
@@ -1224,8 +1254,8 @@ class TLPMX:
 			 SENSOR_TYPE_PD_SINGLE (1): Photodiode sensor
 			 SENSOR_TYPE_THERMO    (2): Thermopile sensor
 			 SENSOR_TYPE_PYRO      (3): Pyroelectric sensor
+			 SENSOR_TYPE_4Q        (4): 4 Quadrant sensor
 			
-			Value SENSOR_TYPE_PYRO is only available for energy meter instruments.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -1239,10 +1269,6 @@ class TLPMX:
 	def getInputAdapterType(self, type, channel):
 		"""
 		This function returns the assumed sensor type for custom sensors without calibration data memory connected to the instrument.
-		
-		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM200, PM400.
-		
 		
 		Args:
 			type(c_int16 use with byref) : This parameter returns the custom sensor type.
@@ -1265,17 +1291,53 @@ class TLPMX:
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
+	def getThermopilePulseIntegrator(self, enable, channel):
+		"""
+		Tests if thermopile pulse energy measurement is enabled or disabled. This mode is suitable for measuring the energy in joules from single thermopile pulses with a slow repetition rate. The algorithm integrates the power measurement over a duration of 8 * Tau, where Tau is a sensor-specific time constant stored in the head's EEPROM.
+		
+		Args:
+			enable(c_int16 use with byref) : True when thermopile pulse integrator is enabled. False when disabled.
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_getThermopilePulseIntegrator(self.devSession, enable, channel)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def setThermopilePulseIntegrator(self, enable, channel):
+		"""
+		Enables or disables thermopile pulse energy measurement. This mode is suitable for measuring the energy in joules from single thermopile pulses with a slow repetition rate. The algorithm integrates the power measurement over a duration of 8 * Tau, where Tau is a sensor-specific time constant stored in the head's EEPROM.
+		
+		Notes:
+		(1) Note: The function is only available on powermeters with Thermopile sensor support.
+		(2) For adapter sensors Tau must be specified by setAcclTau function previously
+		
+		Args:
+			enable(c_int16) : True to enable the pulse energy measurement. False to disable it.
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_setThermopilePulseIntegrator(self.devSession, enable, channel)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
 	def setAvgTime(self, avgTime, channel):
 		"""
-		This function sets the average time for measurement value generation.
+		This function sets the average time for measurement value generation. The value will be rounded to the closest multiple of the device's internal sampling rate. Averaging applies for the device slow measurement system of light sensor related CW measurements. 
+		
+		Remarks:
+		(1) To get an measurement value from the device the timeout in your application has to be longer than the average time.
+		(2) All non light related measurements like temperature and frequenency measurements are not affected by this prescaler
+		(3) Affected only continuous wave (CW) measurements of light signals.
 		
 		Args:
 			avgTime(c_double) : This parameter specifies the average time in seconds.
-			
-			The value will be rounded to the closest multiple of the device's internal sampling rate.
-			
-			Remark: 
-			To get an measurement value from the device the timeout in your application has to be longer than the average time.
 			
 			
 			channel(c_uint16) : Number of the sensor channel. 
@@ -1290,8 +1352,12 @@ class TLPMX:
 
 	def getAvgTime(self, attribute, avgTime, channel):
 		"""
-		This function returns the average time for measurement value generation.
+		This function returns the average time for measurement value generation. The value has beenrounded to the closest multiple of the device's internal sampling rate. Averaging applies for the device slow measurement system of light sensor related CW measurements. 
 		
+		Remarks:
+		(1) To get an measurement value from the device the timeout in your application has to be longer than the average time.
+		(2) All non light related measurements like temperature and frequenency measurements are not affected by this prescaler
+		(3) Affected only continuous wave (CW) measurements of light signals.
 		
 		Args:
 			attribute(c_int16) : This parameter specifies the value to be queried.
@@ -1316,23 +1382,18 @@ class TLPMX:
 
 	def setAvgCnt(self, averageCount, channel):
 		"""
-		This function sets the average count for measurement value generation.
+		Configures the averaging prescaler for slow light signal measurements. The prescaler value, which must be a whole number, reduces the measurement rate derived from the powermeter specific measurement frequency. 
+		
+		For example, the powermeter measurement frequency is 1 kHz and the prescaler is set to 2, the Powermeter will average two slow measurements, resulting in an update rate of 500 Hz.
 		
 		Notes:
-		(1) The function is only available on PM100A, PM100D, PM100USB, PM200, PM400.
-		(2) The function is deprecated and kept for legacy reasons. Its recommended to use TLPM_setAvgTime() instead.
-		
+		(1) The function is DEBRECATED and kept for legacy reasons. Its recommended to use setAvgTime() instead.
+		(2) To get an measurement value from the device the timeout in your application has to be longer than the average time.
+		(3) All non light related measurements like temperature and frequenency measurements are not affected by this prescaler
+		(4) Affected only continuous wave (CW) measurements of light signals.
 		
 		Args:
-			averageCount(c_int16) : This parameter specifies the average count.
-			The default value is 1.
-			
-			Remark: 
-			Depending on the powermeter model internal there are taken up to 3000 measurements per second.
-			In this example   Average Time = Average Count / 3000 [s].
-			To get an measurement value from the device the timeout in your application has to be longer than the calculated average time.
-			
-			
+			averageCount(c_int16) : This parameter specifies the average count. The default value is 1.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -1345,20 +1406,18 @@ class TLPMX:
 
 	def getAvgCnt(self, averageCount, channel):
 		"""
-		This function returns the average count for measurement value generation.
+		Returns the average count prescaler for the slow measurement system. The prescaler value, which is a whole number, reduces the measurement rate derived from the powermeter specific measurement frequency. 
+		
+		For example, the powermeter measurement frequency is 1 kHz and the prescaler is set to 2, the Powermeter will average two slow measurements, resulting in an update rate of 500 Hz.
 		
 		Notes:
-		(1) The function is only available on PM100A, PM100D, PM100USB, PM200, PM400.
-		(2) The function is deprecated and kept for legacy reasons. Its recommended to use TLPM_getAvgTime() instead.
-		
+		(1) The function is DEBRECATED and kept for legacy reasons. Its recommended to use getAvgTime() instead.
+		(2) To get an measurement value from the device the timeout in your application has to be longer than the average time.
+		(3) All non light related measurements like temperature and frequenency measurements are not affected by this prescaler
+		(4) Affected only continuous wave (CW) measurements of light signals.
 		
 		Args:
 			averageCount(c_int16 use with byref) : This parameter returns the actual Average Count.
-			
-			Remark: 
-			Depending on the powermeter model internal there are taken up to 3000 measurements per second.
-			In this example   Average Time = Average Count / 3000 [s].
-			To get an measurement value from the device the timeout in your application has to be longer than the calculated average time.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -1371,11 +1430,7 @@ class TLPMX:
 
 	def setAttenuation(self, attenuation, channel):
 		"""
-		This function sets the input attenuation.
-		
-		Notes:
-		(1) The function is only available on PM100A, PM100D, PM100USB, PM200, PM400.
-		
+		Sets the attenuation of light in dBm. If your setup includes a filter in front of the sensor, this attenuation ensures that the Powermeter displays corrected values. The attenuation parameter is stored persistently and will be restored after a reboot. If the connected sensor is changed, the parameter will be reset to 0.
 		
 		Args:
 			attenuation(c_double) : This parameter specifies the input attenuation in dezibel [dB].
@@ -1392,11 +1447,7 @@ class TLPMX:
 
 	def getAttenuation(self, attribute, attenuation, channel):
 		"""
-		This function returns the input attenuation.
-		
-		Notes:
-		(1) The function is only available on PM100A, PM100D, PM100USB, PM200, PM400.
-		
+		Querys the attenuation of light in dB. If your setup includes a filter in front of the sensor, this attenuation ensures that the Powermeter displays corrected values. The attenuation parameter is stored persistently and will be restored after a reboot. If the connected sensor is changed, the parameter will be reset to 0.
 		
 		Args:
 			attribute(c_int16) : This parameter specifies the value to be queried.
@@ -1421,14 +1472,17 @@ class TLPMX:
 
 	def startDarkAdjust(self, channel):
 		"""
-		This function starts the dark current/zero offset adjustment procedure.
+		Initiates a dark current or voltage correction for the sensor. Before starting the correction, ensure that the light source is not illuminating the sensor area and that the sensor is completely covered. This command only begins the zeroing procedure, which runs in the background. During the zeroing process, measurements cannot be taken. 
 		
-		Remark: 
+		Remarks:
 		(1) You have to darken the input before starting dark/zero adjustment.
-		(2) You can get the state of dark/zero adjustment with <Get Dark Adjustment State>
-		(3) You can stop dark/zero adjustment with <Cancel Dark Adjustment>
-		(4) You get the dark/zero value with <Get Dark Offset>
-		(5) Energy sensors do not support this function
+		(2) For relative measurements in relation to ambient light, utilize delta mode functions as the maximum zero correction is limited and exceeding this limit will result in an error.
+		(3) Uero parameter is not stored persistently and will be lost after a reboot
+		(4) You can get the state of dark/zero adjustment with :func:`getDarkAdjustState`.
+		(5) You can stop dark/zero adjustment with :func:`cancelDarkAdjust`.
+		(6) You get the dark/zero value with :func:`getDarkOffset`.
+		(7) Energy sensors do not support this function.
+		(8) Photodiode sensors in peak mode do not support this function.
 		
 		Args:
 			channel(c_uint16) : Number of the sensor channel. 
@@ -1443,8 +1497,13 @@ class TLPMX:
 
 	def cancelDarkAdjust(self, channel):
 		"""
-		This function cancels a running dark current/zero offset adjustment procedure.
+		command to abort a previously initiated zeroing process. The zeroing of the sensor operates as an asynchronous background task. Aborting the sequence will terminate the background operation and allow measurements to continue using the previous zero value. 
 		
+		Remarks:
+		(1) You can get the state of dark/zero adjustment with :func:`getDarkAdjustState`.
+		(2) You can start dark/zero adjustment with :func:`startDarkAdjust`.
+		(3) Energy sensors do not support this function.
+		(4) Photodiode sensors in peak mode do not support this function.
 		
 		Args:
 			channel(c_uint16) : Number of the sensor channel. 
@@ -1459,8 +1518,15 @@ class TLPMX:
 
 	def getDarkAdjustState(self, state, channel):
 		"""
-		This function returns the state of a dark current/zero offset adjustment procedure previously initiated by <Start Dark Adjust>.
+		Checks if the previously initiated zeroing procedure is currently running in the background. The zeroing process for the sensor operates asynchronously. It will automatically terminate upon encountering an error or upon successful completion. Once the procedure has ended, this function will return 0. If no zeroing process has been initiated, the command will also return 0. 
 		
+		Remarks:
+		(1) You can get the state of dark/zero adjustment with :func:`getDarkAdjustState`.
+		(2) You can start dark/zero adjustment with :func:`startDarkAdjust`.
+		(3) You can stop dark/zero adjustment with :func:`cancelDarkAdjust`.
+		(4) You get the dark/zero value with :func:`getDarkOffset`.
+		(5) Energy sensors do not support this function.
+		(6) Photodiode sensors in peak mode do not support this function.
 		
 		Args:
 			state(c_int16 use with byref) : This parameter returns the dark adjustment state.
@@ -1480,14 +1546,19 @@ class TLPMX:
 
 	def setDarkOffset(self, darkOffset, channel):
 		"""
-		This function returns the dark/zero offset.
+		Establishes the zero correction value in Amperes for the Photodiode sensor, or in Volts for the Thermopile and 4-Quadrant Thermopile sensors. Directly setting the zero value will not initiate the asynchronous zeroing procedure.
 		
-		The function is not supported with energy sensors.
+		Remarks:
+		(1) Typically, you should allow the Powermeter to determine the zero value itself by using the :func:`startDarkAdjust`.
+		(2) Set to 0 to disable zero correction of sensor.
+		(3) For relative measurements in relation to ambient light, utilize delta mode functions as the maximum zero correction is limited and exceeding this limit will result in an error.
+		(4) Zero parameter is not stored persistently and will be lost after a reboot
+		(5) Energy sensors do not support this function.
+		(6) Photodiode sensors in peak mode do not support this function.
+		
 		
 		Args:
-			darkOffset(c_double) : This parameter returns the dark/zero offset.
-			
-			The unit of the returned offset value depends on the sensor type. Photodiodes return the dark offset in ampere [A]. Thermal sensors return the dark offset in volt [V].
+			darkOffset(c_double) : This parameter returns the dark/zero offset. The unit of the returned offset value depends on the sensor type. Photodiodes return the dark offset in ampere [A]. Thermal sensors return the dark offset in volt [V].
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -1500,14 +1571,17 @@ class TLPMX:
 
 	def getDarkOffset(self, darkOffset, channel):
 		"""
-		This function returns the dark/zero offset.
+		Retrieve the zero correction value in Amperes for the Photodiode sensor, or in Volts for the Thermopile and 4-Quadrant Thermopile sensors. 
 		
-		The function is not supported with energy sensors.
+		Remarks:
+		(1) Typically, you should allow the Powermeter to determine the zero value itself by using :func:`startDarkAdjust` 
+		(2) To specify a fixed zero offset use :func:`setDarkOffset`
+		(3) Zero parameter is not stored persistently and will be lost after a reboot
+		(4) Energy sensors do not support this function.
+		(5) Photodiode sensors in peak mode do not support this function.
 		
 		Args:
-			darkOffset(c_double use with byref) : This parameter returns the dark/zero offset.
-			
-			The unit of the returned offset value depends on the sensor type. Photodiodes return the dark offset in ampere [A]. Thermal sensors return the dark offset in volt [V].
+			darkOffset(c_double use with byref) : This parameter returns the dark/zero offset. The unit of the returned offset value depends on the sensor type. Photodiodes return the dark offset in ampere [A]. Thermal sensors return the dark offset in volt [V].
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -1520,9 +1594,15 @@ class TLPMX:
 
 	def startZeroPos(self, channel):
 		"""
-		Use this command to start a background task to measure the actual beam position and use it as position correction in the future. Before starting the correction ensure light source is hitting the sensor area. Position is floating if no beam is hitting the sensor. This command only starts the zeroing procedure running in background for at least one second. During zero procedure, measuring is not possible. To test if zeroing is still running use SENS#:CORR:COLL:ZERO:STAT? or poll for Zeroing flag in STAT:OPER:COND?. If you want to abort previously started procedure use the SENS#:CORR:COLL:POS:ZERO:ABOR command. If zeroing is complete (by error or success) you may want to test for error using SYST:ERR? command. If you want to set a custom zero value use command. Zero parameter is not stored persistently. It will be lost after reboot!
+		Starts a background task to measure the actual beam position and use it as position correction in the future. Before starting the correction ensure light source is hitting the sensor area. Position is floating if no beam is hitting the sensor. This command only starts the zeroing procedure running in background for at least one second. During zero procedure, measuring is not possible. 
 		
-		Supported by PM400 firmware 1.5.0 and newer.
+		Remarks:
+		(1) Only available for 4 quadrant thermopile sensors.
+		(2) You have to ensure light source is hitting the sensor for this procedure.
+		(3) Beam zero parameter is not stored persistently and will be lost after a reboot.
+		(4) You can stop beam zeroing with :func:`cancelZeroPos`.
+		(5) You get the beam zero coordinate with :func:`getZeroPos`.
+		(6) For PM400 firmware needs to be >= 1.5.0 
 		
 		Args:
 			channel(c_uint16) : Number of the sensor channel. 
@@ -1537,8 +1617,12 @@ class TLPMX:
 
 	def cancelZeroPos(self, channel):
 		"""
-		Use this command to abort a previously started position zero correction. The zeroing of position is running as asynchronous background operation. Aborting the sequence will end the background operation and enables measuring with the old zero value. To start a new zeroing use SENS#:CORR:COLL:POS:ZERO command.
+		Aborts a previously started position zero correction. The zeroing of position is running as asynchronous background operation. Aborting the sequence will end the background operation and enables measuring with the old zero value.
 		
+		Remarks:
+		(1) Only available for 4 quadrant thermopile sensors.
+		(4) You can restart beam zeroing with :func:`startZeroPos`.
+		(6) For PM400 firmware needs to be >= 1.5.0 
 		
 		Args:
 			channel(c_uint16) : Number of the sensor channel. 
@@ -1553,7 +1637,14 @@ class TLPMX:
 
 	def setZeroPos(self, zeroX, zeroY, channel):
 		"""
-		Use this command to set beam position zero correction coordinate in um. Zero parameter is not stored persistently. It will be lost after reboot!
+		Use this command to set beam position zero correction coordinate in µm. Zero parameter is not stored persistently. It will be lost after reboot!
+		
+		Remarks:
+		(1) Only available for 4 quadrant thermopile sensors.
+		(2) In most cases, you will want the Powermeter to automatically measure the delta reference using :func:`startZeroPos`.
+		(3) You get the beam zero coordinate with :func:`getZeroPos`.
+		(4) Beam zero parameter is not stored persistently and will be lost after a reboot.
+		(5) For PM400 firmware needs to be >= 1.5.0 
 		
 		Args:
 			zeroX(c_double) : This parameter set the zero x in µm.
@@ -1570,7 +1661,15 @@ class TLPMX:
 
 	def getZeroPos(self, pZeroX, pZeroY, channel):
 		"""
-		Use this command to get beam position zero correction coordinate in um. To update the zero value you can either call SENS#:CORR:COLL:POS:ZERO or the command. Zero parameter is not stored persistently. It will be lost after reboot!
+		Use this command to get beam position zero correction coordinate in µm.
+		
+		Remarks:
+		(1) Only available for 4 quadrant thermopile sensors.
+		(2)  In most cases, you will want the Powermeter to automatically measure the delta reference using :func:`startZeroPos`.
+		(3) To specify a fixed zero offset use :func:`setZeroPos`.
+		(4) Beam zero parameter is not stored persistently and will be lost after a reboot.
+		(5) For PM400 firmware needs to be >= 1.5.0
+		
 		
 		Args:
 			pZeroX(c_double use with byref) : This parameter returns the zero x value in µm.
@@ -1587,18 +1686,15 @@ class TLPMX:
 
 	def setBeamDia(self, beamDiameter, channel):
 		"""
-		This function sets the users beam diameter in millimeter [mm].
+		Sets the circular beam diameter in millimeter hitting the sensor[mm]. If you are working with different beam shapes, you will need to manually calculate the corresponding diameter for a circle with the same area. 
 		
 		Notes:
-		(1) The function is only available on PM100A, PM100D, PM100USB, PM200, PM400.
-		(2) Beam diameter set value is used for calculating power and energy density.
-		
+		(1) Beam diameter set value is used for calculating power and energy density.
+		(2) Beam diameter is stored persistently and will be restored after a reboot. 
+		(3) If the connected sensor type is changed, default values will be applied. If the sensor type remains the same, the parameter will be automatically coerced.
 		
 		Args:
-			beamDiameter(c_double) : This parameter specifies the users beam diameter in millimeter [mm].
-			
-			Remark:
-			Beam diameter set value is used for calculating power and energy density.
+			beamDiameter(c_double) : This parameter specifies circular beam diameter in millimeter [mm].
 			
 			channel(c_uint16) : Number of the sensor channel. 
 			
@@ -1612,12 +1708,12 @@ class TLPMX:
 
 	def getBeamDia(self, attribute, beamDiameter, channel):
 		"""
-		This function returns the users beam diameter in millimeter [mm].
+		Returns the circular beam diameter in millimeter [mm]. If you are working with different beam shapes, you will need to manually calculate the corresponding diameter for a circle with the same area. 
 		
 		Notes:
-		(1) The function is only available on PM100A, PM100D, PM100USB, PM200, PM101, PM102, PM400.
-		(2) Beam diameter set value is used for calculating power and energy density.
-		
+		(1) Beam diameter set value is used for calculating power and energy density.
+		(2) Beam diameter is stored persistently and will be restored after a reboot. 
+		(3) If the connected sensor type is changed, default values will be applied. If the sensor type remains the same, the parameter will be automatically coerced.
 		
 		Args:
 			attribute(c_int16) : This parameter specifies the value to be queried.
@@ -1643,18 +1739,16 @@ class TLPMX:
 
 	def setWavelength(self, wavelength, channel):
 		"""
-		This function sets the users wavelength in nanometer [nm].
+		Sets the wavelength of light in nanometers (nm). The configured wavelength is used to determine the sensor's responsivity for calculating light power. For adapter sensors, set the responsivity directly instead.
 		
-		Remark:
-		Wavelength set value is used for calculating power.
-		
+		Remarks:
+		(1) Only supported for sensor heads with EEPROM. 
+		(2) Adapter types have to set responsivity directly by e.g. :func:`setPhotodiodeResponsivity`
+		(3) The wavelength parameter is stored persistently and will be restored after a reboot.
+		(4) If the connected sensor type is changed, default values will be applied. If the sensor type remains the same, the parameter will be automatically coerced.
 		
 		Args:
 			wavelength(c_double) : This parameter specifies the users wavelength in nanometer [nm].
-			
-			Remark:
-			Wavelength set value is used for calculating power.
-			
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -1667,11 +1761,13 @@ class TLPMX:
 
 	def getWavelength(self, attribute, wavelength, channel):
 		"""
-		This function returns the users wavelength in nanometer [nm].
+		Returns the light wavelength in nanometer [nm]. The configured wavelength is used to determine the sensor's responsivity for calculating light power. For adapter sensors, get the responsivity directly instead.
 		
-		Remark:
-		Wavelength set value is used for calculating power.
-		
+		Remarks:
+		(1) Only supported for sensor heads with EEPROM. 
+		(2) Adapter types have to get responsivity directly by e.g. :func:`getPhotodiodeResponsivity`
+		(3) The wavelength parameter is stored persistently and will be restored after a reboot.
+		(4) If the connected sensor type is changed, default values will be applied. If the sensor type remains the same, the parameter will be automatically coerced.
 		
 		Args:
 			attribute(c_int16) : This parameter specifies the value to be queried.
@@ -1682,9 +1778,6 @@ class TLPMX:
 			  TLPM_ATTR_MAX_VAL  (2): Maximum value
 			
 			wavelength(c_double use with byref) : This parameter returns the specified wavelength in nanometer [nm].
-			
-			Remark:
-			Wavelength set value is used for calculating power.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -1697,11 +1790,12 @@ class TLPMX:
 
 	def setPhotodiodeResponsivity(self, response, channel):
 		"""
-		This function sets the photodiode responsivity in ampere per watt [A/W].
+		Sets the photodiode responsivity in A/W for photodiode sensor adapters. This responsivity is used to calculate power based on the photodiode current, and the correct value depends on the wavelength of the light. Adapters are sensors that do not have head EEPROM. 
 		
-		Notes:
-		(1) The function is only available on PM100A, PM100D, PM100USB, PM200, PM400.
-		
+		Remarks:
+		(1) Photodiode adapter sensors only
+		(2) For sensor with EEPROM use :func:`setWavelength` to change responsivity
+		(3) Set adapter type by calling :func:`setInputAdapterType`
 		
 		Args:
 			response(c_double) : This parameter specifies the photodiode responsivity in ampere per watt [A/W].
@@ -1718,11 +1812,12 @@ class TLPMX:
 
 	def getPhotodiodeResponsivity(self, attribute, responsivity, channel):
 		"""
-		This function returns the photodiode responsivity in ampere per watt [A/W].
+		Queries the photodiode responsivity in A/W for photodiode sensor. This responsivity is used to calculate power based on the photodiode current, and the correct value depends on the wavelength of the light.
 		
-		Notes:
-		(1) The function is only available on PM100A, PM100D, PM100USB, PM200, PM400.
-		
+		Remarks:
+		(1) Photodiode only!
+		(2) For sensor with EEPROM use :func:`setWavelength` to change responsivity
+		(3) For adapter sensor without EEPROM use :func:`setPhotodiodeResponsivity` to change responsivity
 		
 		Args:
 			attribute(c_int16) : This parameter specifies the value to be queried.
@@ -1747,11 +1842,12 @@ class TLPMX:
 
 	def setThermopileResponsivity(self, response, channel):
 		"""
-		This function sets the thermopile responsivity in volt per watt [V/W]
+		Sets the thermopile responsivity in V/W for thermopile sensor adapters. This responsivity is used to calculate power based on the thermopile voltage, and the correct value depends on the wavelength of the light. Adapters are sensors that do not have head EEPROM. 
 		
-		Notes:
-		(1) The function is only available on PM100A, PM100D, PM100USB, PM200, PM400.
-		
+		Remarks:
+		(1) Thermopile adapter sensors only
+		(2) For sensor with EEPROM use :func:`setWavelength` to change responsivity
+		(3) Set adapter type by calling :func:`setInputAdapterType`
 		
 		Args:
 			response(c_double) : This parameter specifies the thermopile responsivity in volt per watt [V/W]
@@ -1768,11 +1864,12 @@ class TLPMX:
 
 	def getThermopileResponsivity(self, attribute, responsivity, channel):
 		"""
-		This function returns the thermopile responsivity in volt per watt [V/W]
+		Queries the thermopile responsivity in V/W for thermopile sensor. This responsivity is used to calculate power based on the thermopile voltage, and the correct value depends on the wavelength of the light.
 		
-		Notes:
-		(1) The function is only available on PM100A, PM100D, PM100USB, PM160T, PM200, PM400.
-		
+		Remarks:
+		(1) Thermopile only!
+		(2) For sensor with EEPROM use :func:`setWavelength` to change responsivity
+		(3) For adapter sensor without EEPROM use :func:`setThermopileResponsivity` to change responsivity
 		
 		Args:
 			attribute(c_int16) : This parameter specifies the value to be queried.
@@ -1797,11 +1894,12 @@ class TLPMX:
 
 	def setPyrosensorResponsivity(self, response, channel):
 		"""
-		This function sets the pyrosensor responsivity in volt per joule [V/J]
+		Sets the pyrosensor responsivity in V/J for pyroelectric sensor adapters. This responsivity is used to calculate energy based on the pyrosensor voltage, and the correct value depends on the wavelength of the light. Adapters are sensors that do not have head EEPROM. 
 		
-		Notes:
-		(1) The function is only available on PM100A, PM100D, PM100USB, PM200, PM400.
-		
+		Remarks:
+		(1) Pyrosensor adapter only
+		(2) For sensor with EEPROM use :func:`setWavelength` to change responsivity
+		(3) Set adapter type by calling :func:`setInputAdapterType`
 		
 		Args:
 			response(c_double) : This parameter specifies the pyrosensor responsivity in volt per joule [V/J]
@@ -1820,9 +1918,12 @@ class TLPMX:
 		"""
 		This function returns the pyrosensor responsivity in volt per joule [V/J]
 		
-		Notes:
-		(1) The function is only available on PM100A, PM100D, PM100USB, PM200, PM400.
+		Queries the pyrosensor responsivity in volt per joule [V/J] for pyroelectric sensor. This responsivity is used to calculate energy based on the pyrosensor voltage, and the correct value depends on the wavelength of the light.
 		
+		Remarks:
+		(1) Pyrosensor only!
+		(2) For sensor with EEPROM use :func:`setWavelength` to change responsivity
+		(3) For adapter sensor without EEPROM use :func:`setPyrosensorResponsivity` to change responsivity
 		
 		Args:
 			attribute(c_int16) : This parameter specifies the value to be queried.
@@ -1847,11 +1948,20 @@ class TLPMX:
 
 	def setCurrentAutoRange(self, currentAutorangeMode, channel):
 		"""
-		This function sets the current auto range mode.
+		Enables or disables the auto-ranging feature for current measurement. When auto-ranging is active, the Powermeter compares the measured signal to the currently used measurement range. If the signal falls outside the optimal range, the Powermeter automatically adjusts the measurement range. Changing the measurement range will temporarily interrupt the measurement for up to 10 milliseconds to allow the analog hardware to stabilize. After this period, measurement will automatically resume.
 		
-		Notes:
-		(1) The function is only available on PM100A, PM100D, PM100USB, PM160, PM200, PM400.
+		For continuous wave (CW) signals, the current auto-ranging feature automatically selects the optimal range for measuring your signal effectively. You can use call :func:`getCurrentRange` to check the currently selected measurement range. When measuring modulated signals in CW mode, it is advisable to manually set the range using :func:`setCurrentRange` to avoid the meter from permanently switching ranges.
 		
+		When using auto-ranging in peak mode, the input signal must consist of repetitive pulses with a pulse-to-pulse voltage difference of less than 5 percent. In this mode, the Powermeter automatically selects the appropriate range and adjusts the threshold for peak detection. If the signal is lost, the algorithm will initiate a peak-finding procedure after a timeout of 500 ms. For all other types of pulse signals, you will need to manually set the range using :func:`setCurrentRange`  and adjust the threshold with :func:`setPeakThreshold`
+		
+		The state of auto-ranging is stored persistently and will be restored after a reboot. If you change the sensor type, auto-ranging is enabled by default. You can check the ranging status by looking for flag bit 2 in the Operation Status register using :func:`readRegister` to determine if the ranging pause is currenly active.
+		
+		Remarks:
+		(1) Auto-ranging is enabled by default
+		(2) By default auto-ranging is supported for CW signals only
+		(3) Auto-ranging is not useful for fast measurements like scope, burst or fast measurement stream due to the ranging measurement pauses
+		(4) Auto-ranging should be disabled for modulated input signals in CW measurement mode.
+		(5) Not all powermeter support auto-ranging in peak mode. Ensure you installed the recent firmware for your Powermeter.  
 		
 		Args:
 			currentAutorangeMode(c_int16) : This parameter specifies the current auto range mode.
@@ -1872,11 +1982,7 @@ class TLPMX:
 
 	def getCurrentAutorange(self, currentAutorangeMode, channel):
 		"""
-		This function returns the current auto range mode.
-		
-		Notes:
-		(1) The function is only available on PM100A, PM100D, PM100USB, PM160, PM200, PM400.
-		
+		Tests if auto-ranging is enabled for current [A] measurement. For closer details read :func:`setCurrentAutoRange`. You can query the currently used range by using :func:`getCurrentRange`. Auto range enable state is stored persistently and restored after reboot.
 		
 		Args:
 			currentAutorangeMode(c_int16 use with byref) : This parameter returns the current auto range mode.
@@ -1897,11 +2003,11 @@ class TLPMX:
 
 	def setCurrentRange(self, current_to_Measure, channel):
 		"""
-		This function sets the sensor's current range.
+		Sets a manual range for the specified current in amperes [A]. Activating a manual range will automatically disable auto-ranging (see :func:`setCurrentAutoRange`). Changing the measurement range will temporarily interrupt the measurement for up to 10 milliseconds to allow the analog hardware to stabilize. After this period, measurement will automatically resume. The manual range is stored persistently and will be restored after a reboot. You can check the ranging status by looking for flag bit 2 in the Operation Status register using :func:`readRegister` to determine if the ranging pause is currenly active.
 		
-		Notes:
-		(1) The function is only available on PM100A, PM100D, PM100USB, PM160, PM200, PM400.
-		
+		Remarks:
+		(1) Select a manual range for fast measurements like scope, burst or fast measurement stream
+		(2) Select a manual range for modulated light input measurements in CW mode to prevent the meter from interrupting measurements due to range switching.
 		
 		Args:
 			current_to_Measure(c_double) : This parameter specifies the current value to be measured in ampere [A].
@@ -1918,11 +2024,7 @@ class TLPMX:
 
 	def getCurrentRange(self, attribute, currentValue, channel):
 		"""
-		This function returns the actual current range value.
-		
-		Notes:
-		(1) The function is only available on PM100A, PM100D, PM100USB, PM160, PM200, PM400.
-		
+		This function returns the actual current [A] range value. The range gets changed either by auto-ranging :func:`setCurrentAutoRange` or manually by :func:`setCurrentRange`. A manually selected range is stored persistently and will be restored after a reboot.
 		
 		Args:
 			attribute(c_int16) : This parameter specifies the value to be queried.
@@ -1946,16 +2048,14 @@ class TLPMX:
 
 	def getCurrentRanges(self, currentValues, rangeCount, channel):
 		"""
-		This function returns the actual voltage range value.
+		This function returns a list of all  photodiode current measurement ragnes of the Powermeter. 
 		
 		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM160T, PM200, PM400, PM5020, PM6x.
-		
+		(1) The function is NOT available on PM100D, PM100A, PM160, PM160T, PM16, PM200
 		
 		Args:
-			currentValues( (c_double * arrayLength)()) : This parameter returns the specified voltage range value in volts [V].
-			
-			rangeCount(c_uint16 use with byref)
+			currentValues( (c_double * arrayLength)()) : List of all photodiode current measurement ranges for the power-meter. At least 25 entries long. All entries have the unit Ampere. Check the <Range Count> parameter to get the entry count.  
+			rangeCount(c_uint16 use with byref) : Amount of current ranges for this Powermeter
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -1968,11 +2068,12 @@ class TLPMX:
 
 	def setCurrentRangeSearch(self, channel):
 		"""
-		This function returns the actual voltage range value.
+		This command activates auto-ranging until a stable range is detected, at which point auto-ranging is disabled again. Use this command to automatically find the best-fitting range after altering the input signal. If auto-ranging was previously enabled, it will be turned off afterward. The command requires a stable continuous wave (CW) signal during the search process. You can check the currently used range by using the :func:`getCurrentAutorange` function. 
 		
-		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM160T, PM200, PM400.
+		A similar function is available for Pyro and Photodiode in peak measurement mode; refer to the :func:`startPeakDetector` function. The resulting range is stored persistently and will be restored after a reboot.
 		
+		Remarks:
+		(1) Not supported for PM100D, PM100A, PM160, PM160T, PM16, PM200, PM400, PM101, PM102
 		
 		Args:
 			channel(c_uint16) : Number of the sensor channel. 
@@ -1987,18 +2088,10 @@ class TLPMX:
 
 	def setCurrentRef(self, currentReferenceValue, channel):
 		"""
-		This function sets the current reference value.
-		
-		Notes:
-		(1) The function is only available on PM100A, PM100D, PM100USB, PM160, PM200, PM400.
-		
+		Sets a current offset in amperes [A] for delta measurement mode. To switch to relative measurements, make sure that delta mode is enabled using the :func:`setCurrentRefState` fucntion. Any non-zero parameter value will result in a relative measurement. To obtain relative measurement results, call :func:`measCurrent` afterwards. The relative current offset parameter is not stored persistently and will be reset to zero after a reboot!
 		
 		Args:
-			currentReferenceValue(c_double) : This parameter specifies the current reference value in amperes [A].
-			
-			Remark:
-			This value is used for calculating differences between the actual current value and this current reference value if Current Reference State is ON.
-			
+			currentReferenceValue(c_double) : This parameter specifies the current reference value in amperes [A]. This value is used for calculating differences between the actual current value and this current reference value.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -2011,11 +2104,7 @@ class TLPMX:
 
 	def getCurrentRef(self, attribute, currentReferenceValue, channel):
 		"""
-		This function returns the current reference value.
-		
-		Notes:
-		(1) The function is only available on PM100A, PM100D, PM100USB, PM160, PM200, PM400.
-		
+		Retrieves the currently used current offset in amperes [A] for delta measurement mode. Even if a non-zero offset has been set, it will not be applied until delta mode is enabled using the :func:`setCurrentRefState` command. Please note that the relative current offset parameter is not stored persistently and will be reset to zero after a reboot!
 		
 		Args:
 			attribute(c_int16) : This parameter specifies the value to be queried.
@@ -2026,10 +2115,7 @@ class TLPMX:
 			  TLPM_ATTR_MAX_VAL  (2): Maximum value
 			  TLPM_ATTR_DFLT_VAL (3): Default value
 			
-			currentReferenceValue(c_double use with byref) : This parameter returns the specified current reference value in amperes [A].
-			
-			Remark:
-			This value is used for calculating differences between the actual current value and this current reference value if Current Reference State is ON.
+			currentReferenceValue(c_double use with byref) : This parameter returns the specified current reference value in amperes [A]. This value is used for calculating differences between the actual current value and this current reference value.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -2042,11 +2128,7 @@ class TLPMX:
 
 	def setCurrentRefState(self, currentReferenceState, channel):
 		"""
-		This function sets the current reference state.
-		
-		Notes:
-		(1) The function is only available on PM100A, PM100D, PM100USB, PM160, PM200, PM400.
-		
+		Enables current [A] delta measurement mode. When delta mode is activated and a non-zero offset has been previously set using :func:`setCurrentRef`, the :func:`measCurrent` function will return relative measurements. If delta mode is subsequently disabled, the measurement command will revert to returning absolute measurements, even if a non-zero offset was set earlier. Please note that delta mode is automatically disabled after a reboot or when the sensor is changed.
 		
 		Args:
 			currentReferenceState(c_int16) : This parameter specifies the current reference state.
@@ -2067,11 +2149,7 @@ class TLPMX:
 
 	def getCurrentRefState(self, currentReferenceState, channel):
 		"""
-		This function returns the current reference state.
-		
-		Notes:
-		(1) The function is only available on PM100A, PM100D, PM100USB, PM160, PM200, PM400.
-		
+		Checks if current [A] delta measurement mode is enabled. When delta mode is active and a non-zero offset has been previously set using:func:`setCurrentRef`, the :func:`measCurrent` function will return relative measurements.
 		
 		Args:
 			currentReferenceState(c_int16 use with byref) : This parameter returns the current reference state.
@@ -2090,13 +2168,60 @@ class TLPMX:
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
+	def setEnergyAutoRange(self, val, channel):
+		"""
+		This command enables or disables the auto-ranging feature for energy measurement. When auto-ranging is active, the Powermeter compares the measured peak values to the currently used measurement range. If the signal falls outside the optimal range, the Powermeter automatically adjusts the measurement range. Additionally, the meter modifies the peak detection threshold when auto-ranging is enabled. Changing the measurement range will temporarily interrupt the measurement for up to 10 milliseconds to allow the analog hardware to stabilize. After this period, measurement will automatically resume.
+		Auto-ranging for energy measurement requires a repetitive pulsed input signal with a repetition rate greater than 5 Hz. It also relies on small changes (<5%) between the pulses. If auto-ranging loses peaks due to an incorrect threshold, it will automatically initiate the peak finder algorithm after a timeout of 500 milliseconds.
+		You can inquire about the current range using the :func:`getEnergyRange` function. If you set a manual range using the :func:`setEnergyRange` command, auto-ranging will be disabled automatically. The state of auto-ranging is stored persistently and will be restored after a reboot. If you change the sensor type, auto-ranging is enabled by default. You can check the ranging status by looking for flag bit 2 in the Operation Status register using the :func:`readRegister` command to determine if the ranging process was completed successfully.
+		
+		Remarks:
+		(1) Not all powermeter support auto-ranging in peak mode. Ensure you installed the recent firmware for your Powermeter. 
+		
+		Args:
+			val(c_int16) : This parameter specifies the energy auto range mode. 
+			
+			Acceptable values:
+			  TLPM_AUTORANGE_ENERY_OFF (0):  energy auto range disabled
+			  TLPM_AUTORANGE_ENERGY_ON  (1): energy auto range enabled
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_setEnergyAutoRange(self.devSession, val, channel)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def getEnergyAutorange(self, pVal, channel):
+		"""
+		Tests if auto-ranging is enabled for energy measurement. For closer details read :func:`setEnergyAutoRange`. You can query the currently used range by using :func:`getEnergyRange`. Auto range enable state is stored persistently and restored after reboot.
+		
+		Args:
+			pVal(c_int16 use with byref) : This parameter returns the energy auto range mode.
+			Works only for PM103, PM103E and PM5020 with the newest firmware.
+			
+			Return values:
+			  TLPM_AUTORANGE_ENERGY_OFF (0): energy auto range disabled
+			  TLPM_AUTORANGE_ENERGY_ON  (1): energy auto range enabled
+			
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_getEnergyAutorange(self.devSession, pVal, channel)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
 	def setEnergyRange(self, energyToMeasure, channel):
 		"""
-		This function sets the pyro sensor's energy range.
+		Sets a manual range for the specified energy in Joules[J]. Activating a manual range will automatically disable auto-ranging (see :func:`setEnergyAutoRange`). Changing the measurement range will temporarily interrupt the measurement for up to 10 milliseconds to allow the analog hardware to stabilize. After this period, measurement will automatically resume. The manual range is stored persistently and will be restored after a reboot. You can check the ranging status by looking for flag bit 2 in the Operation Status register using :func:`readRegister` to determine if the ranging pause is currenly active.
 		
-		Notes:
-		(1) The function is only available on PM100D, PM100USB, PM200, PM400.
-		
+		Remarks:
+		(1) Select a manual range for slow (<5 Hz) and single pulse input signals
+		(2) Select a manual range for input signals with an unstable pulse-to-pulse ratio (>5%)
 		
 		Args:
 			energyToMeasure(c_double) : This parameter specifies the energy value in joule [J] to be measured.
@@ -2113,11 +2238,7 @@ class TLPMX:
 
 	def getEnergyRange(self, attribute, energyValue, channel):
 		"""
-		This function returns the pyro sensor's energy range.
-		
-		Notes:
-		(1) The function is only available on PM100D, PM100USB, PM200, PM400.
-		
+		This function returns the actual energy [J] range value. The range gets changed either by auto-ranging :func:`setEnergyAutoRange` or manually by :func:`setEnergyRange`. A manually selected range is stored persistently and will be restored after a reboot.
 		
 		Args:
 			attribute(c_int16) : This parameter specifies the value to be queried.
@@ -2141,19 +2262,10 @@ class TLPMX:
 
 	def setEnergyRef(self, energyReferenceValue, channel):
 		"""
-		This function sets the pyro sensor's energy reference value
-		
-		Notes:
-		(1) The function is only available on PM100D, PM100USB, PM200, PM400.
-		(2) This value is used for calculating differences between the actual energy value and this energy reference value.
-		
+		Sets a energy offset in joules [J] for delta measurement mode. To switch to relative measurements, make sure that delta mode is enabled using the :func:`setEnergyRefState` fucntion. Any non-zero parameter value will result in a relative measurement. To obtain relative measurement results, call :func:`measEnergy` afterwards. The relative energy offset parameter is not stored persistently and will be reset to zero after a reboot!
 		
 		Args:
-			energyReferenceValue(c_double) : This parameter specifies the pyro sensor's energy reference value in joule [J].
-			
-			Remark:
-			This value is used for calculating differences between the actual energy value and this energy reference value if Energy Reference State is ON.
-			
+			energyReferenceValue(c_double) : This parameter specifies the pyro sensor's energy reference value in joule [J]. This value is used for calculating differences between the actual energy value and this energy reference value.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -2166,12 +2278,7 @@ class TLPMX:
 
 	def getEnergyRef(self, attribute, energyReferenceValue, channel):
 		"""
-		This function returns the specified pyro sensor's energy reference value.
-		
-		Notes:
-		(1) The function is only available on PM100D, PM100USB, PM200, PM400.
-		(2) The set value is used for calculating differences between the actual energy value and this energy reference value.
-		
+		Retrieves the currently used energy offset in joules [J] for delta measurement mode. Even if a non-zero offset has been set, it will not be applied until delta mode is enabled using the :func:`setEnergyRefState` command. Please note that the relative energy offset parameter is not stored persistently and will be reset to zero after a reboot!
 		
 		Args:
 			attribute(c_int16) : This parameter specifies the value to be queried.
@@ -2182,10 +2289,7 @@ class TLPMX:
 			  TLPM_ATTR_MAX_VAL  (2): Maximum value
 			  TLPM_ATTR_DFLT_VAL (3): Default value
 			
-			energyReferenceValue(c_double use with byref) : This parameter returns the specified pyro sensor's energy reference value in joule [J].
-			
-			Remark:
-			The set value is used for calculating differences between the actual energy value and this energy reference value if Energy Reference State is ON.
+			energyReferenceValue(c_double use with byref) : This parameter returns the specified pyro sensor's energy reference value in joule [J]. The set value is used for calculating differences between the actual energy value and this energy reference value.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -2198,11 +2302,7 @@ class TLPMX:
 
 	def setEnergyRefState(self, energyReferenceState, channel):
 		"""
-		This function sets the instrument's energy reference state.
-		
-		Notes:
-		(1) The function is only available on PM100D, PM100USB, PM200, PM400.
-		
+		Enables energy [J] delta measurement mode. When delta mode is activated and a non-zero offset has been previously set using :func:`setEnergyRef`, the :func:`measEnergy` function will return relative measurements. If delta mode is subsequently disabled, the measurement command will revert to returning absolute measurements, even if a non-zero offset was set earlier. Please note that delta mode is automatically disabled after a reboot or when the sensor is changed.
 		
 		Args:
 			energyReferenceState(c_int16) : This parameter specifies the energy reference state.
@@ -2223,11 +2323,7 @@ class TLPMX:
 
 	def getEnergyRefState(self, energyReferenceState, channel):
 		"""
-		This function returns the instrument's energy reference state.
-		
-		Notes:
-		(1) The function is only available on PM100D, PM100USB, PM200, PM400.
-		
+		Checks if energy [J] delta measurement mode is enabled. When delta mode is active and a non-zero offset has been previously set using:func:`setEnergyRef`, the :func:`measEnergy` function will return relative measurements.
 		
 		Args:
 			energyReferenceState(c_int16 use with byref) : This parameter returns the energy reference state.
@@ -2274,11 +2370,14 @@ class TLPMX:
 
 	def setFreqMode(self, frequencyMode, channel):
 		"""
-		This function sets the instruments frequency measurement mode. Only for photodiodes.
+		Changes the measurement mode of the photodiode sensor. The Powermeter can measure photodiode sensors in continuous wave (CW) mode, which is suitable for CW input signals. When measuring modulated signals such as sinusoidal, triangular, or square waves in CW mode, you will obtain the average power. If you need to measure peak power, you must switch to peak mode, which will return a single measurement result for each detected peak. In CW mode, the Powermeter continuously outputs measurement results, while in peak mode, the output is dependent on the modulation frequency of the input signal. 
 		
-		Notes:
-		(1) The function is only available on PM103
-		
+		Remarks:
+		(1) This command only applies for Photodiode sensors
+		(2) Pyroelectric sensor always measure in peak mode
+		(3) Thermoeletric sensors always measure in CW mode
+		(4) Measurement averaging is applied in CW mode only
+		(5) NOT available for PM100D, PM100A, PM160, PM160T, PM16, PM200, PM400
 		
 		Args:
 			frequencyMode(c_uint16) : This parameter returns the frequency mode.
@@ -2298,10 +2397,10 @@ class TLPMX:
 
 	def getFreqMode(self, frequencyMode, channel):
 		"""
-		This function returns the instruments frequency measurement mode. 
+		retrieve the measurement method of the connected sensor. Photodiode sensors support both continuous wave (CW) and peak modes, while pyro sensors support peak mode only, and thermopile sensors support CW mode exclusively. 
 		
-		Notes:
-		(1) The function is only available on PM103
+		Remarks:
+		(1) NOT available for PM100D, PM100A, PM160, PM160T, PM16, PM200, PM400
 		
 		
 		Args:
@@ -2322,8 +2421,20 @@ class TLPMX:
 
 	def setPowerAutoRange(self, powerAutorangeMode, channel):
 		"""
-		This function sets the power auto range mode.
+		Enables or disables the auto-ranging feature for power[W,dBm] measurement. When auto-ranging is active, the Powermeter compares the measured signal to the currently used measurement range. If the signal falls outside the optimal range, the Powermeter automatically adjusts the measurement range. Changing the measurement range will temporarily interrupt the measurement for up to 10 milliseconds to allow the analog hardware to stabilize. After this period, measurement will automatically resume.
 		
+		For continuous wave (CW) signals, the power auto-ranging feature automatically selects the optimal range for measuring your signal effectively. You can use call :func:`getPowerRange` to check the currently selected measurement range. When measuring modulated signals in CW mode, it is advisable to manually set the range using :func:`setPowerRange` to avoid the meter from permanently switching ranges.
+		
+		When using auto-ranging in peak mode, the input signal must consist of repetitive pulses with a pulse-to-pulse voltage difference of less than 5 percent. In this mode, the Powermeter automatically selects the appropriate range and adjusts the threshold for peak detection. If the signal is lost, the algorithm will initiate a peak-finding procedure after a timeout of 500 ms. For all other types of pulse signals, you will need to manually set the range using :func:`setPowerRange`  and adjust the threshold with :func:`setPeakThreshold`
+		
+		The state of auto-ranging is stored persistently and will be restored after a reboot. If you change the sensor type, auto-ranging is enabled by default. You can check the ranging status by looking for flag bit 2 in the Operation Status register using :func:`readRegister` to determine if the ranging pause is currenly active.
+		
+		Remarks:
+		(1) Auto-ranging is enabled by default
+		(1) By default auto-ranging is supported for CW signals only
+		(2) Auto-ranging is not useful for fast measurements like scope, burst or fast measurement stream due to the ranging measurement pauses
+		(3) Auto-ranging should be disabled for modulated input signals in CW measurement mode.
+		(2) Not all powermeter support auto-ranging in peak mode. Ensure you installed the recent firmware for your Powermeter.  
 		
 		Args:
 			powerAutorangeMode(c_int16) : This parameter specifies the power auto range mode.
@@ -2344,15 +2455,14 @@ class TLPMX:
 
 	def getPowerAutorange(self, powerAutorangeMode, channel):
 		"""
-		This function returns the power auto range mode.
-		
+		Tests if auto-ranging is enabled for power [W, dBm] measurement. For closer details read :func:`setPowerAutoRange`. You can query the currently used range by using :func:`getPowerRange`. Auto-range enable state is stored persistently and restored after reboot.
 		
 		Args:
 			powerAutorangeMode(c_int16 use with byref) : This parameter returns the power auto range mode.
 			
 			Return values:
 			  TLPM_AUTORANGE_POWER_OFF (0): power auto range disabled
-			  TLPM_AUTORANGE_POWER_ON  (1): power auto range enabled
+			  TLPM_AUTORANGE_POWER_ON  (0): power auto range enabled
 			
 			channel(c_uint16) : Number of the sensor channel. 
 			
@@ -2366,8 +2476,11 @@ class TLPMX:
 
 	def setPowerRange(self, power_to_Measure, channel):
 		"""
-		This function sets the sensor's power range.
+		Sets a manual range for the specified power in watts [W]. Activating a manual range will automatically disable auto-ranging (see :func:`setPowerAutoRange`). Changing the measurement range will temporarily interrupt the measurement for up to 10 milliseconds to allow the analog hardware to stabilize. After this period, measurement will automatically resume. The manual range is stored persistently and will be restored after a reboot. You can check the ranging status by looking for flag bit 2 in the Operation Status register using :func:`readRegister` to determine if the ranging pause is currenly active.
 		
+		Remarks:
+		(1) Select a manual range for fast measurements like scope, burst or fast measurement stream
+		(2) Select a manual range for modulated light input measurements in CW mode to prevent the meter from interrupting measurements due to range switching.
 		
 		Args:
 			power_to_Measure(c_double) : This parameter specifies the most positive signal level expected for the sensor input in watt [W].
@@ -2383,8 +2496,7 @@ class TLPMX:
 
 	def getPowerRange(self, attribute, powerValue, channel):
 		"""
-		This function returns the actual power range value.
-		
+		This function returns the actual power [W] range value. The range gets changed either by auto-ranging :func:`setPowerAutoRange` or manually by :func:`setPowerRange`. A manually selected range is stored persistently and will be restored after a reboot.
 		
 		Args:
 			attribute(c_int16) : This parameter specifies the value to be queried.
@@ -2406,17 +2518,32 @@ class TLPMX:
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
-	def setPowerRef(self, powerReferenceValue, channel):
+	def setPowerRangeSearch(self, channel):
 		"""
-		This function sets the power reference value.
+		This command activates auto-ranging until a stable range is detected, at which point auto-ranging is disabled again. Use this command to automatically find the best-fitting range after altering the input signal. If auto-ranging was previously enabled, it will be turned off afterward. The command requires a stable continuous wave (CW) signal during the search process. You can check the currently used range by using the :func:`getPowerAutorange` function. 
 		
+		A similar function is available for Pyro and Photodiode in peak measurement mode; refer to the :func:`startPeakDetector` function. The resulting range is stored persistently and will be restored after a reboot.
+		
+		Remarks:
+		(1) Not supported for PM100D, PM100A, PM160, PM160T, PM16, PM200, PM400, PM101, PM102
 		
 		Args:
-			powerReferenceValue(c_double) : This parameter specifies the power reference value.
+			channel(c_uint16) : Number of the sensor channel. 
 			
-			Remark:
-			(1) The power reference value has the unit specified with <Set Power Unit>.
-			(2) This value is used for calculating differences between the actual power value and this power reference value if Power Reference State is ON.
+			Default: 1 for non multi channel devices
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_setPowerRangeSearch(self.devSession, channel)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def setPowerRef(self, powerReferenceValue, channel):
+		"""
+		Sets a power offset in watts [W] for delta measurement mode. To switch to relative measurements, make sure that delta mode is enabled using the :func:`setPowerRefState` fucntion. Any non-zero parameter value will result in a relative measurement. To obtain relative measurement results, call :func:`measPower` afterwards. The relative power offset parameter is not stored persistently and will be reset to zero after a reboot!
+		
+		Args:
+			powerReferenceValue(c_double) : Specifies the power reference value. This value is used for calculating differences between the actual power value and this power reference value.
 			
 			channel(c_uint16) : Number of the sensor channel. 
 			
@@ -2430,8 +2557,7 @@ class TLPMX:
 
 	def getPowerRef(self, attribute, powerReferenceValue, channel):
 		"""
-		This function returns the power reference value.
-		
+		Retrieves the currently used power offset in watts [W] for delta measurement mode. Even if a non-zero offset has been set, it will not be applied until delta mode is enabled using the :func:`setPowerRefState` command. Please note that the relative power offset parameter is not stored persistently and will be reset to zero after a reboot!
 		
 		Args:
 			attribute(c_int16) : This parameter specifies the value to be queried.
@@ -2459,8 +2585,7 @@ class TLPMX:
 
 	def setPowerRefState(self, powerReferenceState, channel):
 		"""
-		This function sets the power reference state.
-		
+		Enables power [W] delta measurement mode. When delta mode is activated and a non-zero offset has been previously set using :func:`setPowerRef`, the :func:`measPower` function will return relative measurements. If delta mode is subsequently disabled, the measurement command will revert to returning absolute measurements, even if a non-zero offset was set earlier. Please note that delta mode is automatically disabled after a reboot or when the sensor is changed.
 		
 		Args:
 			powerReferenceState(c_int16) : This parameter specifies the power reference state.
@@ -2481,8 +2606,7 @@ class TLPMX:
 
 	def getPowerRefState(self, powerReferenceState, channel):
 		"""
-		This function returns the power reference state.
-		
+		Checks if power [W] delta measurement mode is enabled. When delta mode is active and a non-zero offset has been previously set using:func:`setPowerRef`, the :func:`measPower` function will return relative measurements.
 		
 		Args:
 			powerReferenceState(c_int16 use with byref) : This parameter returns the power reference state.
@@ -2503,8 +2627,11 @@ class TLPMX:
 
 	def setPowerUnit(self, powerUnit, channel):
 		"""
-		This function sets the unit of the power value.
+		Changes the power unit between Watt and dBm. The unit affects the results of the :func:`measPower` command. The default unit is Watt.
 		
+		Remarks:
+		(1) This does not affect the units of the fast measurement stream, scope or burst measurements
+		(2) This does not affect the power related parameters in the setters like e.g. :func:`setCurrentRef`
 		
 		Args:
 			powerUnit(c_int16) : This parameter specifies the unit of the pover value.
@@ -2527,7 +2654,6 @@ class TLPMX:
 		"""
 		This function returns the unit of the power value.
 		
-		
 		Args:
 			powerUnit(c_int16 use with byref) : This parameter returns the unit of the power value.
 			
@@ -2546,18 +2672,23 @@ class TLPMX:
 
 	def getPowerCalibrationPointsInformation(self, index, serialNumber, calibrationDate, calibrationPointsCount, author, sensorPosition, channel):
 		"""
-		Queries the customer adjustment header like serial nr, cal date, nr of points at given index
+		Retrieve the customer calibration meta information like serial nr, cal date, nr of points at given index. After calling this function use :func:`getPowerCalibrationPoints` to query the correction set points until you reach the Calibration Points Count Parameter limit. 
+		The customer calibrations allows customers to modify sensor corrections at fixed wavelength set points. Each calibration is stored within the Powermeter and is associated with a single sensor identified by its serial number. The factory calibration of both the Powermeter and the sensor remains unaffected by the customer calibration. The Powermeter automatically applies the customer calibration when the corresponding sensor is connected and the calibration is enabled by function  :func:`setPowerCalibrationPointsState`. To check if a customer calibration is currently active for sensor call  :func:`readRegister` for Auxilary register. Then check for UseCustomerCalibration flag bit 3 in the result. 
 		
+		Remarks:
+		(1) Even if customer calibration is stored it might be disabled by :func:`setPowerCalibrationPointsState`
+		(2) Only PM400, PM101,PM102, PM103 support customer calibration slot index 5. All other powermeters have only 4 slots. 
+		(3) The customer calibration correction point list ist limited to 10 entries
+		(4) Customer calibrations are only applied during sensor initialization.
+		(5) Sensor adapters(Sensors without EEPROM) do not support customer calibration
 		
 		Args:
-			index(c_uint16) : Index of the power calibration (range 1...5)
-			serialNumber(create_string_buffer(1024)) : Serial Number of the sensor.
-			Please provide a buffer of 256 characters.
-			calibrationDate(create_string_buffer(1024)) : Last calibration date of this sensor
-			Please provide a buffer of 256 characters.
+			index(c_uint16) : Memory slot where to store customer calibration. For PM400, PM101, PM102 last index is 5 otherwise last index is 4!
+			serialNumber(create_string_buffer(1024) use with byref) : Serial Number of the sensor. Please provide a buffer of 20 characters.
+			calibrationDate(create_string_buffer(1024) use with byref) : Last calibration date of this sensor. Please provide a buffer of 20 characters.
 			calibrationPointsCount(c_uint16 use with byref) : Number of calibration points of the power calibration with this sensor
-			author(create_string_buffer(1024))
-			sensorPosition(c_uint16 use with byref) : The position of the sencor switch of a Thorlabs S130C
+			author(create_string_buffer(1024) use with byref) : Author of calibration. Max 19 characters.
+			sensorPosition(c_uint16 use with byref) : The position of the sencor switch of a Thorlabs S130C. For all sensor with a single head position has to be 1.
 			1 = 5mW
 			2 = 500mW
 			channel(c_uint16) : Number of the sensor channel. 
@@ -2572,15 +2703,14 @@ class TLPMX:
 
 	def getPowerCalibrationPointsState(self, index, state, channel):
 		"""
-		Queries the state if the power calibration of this sensor is activated.
-		
+		Queries the state if the customer calibration at given slot is enabled. When slot is enabled and the sensor serial matches the customer calibration the sensor gets initiaialized with the customer calibration. If the slot is disabled the sensor initializes only with the factory calibration. For closer details refer to :func:`setPowerCalibrationPointsState`.
 		
 		Args:
-			index(c_uint16)
-			state(c_int16 use with byref) : State if the user power calibration is activated and used for the power measurements.
+			index(c_uint16) : Memory slot where to store customer calibration. For PM400, PM101, PM102 last index is 5 otherwise last index is 4!
+			state(c_int16 use with byref) : State if the customer calibration is activated and used for the measurements.
 			
 			VI_ON: The user power calibration is used
-			VI_OFF: The user power calibration is ignored in the power measurements
+			VI_OFF: The user power calibration is ignored
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -2593,11 +2723,18 @@ class TLPMX:
 
 	def setPowerCalibrationPointsState(self, index, state, channel):
 		"""
-		This function activates/inactivates the power calibration of this sensor.
+		Enable or disable a customer calibration for a specified slot. When a slot is enabled and the sensor serial matches the customer calibration the sensor gets initiaialized with the customer calibration. If the slot is disabled the sensor initializes only with the factory calibration. 
 		
+		The customer calibrations allows customers to modify sensor corrections at fixed wavelength set points. Each calibration is stored within the Powermeter and is associated with a single sensor identified by its serial number. The factory calibration of both the Powermeter and the sensor remains unaffected by the customer calibration. The Powermeter automatically applies the customer calibration when the corresponding sensor is connected and the calibration is enabled by this function. To check if a customer calibration is currently active for sensor call  :func:`readRegister` for Auxilary register. Then check for UseCustomerCalibration flag bit 3 in the result. 
+		
+		Remarks:
+		(1) Even if customer calibration is stored it might be disabled by :func:`setPowerCalibrationPointsState`
+		(2) Only PM400, PM101,PM102, PM103 support customer calibration slot index 5. All other powermeters have only 4 slots. 
+		(3) Customer calibrations are only applied during sensor initialization.
+		(4) Sensor adapters(Sensors without EEPROM) do not support customer calibration
 		
 		Args:
-			index(c_uint16) : Index of the power calibration (range 1...5)
+			index(c_uint16) : Memory slot where to store customer calibration. For PM400, PM101, PM102 last index is 5 otherwise last index is 4!
 			state(c_int16) : State if the user power calibration is activated and used for the power measurements.
 			
 			VI_ON: The user power calibration is used
@@ -2614,17 +2751,19 @@ class TLPMX:
 
 	def getPowerCalibrationPoints(self, index, pointCounts, wavelengths, powerCorrectionFactors, channel):
 		"""
-		Returns a list of wavelength and the corresponding power correction factor.
+		Retrieve the customer calibration set point tuple list at given memory slot index. Every set point tuple is a point for wavelength and a correction factor. The length of the resulting tuple list is variable from 1 to 10.  Call :func:`getPowerCalibrationPointsInformation` previously to get the amount of tuples available for this memory slot. Ensure the both list parameters are large enough to store at least the amount of requested data. 
+		For closer information refer to :func:`setPowerCalibrationPoints`
 		
+		Remarks:
+		(1) Even if customer calibration is stored it might be disabled by :func:`setPowerCalibrationPointsState`
+		(2) Only PM400, PM101,PM102, PM103 support customer calibration slot index 5. All other powermeters have only 4 slots. 
+		(3) The customer calibration correction point list ist limited to 10 entries
 		
 		Args:
-			index(c_uint16)
-			pointCounts(c_uint16) : Number of points that are submitted in the wavelength and power correction factors arrays.
-			Maximum of 8 wavelength - power correction factors pairs can be calibrated for each sensor.
-			wavelengths( (c_double * arrayLength)()) : Array of wavelengths in nm. Requires ascending wavelength order.
-			The array must contain <points counts> entries.
-			powerCorrectionFactors( (c_double * arrayLength)()) : Array of power correction factorw that correspond to the wavelength array. 
-			The array must contain <points counts> entries, same as wavelenght to build wavelength - power correction factors pairs.
+			index(c_uint16) : Memory slot where to store customer calibration. For PM400, PM101, PM102 last index is 5 otherwise last index is 4!
+			pointCounts(c_uint16) : Amount of set points to query. Ensure Wavelength and Correction Factor list length are equal or larger than this count. Query more than available will result in an error. 
+			wavelengths( (c_double * arrayLength)()) : Result list of wavelength in nm. Together with Correction Factors this specifies the correction set point tuples. Ensure length matches Point Counts. 
+			powerCorrectionFactors( (c_double * arrayLength)()) : Result list of correction factors Together with Wavelengts this specifies the correction set point tuples. Ensure length matches Point Counts. 
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -2637,22 +2776,29 @@ class TLPMX:
 
 	def setPowerCalibrationPoints(self, index, pointCounts, wavelengths, powerCorrectionFactors, author, sensorPosition, channel):
 		"""
-		Sumbits a list of wavelength and the corresponding measured power correction factors to calibrate the power measurement.
+		Writes a customer calibration for the currently connected sensor to memory at the specified index.
 		
+		Calibration Process:
+		Before writing the customer calibration, use a specified light source with a known wavelength and light power or energy. Perform reference measurements with the power meter, then calculate the correction factor using the formula: factor = measured power or energy / reference power or energy for that wavelength. Repeat this process with up to 10 different wavelength light sources.
+		
+		Once all correction factors are calculated, call this function to persist the calibration for the connected sensor. It is mandatory to provide the wavelength-factor tuples in ascending wavelength order. After successfully writing the customer calibration, use :func:`setPowerCalibrationPointsState` to enable it. Then invoke the :func:`reinitSensor` function in a final step to reinit the sensor head if the calibration should become active without a reboot.
+		
+		Remarks:
+		(1) Even if customer calibration is stored it might be disabled by :func:`setPowerCalibrationPointsState`
+		(2) Only PM400, PM101,PM102, PM103 support customer calibration slot index 5. All other powermeters have only 4 slots. 
+		(3) The customer calibration correction point list ist limited to 10 entries
+		(4) Customer calibrations are only applied during sensor initialization.
+		(5) Sensor adapters(Sensors without EEPROM) do not support customer calibration
 		
 		Args:
-			index(c_uint16) : Index of the power calibration (range 1...5)
-			pointCounts(c_uint16) : Number of points that are submitted in the wavelength and power correction factors arrays.
-			Maximum of 8 wavelength - power correction factors  pairs can be calibrated for each sensor.
-			wavelengths( (c_double * arrayLength)()) : Array of wavelengths in nm. Requires ascending wavelength order.
-			The array must contain <points counts> entries.
-			powerCorrectionFactors( (c_double * arrayLength)()) : Array of powers correction factors that correspond to the wavelength array. 
-			The array must contain <points counts> entries, same as wavelenght to build wavelength - power correction factors  pairs.
-			author(create_string_buffer(1024)) : Buffer that contains the name of the editor of the calibration.
-			Name of Author limited to 19 chars + ''
-			sensorPosition(c_uint16) : The position of the sencor switch of a Thorlabs S130C
-			1 = 5mW
-			2 = 500mW
+			index(c_uint16) : Memory slot where to store customer calibration. For PM400, PM101, PM102 last index is 5 otherwise last index is 4!
+			pointCounts(c_uint16) : Number of tuples that are submitted in the wavelength and power correction factors lists. Maximum of 10 wavelength - correction factors tuples can be calibrated for each sensor.
+			wavelengths( (c_double * arrayLength)()) : Array of wavelengths in nm. Requires ascending wavelength order. The array must contain <points counts> entries. Together with Correction Factor list this specifies the correction tuple list. 
+			powerCorrectionFactors( (c_double * arrayLength)()) : List of correction factors. Where every factor is between 0.80 and 1.2. The array must contain <Points Counts> entries.  Together with Wavelength list this specifies the correction tuple list. 
+			author(c_char_p) : Buffer that contains the name of the editor of the calibration. Name of Author limited to 20 chars including zero termination. 
+			sensorPosition(c_uint16) : The position of the sencor switch of a Thorlabs S130C(1 = 5mW, 2 = 500mW). For all sensor with a single head position use index 1.
+			
+			
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -2665,10 +2811,7 @@ class TLPMX:
 
 	def reinitSensor(self, channel):
 		"""
-		To use the user power calibration, the sensor has to be reconnected.
-		Either manually remove and reconnect the sensor to the instrument or use this funtion.
-		
-		This function will wait 2 seconds until the sensor has been reinitialized.
+		Simulates unplugging and then plugging in the sensor connector. This final step is essential after modifying the customer calibration for the currently connected sensor. Please note that executing this command will interrupt any ongoing measurements. This function will wait 2 seconds until the sensor has been reinitialized.
 		
 		Args:
 			channel(c_uint16) : Number of the sensor channel. 
@@ -2683,11 +2826,20 @@ class TLPMX:
 
 	def setVoltageAutoRange(self, voltageAutorangeMode, channel):
 		"""
-		This function sets the voltage auto range mode.
+		Enables or disables the auto-ranging feature for voltage [V] measurement. When auto-ranging is active, the Powermeter compares the measured signal to the currently used measurement range. If the signal falls outside the optimal range, the Powermeter automatically adjusts the measurement range. Changing the measurement range will temporarily interrupt the measurement for up to 10 milliseconds to allow the analog hardware to stabilize. After this period, measurement will automatically resume.
 		
-		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM160T, PM200, PM400.
+		For continuous wave (CW) signals of thermopile sensors, the current auto-ranging feature automatically selects the optimal range for measuring your signal effectively. You can use call :func:`getVoltageRange` to check the currently selected measurement range. When measuring modulated signals in CW mode, it is advisable to manually set the range using :func:`setVoltageRange` to avoid the meter from permanently switching ranges.
 		
+		When using auto-ranging in peak mode for pyroelectric sensors, the input signal must consist of repetitive pulses with a pulse-to-pulse voltage difference of less than 5 percent. In this mode, the Powermeter automatically selects the appropriate range and adjusts the threshold for peak detection. If the signal is lost, the algorithm will initiate a peak-finding procedure after a timeout of 500 ms. For all other types of pulse signals, you will need to manually set the range using :func:`setVoltageRange`  and adjust the threshold with :func:`setPeakThreshold`
+		
+		The state of auto-ranging is stored persistently and will be restored after a reboot. If you change the sensor type, auto-ranging is enabled by default. You can check the ranging status by looking for flag bit 2 in the Operation Status register using :func:`readRegister` to determine if the ranging pause is currenly active.
+		
+		Remarks:
+		(1) Auto-ranging is enabled by default
+		(2) By default auto-ranging is supported for CW signals only
+		(3) Auto-ranging is not useful for fast measurements like scope, burst or fast measurement stream due to the ranging measurement pauses
+		(4) Auto-ranging should be disabled for modulated input signals in CW measurement mode.
+		(5) Not all powermeter support auto-ranging in peak mode. Ensure you installed the recent firmware for your Powermeter.  
 		
 		Args:
 			voltageAutorangeMode(c_int16) : This parameter specifies the voltage auto range mode.
@@ -2708,11 +2860,7 @@ class TLPMX:
 
 	def getVoltageAutorange(self, voltageAutorangeMode, channel):
 		"""
-		This function returns the voltage auto range mode.
-		
-		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM160T, PM200, PM400.
-		
+		Tests if auto-ranging is enabled for voltage [V] measurement. For closer details read :func:`setVoltageAutoRange`. You can query the currently used range by using :func:`getVoltageRange`. Auto range enable state is stored persistently and restored after reboot.
 		
 		Args:
 			voltageAutorangeMode(c_int16 use with byref) : This parameter returns the voltage auto range mode.
@@ -2733,11 +2881,11 @@ class TLPMX:
 
 	def setVoltageRange(self, voltage_to_Measure, channel):
 		"""
-		This function sets the sensor's voltage range.
+		Sets a manual range for the specified voltage in Volt [V]. Activating a manual range will automatically disable auto-ranging (see :func:`setVoltageAutoRange`). Changing the measurement range will temporarily interrupt the measurement for up to 10 milliseconds to allow the analog hardware to stabilize. After this period, measurement will automatically resume. The manual range is stored persistently and will be restored after a reboot. You can check the ranging status by looking for flag bit 2 in the Operation Status register using :func:`readRegister` to determine if the ranging pause is currenly active.
 		
-		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM160T, PM200, PM400.
-		
+		Remarks:
+		(1) Select a manual range for fast measurements like scope, burst or fast measurement stream
+		(2) Select a manual range for modulated light input measurements in CW mode to prevent the meter from interrupting measurements due to range switching.
 		
 		Args:
 			voltage_to_Measure(c_double) : This parameter specifies the voltage value to be measured in volts [V].
@@ -2782,15 +2930,14 @@ class TLPMX:
 
 	def getVoltageRanges(self, voltageValues, rangeCount, channel):
 		"""
-		This function returns the actual voltage range value.
+		This function returns a list of all thermopile or pyro voltage measurement ragnes of the Powermeter. 
 		
 		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM160T, PM200, PM400.
-		
+		(1) The function is NOT available on PM100D, PM100A, PM160, PM160T, PM16, PM200
+		(2) The result depends on the connected sensor type
 		
 		Args:
-			voltageValues( (c_double * arrayLength)()) : This parameter returns the specified voltage range value in volts [V].
-			
+			voltageValues( (c_double * arrayLength)()) : List of all pyro or thermopile voltage measurement ranges for the power-meter. At least 25 entries long. All entries have the unit Volt [V]. Check the <Range Count> parameter to get the entry count. 
 			rangeCount(c_uint16 use with byref)
 			channel(c_uint16) : Number of the sensor channel. 
 			
@@ -2804,11 +2951,13 @@ class TLPMX:
 
 	def setVoltageRangeSearch(self, channel):
 		"""
-		This function returns the actual voltage range value.
+		This command activates auto-ranging until a stable range is detected, at which point auto-ranging is disabled again. Use this command to automatically find the best-fitting range after altering the input signal. If auto-ranging was previously enabled, it will be turned off afterward. The command requires a stable continuous wave (CW) signal during the search process. You can check the currently used range by using the :func:`getCurrentAutorange` function. 
 		
-		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM160T, PM200, PM400.
+		A similar function is available for Pyro and Photodiode in peak measurement mode; refer to the :func:`startPeakDetector` function. The resulting range is stored persistently and will be restored after a reboot.
 		
+		Remarks:
+		(1) Not supported for PM100D, PM100A, PM160, PM160T, PM16, PM200, PM400, PM101, PM102
+		(1) For thermopile sensors only
 		
 		Args:
 			channel(c_uint16) : Number of the sensor channel. 
@@ -2823,18 +2972,10 @@ class TLPMX:
 
 	def setVoltageRef(self, voltageReferenceValue, channel):
 		"""
-		This function sets the voltage reference value.
-		
-		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM160T, PM200, PM400.
-		
+		Sets a voltage offset in Volts [V] for delta measurement mode. To switch to relative measurements, make sure that delta mode is enabled using the :func:`setVoltageRefState` fucntion. Any non-zero parameter value will result in a relative measurement. To obtain relative measurement results, call :func:`measVoltage` afterwards. The relative current offset parameter is not stored persistently and will be reset to zero after a reboot!
 		
 		Args:
-			voltageReferenceValue(c_double) : This parameter specifies the voltage reference value in volts [V].
-			
-			Remark:
-			This value is used for calculating differences between the actual voltage value and this voltage reference value if Voltage Reference State is ON.
-			
+			voltageReferenceValue(c_double) : This parameter specifies the voltage reference value in volts [V]. This value is used for calculating differences between the actual voltage value and this voltage reference value.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -2847,11 +2988,7 @@ class TLPMX:
 
 	def getVoltageRef(self, attribute, voltageReferenceValue, channel):
 		"""
-		This function returns the voltage reference value.
-		
-		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM160T, PM200, PM400.
-		
+		Retrieves the currently used voltage offset in volts [V] for delta measurement mode. Even if a non-zero offset has been set, it will not be applied until delta mode is enabled using the :func:`setVoltageRefState` command. Please note that the relative current offset parameter is not stored persistently and will be reset to zero after a reboot!
 		
 		Args:
 			attribute(c_int16) : This parameter specifies the value to be queried.
@@ -2862,10 +2999,7 @@ class TLPMX:
 			  TLPM_ATTR_MAX_VAL  (2): Maximum value
 			  TLPM_ATTR_DFLT_VAL (3): Default value
 			
-			voltageReferenceValue(c_double use with byref) : This parameter returns the specified voltage reference value in volts [V].
-			
-			Remark:
-			This value is used for calculating differences between the actual voltage value and this voltage reference value if Voltage Reference State is ON.
+			voltageReferenceValue(c_double use with byref) : This parameter returns the specified voltage reference value in volts [V]. This value is used for calculating differences between the actual voltage value and this voltage reference value.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -2878,11 +3012,7 @@ class TLPMX:
 
 	def setVoltageRefState(self, voltageReferenceState, channel):
 		"""
-		This function sets the voltage reference state.
-		
-		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM160T, PM200, PM400.
-		
+		Enables voltage [V] delta measurement mode. When delta mode is activated and a non-zero offset has been previously set using :func:`setVoltageRef`, the :func:`measVoltage` function will return relative measurements. If delta mode is subsequently disabled, the measurement command will revert to returning absolute measurements, even if a non-zero offset was set earlier. Please note that delta mode is automatically disabled after a reboot or when the sensor is changed.
 		
 		Args:
 			voltageReferenceState(c_int16) : This parameter specifies the voltage reference state.
@@ -2903,11 +3033,7 @@ class TLPMX:
 
 	def getVoltageRefState(self, voltageReferenceState, channel):
 		"""
-		This function returns the voltage reference state.
-		
-		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM160T, PM200, PM400.
-		
+		Checks if voltage [V] delta measurement mode is enabled. When delta mode is active and a non-zero offset has been previously set using:func:`setVoltageRef`, the :func:`measVoltage` function will return relative measurements.
 		
 		Args:
 			voltageReferenceState(c_int16 use with byref) : This parameter returns the voltage reference state.
@@ -2928,20 +3054,18 @@ class TLPMX:
 
 	def setPeakThreshold(self, peakThreshold, channel):
 		"""
-		This function sets the peak detector threshold.
+		Sets the peak detection threshold in percent [%]. The percentage is relatively compared to the actually used measurement range maximum value. For Pyro or modulated Photodiode signals the Powermeter compares sensor signal to a threshold to decide if a new pulse has been found. If the threshold is too low noise floor may be detected as peak signals. If the threshold is too high the Powermeter will not measure a single pulse. 
+		You might also use the peak finder algorithm :func:`startPeakDetector` to set the threshold once automatically. For repetive pulsed input signals you might also want to use auto-ranging algorithm e.g. :func:`setCurrentAutoRange` to let the device control the threshold level automatically. 
+		The threshold is also used for light modulation frequency measurement :func:`measFreq`.
 		
-		Remark:
-		Peak detector threshold is in percent [%] of the maximum from the actual measurements range.
-		
-		Notes:
-		(1) The function is only available on PM100D, PM100USB, PM200, PM400.
-		
+		Remarks:
+		(1) Threshold is relative to the maximum measurement value for the currently selected range
+		(2) For pyro sensors this threshold have to be 10-15% below the expected peak otherwise the deteced energy pulses are read to low.
+		(3) Used for pyro or photodiode sensor signal peak detection in peak mode
+		(4) Used for frequency measurement. See :func:`measFreq`
 		
 		Args:
-			peakThreshold(c_double) : This parameter specifies the peak detector threshold.
-			
-			Remark:
-			Peak detector threshold is in percent [%] of the maximum from the actual measurements range.
+			peakThreshold(c_double) : This parameter specifies the peak detector threshold in percent [%] of the maximum from the actual measurements range.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -2954,11 +3078,13 @@ class TLPMX:
 
 	def getPeakThreshold(self, attribute, peakThreshold, channel):
 		"""
-		This function returns the peak detector threshold.
+		Use this command to query the peak detection threshold in percent. For closer details about the threshold read :func:`setPeakThreshold` description.
 		
-		Notes:
-		(1) The function is only available on PM100D, PM100USB, PM200, PM400.
-		
+		Remarks:
+		(1) Threshold is relative to the maximum measurement value for the currently selected range
+		(2) For pyro sensors this threshold have to be 10-15% below the expected peak otherwise the deteced energy pulses are read to low.
+		(3) Used for pyro or photodiode sensor signal peak detection in peak mode
+		(4) Used for frequency measurement. See :func:`measFreq`
 		
 		Args:
 			attribute(c_int16) : This parameter specifies the value to be queried.
@@ -2969,11 +3095,7 @@ class TLPMX:
 			  TLPM_ATTR_MAX_VAL  (2): Maximum value
 			  TLPM_ATTR_DFLT_VAL (3): Default value
 			
-			peakThreshold(c_double use with byref) : This parameter returns the peak detector threshold.
-			
-			Remark:
-			Peak detector threshold is in percent [%] of the maximum from the actual measurements range.
-			
+			peakThreshold(c_double use with byref) : This parameter specifies the peak detector threshold in percent [%] of the maximum from the actual measurements range.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -2986,10 +3108,14 @@ class TLPMX:
 
 	def startPeakDetector(self, channel):
 		"""
-		Starts peak finder. For pyro or photodiode in pulse mode.
+		Initiates or aborts the peak-finder background algorithm. When the Powermeter receives this command, it will halt normal measurements and attempt to asynchronously determine the optimal measurement range and peak-detection threshold for the pulsed input signal. Please note that auto-ranging will be disabled once the peak-finder algorithm is started.
+		You can check the status of the background operation by using the :func:`isPeakDetectorRunning` function or by polling the StatusPeakFinder flag in the Operation Status register with :func:`readRegister`. 
+		The peak-finder algorithm will always terminate, even if no pulses are detected. This algorithm is specifically designed for repetitive pulsed input signals measured with photodiodes in peak mode or pyro sensors. To switch the photodiode to peak mode, use the :func:`setFreqMode` command.
+		If you wish to abort a previously initiated procedure, simply send the same command while the peak-finder is active. To retrieve the new parameters call functions :func:`getPeakThreshold` and  e.g. :func:`getPowerRange` to retrieve the automatically set parameters later.
 		
-		Notes:
-		(1) The function is only available on PM103
+		Remarks:
+		(1) Only available for repetitive pulsed input signals with a stable pulse-to-pulse ratio in peak mode measured by Photodiode or Pyro sensors.
+		(2) The function is NOT available on PM100D, PM100A, PM100USB, PM160, PM160T, PM16, PM200, PM400, PM101, PM102
 		
 		Args:
 			channel(c_uint16) : Number of the sensor channel. 
@@ -3004,10 +3130,10 @@ class TLPMX:
 
 	def isPeakDetectorRunning(self, isRunning, channel):
 		"""
-		Tests if peak finder is active at the moment. Same as polling status operation register of sensor and checking for bit 3.
+		Use this command to query the peak detection threshold in percent. For closer details about the threshold read :func:`startPeakDetector` description.
 		
-		Notes:
-		(1) The function is only available on PM103
+		Remarks:
+		(1) The function is NOT available on PM100D, PM100A, PM100USB, PM160, PM160T, PM16, PM200, PM400, PM101, PM102
 		
 		Args:
 			isRunning(c_int16 use with byref) : returns the running state of the peak detector.
@@ -3026,6 +3152,10 @@ class TLPMX:
 
 	def setPeakFilter(self, filter, channel):
 		"""
+		Enables or disables peak overshoot filter. If the filter is enabled, the Powermeter will filter Over- and Undershoots on the sensor signal during peak measurement. This is useful for Photodiode when measuring TTL signals. For any other modulation like sinus or triangle disable the filter.
+		
+		Remarks:
+		(1) Note: The function is NOT available on PM100D, PM100A, PM100USB, PM160, PM160T, PM16, PM200, PM400, PM101, PM102
 		
 		Args:
 			filter(c_int16) : Valid valus for this parameter are
@@ -3045,6 +3175,10 @@ class TLPMX:
 
 	def getPeakFilter(self, filter, channel):
 		"""
+		Test if peak overshoot filter is enabled. If the filter is enabled, the Powermeter will filter over- and undershoots on the sensor signal during peak measurement. This is useful for Photodiode when measuring TTL signals. For any other modulation like sinus or triangle disable the filter. 
+		
+		Remarks:
+		(1) Note: The function is NOT available on PM100D, PM100A, PM100USB, PM160, PM160T, PM16, PM200, PM400, PM101, PM102
 		
 		Args:
 			filter(c_int16 use with byref) : Valid valus for this parameter are
@@ -3064,10 +3198,11 @@ class TLPMX:
 
 	def setExtNtcParameter(self, r0Coefficient, betaCoefficient, channel):
 		"""
-		This function sets the temperature calculation coefficients for the NTC sensor externally connected to the instrument (NTC IN).
+		This function sets the temperature calculation coefficients for the NTC sensor externally connected to the instrument (NTC IN). Call :func:`measExtNtcTemperature` function to get the temperature measurement of external NTC or call :func:`measExtNtcResistance` function to query the NTC resistance. 
 		
 		Notes:
-		(1) The function is only available on PM400.
+		(1) A wrong parameter value results in a wrong temperature measurements
+		(2) Only available when Powermeter has an external NTC resistor input
 		
 		
 		Args:
@@ -3088,8 +3223,7 @@ class TLPMX:
 		This function gets the temperature calculation coefficients for the NTC sensor externally connected to the instrument (NTC IN).
 		
 		Notes:
-		(1) The function is only available on PM400.
-		
+		(1) Only available when Powermeter has an external NTC resistor input
 		
 		Args:
 			attribute(c_int16) : This parameter specifies the values to be queried.
@@ -3202,23 +3336,25 @@ class TLPMX:
 
 	def getAnalogOutputSlopeRange(self, minSlope, maxSlope, channel):
 		"""
-		This function returns range of the responsivity in volts per watt [V/W] for the analog output.
+		Returns value range (min and max) of the slope prameter for given light power or energy analog output channel. For closer details refer to :func:`setAnalogOutputSlope`. 
+		To query the voltage range of the selcted analog output channel call :func:`getAnalogOutputVoltageRange`. 
+		To query the slope range for the position output call :func:`getPositionAnalogOutputSlopeRange`.
 		
-		Notes:
-		(1) The function is only available on PM101 and PM102
-		
-		
+		Remarks:
+		(1) Available only on powermeters equipped with a generated light power or energy analog output
 		
 		Args:
-			minSlope(c_double use with byref) : This parameter returns the minimum voltage in Volt [V/W] of the analog output.
-			Lower voltage is clipped to the minimum.
+			minSlope(c_double use with byref) : Minimum allowed slope. Unit depends on connected sensor.
+			maxSlope(c_double use with byref) : Maximum allowed slope. Unit depends on connected sensor.
 			
-			maxSlope(c_double use with byref) : This parameter returns the maximum voltage in Volt [V/W] of the analog output.
-			Higher voltage values are clipped to the maximum.
-			
-			channel(c_uint16) : Number of the Pin
-			
-			Default: 1 for non multi channel devices
+			channel(c_uint16) : 2 - Generated power/energy output for measurement channel 1: [V/W] for photodiode sensors, [V/W] for thermopile sensors or [V/J] for pyroelectric sensor.
+			3 - Reserved
+			4 - Reserved
+			5 - Reserved
+			6 - Generated power/energy output for measurement channel 2: [V/W] for photodiode sensors, [V/W] for thermopile sensors or [V/J] for pyroelectric sensor
+			7 - Reserved
+			8 - Reserved
+			9 - Reserved
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -3228,18 +3364,28 @@ class TLPMX:
 
 	def setAnalogOutputSlope(self, slope, channel):
 		"""
-		This function sets the responsivity in volts per watt [V/W] for the analog output.
+		This function sets the slope parameter for the specified light power or energy analog output channel. The powermeter computes the DAC output voltage as follows: DAC_V = Power or Energy *  slope. The unit of the slope varies depending on the connected sensor. For the generated main output, it is volts per watt [V/W] for photodiode and thermopile sensors, or volts per joule [V/J] for pyroelectric sensors. The voltage for the light power or energy is updated only when :func:`setAnalogOutputRoute` is configured appropriatly.
+		To determine an appropriate slope value, first call :func:`getAnalogOutputVoltageRange` to retrieve the voltage range for the selected channel, or consult the product manual for details. To set the slope for the position output call :func:`setPositionAnalogOutputSlope`.
+		You can use :func:`getAnalogOutputVoltage` to query the actual applied DAC output voltage, for example, to verify or test the slope setting. The slope value is stored persistently and will be automatically applied after a powermeter reboot. 
+		      
+		The following example illustrates how to select a suitable slope for a given application: Assume the maximum output voltage of the selected channel is 2V and the expected power to be measured is 3mW. The ratio of maximum voltage to expectedpower is 2V / 0.003W = 666.66. To generate an output voltage of 1.5V at 3mW, a slope of 500 can be selected. Alternatively, a slope of 100 could be chosen to generate 0.3V at 3mW.
 		
-		Notes:
-		(1) The function is only available on PM101 and PM102
-		
+		Remarks:
+		(1) Available only on powermeters equipped with a generated light power or energy analog output.
+		(2) Slope does not apply to the raw ampliefied analog sensor output.
+		(3) DAC depends on measurement mode is updated at max 1 kHz.
+		(4) The voltage will clip to the analog output physical voltage limits.
 		
 		Args:
-			slope(c_double) : This parameter specifies the responsivity in volts per watt [V/W].
-			
-			channel(c_uint16) : Number of the Pin
-			
-			Default: 1 for non multi channel devices
+			slope(c_double) : Analog output conversion slope parameter. Unit depends on connected sensor.
+			channel(c_uint16) : 2 - Generated power/energy output for measurement channel 1: [V/W] for photodiode sensors, [V/W] for thermopile sensors or [V/J] for pyroelectric sensor.
+			3 - Reserved
+			4 - Reserved
+			5 - Reserved
+			6 - Generated power/energy output for measurement channel 2: [V/W] for photodiode sensors, [V/W] for thermopile sensors or [V/J] for pyroelectric sensor
+			7 - Reserved
+			8 - Reserved
+			9 - Reserved
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -3249,12 +3395,12 @@ class TLPMX:
 
 	def getAnalogOutputSlope(self, attribute, slope, channel):
 		"""
-		This function returns the responsivity in volts per watt [V/W] for the analog output.
+		Returns the slope parameter for given light power or energy analog output channel. The powermeter calculates DAC_V = Power or Energy * slope. The unit of the slope depends on the connected sensor. For closer details refer to :func:`setAnalogOutputSlope`. 
+		To query the currenlty output voltage call :func:`getAnalogOutputVoltage`. 
+		To query the position output related slope call :func:`getPositionAnalogOutputSlope`. 
 		
-		Notes:
-		(1) The function is only available on PM101 and PM102
-		
-		
+		Remarks:
+		(1) Available only on powermeters equipped with a generated light power or energy analog output
 		
 		Args:
 			attribute(c_int16) : This parameter specifies the value to be queried.
@@ -3265,11 +3411,15 @@ class TLPMX:
 			  TLPM_ATTR_MAX_VAL  (2): Maximum value
 			  TLPM_ATTR_DFLT_VAL (3): Default value
 			
-			slope(c_double use with byref) : This parameter returns the specified responsivity in volts per watt [V/W].
-			
-			channel(c_uint16) : Number of the Pin
-			
-			Default: 1 for non multi channel devices
+			slope(c_double use with byref) : Analog output conversion slope parameter. Unit depends on connected sensor.
+			channel(c_uint16) : 2 - Generated power/energy output for measurement channel 1: [V/W] for photodiode sensors, [V/W] for thermopile sensors or [V/J] for pyroelectric sensor.
+			3 - Reserved
+			4 - Reserved
+			5 - Reserved
+			6 - Generated power/energy output for measurement channel 2: [V/W] for photodiode sensors, [V/W] for thermopile sensors or [V/J] for pyroelectric sensor
+			7 - Reserved
+			8 - Reserved
+			9 - Reserved
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -3279,23 +3429,24 @@ class TLPMX:
 
 	def getAnalogOutputVoltageRange(self, minVoltage, maxVoltage, channel):
 		"""
-		This function returns the range in Volt [V] of the analog output.
+		Returns the analog output voltage [V] range (min and max) for given light power or energy channel. This is especially useful to calculate and later set the channel slope by calling :func:`setAnalogOutputSlope`. To query the actually output voltage call :func:`getAnalogOutputVoltage`. To query the beam position analog output voltage range call :func:`getPositionAnalogOutputVoltageRange`. 
+		On the PM5020 you can configure the voltage range by calling <Set Analog Output Gain Range>.
 		
-		Notes:
-		(1) The function is only available on PM101 and PM102
-		
-		
+		Remarks:
+		(1) Available only on powermeters equipped with a generated light power or energy analog output
 		
 		Args:
-			minVoltage(c_double use with byref) : This parameter returns the minimum voltage in Volt [V] of the analog output.
-			Lower voltage is clipped to the minimum.
+			minVoltage(c_double use with byref) : This parameter returns the minimum voltage in Volt [V] of the given analog output channel.
 			
-			maxVoltage(c_double use with byref) : This parameter returns the maximum voltage in Volt [V] of the analog output.
-			Higher voltage values are clipped to the maximum.
-			
-			channel(c_uint16) : Number of the Pin
-			
-			Default: 1 for non multi channel devices
+			maxVoltage(c_double use with byref) : This parameter returns the maximum voltage in Volt [V] of the given analog output channel.
+			channel(c_uint16) : 2 - Generated power/energy output for measurement channel 1: [V/W] for photodiode sensors, [V/W] for thermopile sensors or [V/J] for pyroelectric sensor.
+			3 - Reserved
+			4 - Reserved
+			5 - Reserved
+			6 - Generated power/energy output for measurement channel 2: [V/W] for photodiode sensors, [V/W] for thermopile sensors or [V/J] for pyroelectric sensor
+			7 - Reserved
+			8 - Reserved
+			9 - Reserved
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -3305,12 +3456,13 @@ class TLPMX:
 
 	def getAnalogOutputVoltage(self, attribute, voltage, channel):
 		"""
-		This function returns the analog output in Volt [V].
+		Returns the currently output voltage in volts [V] for the specified light power or energy analog output channel. The powermeter computes the DAC output voltage as follows: DAC_V = power or energy *  slope. Call :func:`setAnalogOutputSlope` to modify the slope parameter. The voltage for the light power or energy is updated only when :func:`setAnalogOutputRoute` is configured appropriatly.
+		To query the currenlty used analog output voltage for the position output call :func:`getPositionAnalogOutputVoltage`.
 		
-		Notes:
-		(1) The function is only available on PM101 and PM102
-		
-		
+		Remarks:
+		(1) Available only on powermeters equipped with a generated light power or energy analog output.
+		(2) DAC depends on measurement mode is updated at max 1 kHz. Reading voltage faster results in duplicate readings.
+		(3) The voltage will clip to the analog output physical voltage limits.
 		
 		Args:
 			attribute(c_int16) : This parameter specifies the value to be queried.
@@ -3322,10 +3474,14 @@ class TLPMX:
 			  TLPM_ATTR_DFLT_VAL (3): Default value
 			
 			voltage(c_double use with byref) : This parameter returns the analog output in Volt [V].
-			
-			channel(c_uint16) : Number of the Pin
-			
-			Default: 1 for non multi channel devices
+			channel(c_uint16) : 2 - Generated power/energy output for measurement channel 1: [V/W] for photodiode sensors, [V/W] for thermopile sensors or [V/J] for pyroelectric sensor.
+			3 - Reserved
+			4 - Reserved
+			5 - Reserved
+			6 - Generated power/energy output for measurement channel 2: [V/W] for photodiode sensors, [V/W] for thermopile sensors or [V/J] for pyroelectric sensor
+			7 - Reserved
+			8 - Reserved
+			9 - Reserved
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -3335,18 +3491,10 @@ class TLPMX:
 
 	def getAnalogOutputGainRange(self, gainRangeIndex, channel):
 		"""
-		This function returns the analog output hub in Volt [V].
-		
-		Notes:
-		(1) The function is only available on PM103
-		
-		
 		
 		Args:
 			gainRangeIndex(c_int16 use with byref)
-			channel(c_uint16) : Number of the Pin
-			
-			Default: 1 for non multi channel devices
+			channel(c_uint16)
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -3356,18 +3504,10 @@ class TLPMX:
 
 	def setAnalogOutputGainRange(self, gainRangeIndex, channel):
 		"""
-		This function returns the analog output hub in Volt [V].
-		
-		Notes:
-		(1) The function is only available on PM103
-		
-		
 		
 		Args:
 			gainRangeIndex(c_int16)
-			channel(c_uint16) : Number of the Pin
-			
-			Default: 1 for non multi channel devices
+			channel(c_uint16)
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -3375,20 +3515,154 @@ class TLPMX:
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
-	def getAnalogOutputRoute(self, routeName, channel):
+	def getAnalogOutputConfig(self, configIdx, channel):
 		"""
-		This function returns the analog output hub in Volt [V].
+		This function queries the voltage range for the specified analog output channel. The configured voltage range is stored persistently and automatically restored after a powermeter reboot. To retrieve the actual output voltage for the channel, call :func:`getAnalogOutputVoltage`.
 		
-		Notes:
-		(1) The function is only available on PM103
+		The following provides an overview of the available voltage ranges, mapped by channel:
 		
+		    Channels 2 & 6 (Generated power/energy output): Ranges 0, 1, 2, 3
+		    Channels 3 & 7 (Beam X position output): Ranges 0, 1, 4, 5
+		    Channels 4 & 8 (Beam Y position output): Ranges 0, 1, 4, 5
+		    Channels 5 & 9: Reserved
+		    Channels 10 & 11 (Real analog output): Ranges 0, 1, 2, 3
 		
+		Remarks:
+		(1) This function is available only on the PM5020 model.
+		(2) Generated output voltages will clip to the configured limits if they exceed the selected range.
 		
 		Args:
-			routeName(create_string_buffer(1024))
-			channel(c_uint16) : Number of the Pin
+			configIdx(c_int16 use with byref) : 0: 0 up to 10V
+			1: 0 up to 4V
+			2: 0 up to 2V
+			3: 0 up to 1V
+			4: -5 up to 5V
+			5: -2 up to 2V
 			
-			Default: 1 for non multi channel devices
+			channel(c_uint16) : 2 - Generated power/energy output for measurement channel 1: [V/W] for photodiode sensors, [V/W] for thermopile sensors or [V/J] for pyroelectric sensor.
+			3 - Beam X position output on measurement channel 1: [V/µm]
+			4 - Beam Y position output on measurement channel 1: [V/µm]
+			5 - Reserved
+			6 - Generated power/energy output for measurement channel 2: [V/W] for photodiode sensors, [V/W] for thermopile sensors or [V/J] for pyroelectric sensor
+			7 - Beam X position output on measurement channel 2: [V/µm]
+			8 - Beam Y position output on measurement channel 2: [V/µm]
+			9 - Reserved
+			10 - Raw analog output measurement channel 1
+			11 - Raw analog output measurement channel 2
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_getAnalogOutputConfig(self.devSession, configIdx, channel)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def setAnalogOutputConfig(self, configIdx, channel):
+		"""
+		The function changes the voltage range for given analogue output channel. The configured voltage range is stored persistently and automatically restored after a powermeter reboot. Changing the voltage range might require to update slope of channel by function :func:`setAnalogOutputSlope`. 
+		
+		The following provides an overview of the available voltage ranges, mapped by channel:
+		
+		    Channels 2 & 6 (Generated power/energy output): Ranges 0, 1, 2, 3
+		    Channels 3 & 7 (Beam X position output): Ranges 0, 1, 4, 5
+		    Channels 4 & 8 (Beam Y position output): Ranges 0, 1, 4, 5
+		    Channels 5 & 9: Reserved
+		    Channels 10 & 11 (Real analog output): Ranges 0, 1, 2, 3
+		
+		Remarks:
+		(1) This function is available only on the PM5020 model.
+		(2) Generated output voltages will clip to the configured limits if they exceed the selected range.
+		
+		Args:
+			configIdx(c_int16) : 0: 0 up to 10V
+			1: 0 up to 4V
+			2: 0 up to 2V
+			3: 0 up to 1V
+			4: -5 up to 5V
+			5: -2 up to 2V
+			
+			channel(c_uint16) : 2 - Generated power/energy output for measurement channel 1: [V/W] for photodiode sensors, [V/W] for thermopile sensors or [V/J] for pyroelectric sensor.
+			3 - Beam X position output on measurement channel 1: [V/µm]
+			4 - Beam Y position output on measurement channel 1: [V/µm]
+			5 - Reserved
+			6 - Generated power/energy output for measurement channel 2: [V/W] for photodiode sensors, [V/W] for thermopile sensors or [V/J] for pyroelectric sensor
+			7 - Beam X position output on measurement channel 2: [V/µm]
+			8 - Beam Y position output on measurement channel 2: [V/µm]
+			9 - Reserved
+			10 - Raw analog output measurement channel 1
+			11 - Raw analog output measurement channel 2
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_setAnalogOutputConfig(self.devSession, configIdx, channel)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def setAnalogLogConf(self, max, dynRange, channel):
+		"""
+		Call this function to configure the logarithmic power output in dBm. The analog signal is generated by a DAC and is wavelength- and zero-corrected. The maximum parameter specifies the power level at which the analog output reaches its maximum value. The dynamic range parameter determines how the analog voltage range is scaled to the dB range. During ranging pauses, the power meter uses linear interpolation to maintain the signals. After setting the configuration, use :func:`getAnalogOutputRoute` to modify the analog output strategy to Generated dBm. 
+		
+		Remarks:
+		(1) Available only on powermeters equipped with a generated light power or energy analog output
+		(2) Not all Powermeter support all kind of output strategies.
+		(3) Note that this mode is not available for photodiodes in peak measurement mode
+		(4) To smooth the output signal, the generated power or energy mode employs a low pass filter with a cutoff frequency of 10 kHz.
+		
+		Args:
+			max(c_double) : This parameter defines the maximum dBm reference value. This value is utilized by the dBm output route to determine the dBm level at which the DAC produces its maximum voltage. In conjunction with the dBm dynamic range parameter, it scales the dBm range to the DAC output voltage range.
+			dynRange(c_double) : This parameter defines the dynamic range of the DAC output in decibels (dB). The dynamic range represents the difference between the maximum and minimum dBm values, which determines how the DAC output voltage range is scaled.
+			channel(c_uint16) :  2  - for a single channel powermeters
+			11 - for measurement channel 1 (PM5020)
+			12 - for measurement channel 2 (PM5020)
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_setAnalogLogConf(self.devSession, max, dynRange, channel)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def getAnalogLogConf(self, max, dynRange, channel):
+		"""
+		Use this function to retrieve the current configuration (maximum power level and dynamic range scaling) set by :func:`setAnalogLogConf` for the DAC-generated logarithmic power output in dBm. 
+		
+		Remarks:
+		(1) Available only on powermeters equipped with a generated light power or energy analog output
+		(2) Not all Powermeter support all kind of output strategies.
+		(3) Note that this mode is not available for photodiodes in peak measurement mode
+		(4) To smooth the output signal, the generated power or energy mode employs a low pass filter with a cutoff frequency of 10 kHz.
+		
+		Args:
+			max(c_double) :  2  - for a single channel powermeters
+			11 - for measurement channel 1 (PM5020)
+			12 - for measurement channel 2 (PM5020)
+			dynRange(c_double use with byref) : This parameter defines the maximum dBm reference value. This value is utilized by the dBm output route to determine the dBm level at which the DAC produces its maximum voltage. In conjunction with the dBm dynamic range parameter, it scales the dBm range to the DAC output voltage range.
+			channel(c_uint16 use with byref) : This parameter defines the dynamic range of the DAC output in decibels (dB). The dynamic range represents the difference between the maximum and minimum dBm values, which determines how the DAC output voltage range is scaled.
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_getAnalogLogConf(self.devSession, max, dynRange, channel)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def getAnalogOutputRoute(self, routeName, channel):
+		"""
+		This function queries the analog output strategy of the light sensor related anlog output channel. The Powermeter can output different signals on this channel. For PM5020 the <Channel> is 11 or 12. For all other Powermeters the <Channel> is 2. 
+		
+		Remarks:
+		(1) Available only on powermeters equipped with a generated light power or energy analog output
+		(2) Not all Powermeter support all kind of output strategies
+		(3) The function is available when Powermeter has at least one generated analog output signal.
+		
+		Args:
+			routeName(create_string_buffer(1024) use with byref) : PURe (Direct Route):           The raw amplified signal is output. This signal is related to the photo current or voltage and is not wavelength or zero compensated.
+			CBA (Compensated Base Unit):   The raw amplified signal is multiplied with a correction factor in hardware to compensate the dark current/voltage. The signal is the photo current or voltage and is not wavelength compensated.
+			CMA (Compensated Main Unit):   The raw amplified signal is multiplied with a correction factor in hardware to output a analogue voltage related to power or energy. The signal is zero and wavelength compensated.
+			GENer (Generated Main Unit):   A DAC outputs the most recently measured main unit in Watts (W) or Joules (J).
+			GDBM (Generated dBm):          A DAC outputs the most recently measured logarithmic power in (dBm)
+			FUNCtion (Function generator): A DAC acts as analog function generator.
+			CUSTom (Custom usage):         A DAC output a customer defined voltage.
+			channel(c_uint16) :  2  - for a single channel powermeters
+			11 - for measurement channel 1 (PM5020)
+			12 - for measurement channel 2 (PM5020)
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -3398,20 +3672,30 @@ class TLPMX:
 
 	def setAnalogOutputRoute(self, routeStrategy, channel):
 		"""
-		This function returns the analog output hub in Volt [V].
+		This function selects the analog output strategy of the light sensor related anlog output channel. The Powermeter can output different signals on this channel. For PM5020 the <Channel> is 11 or 12. For all other Powermeters the <Channel> is 2. 
 		
-		Notes:
-		(1) The function is only available on PM103
+		PM100D2,PM100D3
+		- Pure Analog, Generated Main Unit, Function Generator, Custom usage
+		PM5020
+		- Pure Analog, Compensated Analog Base, Compensated Analog Main
 		
-		
+		Remarks:
+		(1) Available only on powermeters equipped with a generated light power or energy analog output
+		(2) Not all Powermeter support all kind of output strategies.
+		(3) The function is available when Powermeter has at least one generated analog output signal.
+		(4) Depending on selected output strategy you have to call one ore multiple other functions to use the mode.
 		
 		Args:
 			routeStrategy(c_uint16) : TLPM_ANALOG_ROUTE_PUR  (0)  (Direct Route): The raw amplified signal is output. This signal is related to the photo current or voltage. It is not wavelength or zero compensated.
 			TLPM_ANALOG_ROUTE_CBA  (1)  (Compensated Base Unit): The raw amplified signal is multiplied with a correction factor in hardware to compensate the dark current/voltage. The signal is the photo current or voltage and is not wavelength compensated.
 			TLPM_ANALOG_ROUTE_CMA  (2) (Compensated Main Unit): The raw amplified signal is multiplied with a correction factor in hardware to output a analogue voltage related to power or energy. The signal is zero and wavelength compensated.
-			channel(c_uint16) : Number of the Pin
-			
-			Default: 1 for non multi channel devices
+			TLPM_ANALOG_ROUT_GEN   (3) (Generated Main Unit) A DAC outputs the most recently measured main unit in Watts (W) or Joules (J)
+			TLPM_ANALOG_ROUTE_FUNC (4) (Function generator) A DAC outputs a previously defined function out of a lookup table like a function generator
+			TLPM_ANALOG_ROUTE_CUST (5) (Custom usage) A DAC outputs a customer defined voltage
+			TLPM_ANALOG_ROUTE_GDBM (6) (Generated dBm) A DAC outputs the most recently measured power in dBm (dBm)
+			channel(c_uint16) :  2  - for a single channel powermeters
+			11 - for measurement channel 1 (PM5020)
+			12 - for measurement channel 2 (PM5020)
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -3421,21 +3705,26 @@ class TLPMX:
 
 	def getPositionAnalogOutputSlopeRange(self, minSlope, maxSlope, channel):
 		"""
-		This function returns range of the responsivity in volts per µm [V/µm] for the analog output.
+		Returns value range of the slope prameter for given beam position analog output channel. The unit is [V/µm]. For closer details refer to :func:`setPositionAnalogOutputSlope`. 
+		To query the voltage range of the selcted analog output channel call :func:`getPositionAnalogOutputVoltageRange`. 
+		To query the slope range for the analog light output call :func:`getAnalogOutputSlopeRange`.
 		
-		Notes:
-		(1) The function is only available on PM102
-		
-		
+		Remarks:
+		(1) Available only on powermeters equipped with beam position analog outputs for the X and Y coordinates.
 		
 		Args:
 			minSlope(c_double use with byref) : This parameter returns the minimum slope in [V/µm] of the analog output.
 			
 			maxSlope(c_double use with byref) : This parameter returns the maximum slope in [V/µm] of the analog output.
 			
-			channel(c_uint16) : Number of the sensor channel. 
-			
-			Default: 1 for non multi channel devices
+			channel(c_uint16) : 2 - Reserved
+			3 - Beam X position output on measurement channel 1: [V/µm]
+			4 - Beam Y position output on measurement channel 1: [V/µm]
+			5 - Reserved
+			6 - Reserved
+			7 - Beam X position output on measurement channel 2: [V/µm]
+			8 - Beam Y position output on measurement channel 2: [V/µm]
+			9 - Reserved
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -3445,18 +3734,27 @@ class TLPMX:
 
 	def setPositionAnalogOutputSlope(self, slope, channel):
 		"""
-		This function sets the responsivity in volts per µm [V/µm] for the analog output.
+		This function sets the slope parameter for the specified position output analog output channel. The powermeter computes the DAC output voltage as follows: DAC_V = Position *  slope. The unit of the slope is V/µm.
+		To determine an appropriate slope value, first call :func:`getPositionAnalogOutputVoltageRange` to retrieve the voltage range for the selected channel, or consult the product manual for details. To set the slope for the light signal analog output call :func:`setAnalogOutputSlope`.
+		You can use :func:`getPositionAnalogOutputVoltage` to query the actual applied DAC output voltage, for example, to verify or test the slope setting. The slope value is stored persistently and will be automatically applied after a powermeter reboot. 
+		      
+		The following example illustrates how to select a suitable slope for a given application: Assume the maximum output voltage of the selected channel is 2 V and the expected maximal position to be measured is 25 µm. The ratio of maximum voltage to expectedpower is 2 V / 25 µm = 0.08. To generate an output voltage of 1.25 V at  25 µm, a slope of 0.05 can be selected. Alternatively, a slope of 0.01 could be chosen to generate 0.25V at 25 µm.
 		
-		Notes:
-		(1) The function is only available on PM102
-		
+		Remarks:
+		(1) Available only on powermeters equipped with beam position analog outputs for the X and Y coordinates.
+		(3) DAC is updated at max 1 kHz.
+		(4) The voltage will clip to the analog output physical voltage limits.
 		
 		Args:
-			slope(c_double) : This parameter specifies the responsivity in volts per µm [V/µm] for the AO2 and AO3 channel 
-			
-			channel(c_uint16) : Number of the sensor channel. 
-			
-			Default: 1 for non multi channel devices
+			slope(c_double) : This parameter specifies the responsivity in volts per µm [V/µm]
+			channel(c_uint16) : 2 - Reserved
+			3 - Beam X position output on measurement channel 1: [V/µm]
+			4 - Beam Y position output on measurement channel 1: [V/µm]
+			5 - Reserved
+			6 - Reserved
+			7 - Beam X position output on measurement channel 2: [V/µm]
+			8 - Beam Y position output on measurement channel 2: [V/µm]
+			9 - Reserved
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -3466,12 +3764,12 @@ class TLPMX:
 
 	def getPositionAnalogOutputSlope(self, attribute, slope, channel):
 		"""
-		This function returns the responsivity in volts per µm [V/µm] for the analog output channels.
+		Returns the analog output slope parameter for given beam position analog channel. The powermeter calculates DAC_V = Position * slope. The unit of the slope is [V/µm]. For closer details refer to  :func:`setPositionAnalogOutputSlope`. 
+		To query the currenlty output voltage call :func:`getPositionAnalogOutputVoltage`. 
+		To query the analog light signal related slope call :func:`getAnalogOutputSlope`. 
 		
-		Notes:
-		(1) The function is only available on PM102
-		
-		
+		Remarks:
+		(1) Allowed when Powermeter has at least one generated analog output signalGet Position Analog Output Voltage
 		
 		Args:
 			attribute(c_int16) : This parameter specifies the value to be queried.
@@ -3482,11 +3780,16 @@ class TLPMX:
 			  TLPM_ATTR_MAX_VAL  (2): Maximum value
 			  TLPM_ATTR_DFLT_VAL (3): Default value
 			
-			slope(c_double use with byref) : This parameter returns the specified responsivity in volts per µm [V/µm] for the AO2 and AO3 channel 
+			slope(c_double use with byref) : This parameter returns the specified responsivity in volts per µm [V/µm]
 			
-			channel(c_uint16) : Number of the sensor channel. 
-			
-			Default: 1 for non multi channel devices
+			channel(c_uint16) : 2 - Reserved
+			3 - Beam X position output on measurement channel 1: [V/µm]
+			4 - Beam Y position output on measurement channel 1: [V/µm]
+			5 - Reserved
+			6 - Reserved
+			7 - Beam X position output on measurement channel 2: [V/µm]
+			8 - Beam Y position output on measurement channel 2: [V/µm]
+			9 - Reserved
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -3496,23 +3799,24 @@ class TLPMX:
 
 	def getPositionAnalogOutputVoltageRange(self, minVoltage, maxVoltage, channel):
 		"""
-		This function returns the range in Volt [V] of the analog output.
+		Returns the analog output voltage [V] range (min and max) for given beam position channel. This is especially useful to calculate and later set the channel slope by calling :func:`setPositionAnalogOutputSlope`. To query the actually output voltage call :func:`getPositionAnalogOutputVoltage`. To query the light power or energy analog output voltage range call :func:`getAnalogOutputVoltageRange`. 
+		On the PM5020 you can configure the voltage range by calling <Set Analog Output Gain Range>.
 		
-		Notes:
-		(1) The function is only available on PM102
-		
-		
+		Remarks:
+		(1) Available only on powermeters equipped with beam position analog outputs for the X and Y coordinates.
 		
 		Args:
-			minVoltage(c_double use with byref) : This parameter returns the minimum voltage in Volt [V] of the analog output.
-			Lower voltage is clipped to the minimum.
+			minVoltage(c_double use with byref) : This parameter returns the minimum voltage in Volt [V] of the analog output. Lower voltage is clipped to the minimum.
+			maxVoltage(c_double use with byref) : This parameter returns the maximum voltage in Volt [V] of the analog output. Higher voltage values are clipped to the maximum.
 			
-			maxVoltage(c_double use with byref) : This parameter returns the maximum voltage in Volt [V] of the analog output.
-			Higher voltage values are clipped to the maximum.
-			
-			channel(c_uint16) : Number of the sensor channel. 
-			
-			Default: 1 for non multi channel devices
+			channel(c_uint16) : 2 - Reserved
+			3 - Beam X position output on measurement channel 1: [V/µm]
+			4 - Beam Y position output on measurement channel 1: [V/µm]
+			5 - Reserved
+			6 - Reserved
+			7 - Beam X position output on measurement channel 2: [V/µm]
+			8 - Beam Y position output on measurement channel 2: [V/µm]
+			9 - Reserved
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -3522,12 +3826,13 @@ class TLPMX:
 
 	def getPositionAnalogOutputVoltage(self, attribute, voltageX, voltageY, channel):
 		"""
-		This function returns the analog output in Volt [V].
+		Returns the recent output voltage in volts [V] for the specified beam position analog output channel. The powermeter computes the DAC output voltage as follows: DAC_V = position *  slope. Call :func:`setPositionAnalogOutputSlope` to modify the slope parameter. 
+		To query the recent output voltage for the light power or energy analog output call :func:`getAnalogOutputVoltage`.
 		
-		Notes:
-		(1) The function is only available on PM102
-		
-		
+		Remarks:
+		(1) Available only on powermeters equipped with beam position analog outputs for the X and Y coordinates.
+		(2) DAC depends on measurement mode is updated at max 1 kHz. Reading voltage faster results in duplicate readings.
+		(3) The voltage will clip to the analog output physical voltage limits.
 		
 		Args:
 			attribute(c_int16) : This parameter specifies the value to be queried.
@@ -3552,208 +3857,134 @@ class TLPMX:
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
-	def getMeasPinMode(self, state, channel):
+	def getPassFailState(self, state, channel):
 		"""
-		This function returns the meas pin state
+		This function checks if the current sensor signal remains within a previously defined window. To modify the window, use the function :func:`setPassFailPowerWindow` for power or :func:`setPassFailEnergyWindow` for energy sensors. 
+		Additionally, you can link an DIO pin to indicate this status using the function :func:`setDigIoPinMode`. 
+		The state is also monitored in the Auxiliary register, specifically in bit 10 of <Read register>.
 		
-		Notes:
-		(1) The function is only available on PM103
-		
-		
+		Remarks:
+		(1) Using the DIO pin is optional
+		(2) Available only on powermeters equipped with Pass/Fail support
 		
 		Args:
-			state(c_int16 use with byref) : This parameter returns the analog output hub in Volt [V].
-			
+			state(c_int16 use with byref) : True(1) if signals is within the defined window. False(0) otherwise.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
 		Returns:
 			int: The return value, 0 is for success
 		"""
-		pInvokeResult = self.dll.TLPMX_getMeasPinMode(self.devSession, state, channel)
+		pInvokeResult = self.dll.TLPMX_getPassFailState(self.devSession, state, channel)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
-	def getMeasPinPowerLevel(self, level, channel):
+	def getPassFailPowerWindow(self, minPower, maxPower, channel):
 		"""
-		This function returns the meas pin power level in [W]
+		This function queries the photodiode or thermopile sensor  power value window within which the measured sensor power readings are considered valid. The Powermeter employs a 5 % hysteresis if the window has been exited, allowing it to indicate valid status again. For closer details refer to function :func:`setPassFailPowerWindow`.
 		
-		Notes:
-		(1) The function is only available on PM103
-		
-		
+		Remarks:
+		(1) Using the DIO pin is optional.
+		(2) This only applies to thermopile or photodiode sensors.
+		(2) Available only on powermeters equipped with Pass/Fail support.
 		
 		Args:
-			level(c_double use with byref) : This parameter returns the measure pin output power level in Watt [W].
-			
+			minPower(c_double use with byref) : This parameter returns the pass/fail window lower limit in Watt [W]. Power readings below this value are defined as invalid.
+			maxPower(c_double use with byref) : This parameter returns the pass/fail window upper limit in Watt [W]. Power readings above this value are defined as invalid.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
 		Returns:
 			int: The return value, 0 is for success
 		"""
-		pInvokeResult = self.dll.TLPMX_getMeasPinPowerLevel(self.devSession, level, channel)
+		pInvokeResult = self.dll.TLPMX_getPassFailPowerWindow(self.devSession, minPower, maxPower, channel)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
-	def setMeasPinPowerLevel(self, level, channel):
+	def setPassFailPowerWindow(self, minPower, maxPower, channel):
 		"""
-		This function returns the meas pin state
+		This function establishes the photodiode or thermopile sensor power value window within which the measured sensor power readings are considered valid. The Powermeter employs a 5 % hysteresis if the window has been exited, allowing it to indicate valid status again. 
+		Additionally, you can link an DIO pin to indicate this status using the function :func:`setDigIoPinMode`. 
+		The state is also monitored in the Auxiliary register, specifically in bit 10 of <Read register>.
 		
-		Notes:
-		(1) The function is only available on PM103
-		
-		
+		Remarks:
+		(1) Using the DIO pin is optional.
+		(2) This only applies to thermopile or photodiode sensors.
+		(2) Available only on powermeters equipped with Pass/Fail support.
 		
 		Args:
-			level(c_double) : This parameter sets the measure pin output power level in Watt [W].
-			
-			
+			minPower(c_double) : This parameter returns the pass/fail window lower limit in Watt [W]. Power readings below this value are defined as invalid.
+			maxPower(c_double) : This parameter returns the pass/fail window upper limit in Watt [W]. Power readings above this value are defined as invalid.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
 		Returns:
 			int: The return value, 0 is for success
 		"""
-		pInvokeResult = self.dll.TLPMX_setMeasPinPowerLevel(self.devSession, level, channel)
+		pInvokeResult = self.dll.TLPMX_setPassFailPowerWindow(self.devSession, minPower, maxPower, channel)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
-	def getMeasPinEnergyLevel(self, level, channel):
+	def getPassFailEnergyWindow(self, minEnergy, maxEnergy, channel):
 		"""
-		This function returns the meas pin energy level in [J]
+		This function queries the pyroelectric sensor energy value window within which the measured sensor power readings are considered valid. The Powermeter employs a 5 % hysteresis if the window has been exited, allowing it to indicate valid status again. For closer details refer to function
+		:func:`setPassFailEnergyWindow`.
 		
-		Notes:
-		(1) The function is only available on PM103
-		
-		
+		Remarks:
+		(1) Using the DIO pin is optional.
+		(2) This only applies to pyroelectric sensors.
+		(2) Available only on powermeters equipped with Pass/Fail support.
 		
 		Args:
-			level(c_double use with byref) : This parameter returns the measure pin output energy level in  [J].
-			
-			
+			minEnergy(c_double use with byref) : This parameter returns the pass/fail window lower limit in Joules [J]. Energy readings below this value are defined as invalid.
+			maxEnergy(c_double use with byref) : This parameter returns the pass/fail window upper limit in Joules [J]. Energy readings above this value are defined as invalid.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
 		Returns:
 			int: The return value, 0 is for success
 		"""
-		pInvokeResult = self.dll.TLPMX_getMeasPinEnergyLevel(self.devSession, level, channel)
+		pInvokeResult = self.dll.TLPMX_getPassFailEnergyWindow(self.devSession, minEnergy, maxEnergy, channel)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
-	def setMeasPinEnergyLevel(self, level, channel):
+	def setPassFailEnergyWindow(self, minEnergy, maxEnergy, channel):
 		"""
-		This function returns the meas pin state
+		This function establishes the Pyro sensor energy value window within which the measured sensor power readings are considered valid. The Powermeter employs a 5 % hysteresis if the window has been exited, allowing it to indicate valid status again. 
+		Additionally, you can link an DIO pin to indicate this status using the function :func:`setDigIoPinMode`. 
+		The state is also monitored in the Auxiliary register, specifically in bit 10 of <Read register>.
 		
-		Notes:
-		(1) The function is only available on PM103
-		
-		
+		Remarks:
+		(1) Using the DIO pin is optional.
+		(2) This only applies to pyroelectric sensors.
+		(2) Available only on powermeters equipped with Pass/Fail support.
 		
 		Args:
-			level(c_double) : This parameter returns the measurement pin energy level in [J].
-			
+			minEnergy(c_double) : This parameter sets the pass/fail window lower limit in Joules [J]. Energy readings below this value are defined as invalid.
+			maxEnergy(c_double) : This parameter sets the pass/fail window upper limit in Joules [J]. Energy readings above this value are defined as invalid.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
 		Returns:
 			int: The return value, 0 is for success
 		"""
-		pInvokeResult = self.dll.TLPMX_setMeasPinEnergyLevel(self.devSession, level, channel)
-		self.__testForError(pInvokeResult)
-		return pInvokeResult
-
-	def setNegativePulseWidth(self, pulseDuration, channel):
-		"""
-		This function sets the low pulse duration in Seconds
-		
-		Notes:
-		(1) The function is only available on PM103
-		
-		
-		Args:
-			pulseDuration(c_double) : low pulse duration in Seconds
-			channel(c_uint16) : Number of the sensor channel. 
-			
-			Default: 1 for non multi channel devices
-		Returns:
-			int: The return value, 0 is for success
-		"""
-		pInvokeResult = self.dll.TLPMX_setNegativePulseWidth(self.devSession, pulseDuration, channel)
-		self.__testForError(pInvokeResult)
-		return pInvokeResult
-
-	def setPositivePulseWidth(self, pulseDuration, channel):
-		"""
-		This function sets the high pulse duration in Seconds
-		
-		Notes:
-		(1) The function is only available on PM103
-		
-		
-		Args:
-			pulseDuration(c_double) : high pulse duration in Seconds
-			channel(c_uint16) : Number of the sensor channel. 
-			
-			Default: 1 for non multi channel devices
-		Returns:
-			int: The return value, 0 is for success
-		"""
-		pInvokeResult = self.dll.TLPMX_setPositivePulseWidth(self.devSession, pulseDuration, channel)
-		self.__testForError(pInvokeResult)
-		return pInvokeResult
-
-	def setNegativeDutyCycle(self, dutyCycle, channel):
-		"""
-		This function sets the low duty cycle in Percent
-		
-		Notes:
-		(1) The function is only available on PM103
-		
-		
-		Args:
-			dutyCycle(c_double) : low pulse duty cycle in Percent
-			channel(c_uint16) : Number of the sensor channel. 
-			
-			Default: 1 for non multi channel devices
-		Returns:
-			int: The return value, 0 is for success
-		"""
-		pInvokeResult = self.dll.TLPMX_setNegativeDutyCycle(self.devSession, dutyCycle, channel)
-		self.__testForError(pInvokeResult)
-		return pInvokeResult
-
-	def setPositiveDutyCycle(self, dutyCycle, channel):
-		"""
-		This function sets the high duty cycle in Percent
-		
-		Notes:
-		(1) The function is only available on PM103
-		
-		
-		Args:
-			dutyCycle(c_double) : high pulse duty cycle in Percent
-			channel(c_uint16) : Number of the sensor channel. 
-			
-			Default: 1 for non multi channel devices
-		Returns:
-			int: The return value, 0 is for success
-		"""
-		pInvokeResult = self.dll.TLPMX_setPositiveDutyCycle(self.devSession, dutyCycle, channel)
+		pInvokeResult = self.dll.TLPMX_setPassFailEnergyWindow(self.devSession, minEnergy, maxEnergy, channel)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
 	def measCurrent(self, current, channel):
 		"""
-		This function is used to obtain current readings from the instrument. 
+		This function measure the average current in ampere [A] for Photodiode sensors. The powermeter will start a new measurement and return the result once enough data has been averaged. The maximum frequency for command depends on the Powermeter but will be limited at 1 kHz (with averaging set to 1), and all measurement results within a 1-millisecond window are averaged. The result of this function may be either absolute or relative, depending on the delta mode offset and its enabled state. For more information, refer to the :func:`setCurrentRef` and :func:`setCurrentRefState` functions. By default, delta mode is disabled. You can also check the Questionable Status register :func:`readRegister` to confirm the validity of the measurement results and ensure they are not infinite.
+		In CW measurement mode, the averaging process can be adjusted using the :func:`setAvgTime` function. You can either set the range manually using :func:`setCurrentRange` or enable auto-ranging with :func:`setCurrentAutoRange`.
+		For Photodiode in peak-mode (see :func:`setFreqMode`), averaging is not applied in this sensor measurement mode. The Powermeter utilizes an internal threshold for peak detection. You can manually set the threshold level using :func:`setPeakThreshold` or enable autoranging with :func:`setCurrentAutoRange` for repetitive pulsed input signals with a repetition rate greater than 5 Hz. For such repetitive input signals, you can also use the peak-finder background operation :func:`startPeakDetector` to automatically set the range and threshold parameters once. The peak-finder is a one-time autoranging operation. 
+		For non-repetitive pulse signals (such as single pulse measurements or low repetition rates), you will need to manually select the range and threshold.
+		Certain powermeters support fast data acquisition. To access this functionality, refer to the following functions: :func:`confCurrentMeasurementSequence`, :func:`confCurrentFastArrayMeasurement`, or :func:`startBurstArrayMeasurement`.
 		
-		Remark:
-		This function starts a new measurement cycle and after finishing measurement the result is received. Subject to the actual Average Count this may take up to seconds. Refer to <Set/Get Average Count>. 
-		
-		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM160, PM200, PM400.
-		
+		Remarks:
+		(1) Photodiode sensors only. Be careful when measuring single pulse events. Read details carefully.
+		(2) Maximum call frequency depends on the connected Powermeter but is limited at 1 kHz
+		(3) Scope and Burst measurements are not supported for Photodiode peak-mode measurements. 
+		(4) For PM5020 you might want to measure current for both channels simultaniously by calling :func:`measDualChannelSimultaneous`
 		
 		Args:
 			current(c_double use with byref) : This parameter returns the current in amperes [A].
@@ -3773,14 +4004,17 @@ class TLPMX:
 
 	def measVoltage(self, voltage, channel):
 		"""
-		This function is used to obtain voltage readings from the instrument. 
+		This function measures the average voltage in volts [V]  for Pyro, Thermopile, or 4-Quadrant Thermopile sensors. The powermeter will start a new measurement and return the result once enough data has been averaged. The maximum frequency for command depends on the Powermeter but will be limited at 1 kHz (with averaging set to 1), and all measurement results within a 1-millisecond window are averaged. The result of this function may be either absolute or relative, depending on the delta mode offset and its enabled state. For more information, refer to the :func:`setVoltageRef` and :func:`setVoltageRefState` functions. By default, delta mode is disabled. You can also check the Questionable Status register :func:`readRegister` to confirm the validity of the measurement results and ensure they are not infinite.
+		In CW measurement mode, the averaging process can be adjusted using the :func:`setAvgTime` function. You can either set the range manually using :func:`setVoltageRange` or enable autoranging with :func:`setVoltageAutoRange`.
+		For Pyro measurements, averaging is not applied in this sensor measurement mode. The Powermeter utilizes an internal threshold for peak detection. You can manually set the threshold level using:func:`setPeakThreshold` or enable autoranging with :func:`setVoltageAutoRange` for repetitive pulsed input signals with a repetition rate greater than 5 Hz. For such repetitive input signals, you can also use the peak-finder background operation :func:`startPeakDetector` to automatically set the range and threshold parameters once. The peak-finder is a one-time autoranging operation. 
+		For non-repetitive pulse signals (such as single pulse measurements or low repetition rates), you will need to manually select the range and threshold.
+		Certain powermeters support fast data acquisition for Thermopile sensors. To access this functionality, refer to the following functions: :func:`confVoltageMeasurementSequence`, :func:`confVoltageFastArrayMeasurement`, or :func:`startBurstArrayMeasurement`.
 		
-		Remark:
-		This function starts a new measurement cycle and after finishing measurement the result is received. Subject to the actual Average Count this may take up to seconds. Refer to <Set/Get Average Count>. 
-		
-		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM160T, PM200, PM400.
-		
+		Remarks:
+		(1) Pyroelectric, Thermopile and 4-Quadrant Thermopile only. Be careful when measuring single pulse events. Read details carefully.
+		(2) Maximum call frequency depends on the connected Powermeter but is limited at 1 kHz
+		(3) Scope and Burst measurements are not supported for Pyroelectric sensor energy measurements. 
+		(4) For the PM5020, you can measure voltage on both channels simultaneously by calling :func:`measDualChannelSimultaneous`.
 		
 		Args:
 			voltage(c_double use with byref) : This parameter returns the voltage in volts [V].
@@ -3800,10 +4034,17 @@ class TLPMX:
 
 	def measPower(self, power, channel):
 		"""
-		This function is used to obtain power readings from the instrument. 
+		This function measures the average power in watts [W] for Photodiode, Thermopile, or 4-Quadrant Thermopile sensors.  The powermeter will start a new measurement and return the result once enough data has been averaged. The maximum frequency for command depends on the Powermeter but will be limited at 1 kHz (with averaging set to 1), and all measurement results within a 1-millisecond window are averaged. The result of this command may be either absolute or relative, depending on the delta mode offset and its enabled state. For more information, refer to the :func:`setPowerRef` and :func:`setPowerRefState` functions. By default, delta mode is disabled. You can also check the Questionable Status register :func:`readRegister` to confirm the validity of the measurement results and ensure they are not infinite.
+		In CW measurement mode, the averaging process can be adjusted using the :func:`setAvgTime` function.  You can either set the range manually using :func:`setPowerRange` or enable auto-ranging with :func:`setPowerAutoRange`.
+		For Photodiode in peak-mode (see :func:`setFreqMode`), averaging is not applied in this sensor measurement mode. The Powermeter utilizes an internal threshold for peak detection. You can manually set the threshold level using  :func:`setPeakThreshold` or enable autoranging with :func:`setPowerAutoRange` for repetitive pulsed input signals with a repetition rate greater than 5 Hz. For such repetitive input signals, you can also use the peak-finder background operation :func:`startPeakDetector` to automatically set the range and threshold parameters once. The peak-finder is a one-time autoranging operation.
+		For non-repetitive pulse signals (such as single pulse measurements or low repetition rates), you will need to manually select the range and threshold.
+		Certain powermeters support fast data acquisition. To access this functionality, refer to the following functions: :func:`confPowerMeasurementSequence`, :func:`confPowerFastArrayMeasurement`, or :func:`startBurstArrayMeasurement`.
 		
-		Remark:
-		This function starts a new measurement cycle and after finishing measurement the result is received. Subject to the actual Average Count this may take up to seconds. Refer to <Set/Get Average Count>. 
+		Remarks:
+		(1) Photodiode Thermopile and 4-Quadrant Thermopile only. Be careful when measuring single pulse events. Read details carefully.
+		(2) Maximum call frequency depends on the connected Powermeter but is limited at 1 kHz
+		(3) Scope and Burst measurements are not supported for Photodiode peak-mode  measurements. 
+		(4) For the PM5020, you can measure power on both channels simultaneously by calling :func:`measDualChannelSimultaneous`.
 		
 		Args:
 			power(c_double use with byref) : This parameter returns the power in the selected unit.
@@ -3823,11 +4064,16 @@ class TLPMX:
 
 	def measEnergy(self, energy, channel):
 		"""
-		This function is used to obtain energy readings from the instrument. 
+		This function measures the average energy in joules [J] for Pyro sensors. The powermeter will start a new measurement and return when the next peak has been deteced.The maximum frequency for command depends on the Powermeter but will be limited at 1 kHz. All peaks within a 1-millisecond window are averaged.
+		The result of this function may be either absolute or relative, depending on the delta mode offset and its enabled state. For more information, refer to the :func:`setEnergyRef` and :func:`setEnergyRefState` functions. By default, delta mode is disabled. You can also check the Questionable Status register :func:`readRegister` to confirm the validity of the measurement results and ensure they are not infinite.
+		For Pyro measurements, averaging is not applied in this sensor measurement mode. The Powermeter utilizes an internal threshold for peak detection. You can manually set the threshold level using :func:`setPeakThreshold` or enable autoranging with :func:`setEnergyAutoRange` for repetitive pulsed input signals with a repetition rate greater than 5 Hz. For such repetitive input signals, you can also use the peak-finder background operation :func:`startPeakDetector` to automatically set the range and threshold parameters once. The peak-finder is a one-time autoranging operation.
+		For non-repetitive pulse signals (such as single pulse measurements or low repetition rates), you will need to manually select the range and threshold.
+		Certain powermeters support fast data acquisition. To access this functionality, refer to the following functions: :func:`confEnergyFastArrayMeasurement`.
 		
-		Notes:
-		(1) The function is only available on PM100D, PM100USB, PM200, PM400.
-		
+		Remarks:
+		(1) Pyroelectric sensor only. Be careful when measuring single pulse events. Read details carefully.
+		(2) Maximum call frequency depends on the connected Powermeter but is limited at 1 kHz
+		(3) Scope and Burst measurements are not supported for Pyroelectric sensor energy measurements. 
 		
 		Args:
 			energy(c_double use with byref) : This parameter returns the actual measured energy value in joule [J].
@@ -3846,11 +4092,14 @@ class TLPMX:
 
 	def measFreq(self, frequency, channel):
 		"""
-		This function is used to obtain frequency readings from the instrument. 
+		This function measures the modulation frequency of the input signal in Hz. The Powermeter updates the frequency reading at intervals of 2 Hz or less, depending on the input frequency. For frequency measurement, the input signal is compared to a threshold level, which can be set using the :func:`setPeakThreshold` command. If the input signal exceeds the threshold, it is detected as high; otherwise, the Powermeter identifies it as low.
+		The accuracy of the frequency measurement depends on the input signal frequency. The Powermeter employs edge counting for input signals above approximately 500 Hz and uses period measurement for slower signal frequencies. Edge counting always yields a whole number frequency. If a continuous wave (CW) signal is input, the frequency will be reported as 0.
 		
 		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM200, PM400.
-		
+		(1) Check different bandwidth of amplification stages for high frequencies.
+		(2) Averaging :func:`setAvgTime` is not applicable for frequency measurements.
+		(3) For photodiodes, ensure that you select the high bandwidth limit using :func:`setInputFilterState` for accurate frequency measurements.
+		(4) For modulated signals with a low frequency < 1Hz the frequency measurement might be corrupted depending on the signal shape. It is mandatory that the slope on the detection threshold is strighly ascending even with noise floor.
 		
 		Args:
 			frequency(c_double use with byref) : This parameter returns the actual measured frequency of the input signal. 
@@ -3866,11 +4115,17 @@ class TLPMX:
 
 	def measPowerDens(self, powerDensity, channel):
 		"""
-		This function is used to obtain power density readings from the instrument. 
+		This function measures the average power density in watts per square cm [W/cm²] for Photodiode, Thermopile, or 4-Quadrant Thermopile sensors.  The powermeter will start a new measurement and return the result once enough data has been averaged. The maximum frequency for command depends on the Powermeter but will be limited at 1 kHz (with averaging set to 1), and all measurement results within a 1-millisecond window are averaged. To change the density reference beam size, use the :func:`setBeamDia` function.
+		The result of this command may be either absolute or relative, depending on the delta mode offset and its enabled state. For more information, refer to the :func:`setPowerRef` and :func:`setPowerRefState` functions. By default, delta mode is disabled. You can also check the Questionable Status register :func:`readRegister` to confirm the validity of the measurement results and ensure they are not infinite.
+		In CW measurement mode, the averaging process can be adjusted using the :func:`setAvgTime` function.  You can either set the range manually using :func:`setPowerRange` or enable auto-ranging with :func:`setPowerAutoRange`.
+		For Photodiode in peak-mode (see :func:`setFreqMode`), averaging is not applied in this sensor measurement mode. The Powermeter utilizes an internal threshold for peak detection. You can manually set the threshold level using  :func:`setPeakThreshold` or enable autoranging with :func:`setPowerAutoRange` for repetitive pulsed input signals with a repetition rate greater than 5 Hz. For such repetitive input signals, you can also use the peak-finder background operation :func:`startPeakDetector` to automatically set the range and threshold parameters once. The peak-finder is a one-time autoranging operation.
+		Certain powermeters support fast data acquisition. To access this functionality, refer to the following functions: :func:`confPDensityFastArrayMeasurement`.
 		
-		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM200, PM400.
-		
+		Remarks:
+		(1) Photodiode Thermopile and 4-Quadrant Thermopile only. Be careful when measuring single pulse events. Read details carefully.
+		(2) Maximum call frequency depends on the connected Powermeter but is limited at 1 kHz
+		(3) The Scope, Burst or Fast Measure Stream does not support power density measurements. 
+		(4) For the PM5020, you can measure power density on both channels simultaneously by calling :func:`measDualChannelSimultaneous`.
 		
 		Args:
 			powerDensity(c_double use with byref) : This parameter returns the actual measured power density in watt per square centimeter [W/cm²].
@@ -3889,11 +4144,16 @@ class TLPMX:
 
 	def measEnergyDens(self, energyDensity, channel):
 		"""
-		This function is used to obtain energy density readings from the instrument. 
+		This function measures the average energy density in joules per square cm [J/cm²] for Pyro sensors. The powermeter will start a new measurement and return when the next peak has been deteced.The maximum frequency for command depends on the Powermeter but will be limited at 1 kHz. All peaks within a 1-millisecond window are averaged. To change the density reference beam size, use the :func:`setBeamDia` function.
+		The result of this function may be either absolute or relative, depending on the delta mode offset and its enabled state. For more information, refer to the :func:`setEnergyRef` and :func:`setEnergyRefState` functions. By default, delta mode is disabled. You can also check the Questionable Status register :func:`readRegister` to confirm the validity of the measurement results and ensure they are not infinite.
+		For Pyro measurements, averaging is not applied in this sensor measurement mode. The Powermeter utilizes an internal threshold for peak detection. You can manually set the threshold level using :func:`setPeakThreshold` or enable autoranging with :func:`setEnergyAutoRange` for repetitive pulsed input signals with a repetition rate greater than 5 Hz. For such repetitive input signals, you can also use the peak-finder background operation :func:`startPeakDetector` to automatically set the range and threshold parameters once. The peak-finder is a one-time autoranging operation.
+		For non-repetitive pulse signals (such as single pulse measurements or low repetition rates), you will need to manually select the range and threshold.
+		Certain powermeters support fast data acquisition. To access this functionality, refer to the following functions: :func:`confEDensityFastArrayMeasurement`.
 		
-		Notes:
-		(1) The function is only available on PM100D, PM100USB, PM200, PM400.
-		
+		Remarks:
+		(1) Pyroelectric sensor only. Be careful when measuring single pulse events. Read details carefully.
+		(2) Maximum call frequency depends on the connected Powermeter but is limited at 1 kHz
+		(3) Scope and Burst measurements are not supported for Pyroelectric sensor energy density measurements. 
 		
 		Args:
 			energyDensity(c_double use with byref) : This parameter returns the actual measured energy in joule per square centimeter [J/cm²].
@@ -3920,8 +4180,8 @@ class TLPMX:
 		
 		Args:
 			measurement(c_uint16)
-			resultChannel1(c_double use with byref) : This parameter returns the actual measured frequency of the input signal. 
-			resultChannel2(c_double use with byref) : This parameter returns the actual measured frequency of the input signal. 
+			resultChannel1(c_double use with byref) : Measurement result of channel 1. Unit depends on <Unit> parameter. 
+			resultChannel2(c_double use with byref) : Measurement result of channel 2. Unit depends on <Unit> parameter. 
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -3929,100 +4189,105 @@ class TLPMX:
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
-	def measAuxAD0(self, voltage, channel):
+	def measAuxAnalogInput(self, voltage, channel):
 		"""
-		This function is used to obtain voltage readings from the instrument's auxiliary AD0 input. 
+		This function is used to obtain voltage readings from the instrument's auxiliary AD1 and AD2 input. 
 		
 		Notes:
 		(1) The function is only available on PM200, PM400.
 		
 		
 		Args:
-			voltage(c_double use with byref) : This parameter returns the voltage in volt.
-			channel(c_uint16) : Number of the sensor channel. 
-			
-			Default: 1 for non multi channel devices
+			voltage(c_double use with byref) : This parameter returns the voltage in volt [V].
+			channel(c_uint16) : 2 for AD1, 3 for AD2
 		Returns:
 			int: The return value, 0 is for success
 		"""
-		pInvokeResult = self.dll.TLPMX_measAuxAD0(self.devSession, voltage, channel)
+		pInvokeResult = self.dll.TLPMX_measAuxAnalogInput(self.devSession, voltage, channel)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
-	def measAuxAD1(self, voltage, channel):
+	def isEmmConnected(self, isConnected):
 		"""
-		This function is used to obtain voltage readings from the instrument's auxiliary AD1 input. 
-		
-		Notes:
-		(1) The function is only available on PM200, PM400.
-		
+		This function checks if an external environemental sensor is connected to the powermeter. A environmental sensor supports measuring temperature and humidity. To read the sensor call :func:`measEmmHumidity` or :func:`measEmmTemperature`.
 		
 		Args:
-			voltage(c_double use with byref) : This parameter returns the voltage in volt.
-			channel(c_uint16) : Number of the sensor channel. 
-			
-			Default: 1 for non multi channel devices
+			isConnected(c_int16 use with byref) : Flag set to true if external environmental sensor is connected. False otherwise.
 		Returns:
 			int: The return value, 0 is for success
 		"""
-		pInvokeResult = self.dll.TLPMX_measAuxAD1(self.devSession, voltage, channel)
+		pInvokeResult = self.dll.TLPMX_isEmmConnected(self.devSession, isConnected)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
-	def measEmmHumidity(self, humidity, channel):
+	def measEmmHumidity(self, humidity):
 		"""
-		This function is used to obtain relative humidity readings from the Environment Monitor Module (EMM) connected to the instrument. 
+		This function obtains the most recent measured humidity from the external digital environmental sensor, expressed in percent [%]. The Powermeter updates the humidity reading at a rate of 10 Hz or less. To read the temperature of the sensor call :func:`measEmmTemperature`. Before calling this function you might want to check if environmental sensor is connected by calling :func:`isEmmConnected`. 
 		
 		Notes:
-		(1) The function is only available on PM200, PM400.
-		(2) The function will return an error when no EMM is connected.
+		(1) Only available on PM400 and on all Powermeters with I²C fieldbus on auxilary connector
+		(2) On I²C Texas Instruments HDC1080 and HDC3020 sensors are supported
+		(3) Return an error when no digital environment sensor is connected
+		(4) Averaging :func:`setAvgTime` does not apply to this measurements. 
 		
 		Args:
 			humidity(c_double use with byref) : This parameter returns the relative humidity in %.
-			channel(c_uint16) : Number of the sensor channel. 
-			
-			Default: 1 for non multi channel devices
 		Returns:
 			int: The return value, 0 is for success
 		"""
-		pInvokeResult = self.dll.TLPMX_measEmmHumidity(self.devSession, humidity, channel)
+		pInvokeResult = self.dll.TLPMX_measEmmHumidity(self.devSession, humidity)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
-	def measEmmTemperature(self, temperature, channel):
+	def measEmmTemperature(self, temperature):
 		"""
-		This function is used to obtain temperature readings from the Environment Monitor Module (EMM) connected to the instrument. 
+		This function queries the most recently measured temperature from external digital environmental sensor, reported in degrees Celsius [°C]. The powermeter updates the temperature reading at a rate of 10 Hz or less. For environmental humidity, call :func:`measEmmHumidity`. For sensor head temperature, call :func:`measHeadTemperature`. For external NTC temperature, call :func:`measExtNtcTemperature`. Before calling this function you might want to check if environmental sensor is connected by calling :func:`isEmmConnected`. 
 		
 		Notes:
-		(1) The function is only available on PM200, PM400.
-		(2) The function will return an error when no EMM is connected.
+		(1) Only available on PM400 and on all Powermeters with I²C fieldbus on auxilary connector
+		(2) On I²C Texas Instruments HDC1080 and HDC3020 sensors are supported
+		(3) Return an error when no digital environment sensor is connected
+		(4) Averaging :func:`setAvgTime` does not apply to this measurements. 
 		
 		Args:
-			temperature(c_double use with byref) : This parameter returns the temperature in °C
-			channel(c_uint16) : Number of the sensor channel. 
-			
-			Default: 1 for non multi channel devices
+			temperature(c_double use with byref)
 		Returns:
 			int: The return value, 0 is for success
 		"""
-		pInvokeResult = self.dll.TLPMX_measEmmTemperature(self.devSession, temperature, channel)
+		pInvokeResult = self.dll.TLPMX_measEmmTemperature(self.devSession, temperature)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def isExtNtcConnected(self, isConnected, channel):
+		"""
+		This function checks if an external NTC temperature sensor on given channel is connected to the powermeter. To read the sensor call :func:`measExtNtcTemperature` or :func:`measExtNtcResistance`.
+		
+		Args:
+			isConnected(c_int16 use with byref) : Flag set to true if external NTC sensor is connected. False otherwise.
+			channel(c_uint16) : Temperature measurement channel. 
+			5 for NTC on channel 1 (Default for all devices with single NTC input)
+			6 for NTC on channel 2
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_isExtNtcConnected(self.devSession, isConnected, channel)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
 	def measExtNtcTemperature(self, temperature, channel):
 		"""
-		This function gets temperature readings from the external thermistor sensor connected to the instrument (NTC IN). 
+		This function queries the recent measured temperature of the external NTC in degree Celsius. The Powermeter updates the NTC temperature below 10 Hz. If you use a special NTC temperature sensor ensure NTC parameters :func:`setExtNtcParameter` are correct. To get the external NTC resistance use :func:`measExtNtcResistance`. Before calling this function you may check if the NTC is connected by calling :func:`isExtNtcConnected`. 
+		For sensor head temperature, call :func:`measHeadTemperature`. For digital environmental temperature, call :func:`measEmmTemperature`.
 		
-		Notes:
-		(1) The function is only available on PM400.
-		(2) The function will return an error when no external sensor is connected.
-		
+		Remarks:
+		(1) Available if Powermeter has an 2,5 mm sound jack or NTC pin on the auxilary connector
+		(2) Return an error when no NTC sensor is connected
+		(3) Averaging :func:`setAvgTime` does not apply to this measurements. 
 		
 		Args:
 			temperature(c_double use with byref) : This parameter returns the temperature in °C
-			channel(c_uint16) : Number of the sensor channel. 
-			
-			Default: 1 for non multi channel devices
+			channel(c_uint16) : 5 for NTC 1 (default)
+			6 for NTC 2
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -4032,18 +4297,18 @@ class TLPMX:
 
 	def measExtNtcResistance(self, resistance, channel):
 		"""
-		This function gets resistance readings from the external thermistor sensor connected to the instrument (NTC IN). 
+		This function queries the recent measured resistance of the external NTC in Ohm. The Powermeter updates the NTC resistance below 10 Hz. To get the external NTC temperature use :func:`measExtNtcTemperature`. Before calling this function you may check if the NTC is connected by calling :func:`isExtNtcConnected`. 
+		For sensor head NTC resistance, call :func:`measHeadResistance`.
 		
-		Notes:
-		(1) The function is only available on PM400.
-		(2) The function will return an error when no external sensor is connected.
-		
+		Remarks:
+		(1) Available if Powermeter has an 2,5 mm sound jack or NTC pin on the auxilary connector.
+		(2) Return an error when no NTC sensor is connected.
+		(3) Averaging :func:`setAvgTime` does not apply to this measurements.
 		
 		Args:
 			resistance(c_double use with byref) : This parameter returns the resistance in Ohm
-			channel(c_uint16) : Number of the sensor channel. 
-			
-			Default: 1 for non multi channel devices
+			channel(c_uint16) : 5 for NTC 1 (default)
+			6 for NTC 2
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -4053,11 +4318,13 @@ class TLPMX:
 
 	def measHeadResistance(self, frequency, channel):
 		"""
-		This function is used to obtain frequency readings from the instrument. 
+		The function measures the light sensor head NTC resistance in Ohm. The powermter updates the resistance below 10 Hz. 
+		To measure the light sensor temperature instead use :func:`measHeadTemperature`. 
+		If you want to measure the external NTC resistance call :func:`measExtNtcResistance`. 
 		
-		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM200, PM400.
-		
+		Remarks:
+		(1) Not all light sensor heads support head resistance measurements. Call :func:`getSensorInfoExt` and check the flags.
+		(2) Averaging :func:`setAvgTime` does not apply to this measurements. 
 		
 		Args:
 			frequency(c_double use with byref) : This parameter returns the resistance in Ohm
@@ -4073,11 +4340,13 @@ class TLPMX:
 
 	def measHeadTemperature(self, frequency, channel):
 		"""
-		This function is used to obtain frequency readings from the instrument. 
+		The function measures the light sensor head emperature in °C. The powermter updates the temperature below 10 Hz. 
+		To measure the light sensor NTC resistance use :func:`measHeadResistance`. 
+		If you want to measure the external NTC temperature call :func:`measExtNtcTemperature`. If you want to measure the external digital environemental sensor temperature call :func:`measEmmTemperature`.
 		
-		Notes:
-		(1) The function is only available on PM100D, PM100A, PM100USB, PM200, PM400.
-		
+		Remarks:
+		(1) Not all light sensor heads support head temperature measurements. Call :func:`getSensorInfoExt` and check the flags.
+		(2) Averaging :func:`setAvgTime` does not apply to this measurements. 
 		
 		Args:
 			frequency(c_double use with byref) : This parameter returns the temperature in °C
@@ -4093,11 +4362,14 @@ class TLPMX:
 
 	def meas4QPositions(self, xPosition, yPosition, channel):
 		"""
-		This function returns the x and position of a 4q sensor
+		This function measures the average beam position coordinate on the sensor in um for 4-Quadrant Thermopile sensors. The powermeter will start a new measurement and return the result once enough data has been averaged. The maximum frequency for command calls is 1 kHz (with averaging set to 1), and all measurement results within a 1-millisecond window are averaged.
+		The result of this function may be either absolute or relative, depending on the beam zero position :func:`startZeroPos`.
+		The averaging process can be adjusted using the :func:`setAvgTime` function. You can either set the range manually using :func:`setVoltageRange`  or enable autoranging with :func:`setVoltageAutoRange`.
 		
-		Notes:
-		(1) The function is only available on PM101, PM102, PM400.
-		
+		Remarks:
+		(1) 4-Quadrant Thermopile only.
+		(2) Maximum call frequency depends on the connected Powermeter but is limited at 1 kHz
+		(3) Scope and Burst measurements are not supported for beam position measurements.
 		
 		Args:
 			xPosition(c_double use with byref) : This parameter returns the actual measured x position in µm
@@ -4114,17 +4386,18 @@ class TLPMX:
 
 	def meas4QVoltages(self, voltage1, voltage2, voltage3, voltage4, channel):
 		"""
-		This function returns the voltage of each sector of a 4q sensor
+		This command measures the single quadrant voltages of 4-quadrant thermopile sensors in volts [V]. All measreuemnts are quadrupels. The powermeter will start a new measurement and return the result once sufficient data has been averaged. The maximum frequency for this measurement is 1 kHz (with averaging set to 1). You can adjust the averaging settings using the :func:`setAvgTime` function.
 		
-		Notes:
-		(1) The function is only available on PM101, PM102, PM400.
-		
+		Remarks:
+		(1) 4-Quadrant Thermopile only.
+		(2) Maximum call frequency depends on the connected Powermeter but is limited at 1 kHz
+		(3) Scope and Burst measurements are not supported for 4-Quadrant Voltage measurements.
 		
 		Args:
-			voltage1(c_double use with byref) : This parameter returns the actual measured voltage of the upper left sector of a 4q sensor.
-			voltage2(c_double use with byref)
-			voltage3(c_double use with byref)
-			voltage4(c_double use with byref)
+			voltage1(c_double use with byref) : This parameter returns the actual measured voltage of the upper right sector of a 4-Quadrant Thermopile sensor.
+			voltage2(c_double use with byref) : This parameter returns the actual measured voltage of the upper left sector of a 4-Quadrant Thermopile sensor.
+			voltage3(c_double use with byref) : This parameter returns the actual measured voltage of the lower right sector of a 4-Quadrant Thermopile sensor.
+			voltage4(c_double use with byref) : This parameter returns the actual measured voltage of the lower left sector of a 4-Quadrant Thermopile sensor.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -4137,13 +4410,14 @@ class TLPMX:
 
 	def measNegPulseWidth(self, negativePulseWidth, channel):
 		"""
-		This function returns the negative pulse width in µsec.
-		Notes:
-		(1) The function is only available on PM103.
+		This command measures the negative or low pulse-width in seconds [s] for a photodiode sensor operating in peak-mode. Refer to :func:`setFreqMode`for more details. The low and high levels are determined by the peak detection threshold, which can be set using :func:`setPeakThreshold`. When the analog signal from the sensor exceeds the threshold, the time measurement begins and continues until the signal drops below the threshold again. To measure the low time of the pulse, you can use :func:`measNegPulseWidth`. For measurements of the relative positive duty-cycle, call :func:`measNegDutyCycle`.
 		
+		Remarks:
+		(1) Only for Photodiode sensors in peak measurement mode. Not available for Pyro sensors.
+		(2) Measurement is applicable only for rectangular input signals.
 		
 		Args:
-			negativePulseWidth(c_double use with byref) : Negative Pulse Width in µsec.
+			negativePulseWidth(c_double use with byref) : Negative pulse-width in Seconds [s].
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -4156,13 +4430,14 @@ class TLPMX:
 
 	def measPosPulseWidth(self, positivePulseWidth, channel):
 		"""
-		This function returns the positive pulse width in µsec.
-		Notes:
-		(1) The function is only available on PM103.
+		This command measures the positive or high pulse-width in seconds [s] for a photodiode sensor operating in peak-mode. Refer to :func:`setFreqMode`for more details. The low and high levels are determined by the peak detection threshold, which can be set using :func:`setPeakThreshold`. When the analog signal from the sensor drops below the threshold, the time measurement begins and continues until the  signal rises back to the threshold. To measure the low time of the pulse, you can use :func:`measNegPulseWidth`. For measurements of the relative positive duty-cycle, call :func:`measPosDutyCycle`.
 		
+		Remarks:
+		(1) Only for Photodiode sensors in peak measurement mode. Not available for Pyro sensors.
+		(2) Measurement is applicable only for rectangular input signals.
 		
 		Args:
-			positivePulseWidth(c_double use with byref) : Positive Pulse Width in µsec.
+			positivePulseWidth(c_double use with byref) : Positive pulse-width in Seconds [s].
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -4175,13 +4450,15 @@ class TLPMX:
 
 	def measNegDutyCycle(self, negativeDutyCycle, channel):
 		"""
-		This function returns the negative duty cycle in percentage.
-		Notes:
-		(1) The function is only available on PM103.
+		This fucntion measures the negative pulse duty-cycle in percent [%] for a photodiode sensor operating in peak-mode. Refer to :func:`setFreqMode`for more details. The negative duty-cycle represents the ratio of the pulse low time to the total pulse period. The low and high levels are determined by the peak detection threshold, which can be set using :func:`setPeakThreshold`. To measure the absolute negative pulse time, use :func:`measNegPulseWidth`. 
 		
+		Remarks:
+		(1) Only for Photodiode sensors in peak measurement mode. Not available for Pyro sensors.
+		(2) Measurement is applicable only for rectangular input signals.
+		(3) Measuring the duty-cycle is not supported for single pulse measurements.
 		
 		Args:
-			negativeDutyCycle(c_double use with byref) : Negative Duty Cycle in percentage.
+			negativeDutyCycle(c_double use with byref) : Negative Duty Cycle in percentage [%]. Value betweeen 0 and 100.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -4194,13 +4471,15 @@ class TLPMX:
 
 	def measPosDutyCycle(self, positiveDutyCycle, channel):
 		"""
-		This function returns the positive duty cycle in percentage.
-		Notes:
-		(1) The function is only available on PM103.
+		This fucntion measures the positive pulse duty-cycle in percent [%] for a photodiode sensor operating in peak-mode. Refer to :func:`setFreqMode`for more details. The positive duty-cycle represents the ratio of the pulse high time to the total pulse period. The low and high levels are determined by the peak detection threshold, which can be set using :func:`setPeakThreshold`. To measure the absolute positive pulse time, use :func:`measPosPulseWidth`. 
 		
+		Remarks:
+		(1) Only for Photodiode sensors in peak measurement mode. Not available for Pyro sensors.
+		(2) Measurement is applicable only for rectangular input signals.
+		(3) Measuring the duty-cycle is not supported for single pulse measurements.
 		
 		Args:
-			positiveDutyCycle(c_double use with byref) : Positive Duty Cycle in percentage.
+			positiveDutyCycle(c_double use with byref) : Positive Duty Cycle in percentage [%]. Value betweeen 0 and 100.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -4213,24 +4492,24 @@ class TLPMX:
 
 	def measPowerMeasurementSequence(self, baseTime, channel):
 		"""
-		This function send the SCPI Command "MEAS:ARR" to the device.
-		To receive the measurement data, call "getMeasurementSequence".
+		This function initiates a software-triggered oscilloscope (scope) like power measurement in watts [W] and wait for its completion, for continuous wave (CW) measurement mode. Upon receiving the command, the powermeter begins rapid data acquisition and accumulates samples in an internal device buffer until it reaches capacity. The sampling rate and buffer size vary by device but are guaranteed to be at least 10,000 samples per second and 10,000 elements, respectively. When the buffer is full, the measurement halts, and the stored data can then be retrieved at any desired speed or in any order. The function will block the remote interface until the buffer is completely filled.
+		The captured data remains valid until a subsequent scope or burst measurement is initiated. During the active measurement phase, the device cannot be retriggered. To access the measurement data, invoke the :func:`getMeasurementSequence` command multiple times, specifying different offsets each time.
+		This function serves as a convenient shortcut for the typical workflow, which involves calling :func:`confPowerMeasurementSequence`, followed by :func:`startMeasurementSequence`, and then the final :func:`getMeasurementSequence` to wait for completion.
 		
-		PM101, PM400:
-		Starts a software triggered power measurement sequence. The array mode always stores 10000 power samples in Watt or dBm with 10 kHz in an internal buffer. So max time resolution between the samples is 100 us. Once the buffer is full the command will return the first sample. During the measurement the remote interface will block and can not process any further SCPI requests. To query the rest of samples continue to call FETC? with an index. Alternatively call FETC:ARR? multiple times afterwards. This SCPI command is a convenience function that includes the SCPI command sequence ABOR, MEAS:ARR:CURR?, INIT and finally FETC:ARR?. Ensure the product of BaseTime / 100 * samples is always smaller or equal 10000. Normally it makes sense to disable bandwidth limitation for this measurement mode DIAG#:INP:PDI:BWID. SENS#:AVER is not applied for array mode. Also relative power measurements (See SENS#:POW:REF) are not supported in array mode.
-		
-		PM103:
-		This software triggered scope mode is only available for photodiode power sensors in CW mode. For checking measure mode of photodiode use command SENS#:FREQ:MODE?. The scope mode stores 10k power samples in Watt with given averaging at max 100 kHz in an internal buffer. So max time resolution between the samples is 10 us. With the internal sample buffer of 10000 will end up in a capture time of 100 ms with highest resolution. For example, setting an averaging of 2 will give 200 ms capture time. Once the buffer is full the command will return the first 100 samples as binary tuples. To query the rest of samples call FETC:ARR? multiple times afterwards. Please read this FETC:ARR? for data format description. This SCPI command is a convenience function that includes the SCPI command sequence ABOR#, CONF#:ARR, INIT# and finally FETC:ARR?. If you want to use a hardware trigger to horizontal lock the signal use MEAS#:ARR:HWT?.
-		
-		PM5020, PM6x:
-		This software triggered scope mode is only available for thermal and photodiode power sensors in CW mode. For checking measure mode of photodiode use command SENS#:FREQ:MODE?. The scope mode stores 10k samples with given averaging at max 100 kHz in an internal buffer. So max time resolution between the samples is 10 us. With the internal sample buffer of 10000 will end up in a capture time of 100 ms with highest resolution. For example, setting an averaging of 2 will give 200 ms capture time. The function will configure all channels that are connected and in a valid mode for power scope measurement. If none of the channels support this mode an error will be issued. Once the buffer is full the command will return the first 100 samples as binary triples. To query the rest of samples call FETC:ARR? multiple times afterwards. Please read this FETC:ARR? for data format description. This SCPI command is a convenience function that includes the SCPI command sequence ABOR#, CONF#:ARR:CHA, CONF:ARR, INIT# and finally FETC:ARR?. If you want to use a hardware trigger to horizontal lock the signal use MEAS#:ARR:HWT?.
-		
-		Note: The function is only available on PM101, PM400, PM103x, PM6x and PM5020.
-		
+		Remarks:
+		(1) Scope mode is NOT supported on PM100D, PM100A, PM100USB, PM16, PM160, PM160T, PM200, PM102
+		(2) Supported for photodiode, thermopile and 4-Quadrant Thermopile sensors in CW measurement mode.
+		(3) Do NOT use this function for long lasting scope measurements for more than 3 seconds capture time to prevent read timeouts.
+		(4) Averaging :func:`setAvgTime` is not considered for scope measurements.
+		(5) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(6) Relative samples are not supported in scope mode e.g. :func:`setPowerRef`.
+		(7) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setPowerAutoRange`.
+		(8) PM101, PM400: Scope mode always stores 10000 samples with 10 kHz. So max time resolution between the samples is 100 us.
+		(9) PM103, PM103E, PM6x, PM100D3, PM5020: Scope mode stores 10000 samples with given averaging at max 100 kHz. So max time resolution between the samples is 10 us.
 		
 		Args:
-			baseTime(c_uint32) : interval between two measurements in the array in µsec.
-			The maximum resolution is defined in the device specifications.
+			baseTime(c_uint32) : Scope averaging for fast sample rate <Get Fast Max Samplerate>. 0 is not allowed. 
+			For PM400 and PM101 time in us between the samples. Needs to be >= 100.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -4243,33 +4522,37 @@ class TLPMX:
 
 	def measPowerMeasurementSequenceHWTrigger(self, baseTime, hPos, channel):
 		"""
-		This function send the SCPI Command "MEAS:ARR:HWT" to the device.
-		To receive the measurement data, call "getMeasurementSequence".
+		This function initiates a hardware-triggered oscilloscope (scope) like power measurement in watts [W] and waits for its completion, specifically for continuous wave (CW) measurement mode. Upon sending the command, the hardware trigger is armed. On the next rising edge of the trigger signal, the powermeter begins high-speed data acquisition, accumulating samples in an internal device buffer until it reaches full capacity. The sampling rate and buffer size are device-dependent but guaranteed to be at least 10,000 samples per second and 10,000 elements, respectively. Once the buffer is full, the measurement stops, and the stored data can be retrieved at any desired speed or in any order. The function blocks the remote interface until the buffer is completely filled.
+		The captured data remains valid until a subsequent scope or burst measurement is started. Retriggering is not possible during the active measurement phase. When the buffer is entirely filled, the trigger is disarmed. To retrieve the measurement data, invoke the :func:`getMeasurementSequence` command multiple times, specifying different offsets each time.
+		This function provides a convenient shortcut for the standard workflow, combining :func:`confPowerMeasurementSequenceHWTrigger`, :func:`startMeasurementSequence`, and the final :func:`getMeasurementSequence` call to ensure completion before proceeding.
 		
-		PM103:
-		This function send the SCPI Command "CONF:ARR:HWTrig:POW" to the device.
-		Then is possible to call the methods 'startMeasurementSequence' and  'getMeasurementSequenceHWTrigger' to get the power data.
-		 
-		Set the bandwidth to high (setInputFilterState to OFF) and disable auto ranging (setPowerAutoRange to OFF)
+		PM103/PM103E: For external trigger on digial IO1 pin. Use :func:`setDigIoPinMode` function to configure pin. This is not required for the other Powermeters.
 		
-		
-		Note: The function is only available on PM5020, PM103x, PM6x.
-		
+		Remarks:
+		(1) Hardware-triggered scop mode is NOT supported on PM100D, PM100A, PM100USB, PM16, PM160, PM160T, PM200, PM400, PM101, PM102
+		(2) Not all hardware trigger sources are available for on every powermeter.
+		(3) Supported for photodiode, thermopile and 4-Quadrant Thermopile sensors in CW measurement mode.
+		(4) Do NOT use this function for long lasting scope measurements for more than 3 seconds capture time to prevent read timeouts.
+		(5) Averaging :func:`setAvgTime` is not considered for scope measurements.
+		(6) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(7) Relative samples are not supported in scope mode e.g. :func:`setPowerRef`.
+		(8) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setPowerAutoRange`.
+		(9) PM101, PM400: Scope mode always stores 10000 samples with 10 kHz. So max time resolution between the samples is 100 us.
+		(10) PM103, PM103E, PM6x, PM100D3, PM5020: Scope mode stores 10000 samples with given averaging at max 100 kHz. So max time resolution between the samples is 10 us.
 		
 		Args:
-			baseTime(c_uint32) : PM103:
-			interval between two measurements in the array in µsec. The maximum resolution is defined in the device specifications..
-			
-			PM101 special:
-			time to collect measurements.
+			baseTime(c_uint32) : Scope averaging for fast sample rate <Get Fast Max Samplerate>. 0 is not allowed. 
+			For PM400 and PM101 time in us between the samples. Needs to be >= 100.
 			hPos(c_uint32) : PM103:
 			Sets the horizontal position of trigger condition in the scope catpure (Between 1 and 9999)
 			
 			PM101 special:
 			Interval between measurements.
-			channel(c_uint16) : Number of the sensor channel. 
-			
-			Default: 1 for non multi channel devices
+			channel(c_uint16) : external trigger source.
+			PM5020: 1(default) signal of channel 1, 2 signal of channel 2, 3 signal of front AUX, 4 signal of rear trigger.
+			PM100D3: 1(default) signal of channel 1, 2 for DIO1
+			PM6x: 1(default) signal of channel 1, 2 for DIO1
+			PM103/PM103E: 1(default)
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -4279,20 +4562,24 @@ class TLPMX:
 
 	def measureCurrentMeasurementSequence(self, baseTime, channel):
 		"""
-		This function send the SCPI Command "MEAS:ARR:CURR" to the device.
-		Then is possible to call the method 'getMeasurementSequence' to get the power data.
-		 
-		Duration of measurement in µsec = Count* Interval
-		The maximum capture time is 1 sec regardless of the used interval
+		This function initiates a software-triggered oscilloscope (scope) like current measurement in amperes [A] and wait for its completion, for continuous wave (CW) measurement mode. Upon receiving the command, the powermeter begins rapid data acquisition and accumulates samples in an internal device buffer until it reaches capacity. The sampling rate and buffer size vary by device but are guaranteed to be at least 10,000 samples per second and 10,000 elements, respectively. When the buffer is full, the measurement halts, and the stored data can then be retrieved at any desired speed or in any order. The function will block the remote interface until the buffer is completely filled.
+		The captured data remains valid until a subsequent scope or burst measurement is initiated. During the active measurement phase, the device cannot be retriggered. To access the measurement data, invoke the :func:`getMeasurementSequence` command multiple times, specifying different offsets each time.
+		This function serves as a convenient shortcut for the typical workflow, which involves calling :func:`confCurrentMeasurementSequence`, followed by :func:`startMeasurementSequence`, and then the final :func:`getMeasurementSequence` to wait for completion.
 		
-		Set the bandwidth to high(setInputFilterState to OFF) and disable auto ranging(setPowerAutoRange to OFF)
-		
-		Note: The function is only available on PM103, PM6x and PM5020.
-		
+		Remarks:
+		(1) Scope mode is NOT supported on PM100D, PM100A, PM100USB, PM16, PM160, PM160T, PM200, PM102
+		(2) Supported for photodiode sensors in CW measurement mode.
+		(3) Do NOT use this function for long lasting scope measurements for more than 3 seconds capture time to prevent read timeouts.
+		(4) Averaging :func:`setAvgTime` is not considered for scope measurements.
+		(5) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(6) Relative samples are not supported in scope mode e.g. :func:`setCurrentRef`.
+		(7) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setCurrentAutoRange`.
+		(8) PM101, PM400: Scope mode always stores 10000 samples with 10 kHz. So max time resolution between the samples is 100 us.
+		(9) PM103, PM103E, PM6x, PM100D3, PM5020: Scope mode stores 10000 samples with given averaging at max 100 kHz. So max time resolution between the samples is 10 us.
 		
 		Args:
-			baseTime(c_uint32) : interval between two measurements in the array in µsec.
-			The maximum resolution is defined in the device specifications.
+			baseTime(c_uint32) : Scope averaging for fast sample rate <Get Fast Max Samplerate>. 0 is not allowed. 
+			For PM400 and PM101 time in us between the samples. Needs to be >= 100.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -4305,29 +4592,37 @@ class TLPMX:
 
 	def measureCurrentMeasurementSequenceHWTrigger(self, baseTime, hPos, channel):
 		"""
-		This function send the SCPI Command "MEAS:ARR:HWTrig:CURR" to the device.
-		Then is possible to call the method 'getMeasurementSequenceHWTrigger' to get the current data.
-		 
-		Set the bandwidth to high (setInputFilterState to OFF) and disable auto ranging ( setPowerAutoRange to OFF)
+		This function initiates a hardware-triggered oscilloscope (scope) like current measurement in amperes [A] and waits for its completion, specifically for continuous wave (CW) signals. Upon sending the command, the hardware trigger is armed. On the next rising edge of the trigger signal, the powermeter begins high-speed data acquisition, accumulating samples in an internal device buffer until it reaches full capacity. The sampling rate and buffer size are device-dependent but guaranteed to be at least 10,000 samples per second and 10,000 elements, respectively. Once the buffer is full, the measurement stops, and the stored data can be retrieved at any desired speed or in any order. The function blocks the remote interface until the buffer is completely filled.
+		The captured data remains valid until a subsequent scope or burst measurement is started. Retriggering is not possible during the active measurement phase. When the buffer is entirely filled, the trigger is disarmed. To retrieve the measurement data, invoke the :func:`getMeasurementSequence` command multiple times, specifying different offsets each time.
+		This function provides a convenient shortcut for the standard workflow, combining :func:`confCurrentMeasurementSequenceHWTrigger`, :func:`startMeasurementSequence`, and the final :func:`getMeasurementSequence` call to ensure completion before proceeding.
 		
+		PM103/PM103E: For external trigger on digial IO1 pin. Use :func:`setDigIoPinMode` function to configure pin. This is not required for the other Powermeters.
 		
-		Note: The function is only available on PM103, PM6x and PM5020.
-		
+		Remarks:
+		(1) Hardware-triggered scop mode is NOT supported on PM100D, PM100A, PM100USB, PM16, PM160, PM160T, PM200, PM400, PM101, PM102
+		(2) Not all hardware trigger sources are available for on every powermeter.
+		(3) Supported for photodiode sensors in CW measurement mode.
+		(4) Do NOT use this function for long lasting scope measurements for more than 3 seconds capture time to prevent read timeouts.
+		(5) Averaging :func:`setAvgTime` is not considered for scope measurements.
+		(6) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(7) Relative samples are not supported in scope mode e.g. :func:`setCurrentRef`.
+		(8) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setCurrentAutoRange`.
+		(9) PM101, PM400: Scope mode always stores 10000 samples with 10 kHz. So max time resolution between the samples is 100 us.
+		(10) PM103, PM103E, PM6x, PM100D3, PM5020: Scope mode stores 10000 samples with given averaging at max 100 kHz. So max time resolution between the samples is 10 us.
 		
 		Args:
-			baseTime(c_uint32) : PM103:
-			interval between two measurements in the array in µsec. The maximum resolution is defined in the device specifications.
-			
-			PM101 special:
-			time to collect measurements.
+			baseTime(c_uint32) : Scope averaging for fast sample rate <Get Fast Max Samplerate>. 0 is not allowed. 
+			For PM400 and PM101 time in us between the samples. Needs to be >= 100.
 			hPos(c_uint32) : PM103:
 			Sets the horizontal position of trigger condition in the scope catpure (Between 1 and 9999)
 			
 			PM101 special:
 			Interval between measurements.
-			channel(c_uint16) : Number of the sensor channel. 
-			
-			Default: 1 for non multi channel devices
+			channel(c_uint16) : external trigger source.
+			PM5020: 1(default) signal of channel 1, 2 signal of channel 2, 3 signal of front AUX, 4 signal of rear trigger.
+			PM100D3: 1(default) signal of channel 1, 2 for DIO1
+			PM6x: 1(default) signal of channel 1, 2 for DIO1
+			PM103/PM103E: 1(default)
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -4337,20 +4632,23 @@ class TLPMX:
 
 	def measureVoltageMeasurementSequence(self, baseTime, channel):
 		"""
-		This function send the SCPI Command "MEAS:ARR:VOLT" to the device.
-		Then is possible to call the method 'getMeasurementSequence' to get the power data.
-		 
-		Duration of measurement in µsec = Count* Interval
-		The maximum capture time is 1 sec regardless of the used interval
+		This function initiates a software-triggered oscilloscope (scope) like voltage measurement in volts [V] and wait for its completion, for continuous wave (CW) measurement mode. Upon receiving the command, the powermeter begins rapid data acquisition and accumulates samples in an internal device buffer until it reaches capacity. The sampling rate and buffer size vary by device but are guaranteed to be at least 10,000 samples per second and 10,000 elements, respectively. When the buffer is full, the measurement halts, and the stored data can then be retrieved at any desired speed or in any order. The function will block the remote interface until the buffer is completely filled.
+		The captured data remains valid until a subsequent scope or burst measurement is initiated. During the active measurement phase, the device cannot be retriggered. To access the measurement data, invoke the :func:`getMeasurementSequence` command multiple times, specifying different offsets each time.
+		This function serves as a convenient shortcut for the typical workflow, which involves calling :func:`confVoltageMeasurementSequence`, followed by :func:`startMeasurementSequence`, and then the final :func:`getMeasurementSequence` to wait for completion.
 		
-		Set the bandwidth to high(setInputFilterState to OFF) and disable auto ranging(setPowerAutoRange to OFF)
-		
-		Note: The function is only available on PM5020.
-		
+		Remarks:
+		(1) Scope mode is NOT supported on PM100D, PM100A, PM100USB, PM16, PM160, PM160T, PM200, PM400, PM101, PM102
+		(2) Supported for thermopile and 4-quadrant thermopile sensors.
+		(3) Do NOT use this function for long lasting scope measurements for more than 3 seconds capture time to prevent read timeouts.
+		(4) Averaging :func:`setAvgTime` is not considered for scope measurements.
+		(5) Disable the Thermopile accelerator :func:`setAccelState`.
+		(6) Relative samples are not supported in scope mode e.g. :func:`setVoltageRef`.
+		(7) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setVoltageAutoRange`.
+		(8) PM103, PM103E, PM6x, PM100D3, PM5020: Scope mode stores 10000 samples with given averaging at max 100 kHz. So max time resolution between the samples is 10 us.
 		
 		Args:
-			baseTime(c_uint32) : interval between two measurements in the array in µsec.
-			The maximum resolution is defined in the device specifications.
+			baseTime(c_uint32) : Scope averaging for fast sample rate <Get Fast Max Samplerate>. 0 is not allowed. 
+			For PM400 and PM101 time in us between the samples. Needs to be >= 100.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -4363,28 +4661,27 @@ class TLPMX:
 
 	def measureVoltageMeasurementSequenceHWTrigger(self, baseTime, hPos, channel):
 		"""
-		This function send the SCPI Command "MEAS:ARR:HWTrig:VOLT" to the device.
-		Then is possible to call the method 'getMeasurementSequenceHWTrigger' to get the current data.
-		 
-		Set the bandwidth to high (setInputFilterState to OFF) and disable auto ranging ( setPowerAutoRange to OFF)
+		This function initiates a hardware-triggered oscilloscope (scope) like voltage measurement in volts [V] and waits for its completion, specifically for continuous wave (CW) measurement mode. Upon sending the command, the hardware trigger is armed. On the next rising edge of the trigger signal, the powermeter begins high-speed data acquisition, accumulating samples in an internal device buffer until it reaches full capacity. The sampling rate and buffer size are device-dependent but guaranteed to be at least 10,000 samples per second and 10,000 elements, respectively. Once the buffer is full, the measurement stops, and the stored data can be retrieved at any desired speed or in any order. The function blocks the remote interface until the buffer is completely filled.
+		The captured data remains valid until a subsequent scope or burst measurement is started. Retriggering is not possible during the active measurement phase. When the buffer is entirely filled, the trigger is disarmed. To retrieve the measurement data, invoke the :func:`getMeasurementSequence` command multiple times, specifying different offsets each time.
+		This function provides a convenient shortcut for the standard workflow, combining :func:`confVoltageMeasurementSequenceHWTrigger`, :func:`startMeasurementSequence`, and the final :func:`getMeasurementSequence` call to ensure completion before proceeding.
 		
-		Note: The function is only available on PM5020.
-		
+		Remarks:
+		(1) Hardware-triggered scop mode is NOT supported on PM100D, PM100A, PM100USB, PM16, PM160, PM160T, PM200, PM400, PM101, PM102.
+		(2) Not all hardware trigger sources are available for on every powermeter.
+		(3) Supported for thermopile and 4-quadrant thermopile sensors in CW measurement mode.
+		(4) Do NOT use this function for long lasting scope measurements for more than 3 seconds capture time to prevent read timeouts.
+		(5) Averaging :func:`setAvgTime` is not considered for scope measurements.
+		(6) Disable the Thermopile accelerator :func:`setAccelState`.
+		(7) Relative samples are not supported in scope mode e.g. :func:`setVoltageRef`.
+		(8) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setVoltageAutoRange`.
+		(9) PM103, PM103E, PM6x, PM100D3, PM5020: Scope mode stores 10000 samples with given averaging at max 100 kHz. So max time resolution between the samples is 10 us.
 		
 		Args:
-			baseTime(c_uint32) : PM103:
-			interval between two measurements in the array in µsec. The maximum resolution is defined in the device specifications.
+			baseTime(c_uint32) : Scope averaging for fast sample rate <Get Fast Max Samplerate>. 0 is not allowed. 
+			For PM400 and PM101 time in us between the samples. Needs to be >= 100.
+			hPos(c_uint32) : Sets the horizontal position of trigger condition in the scope catpure (Between 1 and 9999). Value has not uni as it is a counter.
 			
-			PM101 special:
-			time to collect measurements.
-			hPos(c_uint32) : PM103:
-			Sets the horizontal position of trigger condition in the scope catpure (Between 1 and 9999)
-			
-			PM101 special:
-			Interval between measurements.
-			channel(c_uint16) : Number of the sensor channel. 
-			
-			Default: 1 for non multi channel devices
+			channel(c_uint16) : external trigger source. 1(default) signal of channel 1, 2 signal of channel 2, 3 signal of front AUX, 4 signal of rear trigger.
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -4394,11 +4691,7 @@ class TLPMX:
 
 	def getFetchState(self, state, channel):
 		"""
-		This function can be used to get the measurement state information before doing a fetch.
-		
-		Notes:
-		(1) The function is only available on PM103, PM5020.
-		
+		This function checks if there is measurement data available to fetch. If the function returns 1.
 		
 		Args:
 			state(c_int16 use with byref) : This parameter returns the fetch state
@@ -4416,34 +4709,12 @@ class TLPMX:
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
-	def blockFetch(self, timeout, result, channel):
-		"""
-		Blocks defined time until previously initiated measurement is complete and returns result finally.
-		Same as FETC#? but waits for result only defined of time. In case of timeout the function return 0. Otherwise recent measurement result is returned. In case of timeout you might want to call ABOR# to discard the measurement. 
-		
-		Notes:
-		(1) The function is only available on PM103, PM5020.
-		
-		
-		Args:
-			timeout(c_uint32) :  time in ms to wait for data to be fetched.
-			result(c_double use with byref) :  measurement result. May be 0 for timeout, INFINITY or -INFINITY if signal out of measurement range.
-			channel(c_uint16) : Number of the sensor channel. 
-			
-			Default: 1 for non multi channel devices
-		Returns:
-			int: The return value, 0 is for success
-		"""
-		pInvokeResult = self.dll.TLPMX_blockFetch(self.devSession, timeout, result, channel)
-		self.__testForError(pInvokeResult)
-		return pInvokeResult
-
 	def resetFastArrayMeasurement(self, channel):
 		"""
-		This function resets the array measurement.
+		Call this function once initially before starting a new measurement stream for the currently configured unit to ensure Powermeter stream buffer contains only data following the start condition. When unit gets changed reset is performed internally already.
 		
-		Note: The function is only available on PM103, PM5020.
-		
+		Remarks:
+		(1) Note: Supported if Powermeter has Ethernet or USB High Speed
 		
 		Args:
 			channel(c_uint16) : Number of the sensor channel. 
@@ -4458,14 +4729,20 @@ class TLPMX:
 
 	def confFastArrayMeasurement(self, measurement, channel):
 		"""
-		This function is used to conffiure the fast array measurement of power values
-		After calling this method, wait some milliseconds to call the method TLPM_getNextFastArrayMeasurement.
+		This function configures the fast measurement stream for the configured unit. If the connected sensor or the powermeter does not support the request unit, an error will be generated. Changing the fast measure unit resets the measurement stream automatically see :func:`resetFastArrayMeasurement` as the buffer would contain measure results for another unit. 
+		The stream data rate is constant and device dependent. Use :func:`getFastMaxSamplerate` to query device sampling rate. The stream supports CW and peak-mode measurements. To reduce the risk of data loss the Powermeter buffers the stream of the recent 10 ms. In case of buffer overflow new data is truncated until there is free space in the buffer. 
 		
-		Remark:
-		This function starts a new measurement cycle and after finishing measurement the result is received. Subject to the actual Average Count this may take up to seconds.   
+		Remarks:
+		(1) Supported if Powermeter has Ethernet or USB High Speed.
+		(2) Not supported on serial interface or bluetooth due to low bandwidth.
+		(3) Averaging :func:`setAvgTime` is not considered for fast data stream.
+		(4) Measuing power in dBm :func:`setPowerUnit` is not supported by fast measurement stream. 
+		(5) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(6) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setPowerAutoRange`.
+		(7) The powermeter data stream is updated internally at 1 kHz.
 		
 		Args:
-			measurement(c_uint16)
+			measurement(c_uint16) : Fast measurement stream unit. 
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -4478,11 +4755,18 @@ class TLPMX:
 
 	def confPowerFastArrayMeasurement(self, channel):
 		"""
-		This function is used to conffiure the fast array measurement of power values
-		After calling this method, wait some milliseconds to call the method TLPM_getNextFastArrayMeasurement.
+		This function configures the fast measurement stream for power measurements in watts [W]. If the connected sensor or the powermeter does not support the request unit, an error will be generated. Changing the fast measure unit resets the measurement stream automatically see :func:`resetFastArrayMeasurement` as the buffer would contain measure results for another unit. 
+		The stream data rate is constant and device dependent. Use :func:`getFastMaxSamplerate` to query device sampling rate. The stream supports CW and peak-mode measurements. To reduce the risk of data loss the Powermeter buffers the stream of the recent 10 ms. In case of buffer overflow new data is truncated until there is free space in the buffer. 
 		
-		Remark:
-		This function starts a new measurement cycle and after finishing measurement the result is received. Subject to the actual Average Count this may take up to seconds.   
+		Remarks:
+		(1) Supported if Powermeter has Ethernet or USB High Speed.
+		(2) Supported for photodiode, thermopile and 4-Quadrant Thermopile sensors
+		(2) Not supported on serial interface or bluetooth due to low bandwidth.
+		(3) Averaging :func:`setAvgTime` is not considered for fast data stream.
+		(4) Measuing power in dBm :func:`setPowerUnit` is not supported by fast measurement stream. 
+		(5) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(6) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setPowerAutoRange`.
+		(7) The powermeter data stream is updated internally at 1 kHz.
 		
 		Args:
 			channel(c_uint16) : Number of the sensor channel. 
@@ -4497,11 +4781,18 @@ class TLPMX:
 
 	def confCurrentFastArrayMeasurement(self, channel):
 		"""
-		This function is used to conffiure the fast array measurement of current values
-		After calling this method, wait some milliseconds to call the method TLPM_getNextFastArrayMeasurement.
+		This function configures the fast measurement stream for current measurements in amperes [A]. If the connected sensor or the powermeter does not support the request unit, an error will be generated. Changing the fast measure unit resets the measurement stream automatically see :func:`resetFastArrayMeasurement` as the buffer would contain measure results for another unit. 
+		The stream data rate is constant and device dependent. Use :func:`getFastMaxSamplerate` to query device sampling rate. The stream supports CW and peak-mode measurements. To reduce the risk of data loss the Powermeter buffers the stream of the recent 10 ms. In case of buffer overflow new data is truncated until there is free space in the buffer. 
 		
-		Remark:
-		This function starts a new measurement cycle and after finishing measurement the result is received. Subject to the actual Average Count this may take up to seconds. 
+		Remarks:
+		(1) Supported if Powermeter has Ethernet or USB High Speed.
+		(2) Supported for photodiode sensors
+		(3) Not supported on serial interface or bluetooth due to low bandwidth.
+		(4) Averaging :func:`setAvgTime` is not considered for fast data stream.
+		(5) Measuing power in dBm :func:`setPowerUnit` is not supported by fast measurement stream. 
+		(6) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(7) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setPowerAutoRange`.
+		(8) The powermeter data stream is updated internally at 1 kHz.
 		
 		Args:
 			channel(c_uint16) : Number of the sensor channel. 
@@ -4516,11 +4807,18 @@ class TLPMX:
 
 	def confVoltageFastArrayMeasurement(self, channel):
 		"""
-		This function is used to conffiure the fast array measurement of voltage values
-		After calling this method, wait some milliseconds to call the method TLPM_getNextFastArrayMeasurement.
+		This function configures the fast measurement stream for voltage measurements in volts [V]. If the connected sensor or the powermeter does not support the request unit, an error will be generated. Changing the fast measure unit resets the measurement stream automatically see :func:`resetFastArrayMeasurement` as the buffer would contain measure results for another unit. 
+		The stream data rate is constant and device dependent. Use :func:`getFastMaxSamplerate` to query device sampling rate. The stream supports CW and peak-mode measurements. To reduce the risk of data loss the Powermeter buffers the stream of the recent 10 ms. In case of buffer overflow new data is truncated until there is free space in the buffer. 
 		
-		Remark:
-		This function starts a new measurement cycle and after finishing measurement the result is received. Subject to the actual Average Count this may take up to seconds.  
+		Remarks:
+		(1) Supported if Powermeter has Ethernet or USB High Speed.
+		(2) Supported for thermopile, 4Q Thermopile and pyroelectric sensors
+		(3) Not supported on serial interface or bluetooth due to low bandwidth.
+		(4) Averaging :func:`setAvgTime` is not considered for fast data stream.
+		(5) Measuing power in dBm :func:`setPowerUnit` is not supported by fast measurement stream. 
+		(6) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(7) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setPowerAutoRange`.
+		(8) The powermeter data stream is updated internally at 1 kHz.
 		
 		Args:
 			channel(c_uint16) : Number of the sensor channel. 
@@ -4535,11 +4833,18 @@ class TLPMX:
 
 	def confPDensityFastArrayMeasurement(self, channel):
 		"""
-		This function is used to conffiure the fast array measurement of P density values
-		After calling this method, wait some milliseconds to call the method TLPM_getNextFastArrayMeasurement.
+		This function configures the fast measurement stream for power densitiy measurements in watts per square cm[W / cm²]. If the connected sensor or the powermeter does not support the request unit, an error will be generated. Changing the fast measure unit resets the measurement stream automatically see :func:`resetFastArrayMeasurement` as the buffer would contain measure results for another unit. 
+		The stream data rate is constant and device dependent. Use :func:`getFastMaxSamplerate` to query device sampling rate. The stream supports CW and peak-mode measurements. To reduce the risk of data loss the Powermeter buffers the stream of the recent 10 ms. In case of buffer overflow new data is truncated until there is free space in the buffer. 
 		
-		Remark:
-		This function starts a new measurement cycle and after finishing measurement the result is received. Subject to the actual Average Count this may take up to seconds. 
+		Remarks:
+		(1) Supported if Powermeter has Ethernet or USB High Speed.
+		(2) Supported for photodiode, thermopile and 4-Quadrant Thermopile sensors
+		(2) Not supported on serial interface or bluetooth due to low bandwidth.
+		(3) Averaging :func:`setAvgTime` is not considered for fast data stream.
+		(4) Measuing power in dBm :func:`setPowerUnit` is not supported by fast measurement stream. 
+		(5) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(6) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setPowerAutoRange`.
+		(7) The powermeter data stream is updated internally at 1 kHz.
 		
 		Args:
 			channel(c_uint16) : Number of the sensor channel. 
@@ -4554,11 +4859,18 @@ class TLPMX:
 
 	def confEnergyFastArrayMeasurement(self, channel):
 		"""
-		This function is used to configure the fast array measurement of energy values
-		After calling this method, wait some milliseconds to call the method TLPM_getNextFastArrayMeasurement.
+		This function configures the fast measurement stream for energy measurements in joules [J]. If the connected sensor or the powermeter does not support the request unit, an error will be generated. Changing the fast measure unit resets the measurement stream automatically see :func:`resetFastArrayMeasurement` as the buffer would contain measure results for another unit. 
+		The stream data rate is constant and device dependent. Use :func:`getFastMaxSamplerate` to query device sampling rate. The stream supports peak-mode measurements. To reduce the risk of data loss the Powermeter buffers the stream of the recent 10 ms. In case of buffer overflow new data is truncated until there is free space in the buffer. 
 		
-		Remark:
-		This function starts a new measurement cycle and after finishing measurement the result is received. Subject to the actual Average Count this may take up to seconds. 
+		Remarks:
+		(1) Supported if Powermeter has Ethernet or USB High Speed.
+		(2) Supported for pyroelectric sensors
+		(2) Not supported on serial interface or bluetooth due to low bandwidth.
+		(3) Averaging :func:`setAvgTime` is not considered for fast data stream.
+		(4) Measuing power in dBm :func:`setPowerUnit` is not supported by fast measurement stream. 
+		(5) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(6) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setPowerAutoRange`.
+		(7) The powermeter data stream is updated internally at 1 kHz.
 		
 		Args:
 			channel(c_uint16) : Number of the sensor channel. 
@@ -4573,12 +4885,18 @@ class TLPMX:
 
 	def confEDensityFastArrayMeasurement(self, channel):
 		"""
-		This function is used to configure the fast array measurement of E density values.
-		After calling this method, wait some milliseconds to call the method TLPM_getNextFastArrayMeasurement.
+		This function configures the fast measurement stream for energy density measurements in joules per square cm [J / cm²]. If the connected sensor or the powermeter does not support the request unit, an error will be generated. Changing the fast measure unit resets the measurement stream automatically see :func:`resetFastArrayMeasurement` as the buffer would contain measure results for another unit. 
+		The stream data rate is constant and device dependent. Use :func:`getFastMaxSamplerate` to query device sampling rate. The stream supports peak-mode measurements. To reduce the risk of data loss the Powermeter buffers the stream of the recent 10 ms. In case of buffer overflow new data is truncated until there is free space in the buffer. 
 		
-		
-		Remark:
-		This function starts a new measurement cycle and after finishing measurement the result is received. Subject to the actual Average Count this may take up to seconds. 
+		Remarks:
+		(1) Supported if Powermeter has Ethernet or USB High Speed.
+		(2) Supported for pyroelectric sensors
+		(2) Not supported on serial interface or bluetooth due to low bandwidth.
+		(3) Averaging :func:`setAvgTime` is not considered for fast data stream.
+		(4) Measuing power in dBm :func:`setPowerUnit` is not supported by fast measurement stream. 
+		(5) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(6) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setPowerAutoRange`.
+		(7) The powermeter data stream is updated internally at 1 kHz.
 		
 		Args:
 			channel(c_uint16) : Number of the sensor channel. 
@@ -4593,18 +4911,21 @@ class TLPMX:
 
 	def getNextFastArrayMeasurement(self, count, timestamps, values, channel):
 		"""
-		This function is used to obtain measurements from the instrument. 
-		The result are timestamp - value pairs.
+		This function retrieves the oldest measurements from the device's internal fast measurement stream buffer. It returns multiple tuples, each consisting of a relative wrapping microsecond counter (timestamp) and the corresponding measurement value. The relative timestamp enables calculation of time differences between samples, with the unit determined by the stream's unit configuration (e.g., :func:`confPowerFastArrayMeasurement`). The timestamp is provided in the format used by the device firmware. For an alternative that delivers timestamps already in relative time, use the convenience function :func:`getNextFastArrayMeasurementRelativeTime`.
+		Prior to initiating fast measurement streaming, clear the device's internal buffer to remove any outdated measurements by invoking :func:`resetFastArrayMeasurement`. Then, call this function as frequently as possible to prevent the buffer from filling up. The stream operates at a constant, device-specific data rate; query the sampling rate using :func:`getFastMaxSamplerate`. The stream accommodates both CW and peak-mode measurements. To minimize the risk of data loss, the powermeter retains a buffer of the most recent 10 ms of stream data. If the buffer overflows, incoming data is discarded until space becomes available.
 		
-		
-		Remark:
-		This function starts a new measurement cycle and after finishing measurement the result is received. Subject to the actual Average Count this may take up to seconds.
+		Remarks:
+		(1) Supported if Powermeter has Ethernet or USB High Speed.
+		(2) Not supported on serial interface or bluetooth due to low bandwidth.
+		(3) Averaging :func:`setAvgTime` is not considered for fast data stream.
+		(4) Measuing power in dBm :func:`setPowerUnit` is not supported by fast measurement stream. 
+		(5) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(6) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setPowerAutoRange`.
+		(7) The powermeter data stream is updated internally at 1 kHz.
 		
 		Args:
-			count(c_uint32 use with byref) : The count of timestamp - measurement value pairs
-			The value will be 200
-			timestamps( (c_uint32 * arrayLength)()) : Buffer containing up to 200 timestamps.
-			This are raw timestamps and are NOT in ms.
+			count(c_uint32 use with byref) : The count of timestamp - measurement value pairs.
+			timestamps( (c_uint32 * arrayLength)()) : Buffer containing up to 200 timestamps. This are raw timestamps and are NOT in ms.
 			values( (c_float * arrayLength)()) : Buffer containing up to 200 measurement values.
 			channel(c_uint16) : Number of the sensor channel. 
 			
@@ -4618,13 +4939,17 @@ class TLPMX:
 
 	def getNextFastArrayMeasurementRelativeTime(self, count, timestamps, values, channel):
 		"""
-		This function is used to obtain measurements from the instrument. 
-		The result are timestamp - value pairs.
-		The timestamps are relative to the first timestamp in µsec.
+		This function retrieves the oldest measurements from the device's internal fast measurement stream buffer and calculates the relative time between the samples. It returns multiple tuples, each consisting of a relative wrapping microsecond counter (timestamp) and the corresponding measurement value. The relative timestamp enables calculation of time differences between samples, with the unit determined by the stream's unit configuration (e.g., :func:`confPowerFastArrayMeasurement`). To retrieve the timestamp in the raw microseconds refer to function :func:`getNextFastArrayMeasurement`.
+		Prior to initiating fast measurement streaming, clear the device's internal buffer to remove any outdated measurements by invoking :func:`resetFastArrayMeasurement`. Then, call this function as frequently as possible to prevent the buffer from filling up. The stream operates at a constant, device-specific data rate; query the sampling rate using :func:`getFastMaxSamplerate`. The stream accommodates both CW and peak-mode measurements. To minimize the risk of data loss, the powermeter retains a buffer of the most recent 10 ms of stream data. If the buffer overflows, incoming data is discarded until space becomes available.
 		
-		
-		Remark:
-		This function starts a new measurement cycle and after finishing measurement the result is received. Subject to the actual Average Count this may take up to seconds.
+		Remarks:
+		(1) Supported if Powermeter has Ethernet or USB High Speed.
+		(2) Not supported on serial interface or bluetooth due to low bandwidth.
+		(3) Averaging :func:`setAvgTime` is not considered for fast data stream.
+		(4) Measuing power in dBm :func:`setPowerUnit` is not supported by fast measurement stream. 
+		(5) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(6) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setPowerAutoRange`.
+		(7) The powermeter data stream is updated internally at 1 kHz.
 		
 		Args:
 			count(c_uint32 use with byref) : The count of timestamp - measurement value pairs
@@ -4668,26 +4993,27 @@ class TLPMX:
 
 	def confPowerMeasurementSequence(self, baseTime, channel):
 		"""
-		This function send the SCPI Command "CONF:ARR:POW" to the device.
-		Then is possible to call the method 'getMeasurementSequence' to get the power data.
+		This function sets up a software-triggered oscilloscope (scope) like power measurement in watts (W) specifically for continuous wave (CW) measurement mode. It configures the necessary scope mode parameters but does not initiate the measurement itself.
+		The configuration remains active until the system is rebooted or the parameters are explicitly modified. In most applications, this function needs to be invoked only once.
 		
-		Duration of measurement in µsec = Count * Interval
-		The maximum capture time is 1 sec regardless of the used interval
+		It serves as the initial step in a standard measurement workflow:
+		1. Call this function to configure the power measurement sequence.
+		2. Follow with :func:`startMeasurementSequence` to begin the acquisition to wait for completion.
+		3. Invoke :func:`getMeasurementSequence` to retrieve data from the sample buffer.
 		
-		Set the bandwidth to high(setInputFilterState to OFF) and disable auto ranging(setPowerAutoRange to OFF)
-		
-		Note: The function is only available on PM101, PM103, PM5020, PM400, PM6x.
-		
+		Remarks:
+		(1) Scope mode is NOT supported on PM100D, PM100A, PM100USB, PM16, PM160, PM160T, PM200, PM102
+		(2) Supported for photodiode, thermopile and 4-Quadrant Thermopile sensors in CW measurement mode. (See :func:`setFreqMode`). 
+		(3) Averaging :func:`setAvgTime` is not considered for scope measurements.
+		(4) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(5) Relative samples are not supported in scope mode e.g. :func:`setPowerRef`.
+		(6) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setPowerAutoRange`.
+		(7) PM101, PM400: Scope mode always stores 10000 samples with 10 kHz. So max time resolution between the samples is 100 us.
+		(8) PM103, PM103E, PM6x, PM100D3, PM5020: Scope mode stores 10000 samples with given averaging at max 100 kHz. So max time resolution between the samples is 10 us.
 		
 		Args:
-			baseTime(c_uint32) : PM101, PM400:
-			The array mode always stores 10000 power values in W or dBm with 10 kHz in an internal buffer. So max time resolution between the samples is 100 us. Ensure the product of BaseTime / 100 * samples is always smaller or equal 10000. Also keep BaseTime a multiple of 100
-			
-			time in us between the samples. Needs to be >= 100
-			
-			PM103, PM5020, PM6x:
-			scope capture devisor for 100 kHz sample rate of scope mode. 0 is not allowed.
-			
+			baseTime(c_uint32) : Scope averaging for fast sample rate <Get Fast Max Samplerate>. 0 is not allowed default is 1.
+			For PM400 and PM101 time in us between the samples. Needs to be >= 100.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -4700,27 +5026,36 @@ class TLPMX:
 
 	def confPowerMeasurementSequenceHWTrigger(self, trigSrc, baseTime, hPos, channel):
 		"""
-		This function send the SCPI Command "CONF:ARR:HWT" to the device.
-		Then is possible to call the method 'getMeasurementSequence' to get the power data.
+		This function sets up a hardware-triggered oscilloscope (scope) like power measurement in watts (W) specifically for continuous wave (CW) measurement mode. It configures the necessary scope mode parameters but does not initiate the measurement itself or arms the external trigger.
+		The configuration remains active until the system is rebooted or the parameters are explicitly modified. In most applications, this function needs to be invoked only once.
 		
-		Note: The function is only available on PM5020, PM103, PM6x.
+		It serves as the initial step in a standard measurement workflow:
+		1. Call this function to configure the power measurement sequence.
+		2. Follow with :func:`startMeasurementSequence` to begin the acquisition to wait for completion.
+		3. Invoke :func:`getMeasurementSequence` to retrieve data from the sample buffer.
 		
+		PM103/PM103E: For external trigger on digial IO1 pin. Use :func:`setDigIoPinMode` function to configure pin. This is not required for the other Powermeters.
+		
+		Remarks:
+		(1) Hardware-triggered scop mode mode is NOT supported on PM100D, PM100A, PM100USB, PM16, PM160, PM160T, PM200, PM400, PM101, PM102
+		(2) Not all hardware trigger sources are available for on every powermeter.
+		(3) Supported for photodiode, thermopile and 4-Quadrant Thermopile sensors in CW measurement mode. (See :func:`setFreqMode`). 
+		(4) Averaging :func:`setAvgTime` is not considered for scope measurements.
+		(5) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(6) Relative samples are not supported in scope mode e.g. :func:`setPowerRef`.
+		(7) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setPowerAutoRange`.
+		(8) PM101, PM400: Scope mode always stores 10000 samples with 10 kHz. So max time resolution between the samples is 100 us.
+		(9) PM103, PM103E, PM6x, PM100D3, PM5020: Scope mode stores 10000 samples with given averaging at max 100 kHz. So max time resolution between the samples is 10 us.
 		
 		Args:
-			trigSrc(c_uint16)
-			baseTime(c_uint32) : PM103:
-			interval between two measurements in the array in µsec. The maximum resolution is defined in the device specifications.
-			
-			PM101 special:
-			time to collect measurements.
-			hPos(c_uint32) : PM103:
-			Sets the horizontal position of trigger condition in the scope catpure (Between 1 and 9999)
-			
-			PM101 special:
-			Interval between measurements.
-			channel(c_uint16) : Number of the sensor channel. 
-			
-			Default: 1 for non multi channel devices
+			trigSrc(c_uint16) : external trigger source.
+			PM5020: 1(default) signal of channel 1, 2 signal of channel 2, 3 signal of front AUX, 4 signal of rear trigger.
+			PM100D3: 1(default) signal of channel 1, 2 for DIO1
+			PM6x: 1(default) signal of channel 1, 2 for DIO1
+			PM103/PM103E: 1(default)
+			baseTime(c_uint32) : Scope averaging for fast sample rate <Get Fast Max Samplerate>. 0 is not allowed default is 1.
+			hPos(c_uint32) : Sets the horizontal position of trigger condition in the scope catpure (Between 0 and 2500). The parameter has no unit as it is an index. 
+			channel(c_uint16) : Number of the sensor channel. Default: 1 for non multi channel devices
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -4730,20 +5065,26 @@ class TLPMX:
 
 	def confCurrentMeasurementSequence(self, baseTime, channel):
 		"""
-		This function send the SCPI Command "CONF:ARR:CURR" to the device.
-		Then is possible to call the method 'getMeasurementSequence' to get the power data.
-		 
-		Duration of measurement in µsec = Count* Interval
-		The maximum capture time is 1 sec regardless of the used interval
+		This function sets up a software-triggered oscilloscope (scope) like current measurement in ampere (A) specifically for continuous wave (CW) measurement mode. It configures the necessary scope mode parameters but does not initiate the measurement itself.
+		The configuration remains active until the system is rebooted or the parameters are explicitly modified. In most applications, this function needs to be invoked only once.
 		
-		Set the bandwidth to high(setInputFilterState to OFF) and disable auto ranging(setPowerAutoRange to OFF)
+		It serves as the initial step in a standard measurement workflow:
+		1. Call this function to configure the current measurement sequence.
+		2. Follow with :func:`startMeasurementSequence` to begin the acquisition to wait for completion.
+		3. Invoke :func:`getMeasurementSequence` to retrieve data from the sample buffer.
 		
-		Note: The function is only available on  PM101, PM103, PM400, PM6x, PM5020.
-		
+		Remarks:
+		(1) Scope mode is NOT supported on PM100D, PM100A, PM100USB, PM16, PM160, PM160T, PM200, PM102
+		(2) Supported for photodiode in CW measurement mode. (See :func:`setFreqMode`). 
+		(3) Averaging :func:`setAvgTime` is not considered for scope measurements.
+		(4) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(5) Relative samples are not supported in scope mode e.g. :func:`setCurrentRef`.
+		(6) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setCurrentAutoRange`.
+		(7) PM101, PM400: Scope mode always stores 10000 samples with 10 kHz. So max time resolution between the samples is 100 us.
+		(8) PM103, PM103E, PM6x, PM100D3, PM5020: Scope mode stores 10000 samples with given averaging at max 100 kHz. So max time resolution between the samples is 10 us.
 		
 		Args:
-			baseTime(c_uint32) : interval between two measurements in the array in µsec.
-			The maximum resolution is defined in the device specifications.
+			baseTime(c_uint32) : Scope averaging for fast sample rate <Get Fast Max Samplerate>. 0 is not allowed default is 1.
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -4756,26 +5097,35 @@ class TLPMX:
 
 	def confCurrentMeasurementSequenceHWTrigger(self, trigSrc, baseTime, hPos, channel):
 		"""
-		This function send the SCPI Command "CONF:ARR:HWTrig:CURR" to the device.
-		Then is possible to call the method 'getMeasurementSequenceHWTrigger' to get the current data.
-		 
-		Set the bandwidth to high (setInputFilterState to OFF) and disable auto ranging ( setPowerAutoRange to OFF)
+		This function sets up a hardware-triggered oscilloscope (scope) like current measurement in ampere (A) specifically for continuous wave (CW) measurement mode. It configures the necessary scope mode parameters but does not initiate the measurement itself or arms the external trigger.
+		The configuration remains active until the system is rebooted or the parameters are explicitly modified. In most applications, this function needs to be invoked only once.
 		
-		Note: The function is only available on PM103, PM5020, PM6x.
+		It serves as the initial step in a standard measurement workflow:
+		1. Call this function to configure the current measurement sequence.
+		2. Follow with :func:`startMeasurementSequence` to begin the acquisition to wait for completion.
+		3. Invoke :func:`getMeasurementSequence` to retrieve data from the sample buffer.
 		
+		PM103/PM103E: For external trigger on digial IO1 pin. Use :func:`setDigIoPinMode` function to configure pin. This is not required for the other Powermeters.
+		
+		Remarks:
+		(1) Hardware-triggered scop mode mode is NOT supported on PM100D, PM100A, PM100USB, PM16, PM160, PM160T, PM200, PM400, PM101, PM102
+		(2) Not all hardware trigger sources are available for on every powermeter.
+		(3) Supported for photodiode sensors in CW measurement mode. (See :func:`setFreqMode`). 
+		(4) Averaging :func:`setAvgTime` is not considered for scope measurements.
+		(5) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(6) Relative samples are not supported in scope mode e.g. :func:`setCurrentRef`.
+		(7) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setCurrentAutoRange`.
+		(8) PM101, PM400: Scope mode always stores 10000 samples with 10 kHz. So max time resolution between the samples is 100 us.
+		(9) PM103, PM103E, PM6x, PM100D3, PM5020: Scope mode stores 10000 samples with given averaging at max 100 kHz. So max time resolution between the samples is 10 us.
 		
 		Args:
-			trigSrc(c_uint16)
-			baseTime(c_uint32) : PM103:
-			interval between two measurements in the array in µsec. The maximum resolution is defined in the device specifications.
-			
-			PM101 special:
-			time to collect measurements.
-			hPos(c_uint32) : PM103:
-			Sets the horizontal position of trigger condition in the scope catpure (Between 1 and 9999)
-			
-			PM101 special:
-			Interval between measurements.
+			trigSrc(c_uint16) : external trigger source.
+			PM5020: 1(default) signal of channel 1, 2 signal of channel 2, 3 signal of front AUX, 4 signal of rear trigger.
+			PM100D3: 1(default) signal of channel 1, 2 for DIO1
+			PM6x: 1(default) signal of channel 1, 2 for DIO1
+			PM103/PM103E: 1(default)
+			baseTime(c_uint32) : Scope averaging for fast sample rate <Get Fast Max Samplerate>. 0 is not allowed default is 1.
+			hPos(c_uint32) : Sets the horizontal position of trigger condition in the scope catpure (Between 0 and 2500). The parameter has no unit as it is an index. 
 			channel(c_uint16) : Number of the sensor channel. 
 			
 			Default: 1 for non multi channel devices
@@ -4839,36 +5189,27 @@ class TLPMX:
 
 	def startMeasurementSequence(self, autoTriggerDelay, triggerForced):
 		"""
-		This function send the SCPI Command "INIT" to the device.
+		This function initiates a new scope measurement and requires the scope to be previously configured, for example, by calling :func:`confPowerMeasurementSequence`. Starting a measurement will invalidate any existing data and arm the hardware trigger if required by configuration. For software-triggered measurements, the trigger is activated immediately upon initialization.
 		
-		PM103:
-		Then it calls TLPM_readRegister for the register TLPM_REG_OPER_COND if there is new data to read
+		The function waits until the measurement data is ready to be retrieved. If a timeout is configured, it will force a trigger condition upon timeout and then wait for the measurement to complete. If no timeout is set, the measurement is aborted and a warning is issued in case of a timeout.
 		
-		If this method is successfull you can call getMeasurementSequence or getMeasurementSequenceHWTrigger
+		This function acts as the intermediate step in a typical measurement workflow:
+		1. Configure the measurement sequence once by calling, for example, :func:`confPowerMeasurementSequence`.
+		2. Call this function to start the acquisition and to wait for completion.
+		3. Use :func:`getMeasurementSequence` to retrieve data from the device internal sample buffer.
 		
-		PM101 special:
-		Just the INIT command is send to the device.
-		
-		
-		Note: The function is only available on PM103, PM6x, PM5020 and PM101. 
-		
-		
+		Remarks:
+		(1) Scope mode is not available for PM100D, PM100A, PM100USB, PM16, PM160, PM160T, PM200
+		(2) Supported for photodiode, thermopile and 4-quadrant thermopile sensors.
+		(3) PM101, PM400: Scope mode always stores 10000 samples with 10 kHz. So max time resolution between the samples is 100 us.
+		(4) PM103, PM103E, PM6x, PM100D3, PM5020: Scope mode stores 10000 samples with given averaging at max 100 kHz. So max time resolution between the samples is 10 us.
 		
 		Args:
-			autoTriggerDelay(c_uint32) : PM103:
-			The unit of this parameter is milliseconds.
-			If this parameter bigger then zero, the method will
-			wait the time in milliseconds to send the SCPI command:"TRIGer:ARRay:FORce".
+			autoTriggerDelay(c_uint32) : Time to wait before forcing trigger condition by software if not triggered externally already. The unit of this parameter is milliseconds. Set 0 to disable this feature. 
 			
-			This command will force the measurement. 
-			
-			PM101 special:
-			Not used.
-			triggerForced(c_int16 use with byref) : PM103:
-			Return parameter is TRUE if the command:"TRIGer:ARRay:FORce". was internally send to the device. See parameter "AutoTriggerDelay".
-			
-			PM101 special:
-			Not used.
+			Special for PM400, PM101: Not used
+			triggerForced(c_int16 use with byref) : Flag set to true if trigger condition was forced by timeout. False for real trigger. 
+			Special for PM400, PM101: Not used
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -4878,25 +5219,28 @@ class TLPMX:
 
 	def getMeasurementSequence(self, baseTime, timeStamps, values, values2):
 		"""
-		 Should be called if the methods confPowerMeasurementSequence and startMeasurementSequence were called first.
-		 
-		This function filles the given array with (100 * baseTime) measurements from the device.
+		This function retrieves the scope measurement results out of the device internal buffer. The function expects a oscilloscope (scope) like measurement to be initiated previsouly by calling :func:`startMeasurementSequence`. Ensure the provided list parameters length is at least 100 * <Base Time>. For the PM101 and PM400 devices ensure the list length is at least <Base Time> parameter. 
 		
-		Duration of measurement in µsec = Count* Interval
-		The maximum capture time is 1 sec regardless of the used inteval
-		Set the bandwidth to high(setInputFilterState to OFF) and disable auto ranging(setPowerAutoRange to OFF)
+		This function acts as the intermediate step in a typical measurement workflow:
+		1. Configure the measurement sequence once by calling, for example, :func:`confPowerMeasurementSequence`.
+		2. Initiate the measurement and wait for completion by calling :func:`startMeasurementSequence`.
+		3. Call this function to retrieve data from the device internal sample buffer.
 		
-		Note: The function is only available on PM103x, PM6x, PM5020 and PM101.
-		
+		Remarks:
+		(1) Scope mode is not available for PM100D, PM100A, PM100USB, PM16, PM160, PM160T, PM200
+		(2) Supported for photodiode, thermopile and 4-quadrant thermopile sensors.
+		(3) PM101, PM400: Scope mode always stores 10000 samples with 10 kHz. So max time resolution between the samples is 100 us.
+		(4) PM103, PM103E, PM6x, PM100D3, PM5020: Scope mode stores 10000 samples with given averaging at max 100 kHz. So max time resolution between the samples is 10 us.
 		
 		Args:
-			baseTime(c_uint32) : The amount of samples to collect in the internal interation of the method.
-			The value can be from 1 to 100.
+			baseTime(c_uint32) : The number of samples to collect during the internal iteration of the method.
 			
-			Every sample is 10µs for PM5020.
+			For PM5020, PM103, PM103E, PM6x, and PM100D3 models: The value can range from 1 to 100. Setting the value to 1 corresponds to collecting the first 100 samples, while a value of 100 will return 10,000 samples. Ensure that the lengths of the <Time Stamps> and <Values> parameter lists are at least 100 times the <Base Time>.
+			
+			For PM400 and PM101 models: This value specifies the number of samples to collect. In this case, the <Time Stamps> and <Values> parameter lists must have lengths of at least <Base Time> elements.
 			timeStamps( (c_float * arrayLength)()) : Array of time stamps in ms. The size of this array is 100 * baseTime.
-			values( (c_float * arrayLength)()) : Array of power/current measurements. The size of this array is 100 * baseTime.
-			values2( (c_float * arrayLength)()) : Array of power/current measurements. The size of this array is 100 * baseTime.
+			values( (c_float * arrayLength)()) : Array of measurements. The size of this array is 100 * baseTime. Unit depends on scope configuration. 
+			values2( (c_float * arrayLength)()) : Array of measurements for the second channel (PM5020 only). The size of this array is 100 * baseTime. Unit depends on scope configuration.  Set to NULL for single channel powermeters.
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -4906,8 +5250,26 @@ class TLPMX:
 
 	def confBurstArrayMeasPowerChannel(self, channel):
 		"""
-		This function is used to configure the burst array measurement of each channel.
+		This function configures a hardware-triggered burst power measurement in watts (W) for continuous wave (CW) measurement mode. It sets up the necessary burst mode parameters but does not start the measurement.
 		
+		The configuration persists until the system is rebooted or the parameters are explicitly changed. In most applications, this function needs to be called only once.
+		
+		In burst mode, each hardware trigger (rising edge) initiates one or more measurements after an optional initial delay, storing the results in the device's internal buffer. The buffer size is device-dependent but supports at least 10,000 samples. Use <Get Burst Array Length> to query the exact size. Once sufficient data is acquired, burst mode needs to be disabled manually before fetching the results. Once a trigger fires and starts the burst measurement sequence, the trigger is disabled until the measurement sequence has been taken.
+		
+		It serves as the initial step in a standard measurement workflow:
+		1. Call this function to configure burst mode for power measurements in W (dBm is not supported).
+		2. Follow with :func:`confBurstArrayMeasTrigger` to set up the trigger parameters.
+		3. Follow with :func:`startBurstArrayMeasurement` to initiate acquisition and arm the trigger.
+		4. Invoke :func:`getBurstArraySamples` to abort measurement and retrieve data from the sample buffer.
+		
+		Remarks:
+		(1) Burst mode is NOT supported on PM100D, PM100A, PM100USB, PM16, PM160, PM160T, PM200, PM101, PM102, PM400
+		(2) Supported for photodiode, thermopile and 4-Quadrant Thermopile sensors in CW measurement mode. (See :func:`setFreqMode`). 
+		(3) Averaging :func:`setAvgTime` is not considered for burst measurements.
+		(4) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(5) Disable the Thermopile accelerator :func:`setAccelState`.
+		(6) Relative samples are not supported in burst mode e.g. :func:`setPowerRef`.
+		(7) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setPowerAutoRange`.
 		
 		Args:
 			channel(c_uint16) : Number of the sensor channel. 
@@ -4922,8 +5284,25 @@ class TLPMX:
 
 	def confBurstArrayMeasCurrentChannel(self, channel):
 		"""
-		Use this command during scope mode configuration to configure channel of scope for current measurement.
+		This function configures a hardware-triggered burst current measurement in amperes (A) for continuous wave (CW) measurement mode. It sets up the necessary burst mode parameters but does not start the measurement.
 		
+		The configuration persists until the system is rebooted or the parameters are explicitly changed. In most applications, this function needs to be called only once.
+		
+		In burst mode, each hardware trigger (rising edge) initiates one or more measurements after an optional initial delay, storing the results in the device's internal buffer. The buffer size is device-dependent but supports at least 10,000 samples. Use <Get Burst Array Length> to query the exact size. Once sufficient data is acquired, burst mode needs to be disabled manually before fetching the results. Once a trigger fires and starts the burst measurement sequence, the trigger is disabled until the measurement sequence has been taken.
+		
+		It serves as the initial step in a standard measurement workflow:
+		1. Call this function to configure burst mode for current measurements in A.
+		2. Follow with :func:`confBurstArrayMeasTrigger` to set up the trigger.
+		3. Follow with :func:`startBurstArrayMeasurement` to initiate acquisition and wait for completion.
+		4. Invoke :func:`getBurstArraySamples` to retrieve data from the sample buffer.
+		
+		Remarks:
+		(1) Burst mode is NOT supported on PM100D, PM100A, PM100USB, PM16, PM160, PM160T, PM200, PM101, PM102, PM400
+		(2) Supported for photodiode
+		(3) Averaging :func:`setAvgTime` is not considered for burst measurements.
+		(4) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(5) Relative samples are not supported in burst mode e.g. :func:`setCurrentRef`.
+		(6) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setCurrentAutoRange`.
 		
 		Args:
 			channel(c_uint16) : Number of the sensor channel. 
@@ -4938,8 +5317,25 @@ class TLPMX:
 
 	def confBurstArrayMeasVoltageChannel(self, channel):
 		"""
-		Use this command during scope mode configuration to configure channel of scope for voltage measurement.
+		This function configures a hardware-triggered burst voltage measurement in volts (V) for continuous wave (CW) measurement mode. It sets up the necessary burst mode parameters but does not start the measurement.
 		
+		The configuration persists until the system is rebooted or the parameters are explicitly changed. In most applications, this function needs to be called only once.
+		
+		In burst mode, each hardware trigger (rising edge) initiates one or more measurements after an optional initial delay, storing the results in the device's internal buffer. The buffer size is device-dependent but supports at least 10,000 samples. Use <Get Burst Array Length> to query the exact size. Once sufficient data is acquired, burst mode needs to be disabled manually before fetching the results. Once a trigger fires and starts the burst measurement sequence, the trigger is disabled until the measurement sequence has been taken.
+		
+		It serves as the initial step in a standard measurement workflow:
+		1. Call this function to configure burst mode for voltage measurements in V.
+		2. Follow with :func:`confBurstArrayMeasTrigger` to set up the trigger.
+		3. Follow with :func:`startBurstArrayMeasurement` to initiate acquisition and wait for completion.
+		4. Invoke :func:`getBurstArraySamples` to retrieve data from the sample buffer.
+		
+		Remarks:
+		(1) Burst mode is NOT supported on PM100D, PM100A, PM100USB, PM16, PM160, PM160T, PM200, PM101, PM102, PM400, PM103
+		(2) Supported for thermopile and 4-Quadrant Thermopile sensors
+		(3) Averaging :func:`setAvgTime` is not considered for burst measurements.
+		(4) Disable the Thermopile accelerator :func:`setAccelState`.
+		(5) Relative samples are not supported in burst mode e.g. :func:`setVoltageRef`.
+		(6) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setVoltageAutoRange`.
 		
 		Args:
 			channel(c_uint16) : Number of the sensor channel. 
@@ -4954,15 +5350,30 @@ class TLPMX:
 
 	def confBurstArrayMeasTrigger(self, trgSource, initDelay, burstCount, averaging):
 		"""
-		This function is used to configure the burst array measurement trigger.
-		All entered values are multiplied internally by 10µs. The sum of all values is the burst sequence time.
+		This function configures a hardware-triggered burst measurement parameters for continuous wave (CW) measurement mode. It sets up the necessary burst mode parameters but does not start the measurement.
 		
-		E.g. 
-		Init Delay 5
-		Burst Count 2
-		Averaging 3
-		=> Burst Sequence time = (InitDelay + (Burst Count * Averaging))*10µs = (5+2*3)*10µs =110µs
+		The configuration persists until the system is rebooted or the parameters are explicitly changed. In most applications, this function needs to be called only once.
 		
+		In burst mode, each hardware trigger (rising edge) initiates one or more measurements after an optional initial delay, storing the results in the device's internal buffer. The buffer size is device-dependent but supports at least 10,000 samples. Use <Get Burst Array Length> to query the exact size. Once sufficient data is acquired, burst mode needs to be disabled manually before fetching the results. Once a trigger fires and starts the burst measurement sequence, the trigger is disabled until the measurement sequence has been taken.
+		
+		It serves as the second step in a standard measurement workflow:
+		1. Configure the unit of the burst measurement mode using e.g. function :func:`confBurstArrayMeasPowerChannel` 
+		2. Call this function to configure the trigger for the burst mode.
+		3. Follow with :func:`startBurstArrayMeasurement` to initiate acquisition and arm the trigger.
+		4. Invoke :func:`getBurstArraySamples` to abort measurement and retrieve data from the sample buffer.
+		
+		The parameter units are counts so the unit depends on the device sample rate. For PM5020 this is 10µs.
+		The sum of all values is the burst sequence time. E.g. Init Delay = 5; Burst Count = 2; Averaging = 3
+		=> Burst Sequence time = (InitDelay + (Burst Count * Averaging)) * 10µs = (5 + 2  * 3) * 10µs = 110µs
+		
+		Remarks:
+		(1) Burst mode is NOT supported on PM100D, PM100A, PM100USB, PM16, PM160, PM160T, PM200, PM101, PM102, PM400
+		(2) Supported for CW measurement mode. (See :func:`setFreqMode`). 
+		(3) Averaging :func:`setAvgTime` is not considered for burst measurements.
+		(4) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(5) Disable the Thermopile accelerator :func:`setAccelState`.
+		(6) Relative samples are not supported in burst mode e.g. :func:`setPowerRef`.
+		(7) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setPowerAutoRange`.
 		
 		Args:
 			trgSource(c_uint32) : Trigger source. 
@@ -4971,12 +5382,9 @@ class TLPMX:
 			2 signal of channel 2
 			3 signal of front AUX 
 			4 signal of rear trigger
-			initDelay(c_uint32) : Init Delay time in 10µs.
-			E.g. 5 means 5*10µs = 50µs 
-			burstCount(c_uint32) : Enter the Sequence Count in 10µs for the burst sequence time.
-			E.g. Sequence count = 2: Burst Sequence time = (InitDelay + (SequenceCount * Averaging)) * 10µs
-			averaging(c_uint32) : Average time in 10µs
-			E.g. Entered 3 means averaging of 30µs
+			initDelay(c_uint32) : Init Delay time in 10µs. E.g. 5 means 5 * 10µs = 50µs 
+			burstCount(c_uint32) : Amount of measurements for every trigger condition.
+			averaging(c_uint32) : Average time in 10µ. Use to change the time between the measurements. E.g. Entered 3 means averaging of 30µs
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -4986,7 +5394,24 @@ class TLPMX:
 
 	def startBurstArrayMeasurement(self):
 		"""
-		Starts a burst array measurement
+		This function initiates a hardware-triggered burst measurement for continuous wave (CW) measurement mode and arms the trigger. It requires that the burst unit and trigger parameters have been configured initially (e.g., via <Conf Burst Power Unit>). Each triggered event stores the measurement results in the device's internal buffer. The mode remains active until the :func:`getBurstArraySamples` function disarms the trigger and retrieves the results. If the buffer becomes full, new measurement results are discarded.
+		
+		In burst mode, each hardware trigger (rising edge) initiates one or more measurements after an optional initial delay, storing the results in the device's internal buffer. The buffer size is device-dependent but supports at least 10,000 samples. Use <Get Burst Array Length> to query the exact size. Once sufficient data is acquired, burst mode needs to be disabled manually before fetching the results. Once a trigger fires and starts the burst measurement sequence, the trigger is disabled until the measurement sequence has been taken.
+		
+		It serves as the third step in a standard measurement workflow:
+		1. Configure the unit of the burst measurement mode using e.g. function :func:`confBurstArrayMeasPowerChannel` 
+		2. Follow with :func:`confBurstArrayMeasTrigger` to set up the trigger parameters.
+		3. Call this function to start the measurement. 
+		4. Invoke :func:`getBurstArraySamples` to abort measurement and retrieve data from the sample buffer.
+		
+		Remarks:
+		(1) Burst mode is NOT supported on PM100D, PM100A, PM100USB, PM16, PM160, PM160T, PM200, PM101, PM102, PM400
+		(2) Supported for CW measurement mode. (See :func:`setFreqMode`). 
+		(3) Averaging :func:`setAvgTime` is not considered for burst measurements.
+		(4) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(5) Disable the Thermopile accelerator :func:`setAccelState`.
+		(6) Relative samples are not supported in burst mode e.g. :func:`setPowerRef`.
+		(7) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setPowerAutoRange`.
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -4996,10 +5421,20 @@ class TLPMX:
 
 	def getBurstArraySamplesCount(self, samplesCount):
 		"""
-		Read the amount of samples in the burst array buffer
+		This function reads the amount of samples that have been measured during active burst mode. You can call this function regardless if burst mode is active or inactive to test if there is already measurement data to fetch. 
+		
+		In burst mode, each hardware trigger (rising edge) initiates one or more measurements after an optional initial delay, storing the results in the device's internal buffer. The buffer size is device-dependent but supports at least 10,000 samples. Use <Get Burst Array Length> to query the exact size. Once sufficient data is acquired, burst mode needs to be disabled manually before fetching the results. Once a trigger fires and starts the burst measurement sequence, the trigger is disabled until the measurement sequence has been taken.
+		
+		Remarks:
+		(1) Burst mode is NOT supported on PM100D, PM100A, PM100USB, PM16, PM160, PM160T, PM200, PM101, PM102, PM400
+		(2) Supported for CW measurement mode. (See :func:`setFreqMode`). 
+		(3) Averaging :func:`setAvgTime` is not considered for burst measurements.
+		(4) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(5) Relative samples are not supported in burst mode e.g. :func:`setCurrentRef`.
+		(6) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setCurrentAutoRange`.
 		
 		Args:
-			samplesCount(c_uint32 use with byref) : Amount of samples measure in burst mode.
+			samplesCount(c_uint32 use with byref) : Amount of samples taken during burst measurements.
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -5007,18 +5442,56 @@ class TLPMX:
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
-	def getBurstArraySamples(self, startIndex, sampleCount, timeStamps, values, values2):
+	def getBurstArraySize(self, size):
 		"""
-		Read scope buffer content at index 
+		This function reads the device internal burst buffer size. If the buffer becomes full, new measurement results are discarded. Use the function :func:`getBurstArraySamplesCount` to query the amount of samples currenlty stored. 
+		
+		In burst mode, each hardware trigger (rising edge) initiates one or more measurements after an optional initial delay, storing the results in the device's internal buffer. The buffer size is device-dependent but supports at least 10,000 samples. Use <Get Burst Array Length> to query the exact size. Once sufficient data is acquired, burst mode needs to be disabled manually before fetching the results. Once a trigger fires and starts the burst measurement sequence, the trigger is disabled until the measurement sequence has been taken.
+		
+		Remarks:
+		(1) Burst mode is NOT supported on PM100D, PM100A, PM100USB, PM16, PM160, PM160T, PM200, PM101, PM102, PM400
+		(2) Supported for CW measurement mode. (See :func:`setFreqMode`). 
+		(3) Averaging :func:`setAvgTime` is not considered for burst measurements.
+		(4) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(5) Relative samples are not supported in burst mode e.g. :func:`setCurrentRef`.
+		(6) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setCurrentAutoRange`.
 		
 		Args:
-			startIndex(c_uint32)
-			sampleCount(c_uint32)
-			timeStamps( (c_uint32 * arrayLength)()) : Buffer containing the samples.
-			
-			Buffer size: Samples Count * 2
-			values( (c_float * arrayLength)())
-			values2( (c_float * arrayLength)())
+			size(c_uint32 use with byref) : Amount of samples measure in burst mode.
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_getBurstArraySize(self.devSession, size)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def getBurstArraySamples(self, startIndex, sampleCount, timeStamps, values, values2):
+		"""
+		This function aborts the burst measurement for continuous wave (CW) measurement mode, disarms the trigger, and retrieves the measurement results from the internal buffer. It requires that the measurement has been previously initiated by :func:`startBurstArrayMeasurement`. Ensure the provided arrays are large enough to store the specified <sample Count> samples. Use :func:`getBurstArraySamplesCount` to query the number of measurements in the buffer. This function can be called multiple times with different <Start Index> values to retrieve data in smaller chunks. 
+		
+		In burst mode, each hardware trigger (rising edge) initiates one or more measurements after an optional initial delay, storing the results in the device's internal buffer. The buffer size is device-dependent but supports at least 10,000 samples. Use <Get Burst Array Length> to query the exact size. Once sufficient data is acquired, burst mode needs to be disabled manually before fetching the results. Once a trigger fires and starts the burst measurement sequence, the trigger is disabled until the measurement sequence has been taken.
+		
+		It serves as the final step in a standard measurement workflow:
+		1. Configure the unit of the burst measurement mode using e.g. function :func:`confBurstArrayMeasPowerChannel` 
+		2. Follow with :func:`confBurstArrayMeasTrigger` to set up the trigger parameters.
+		3. Follow with :func:`startBurstArrayMeasurement` to initiate acquisition and arm the trigger.
+		4. Call this function to abort measurement and retrieve data from the sample buffer.
+		
+		Remarks:
+		(1) Burst mode is NOT supported on PM100D, PM100A, PM100USB, PM16, PM160, PM160T, PM200, PM101, PM102, PM400
+		(2) Supported for CW measurement mode. (See :func:`setFreqMode`). 
+		(3) Averaging :func:`setAvgTime` is not considered for burst measurements.
+		(4) Measure photodiode with high bandwidth filter :func:`setInputFilterState`.
+		(5) Disable the Thermopile accelerator :func:`setAccelState`.
+		(6) Relative samples are not supported in burst mode e.g. :func:`setPowerRef`.
+		(7) Disable auto-ranging to prevent the Powermeter to interuppt the measurement due to ranging hardware settling pauses. For closer details read :func:`setPowerAutoRange`.
+		
+		Args:
+			startIndex(c_uint32) : Start offset in device internal buffer where to start reading from. Starts at index 0.
+			sampleCount(c_uint32) : Amount of measurements to read from device internal buffer. Ensure that <Timestamp>, <Channel 1> and <Channel 2> array fits at least the requested size.
+			timeStamps( (c_uint32 * arrayLength)()) : Array for sample timestamps. Ensure array length is at least <Sample Count> parameter elements long.
+			values( (c_float * arrayLength)()) : Array for feasrement results of channel 1 (default for single channel powermeters). Unit depends on burst mode unit configuration. Ensure array length is at least <Sample Count> parameter elements long.
+			values2( (c_float * arrayLength)()) : Array for measrement results of channel 2 (PM5020 only, set to VI_NULL otherwise). Unit depends on burst mode unit configuration. Ensure array length is at least <Sample Count> parameter elements long.
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -5028,9 +5501,10 @@ class TLPMX:
 
 	def disableArrayMeasurementChannel(self, channel):
 		"""
-		Use this command during scope mode configuration to disable measurement of channel of scope or burst mode. 
-		If no sensor is connected disabling channel is not possible.
+		Use this command during scope or burst mode configuration to exclude measurement channel from scope or burst measurement. If the channel is excluded it will continue measuring in normal mode but does not contribute the scope or array measurement buffer.
 		
+		Remarks:
+		(1) Only useful on PM5020
 		
 		Args:
 			channel(c_uint16) : Number of the sensor channel. 
@@ -5047,7 +5521,7 @@ class TLPMX:
 		"""
 		This function sets the digital I/O port direction.
 		
-		Note: The function is only available on PM200 and PM400.
+		Note: The DEBRECATED function is only available on PM200 and PM400.
 		
 		Args:
 			IO0(c_int16) : This parameter specifies the I/O port #0 direction.
@@ -5081,7 +5555,7 @@ class TLPMX:
 		"""
 		This function returns the digital I/O port direction.
 		
-		Note: The function is only available on PM200 and PM400.
+		Note: The DEBRECATED function is only available on PM200 and PM400.
 		
 		Args:
 			IO0(c_int16 use with byref) : This parameter returns the I/O port #0 direction where VI_OFF (0) indicates input and VI_ON (1) indicates output.
@@ -5112,8 +5586,8 @@ class TLPMX:
 		This function sets the digital I/O outputs.
 		
 		Notes:
-		(1) Only ports configured as outputs are affected by this function. Use <Set Digital I/O Direction> to configure ports as outputs.
-		(2) The function is only available on PM200 and PM400.
+		(1) Only ports configured as outputs are affected by this function. Use :func:`setDigIoDirection` to configure ports as outputs.
+		(2) The DEBRECATED function is only available on PM200 and PM400.
 		
 		Args:
 			IO0(c_int16) : This parameter specifies the I/O port #0 output.
@@ -5147,7 +5621,7 @@ class TLPMX:
 		"""
 		This function returns the digital I/O output settings.
 		
-		Note: The function is only available on PM200 and PM400.
+		Note: The DEBRECATED function is only available on PM200 and PM400.
 		
 		Args:
 			IO0(c_int16 use with byref) : This parameter returns the I/O port #0 output where VI_OFF (0) indicates low level and VI_ON (1) indicates high level.
@@ -5177,7 +5651,7 @@ class TLPMX:
 		"""
 		This function returns the actual digital I/O port level.
 		
-		Note: The function is only available on PM200 and PM400.
+		Note: The DEBRECATED function is only available on PM200 and PM400.
 		
 		Args:
 			IO0(c_int16 use with byref) : This parameter returns the I/O port #0 level where VI_OFF (0) indicates low level and VI_ON (1) indicates high level.
@@ -5205,15 +5679,19 @@ class TLPMX:
 
 	def setDigIoPinMode(self, pinNumber, pinMode):
 		"""
-		This function sets the digital I/O port direction.
+		Configures the functionality of a single given digitial I/O pin. Each I/O pin has multiple potential uses. The selected usage is stored in the device and is automatically restored after a reboot. 
 		
-		Note: The function is only available on PM200, PM400 and PM103
+		Remarks:
+		(1) Please note that changing the usage may affect the signal level.
+		(2) Not all pins support all pin functions. Refer to product manual for details.
+		(3) The amount of digital I/O pins depends on the connected powermeter. Refer to product manual for details. 
+		(4) Depending on the function the pin might be connected to a pullup resistor internally. 
+		(5) When used as output the pin should not driver more than 10 mA. 
+		(6) The function is NOT available for PM200 and PM400
 		
 		Args:
-			pinNumber(c_int16) : Number of the Pin.
-			
-			Range: 1-7
-			pinMode(c_uint16) : This parameter specifies the I/O port direction.
+			pinNumber(c_int16) : Number of the Pin. Refer to the powermeter manual to get the amount of pins available. 
+			pinMode(c_uint16) : This parameter specifies the I/O port direction. Refer to the powermeter manual for the alternate functions. 
 			
 			Input:       DIGITAL_IO_CONFIG_INPUT   (0)
 			Output:      DIGITAL_IO_CONFIG_OUTPUT  (1)
@@ -5228,9 +5706,10 @@ class TLPMX:
 
 	def getDigIoPinMode(self, pinNumber, pinMode):
 		"""
-		This function returns the digital I/O port direction.
+		Reads the current configuration of a single DIO pin. For closer details read :func:`setDigIoPinMode` comment.
 		
-		Note: The function is only available on PM200, PM400 and PM103
+		Remarks:
+		(1) The function is NOT available for PM200 and PM400
 		
 		Args:
 			pinNumber(c_int16) : Number of the Pin.
@@ -5254,56 +5733,99 @@ class TLPMX:
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
-	def setDigIoOutput2(self, IO0, IO1, IO2, IO3):
+	def setDigIoPinOutput(self, IO0, IO1, IO2, IO3):
 		"""
+		This function sets the digital I/O outputs simultaneously. If the powermeter has less digital I/O pins, the values are ignored.
+		
+		Notes:
+		(1) Only ports configured as outputs are affected by this function. Use :func:`setDigIoDirection` to configure ports as outputs.
+		(2) The amount of digital I/O pins depends on the connected powermeter. Refer to product manual for details. 
+		(3) When used as output the pin should not driver more than 10 mA. 
+		(4) The function is NOT available for PM200 and PM400
 		
 		Args:
-			IO0(c_int16)
-			IO1(c_int16)
-			IO2(c_int16)
-			IO3(c_int16)
+			IO0(c_int16) : This parameter specifies the I/O port #1 output.
+			
+			Low level:  VI_OFF (0)
+			High level: VI_ON  (1)
+			
+			IO1(c_int16) : This parameter specifies the I/O port #2 output.
+			
+			Low level:  VI_OFF (0)
+			High level: VI_ON  (1)
+			
+			IO2(c_int16) : This parameter specifies the I/O port #3 output.
+			
+			Low level:  VI_OFF (0)
+			High level: VI_ON  (1)
+			
+			IO3(c_int16) : This parameter specifies the I/O port #4 output.
+			
+			Low level:  VI_OFF (0)
+			High level: VI_ON  (1)
+			
 		Returns:
 			int: The return value, 0 is for success
 		"""
-		pInvokeResult = self.dll.TLPMX_setDigIoOutput(self.devSession, IO0, IO1, IO2, IO3)
+		pInvokeResult = self.dll.TLPMX_setDigIoPinOutput(self.devSession, IO0, IO1, IO2, IO3)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
-	def getDigIoOutput2(self, IO0, IO1, IO2, IO3):
+	def getDigIoPinOutput(self, IO0, IO1, IO2, IO3):
 		"""
+		This function returns the signal levels of the digital I/O pins configured in output direction. If a pin is configured for a different function, the corresponding bit will always be read back as low (0). 
+		
+		Remarks:
+		(1) The amount of digital I/O pins depends on the connected powermeter. Refer to product manual for details. 
+		(2) When used as output the pin should not driver more than 10 mA. 
+		(3) The function is NOT available for PM200 and PM400
 		
 		Args:
-			IO0(c_int16 use with byref)
-			IO1(c_int16 use with byref)
-			IO2(c_int16 use with byref)
-			IO3(c_int16 use with byref)
+			IO0(c_int16 use with byref) : This parameter returns the I/O port #1 output where VI_OFF (0) indicates low level and VI_ON (1) indicates high level.
+			
+			Note: You may pass VI_NULL if you don't need this value.
+			
+			IO1(c_int16 use with byref) : This parameter returns the I/O port #2 output where VI_OFF (0) indicates low level and VI_ON (1) indicates high level.
+			
+			Note: You may pass VI_NULL if you don't need this value.
+			
+			IO2(c_int16 use with byref) : This parameter returns the I/O port #3 output where VI_OFF (0) indicates low level and VI_ON (1) indicates high level.
+			
+			Note: You may pass VI_NULL if you don't need this value.
+			
+			IO3(c_int16 use with byref) : This parameter returns the I/O port #4 output where VI_OFF (0) indicates low level and VI_ON (1) indicates high level.
+			
+			Note: You may pass VI_NULL if you don't need this value.
+			
 		Returns:
 			int: The return value, 0 is for success
 		"""
-		pInvokeResult = self.dll.TLPMX_getDigIoOutput(self.devSession, IO0, IO1, IO2, IO3)
+		pInvokeResult = self.dll.TLPMX_getDigIoPinOutput(self.devSession, IO0, IO1, IO2, IO3)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
 	def getDigIoPinInput(self, IO0, IO1, IO2, IO3):
 		"""
-		This function returns the actual digital I/O port level.
+		This function returns the signal levels of the digital I/O pins configured in input direction. If a pin is configured for a different function, the corresponding bit will always be read back as low (0). 
 		
-		Note: The function is only available on PM200 and PM400.
+		Remarks:
+		(1) The amount of digital I/O pins depends on the connected powermeter. Refer to product manual for details. 
+		(2) The function is NOT available for PM200 and PM400
 		
 		Args:
-			IO0(c_int16 use with byref) : This parameter returns the I/O port #0 level where VI_OFF (0) indicates low level and VI_ON (1) indicates high level.
+			IO0(c_int16 use with byref) : This parameter returns the I/O port #1 level where VI_OFF (0) indicates low level and VI_ON (1) indicates high level.
 			
 			Note: You may pass VI_NULL if you don't need this value.
 			
-			IO1(c_int16 use with byref) : This parameter returns the I/O port #1 level where VI_OFF (0) indicates low level and VI_ON (1) indicates high level.
+			IO1(c_int16 use with byref) : This parameter returns the I/O port #2 level where VI_OFF (0) indicates low level and VI_ON (1) indicates high level.
 			
 			Note: You may pass VI_NULL if you don't need this value.
 			
-			IO2(c_int16 use with byref) : This parameter returns the I/O port #2 level where VI_OFF (0) indicates low level and VI_ON (1) indicates high level.
+			IO2(c_int16 use with byref) : This parameter returns the I/O port #3 level where VI_OFF (0) indicates low level and VI_ON (1) indicates high level.
 			
 			Note: You may pass VI_NULL if you don't need this value.
 			
-			IO3(c_int16 use with byref) : This parameter returns the I/O port #3 level where VI_OFF (0) indicates low level and VI_ON (1) indicates high level.
+			IO3(c_int16 use with byref) : This parameter returns the I/O port #4 level where VI_OFF (0) indicates low level and VI_ON (1) indicates high level.
 			
 			Note: You may pass VI_NULL if you don't need this value.
 			
@@ -5346,7 +5868,8 @@ class TLPMX:
 
 	def getShutterPosition(self, position):
 		"""
-		This method checks if the shutter is currently open or closed. The shutter state is monitored by a internal light barrier. So even if it is mechanically blocked this method returns the real state. The actual shutter state is also masked in the SCPI Auxiliary Detail register bit 11. 
+		This method checks if the shutter is currently open or closed. The shutter state is monitored by a internal light barrier. So even if it is mechanically blocked this method returns the real state. The actual shutter state is also masked in the SCPI Auxiliary Detail register bit 11.
+		
 		Note: The function is only available on PM5020
 		
 		Args:
@@ -5365,10 +5888,10 @@ class TLPMX:
 		SLOW: I2C controlled by SCPI commands in 100k standard speed. Powermeter does not access bus.
 		FAST: I2C controlled by SCPI commands in 400k fast speed. Powermeter does not access bus.
 		
-		Note: The function is only available on PM5020
+		Note: The function is only available on PM5020 and PM100D3
 		
 		Args:
-			mode(c_uint16) : INTER,SLOW,FASTnew I2C operating mode and speed. See list in detail section.
+			mode(c_uint16) : I2C operating mode and bus speed. INTER,SLOW,FAST. More details in function description.
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -5383,10 +5906,10 @@ class TLPMX:
 		SLOW: I2C controlled by SCPI commands in 100k standard speed. Powermeter does not access bus.
 		FAST: I2C controlled by SCPI commands in 400k fast speed. Powermeter does not access bus.
 		
-		Note: The function is only available on PM5020
+		Note: The function is only available on PM5020 and PM100D3
 		
 		Args:
-			mode(c_int16 use with byref) : INTER,SLOW,FASTI2C operating mode and speed
+			mode(c_int16 use with byref) : I2C operating mode and bus speed (INTER,SLOW,FAST)
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -5396,9 +5919,9 @@ class TLPMX:
 
 	def I2CRead(self, address, count, dataRead):
 		"""
-		The command receives data from slave with given address. The function requires TLPMX_setI2CMode to be called once previously. The command returns data as integer. Data is read synchronously with the SCPI command.
+		The command receives data from slave with given address. The function requires :func:`setI2CMode` to be called once previously. The command returns data as integer. Data is read synchronously with the SCPI command.
 		
-		Note: The function is only available on PM5020
+		Note: The function is available on PM5020, PM100D3
 		
 		Args:
 			address(c_uint32) : I2C slave address. Address are bit 7 to bit 1. Bit 0 is ignored.
@@ -5413,13 +5936,13 @@ class TLPMX:
 
 	def I2CWrite(self, address, hexData):
 		"""
-		The command transmits given data to slave with given address. The function requires TLPMX_setI2CMode  to be called once previously. The transmission data is given as hexadecimal string parameter. The length needs to be a multiple of two as two hex digits encode a single byte. Leading zeros are mandatory. So to transfer byte 2 and 75 use string 024B. Hex digits are support upper or lowercase letters. The maximal length are 128 Bytes. Data is transferred synchronously with the SCPI command. If you want to read after writing some data you may use TLPMX_I2CWriteRead.
+		The command transmits given data to slave with given address. The function requires :func:`setI2CMode`  to be called once previously. The transmission data is given as hexadecimal string parameter. The length needs to be a multiple of two as two hex digits encode a single byte. Leading zeros are mandatory. So to transfer byte 2 and 75 use string 024B. Hex digits are support upper or lowercase letters. The maximal length are 128 Bytes. Data is transferred synchronously with the function. If you want to read after writing some data you may use :func:`I2CWriteRead` function.
 		
-		Note: The function is only available on PM5020
+		Note: The function is available on PM5020, PM100D3
 		
 		Args:
 			address(c_uint32) : I2C slave address. Address are bit 7 to bit 1. Bit 0 is ignored.
-			hexData(c_char_p) : transmission data as hexadecimal string without byte separator. Length always multiple of 2.
+			hexData(c_char_p) : transmission data as hexadecimal string without byte separator. Length always multiple of 2. 
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -5429,15 +5952,15 @@ class TLPMX:
 
 	def I2CWriteRead(self, address, hexSendData, count, dataRead):
 		"""
-		The command transmits given data to slave with given address following a bus reception from same device if transmission was successful. This command is a convenience function for a CON:I2C#:WRIT followed by a CON:I2C#:READ? command sequence. The maximal transmission and reception byte count is 128. For closer details of hexString format read TLPMX_I2CWrite command description.
+		The command transmits given data to slave with given address following a bus reception from same device if transmission was successful. The function requires :func:`setI2CMode`  to be called once previously. The function is a convenience function for a :func:`I2CWrite` followed by a :func:`I2CRead` command sequence. The maximal transmission and reception byte count is 128. For closer details of hexString format read :func:`I2CWrite` command description.
 		
-		Note: The function is only available on PM5020
+		Note: The function is available on PM5020, PM100D3
 		
 		Args:
 			address(c_uint32) : I2C slave address. Address are bit 7 to bit 1. Bit 0 is ignored.
 			hexSendData(c_char_p) : transmission data as hexadecimal string without byte separator. Length always multiple of 2.
 			count(c_uint32) : amount of bytes to read from address.
-			dataRead(c_uint32 use with byref) : received data.
+			dataRead(c_uint32 use with byref) : received data as hexstring without seperator. Char count is always a multiple of 2. 
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -5715,8 +6238,8 @@ class TLPMX:
 		
 		Args:
 			state(c_int16) : 1 to enable. 0 for disable.
-			frequency(c_uint32) : Optional! modulation frequency <= 100Hz. 0 for CW.
-			duration(c_uint32) :  Optional! duration of laser sequence in ms. Resolution depends on frequ. Set to 65535 for endless.
+			frequency(c_uint32) : Optional modulation frequency <= 100Hz. 0 for CW.
+			duration(c_uint32) : Optional duration of laser sequence in ms. Resolution depends on frequ. Set to 65535 for endless.
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -5731,7 +6254,7 @@ class TLPMX:
 		Note: The function is only available on PM61.
 		
 		Args:
-			state(c_int16 use with byref) :  1 if enabled. 0 for disabled.
+			state(c_int16 use with byref) : 1 if enabled. 0 for disabled.
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -5776,7 +6299,7 @@ class TLPMX:
 			statusCode(c_int) : This parameter accepts the error codes returned from the instrument driver functions.
 			
 			Default Value: 0 - VI_SUCCESS
-			description(create_string_buffer(1024)) : This parameter returns the interpreted code as an user readable message string.
+			description(create_string_buffer(1024) use with byref) : This parameter returns the interpreted code as an user readable message string.
 			
 			Notes:
 			(1) The message buffer has to be initalized with 256 bytes.
@@ -5794,7 +6317,7 @@ class TLPMX:
 		Use this function to query the instrument's error queue if the driver's error query mode is set to manual query. 
 		
 		Notes:
-		(1) The returned values are stored in the drivers error store. You may use <Error Message> to get a descriptive text at a later point of time.
+		(1) The returned values are stored in the drivers error store. You may use :func:`errorMessage` to get a descriptive text at a later point of time.
 		
 		Args:
 			errorNumber(c_int use with byref) : This parameter returns the instrument error number.
@@ -5802,7 +6325,7 @@ class TLPMX:
 			Notes:
 			(1) You may pass VI_NULL if you don't need this value.
 			
-			errorMessage(create_string_buffer(1024)) : This parameter returns the instrument error message.
+			errorMessage(create_string_buffer(1024) use with byref) : This parameter returns the instrument error message.
 			
 			Notes:
 			(1) The array must contain at least 256 elements ViChar[256] including the null byte.
@@ -5869,7 +6392,7 @@ class TLPMX:
 		
 		Args:
 			selfTestResult(c_int16 use with byref) : This parameter contains the value returned from the device self test routine. A retured zero value indicates a successful run, a value other than zero indicates failure.
-			description(create_string_buffer(1024)) : This parameter returns the interpreted code as an user readable message string.
+			description(create_string_buffer(1024) use with byref) : This parameter returns the interpreted code as an user readable message string.
 			
 			Notes:
 			(1) The array must contain at least 256 elements ViChar[256].
@@ -5886,13 +6409,13 @@ class TLPMX:
 		This function returns the revision numbers of the instrument driver and the device firmware.
 		
 		Args:
-			instrumentDriverRevision(create_string_buffer(1024)) : This parameter returns the Instrument Driver revision.
+			instrumentDriverRevision(create_string_buffer(1024) use with byref) : This parameter returns the Instrument Driver revision.
 			
 			Notes:
 			(1) The array must contain at least 256 elements ViChar[256].
 			(2) You may pass VI_NULL if you do not need this value.
 			
-			firmwareRevision(create_string_buffer(1024)) : This parameter returns the device firmware revision. 
+			firmwareRevision(create_string_buffer(1024) use with byref) : This parameter returns the device firmware revision. 
 			
 			Notes:
 			(1) The array must contain at least 256 elements ViChar[256].
@@ -5910,25 +6433,25 @@ class TLPMX:
 		This function returns the device identification information.
 		
 		Args:
-			manufacturerName(create_string_buffer(1024)) : This parameter returns the manufacturer name.
+			manufacturerName(create_string_buffer(1024) use with byref) : This parameter returns the manufacturer name.
 			
 			Notes:
 			(1) The array must contain at least 256 elements ViChar[256].
 			(2) You may pass VI_NULL if you do not need this value.
 			
-			deviceName(create_string_buffer(1024)) : This parameter returns the device name.
+			deviceName(create_string_buffer(1024) use with byref) : This parameter returns the device name.
 			
 			Notes:
 			(1) The array must contain at least 256 elements ViChar[256].
 			(2) You may pass VI_NULL if you do not need this value.
 			
-			serialNumber(create_string_buffer(1024)) : This parameter returns the device serial number.
+			serialNumber(create_string_buffer(1024) use with byref) : This parameter returns the device serial number.
 			
 			Notes:
 			(1) The array must contain at least 256 elements ViChar[256].
 			(2) You may pass VI_NULL if you do not need this value.
 			
-			firmwareRevision(create_string_buffer(1024)) : This parameter returns the device firmware revision.
+			firmwareRevision(create_string_buffer(1024) use with byref) : This parameter returns the device firmware revision.
 			
 			Notes:
 			(1) The array must contain at least 256 elements ViChar[256].
@@ -5947,7 +6470,7 @@ class TLPMX:
 		
 		
 		Args:
-			message(create_string_buffer(1024)) : This parameter returns the calibration message.
+			message(create_string_buffer(1024) use with byref) : This parameter returns the calibration message.
 			
 			Notes:
 			(1) The array must contain at least TLPM_BUFFER_SIZE (256) elements ViChar[256].
@@ -5968,7 +6491,7 @@ class TLPMX:
 		and by the PM103E as network hostname.
 		
 		Args:
-			name(create_string_buffer(1024)) : This parameter specifies the baudrate in bits/sec.
+			name(c_char_p) : This parameter specifies the baudrate in bits/sec.
 			
 		Returns:
 			int: The return value, 0 is for success
@@ -5984,11 +6507,27 @@ class TLPMX:
 		and by the PM103E as network hostname.
 		
 		Args:
-			name(create_string_buffer(1024))
+			name(create_string_buffer(1024) use with byref)
 		Returns:
 			int: The return value, 0 is for success
 		"""
 		pInvokeResult = self.dll.TLPMX_getDisplayName(self.devSession, name)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def isSensorConnected(self, isConnected, channel):
+		"""
+		This function checks if a light sensor is connected to the powermeter. 
+		
+		Args:
+			isConnected(c_int16 use with byref) : Flag set to true if light sensor is connected. False otherwise.
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_isSensorConnected(self.devSession, isConnected, channel)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
@@ -6007,9 +6546,10 @@ class TLPMX:
 
 	def getSensorInfo(self, name, snr, message, pType, pStype, pFlags, channel):
 		"""
-		This function is used to obtain informations from the connected sensor like sensor name, serial number, calibration message, sensor type, sensor subtype and sensor flags.  
+		This debrecated function is used to obtain informations from the connected sensor like sensor name, serial number, calibration message, sensor type, sensor subtype and sensor flags.  
 		
-		Remark:
+		Remarks:
+		This function is DEBRECATED. Use <Sensor Information Exteded> instead. 
 		The meanings of the obtained sensor type, subtype and flags are:
 		
 		Sensor Types:
@@ -6024,21 +6564,19 @@ class TLPMX:
 		Sensor Subtypes Photodiode:
 		 SENSOR_SUBTYPE_PD_ADAPTER      0x01 // Photodiode adapter
 		 SENSOR_SUBTYPE_PD_SINGLE_STD   0x02 // Photodiode sensor
-		 SENSOR_SUBTYPE_PD_SINGLE_FSR   0x03 // Photodiode sensor with 
-		                                        integrated filter
-		                                        identified by position 
-		 SENSOR_SUBTYPE_PD_SINGLE_STD_T 0x12 // Photodiode sensor with
-		                                        temperature sensor
+		 SENSOR_SUBTYPE_PD_SINGLE_FSR   0x03 // Photodiode sensor with integrated filter identified by position 
+		 SENSOR_SUBTYPE_PD_SINGLE_STD_T 0x12 // Photodiode sensor with temperature sensor
+		
 		Sensor Subtypes Thermopile:
 		 SENSOR_SUBTYPE_THERMO_ADAPTER  0x01 // Thermopile adapter
 		 SENSOR_SUBTYPE_THERMO_STD      0x02 // Thermopile sensor
-		 SENSOR_SUBTYPE_THERMO_STD_T    0x12 // Thermopile sensor with 
-		                                        temperature sensor
+		 SENSOR_SUBTYPE_THERMO_STD_T    0x12 // Thermopile sensor with temperature sensor
+		
 		Sensor Subtypes Pyroelectric Sensor:
 		 SENSOR_SUBTYPE_PYRO_ADAPTER    0x01 // Pyroelectric adapter
 		 SENSOR_SUBTYPE_PYRO_STD        0x02 // Pyroelectric sensor
-		 SENSOR_SUBTYPE_PYRO_STD_T      0x12 // Pyroelectric sensor with
-		                                        temperature sensor
+		 SENSOR_SUBTYPE_PYRO_STD_T      0x12 // Pyroelectric sensor with temperature sensor
+		
 		Sensor Flags:
 		 TLPM_SENS_FLAG_IS_POWER     0x0001 // Power sensor
 		 TLPM_SENS_FLAG_IS_ENERGY    0x0002 // Energy sensor
@@ -6048,10 +6586,10 @@ class TLPMX:
 		 TLPM_SENS_FLAG_HAS_TEMP     0x0100 // With Temperature sensor 
 		
 		Args:
-			name(create_string_buffer(1024)) : This parameter returns the name of the connected sensor.
+			name(create_string_buffer(1024) use with byref) : This parameter returns the name of the connected sensor. Provide at least buffer for 128 characters.
 			
-			snr(create_string_buffer(1024)) : This parameter returns the serial number of the connected sensor.
-			message(create_string_buffer(1024)) : This parameter returns the calibration message of the connected sensor.
+			snr(create_string_buffer(1024) use with byref) : This parameter returns the serial number of the connected sensor. Provide at least buffer for 128 characters.
+			message(create_string_buffer(1024) use with byref) : This parameter returns the calibration message of the connected sensor. Provide at least buffer for 128 characters.
 			
 			pType(c_int16 use with byref) : This parameter returns the sensor type of the connected sensor.
 			
@@ -6111,18 +6649,134 @@ class TLPMX:
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
+	def getSensorInfoExt(self, name, snr, message, pType, pStype, pFlags, channel):
+		"""
+		This function is used to obtain informations from the connected sensor like sensor name, serial number, calibration message, sensor type, sensor subtype and sensor flags.  
+		With this method you get more information about the sensor with the flags parameter.
+		It will work with the power meters PM103, PM103E, PM5020, PM60 Series with the newest firmware.
+		
+		Remark:
+		The meanings of the obtained sensor type, subtype and flags are:
+		
+		Sensor Types:
+		 SENSOR_TYPE_NONE               0x00 // No sensor
+		 SENSOR_TYPE_PD_SINGLE          0x01 // Photodiode sensor
+		 SENSOR_TYPE_THERMO             0x02 // Thermopile sensor
+		 SENSOR_TYPE_PYRO               0x03 // Pyroelectric sensor
+		
+		Sensor Subtypes:
+		 SENSOR_SUBTYPE_NONE            0x00 // No sensor
+		 
+		Sensor Subtypes Photodiode:
+		 SENSOR_SUBTYPE_PD_ADAPTER      0x01 // Photodiode adapter
+		 SENSOR_SUBTYPE_PD_SINGLE_STD   0x02 // Photodiode sensor
+		 SENSOR_SUBTYPE_PD_SINGLE_FSR   0x03 // Photodiode sensor with 
+		                                        integrated filter
+		                                        identified by position 
+		 SENSOR_SUBTYPE_PD_SINGLE_STD_T 0x12 // Photodiode sensor with
+		                                        temperature sensor
+		Sensor Subtypes Thermopile:
+		 SENSOR_SUBTYPE_THERMO_ADAPTER  0x01 // Thermopile adapter
+		 SENSOR_SUBTYPE_THERMO_STD      0x02 // Thermopile sensor
+		 SENSOR_SUBTYPE_THERMO_STD_T    0x12 // Thermopile sensor with 
+		                                        temperature sensor
+		Sensor Subtypes Pyroelectric Sensor:
+		 SENSOR_SUBTYPE_PYRO_ADAPTER    0x01 // Pyroelectric adapter
+		 SENSOR_SUBTYPE_PYRO_STD        0x02 // Pyroelectric sensor
+		 SENSOR_SUBTYPE_PYRO_STD_T      0x12 // Pyroelectric sensor with
+		                                        temperature sensor
+		Sensor Flags:
+		TLPM_SENS_XFLAG_AUTORANGE     0x0001 // can auto range
+		TLPM_SENS_XFLAG_IS_ADAPTER    0x0002 // is adapter
+		TLPM_SENS_XFLAG_ IS_WAVEL_SET 0x0004 // Energy sensor
+		TLPM_SENS_XFLAG_IS_RESP_SET   0x0008 // Wavelength settable
+		TLPM_SENS_XFLAG_IS_ACC_SET    0x0010 // can set acceleration
+		TLPM_SENS_XFLAG_IS_BW_SET     0x0020 // can set bandwidth
+		TLPM_SENS_XFLAG_DECT_PEAK     0x0040 // can detect peak
+		TLPM_SENS_XFLAG_MEAS_FREQ     0x0080 // can meas frequency 
+		TLPM_SENS_XFLAG_IS_ZERO_SET   0x0100 // can start zeroing
+		TLPM_SENS_XFLAG_IS_TAU_SET    0x0200 // can set tau
+		TLPM_SENS_XFLAG_MEAS_POS      0x0400 // can meas position x,y
+		TLPM_SENS_XFLAG_PHOTOMETRIC   0x0800 // can meas photometric
+		TLPM_SENS_XFLAG_HAS_TEMP      0x1000 // Temperature sensor included
+		
+		Args:
+			name(create_string_buffer(1024) use with byref) : This parameter returns the name of the connected sensor. Provide at least buffer for 128 characters.
+			snr(create_string_buffer(1024) use with byref) : This parameter returns the serial number of the connected sensor. Provide at least buffer for 128 characters.
+			message(create_string_buffer(1024) use with byref) : This parameter returns the calibration message of the connected sensor. Provide at least buffer for 128 characters.
+			
+			pType(c_int16 use with byref) : This parameter returns the sensor type of the connected sensor.
+			
+			Remark:
+			The meanings of the obtained sensor type are:
+			
+			Sensor Types:
+			 SENSOR_TYPE_NONE               0x00 // No sensor
+			 SENSOR_TYPE_PD_SINGLE          0x01 // Photodiode sensor
+			 SENSOR_TYPE_THERMO             0x02 // Thermopile sensor
+			 SENSOR_TYPE_PYRO               0x03 // Pyroelectric sensor
+			pStype(c_int16 use with byref) : This parameter returns the subtype of the connected sensor.
+			
+			Remark:
+			The meanings of the obtained sensor subtype are:
+			
+			Sensor Subtypes:
+			 SENSOR_SUBTYPE_NONE            0x00 // No sensor
+			 
+			Sensor Subtypes Photodiode:
+			 SENSOR_SUBTYPE_PD_ADAPTER      0x01 // Photodiode adapter
+			 SENSOR_SUBTYPE_PD_SINGLE_STD   0x02 // Photodiode sensor
+			 SENSOR_SUBTYPE_PD_SINGLE_FSR   0x03 // Photodiode sensor with 
+			                                        integrated filter
+			                                        identified by position 
+			 SENSOR_SUBTYPE_PD_SINGLE_STD_T 0x12 // Photodiode sensor with
+			                                        temperature sensor
+			Sensor Subtypes Thermopile:
+			 SENSOR_SUBTYPE_THERMO_ADAPTER  0x01 // Thermopile adapter
+			 SENSOR_SUBTYPE_THERMO_STD      0x02 // Thermopile sensor
+			 SENSOR_SUBTYPE_THERMO_STD_T    0x12 // Thermopile sensor with 
+			                                        temperature sensor
+			Sensor Subtypes Pyroelectric Sensor:
+			 SENSOR_SUBTYPE_PYRO_ADAPTER    0x01 // Pyroelectric adapter
+			 SENSOR_SUBTYPE_PYRO_STD        0x02 // Pyroelectric sensor
+			 SENSOR_SUBTYPE_PYRO_STD_T      0x12 // Pyroelectric sensor with
+			                                        temperature sensor
+			pFlags(c_int use with byref) : This parameter returns the flags of the connected sensor.
+			
+			Remark:
+			The meanings of the obtained sensor flags are:
+			
+			Sensor Flags:
+			TLPM_SENS_XFLAG_AUTORANGE     0x0001 // can auto range
+			TLPM_SENS_XFLAG_IS_ADAPTER    0x0002 // is adapter
+			TLPM_SENS_XFLAG_ IS_WAVEL_SET 0x0004 // Energy sensor
+			TLPM_SENS_XFLAG_IS_RESP_SET   0x0008 // Wavelength settable
+			TLPM_SENS_XFLAG_IS_ACC_SET    0x0010 // can set acceleration
+			TLPM_SENS_XFLAG_IS_BW_SET     0x0020 // can set bandwidth
+			TLPM_SENS_XFLAG_DECT_PEAK     0x0040 // can detect peak
+			TLPM_SENS_XFLAG_MEAS_FREQ     0x0080 // can meas frequency 
+			TLPM_SENS_XFLAG_IS_ZERO_SET   0x0100 // can start zeroing
+			TLPM_SENS_XFLAG_IS_TAU_SET    0x0200 // can set tau
+			TLPM_SENS_XFLAG_MEAS_POS      0x0400 // can meas position x,y
+			TLPM_SENS_XFLAG_PHOTOMETRIC   0x0800 // can meas photometric
+			TLPM_SENS_XFLAG_HAS_TEMP      0x1000 // Temperature sensor included
+			channel(c_uint16) : Number of the sensor channel. 
+			
+			Default: 1 for non multi channel devices
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_getSensorInfoExt(self.devSession, name, snr, message, pType, pStype, pFlags, channel)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
 	def importSettingsFromJson(self, adapt, settings):
 		"""
-		Use this function to import a previously stored parameter set again. The command will parse the JSON input and apply the parameter value. To export use the function exportSettingsAsJson. 
-		It is possible to import parameters within a sensor family. For example you might import parameters exported for a photodiode when another photodiode is currenlty connected. 
-		Use the adapt parameter to allow the command to change the parameters when out of range.
-		When adaption is not allowed or input data is invalid for any other reason a SCPI error is enqueued. Use SYST:ERR? to check if import was successful.
-		If JSON input string is longer than 240 chars the input data needs to be split into multiple calls of this command.The JSON fragment data is buffered and reassembled in the device memory.
-		Once all data is transmited(detected by curly bracket counting) it gets parsed and executed.You can obmit any buffered input data by sending magic character #.
+		Use this function to import a previously stored parameter set again. The command will parse the JSON input and apply the parameter value. To export use the function :func:`exportSettingsAsJson`. It is possible to import parameters within a sensor family. For example you might import parameters exported for a photodiode when another photodiode is currenlty connected. Use the <Adapt> parameter to allow the command to change the parameters when out of range.
 		
 		Args:
 			adapt(c_int16) : true to adapt parameters to ranges. False to generate error when out of range. 
-			settings(create_string_buffer(1024)) :  device parameters as single line JSON format string. May be a substring of json line if larger 240 chars.
+			settings(c_char_p) :  device parameters as single line JSON format string. May be a substring of json line if larger 240 chars.
 			
 		Returns:
 			int: The return value, 0 is for success
@@ -6133,12 +6787,11 @@ class TLPMX:
 
 	def exportSettingsAsJson(self, settings, settingsSize):
 		"""
-		Use this command to export the persistently stored device parameters as single line JSON string.
-		Some parameters like zeroing are not exported as the value is not valid for future imports. Use importSettingsFromJson to import the parameter set again.
+		Use this command to export the persistently stored device parameters as single line JSON string. Some parameters like zeroing are not exported as the value is not valid for future imports. Use :func:`importSettingsFromJson` to import the parameter set again.
 		
 		
 		Args:
-			settings(create_string_buffer(1024)) : Device parameters as single line JSON string 
+			settings(create_string_buffer(1024) use with byref) : Device parameters as single line JSON string 
 			settingsSize(c_uint32) : Size of buffer used to get the parameters
 		Returns:
 			int: The return value, 0 is for success
@@ -6149,7 +6802,7 @@ class TLPMX:
 
 	def writeRaw(self, command):
 		"""
-		This function writes directly to the instrument.
+		This function writes SCPI commands directly to the instrument.
 		
 		Args:
 			command(c_char_p) : Null terminated command string to send to the instrument.
@@ -6167,7 +6820,7 @@ class TLPMX:
 		
 		
 		Args:
-			buffer(create_string_buffer(1024)) : Byte buffer that receives the data read from the instrument.
+			buffer(create_string_buffer(1024) use with byref) : Byte buffer that receives the data read from the instrument.
 			
 			Notes:
 			(1) If received data is less than buffer size, the buffer is additionaly terminated with a '' character.
@@ -6217,13 +6870,10 @@ class TLPMX:
 
 	def setIPAddress(self, IPAddress):
 		"""
-		Tell the instrument which ip address the device has to commuicate with.
-		This value is stored inside the instrument. 
-		
-		
+		Updates the IPv5 address the device has to commuicate with. If DHCP is enabled the function simply updates the static IPv4 netmask without applying configuration to the network interface. If DHCP is disabled, the command also applies configuration to the network interface. The configuration is stored in the device memory and restored after reboot.
 		
 		Args:
-			IPAddress(create_string_buffer(1024)) : This parameter specifies the baudrate in bits/sec.
+			IPAddress(c_char_p) : IPv4 address string. Bytes separated by fullstop.
 			
 		Returns:
 			int: The return value, 0 is for success
@@ -6234,13 +6884,10 @@ class TLPMX:
 
 	def getIPAddress(self, IPAddress):
 		"""
-		Tell the instrument which ip address the device has to commuicate with.
-		This value is stored inside the instrument. 
-		
-		
+		Use this command to query IPv4 address of device. If DHCP is enabled and no IP has been assigned yet the result might be "0.0.0.0". If DHCP is disabled the static IPv4 netmask will be returned.
 		
 		Args:
-			IPAddress(create_string_buffer(1024)) : This parameter specifies the baudrate in bits/sec.
+			IPAddress(create_string_buffer(1024) use with byref) : IPv4 address gateway string. Bytes separated by fullstop.
 			
 		Returns:
 			int: The return value, 0 is for success
@@ -6251,12 +6898,10 @@ class TLPMX:
 
 	def setIPMask(self, IPMask):
 		"""
-		Use this command to change IPv4 netmask of device. If DHCP is enabled the function simply updates the static IPv4 netmask without applying configuration to the network interface. If DHCP is disabled the command also applies configuration to the network interface.
-		
-		
+		Use this command to change IPv4 netmask of device. If DHCP is enabled the function simply updates the static IPv4 netmask without applying configuration to the network interface. If DHCP is disabled the command also applies configuration to the network interface. The configuration is stored in the device memory and restored after reboot.
 		
 		Args:
-			IPMask(create_string_buffer(1024)) : Pv4 netmask string. Bytes separated by fullstop.
+			IPMask(c_char_p) : IPv4 netmask string. Bytes separated by fullstop.
 			
 		Returns:
 			int: The return value, 0 is for success
@@ -6272,7 +6917,7 @@ class TLPMX:
 		
 		
 		Args:
-			IPMask(create_string_buffer(1024)) : IPv4 netmask string. Bytes separated by fullstop.
+			IPMask(create_string_buffer(1024) use with byref) : IPv4 netmask string. Bytes separated by fullstop.
 			
 		Returns:
 			int: The return value, 0 is for success
@@ -6283,13 +6928,10 @@ class TLPMX:
 
 	def getMACAddress(self, MACAddress):
 		"""
-		Tell the instrument which ip address the device has to commuicate with.
-		This value is stored inside the instrument. 
-		
-		
+		Returns the MAC address of the powermeter ethernet adapter.
 		
 		Args:
-			MACAddress(create_string_buffer(1024)) : This parameter specifies the baudrate in bits/sec.
+			MACAddress(create_string_buffer(1024) use with byref) : This parameter specifies the baudrate in bits/sec.
 			
 		Returns:
 			int: The return value, 0 is for success
@@ -6298,50 +6940,78 @@ class TLPMX:
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
-	def setDHCP(self, DHCP):
+	def setDHCP(self, enabled):
 		"""
-		Tell the instrument which ip address the device has to commuicate with.
-		This value is stored inside the instrument. 
-		
-		
+		Enables or disables the DHCP client on the device. When enabled the IP address is assigned at runtime by any Dynamic Host Configuration Protocol (DHCP) Server in LAN. When DHCP is disabled the static IP configuration is used. The configuration is stored in the device memory and restored after reboot.
 		
 		Args:
-			DHCP(create_string_buffer(1024)) : This parameter specifies the baudrate in bits/sec.
-			
+			enabled(c_int16) : This parameter accepts the instrument handle returned by <Initialize> to select the desired instrument driver session.
 		Returns:
 			int: The return value, 0 is for success
 		"""
-		pInvokeResult = self.dll.TLPMX_setDHCP(self.devSession, DHCP)
+		pInvokeResult = self.dll.TLPMX_setDHCP(self.devSession, enabled)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
-	def getDHCP(self, DHCP):
+	def getDHCP(self, enabled):
 		"""
-		Tell the instrument which ip address the device has to commuicate with.
-		This value is stored inside the instrument. 
-		
-		
+		Checks the DHCP client on the device is enabled or disabled. When enabled the IP address is assigned at runtime by any Dynamic Host Configuration Protocol (DHCP) Server in LAN. When DHCP is disabled the static IP configuration is used. 
 		
 		Args:
-			DHCP(create_string_buffer(1024)) : This parameter specifies the baudrate in bits/sec.
+			enabled(c_int16 use with byref) : True when DHCP is enabled. False for static IP configuration. 
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_getDHCP(self.devSession, enabled)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def setGateway(self, Gateway):
+		"""
+		Use this method to change IPv4 gateway of device. If DHCP is enabled the function simply updates the static IPv4 gateway without applying configuration to the network interface. If DHCP is disabled the command also applies configuration to the network interface. You can use 0.0.0.0 if gateway is not required.
+		The configuration is stored in the device memory and restored after reboot.
+		
+		Args:
+			Gateway(c_char_p) : IPv4 address gateway string. Bytes separated by fullstop.
 			
 		Returns:
 			int: The return value, 0 is for success
 		"""
-		pInvokeResult = self.dll.TLPMX_getDHCP(self.devSession, DHCP)
+		pInvokeResult = self.dll.TLPMX_setGateway(self.devSession, Gateway)
+		self.__testForError(pInvokeResult)
+		return pInvokeResult
+
+	def getGateway(self, Gateway):
+		"""
+		Use this method to query IPv4 gateway of device. If DHCP is enabled and no IP has been assigned yet the result might be "0.0.0.0". If DHCP is disabled the static IPv4 gateway will be returned. 
+		
+		
+		
+		Args:
+			Gateway(create_string_buffer(1024) use with byref) : IPv4 address gateway string. Bytes separated by fullstop.
+			
+		Returns:
+			int: The return value, 0 is for success
+		"""
+		pInvokeResult = self.dll.TLPMX_getGateway(self.devSession, Gateway)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
 	def setHostname(self, hostname):
 		"""
-		Tell the instrument which ip address the device has to commuicate with.
-		This value is stored inside the instrument. 
+		Changes the hostname for the device. The hostname can be used to customize the device name. It is displayed during boot to identify device if powermeter features a display. It may also be used in network as alias for IP address. This feature requires NetBIOS protocol to be enabled in LAN.  The configuration is stored in the device memory and restored after reboot. 
 		
+		Be aware not all characters are allowed in hostname string. DO NOT USE "space, slash, backslash, colon, semicolon, question mark, asterisk, smaller, bigger, pipe".
 		
+		Remark
+		(1) Available for PM400, PM103E, PM5020, PM100Dx
 		
 		Args:
-			hostname(create_string_buffer(1024)) : This parameter specifies the baudrate in bits/sec.
+			hostname(c_char_p) : Hostname for the device. Changes the hostname for the device. The hostname can be used to customize the device name.
+			DO NOT USE "space, slash, backslash, colon, semicolon, question mark, asterisk, smaller, bigger, pipe".
 			
+			Remark
+			(1) Available for PM400, PM103E, PM5020, PM100Dx
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -6351,14 +7021,13 @@ class TLPMX:
 
 	def getHostname(self, hostname):
 		"""
-		Tell the instrument which ip address the device has to commuicate with.
-		This value is stored inside the instrument. 
+		Reads the hostname for the device. It is displayed during boot to identify device if powermeter features a display. It may also be used in networks as alias for IP address. This feature requires NetBIOS protocol to be enabled in LAN.
 		
-		
+		Remark
+		(1) Available for PM400, PM103E, PM5020, PM100Dx
 		
 		Args:
-			hostname(create_string_buffer(1024)) : This parameter specifies the baudrate in bits/sec.
-			
+			hostname(create_string_buffer(1024) use with byref) : Queries device hostname. Used as device alias name and for ethernet devices as NETBIOS network hostname. 
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -6368,14 +7037,13 @@ class TLPMX:
 
 	def setWebPort(self, port):
 		"""
-		Tell the instrument which ip address the device has to commuicate with.
-		This value is stored inside the instrument. 
+		Changes the ethernet port number of the Web - Server. Set port number to 0 to disable the service. Once the port number is changed a reboot of the device is mandatory to apply new server settings.  The configuration is stored in the device memory and restored after reboot.
 		
-		
+		Remark
+		(1) Available on PM5020, PM103E
 		
 		Args:
-			port(c_uint32) : This parameter specifies the baudrate in bits/sec.
-			
+			port(c_uint32) : new Web-Server port number. 0 to disable service. Default it 80.
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -6385,14 +7053,13 @@ class TLPMX:
 
 	def getWebPort(self, port):
 		"""
-		Tell the instrument which ip address the device has to commuicate with.
-		This value is stored inside the instrument. 
+		Reads the ethernet port number of the Web - Server.
 		
-		
+		Remark
+		(1) Available on PM5020, PM103E
 		
 		Args:
-			port(c_uint32 use with byref) : This parameter specifies the baudrate in bits/sec.
-			
+			port(c_uint32 use with byref) : Web - Server port number. 0 if service is disabled. Default is 80.
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -6402,14 +7069,13 @@ class TLPMX:
 
 	def setSCPIPort(self, port):
 		"""
-		Tell the instrument which ip address the device has to commuicate with.
-		This value is stored inside the instrument. 
+		Changes the ethernet port number of the SCPI - Server. Set port number to 0 to disable the service. Once the port number is changed a reboot of the device is mandatory to apply new server settings.  The configuration is stored in the device memory and restored after reboot.
 		
-		
+		Remark
+		(1) Available on PM5020, PM103E
 		
 		Args:
-			port(c_uint32) : This parameter specifies the baudrate in bits/sec.
-			
+			port(c_uint32) : New port number. 0 to disable service. Default it 2001
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -6419,14 +7085,13 @@ class TLPMX:
 
 	def getSCPIPort(self, port):
 		"""
-		Tell the instrument which ip address the device has to commuicate with.
-		This value is stored inside the instrument. 
+		Reads the ethernet port number of the SCPI - Server. When 0 service is disabled.
 		
-		
+		Remark
+		(1) Available on PM5020, PM103E
 		
 		Args:
-			port(c_uint32 use with byref) : This parameter specifies the baudrate in bits/sec.
-			
+			port(c_uint32 use with byref) : SCPI Server port number. 0 if service is disabled. Default is 2000.
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -6436,14 +7101,13 @@ class TLPMX:
 
 	def setDFUPort(self, port):
 		"""
-		Tell the instrument which ip address the device has to commuicate with.
-		This value is stored inside the instrument. 
+		Changes the ethernet port number of the Device Firmware Update (DFU) - Server. Set port number to 0 to disable the service. Once the port number is changed a reboot of the device is mandatory to apply new server settings. The configuration is stored in the device memory and restored after reboot.
 		
-		
+		Remark
+		(1) Available on PM5020, PM103E
 		
 		Args:
-			port(c_uint32) : This parameter specifies the baudrate in bits/sec.
-			
+			port(c_uint32) : new port number. 0 to disable service. Default it 27007
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -6453,14 +7117,13 @@ class TLPMX:
 
 	def getDFUPort(self, port):
 		"""
-		Tell the instrument which ip address the device has to commuicate with.
-		This value is stored inside the instrument. 
+		Reads the ethernet port number of the Device Firmware Update (DFU) - Server. When 0 service is disabed. 
 		
-		
+		Remark
+		(1) Available on PM5020, PM103E
 		
 		Args:
-			port(c_uint32 use with byref) : This parameter specifies the baudrate in bits/sec.
-			
+			port(c_uint32 use with byref) : DFU Server port number. 0 if service is disabled. Default is 27007.
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -6470,8 +7133,10 @@ class TLPMX:
 
 	def setEncryption(self, oldPassword, newPassword, encryption):
 		"""
-		Overwrites the system password used for authentication, Default password ist THORlabs
+		Overwrites the system password used for authentication, Default password ist THORlabs. If changing the password via ethernet ensure to reinit communication channel after this command. The configuration is stored in the device memory and restored after reboot.
 		
+		Remarks:
+		(1) Available on PM5020, PM103E
 		
 		
 		Args:
@@ -6479,7 +7144,7 @@ class TLPMX:
 			
 			newPassword(c_char_p) : new ASCII passwort string. Max length is 25. Min length is 5
 			
-			encryption(c_int16) : True if SCPI LAN interface should be crypted
+			encryption(c_int16) : True if SCPI LAN interface should be crypted.
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -6489,11 +7154,14 @@ class TLPMX:
 
 	def getEncryption(self, password, encryption):
 		"""
-		Queries password used for authentication. Default password ist THORlabs. Only supported by local serial interface.
+		Queries password used for authentication. Default password ist THORlabs. Only supported by local interface like USB or serial.
+		
+		Remarks:
+		(1) Available on PM5020, PM103E
 		
 		
 		Args:
-			password(create_string_buffer(1024)) : used password
+			password(create_string_buffer(1024) use with byref) : used password
 			
 			encryption(c_int16 use with byref) : True if SCPI LAN interface should be crypted
 		Returns:
@@ -6505,12 +7173,13 @@ class TLPMX:
 
 	def setLANPropagation(self, enable):
 		"""
-		Use this command to enable/disable LAN service propagation via UDP broadcast on port 270378. The broadcast is send as heatbeat every 800ms.
+		Use this command to enable or disable LAN service propagation server. If the server is disabled the device will not be found by ethernet network device discovery. The device discovery is based on UDP broadcast on port 27078. The configuration is stored in the device memory and restored after reboot.
 		
-		
+		Remarks:
+		(1) Available on PM103E, PM5020
 		
 		Args:
-			enable(c_int16) : 1 to enable service propagation. False to disable
+			enable(c_int16) : True to enable service propagation server. False to stop and disable the server.
 			
 		Returns:
 			int: The return value, 0 is for success
@@ -6521,9 +7190,10 @@ class TLPMX:
 
 	def getLANPropagation(self, enable):
 		"""
-		Use this command to test if LAN service propagation via UDP broadcast on port 270378 is active. The broadcast is send as heatbeat every 800ms.
+		Use this command to test if LAN service propagation is enabled. When enabled a UDP server listens on port 27078 to answer ethernet network disocvery requests. When disbaled the device can not be found by the network device search. 
 		
-		
+		Remarks:
+		(1) Available on PM103E, PM5020
 		
 		Args:
 			enable(c_int16 use with byref) : 1 to enable service propagation. False to disable
@@ -6537,13 +7207,14 @@ class TLPMX:
 
 	def setEnableNetSearch(self, enable):
 		"""
-		Enables the ethernet devices search for the actual instance.
+		Enables searching for Ethernet devices on the current instance. To accelerate the device discovery process, Ethernet scanning is disabled by default. To include devices connected via Ethernet in the search results, invoke this setter prior to initiating the connected devices scan.
+		The configuration is not stored and needs to be set for every new device search.
 		
-		
-		
+		Remarks:
+		(1) Particularly useful for PM103E and PM5020 devices.
 		
 		Args:
-			enable(c_int16)
+			enable(c_int16) : True to enable the ethnet network search. False to disable searching for ethernet devices on local LAN to speed up the search routine. 
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -6553,12 +7224,13 @@ class TLPMX:
 
 	def getEnableNetSearch(self, enable):
 		"""
-		Disables the ethernet devices search for the actual instance.
+		Tests if the ethernet devices search for the actual instance is enabled or disabled. Ethernet searching is disabled by default to speed up search routine. When enabled the device search routine will also search the local LAN.
 		
-		
+		Remarks:
+		(1) Useful for PM103E and PM5020
 		
 		Args:
-			enable(c_int16 use with byref)
+			enable(c_int16 use with byref) : True if ethnet network search is enabled. False if searching for ethernet devices on local LAN is disabled to speed up the search routine. 
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -6602,13 +7274,13 @@ class TLPMX:
 
 	def setNetSearchMask(self, netMask):
 		"""
-		Sets the default network mask for search ethernet devices on the computer.
+		Sets the default network mask for searching Ethernet devices on the computer. If the local PC has multiple networks, call this function prior to the network search to specify the network used for device discovery. Configure the network broadcast address for the network to which the power meters are connected. For example, on a subnet with IP addresses in the range 192.168.1.0/24, the broadcast address would typically be 192.168.1.255. If this command is not invoked before the search command, the local operating system decides where to send the broadcast messages. The configuration is not stored and needs to be set for every new device search.
 		
-		
+		Remarks:
+		(1) Particulary useful for PM103E and PM5020 devices
 		
 		Args:
-			netMask(c_char_p) : The default net mask on the computer for network search.
-			
+			netMask(c_char_p) : Network broadcast address used for the device search.
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -6618,13 +7290,14 @@ class TLPMX:
 
 	def setEnableBthSearch(self, enable):
 		"""
-		Enables the bluetooth devices search for the actual instance.
+		Enables searching for Ethernet devices on the current instance. To accelerate the device discovery process, Bluetooth Low Energy (BLE) scanning is disabled by default. To include devices connected via BLE in the search results, invoke this setter prior to initiating the connected devices scan. 
+		The configuration is not stored and needs to be set for every new device search.
 		
-		
-		
+		Remarks:
+		(1) Particularly useful for PM61 and PM100D3 devices.
 		
 		Args:
-			enable(c_int16)
+			enable(c_int16) : 1 to enable the Bluetooth search during device discovery. 0 to exclude Bluetooth device discovery. 
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -6634,12 +7307,13 @@ class TLPMX:
 
 	def getEnableBthSearch(self, enable):
 		"""
-		Disables the bluetooth devices search for the actual instance.
+		Tests if searching for Ethernet devices is enabled or disabled on the current instance. To accelerate the device discovery process, Bluetooth Low Energy (BLE) scanning is disabled by default. 
 		
-		
+		Remarks:
+		(1) Particularly useful for PM61 and PM100D3 devices.
 		
 		Args:
-			enable(c_int16 use with byref)
+			enable(c_int16 use with byref) : True(1) when BLE device search is enabled for current instance. False(0) when BLE device search is excluded from search routine.
 		Returns:
 			int: The return value, 0 is for success
 		"""
@@ -6649,13 +7323,16 @@ class TLPMX:
 
 	def setDeviceBaudrate(self, baudrate):
 		"""
-		Tell the instrument which baudrate has to be used for the serial communication.
-		This value is stored inside the instrument. 
+		Configures the baudrate of the device serial interface. To configure the baudrate of the instrument driver (PC) call function :func:`setDriverBaudrate`. The new baudrate is stored in the device memory and restored after reboot.
 		
-		If the RS232 interface is currently used for the communication, call the function setDriverBaudrate to adapt to the new baudrate.
+		Default Serial Configuration: 115200 8N1
+		
+		Remarks:
+		(1) It is mandatory that device baudrate configuration matches the instrument driver (PC) one. 
+		(2) Requires a serial interface on the connected powermeter
 		
 		Args:
-			baudrate(c_uint32) : This parameter specifies the baudrate in bits/sec.
+			baudrate(c_uint32) : Device serial interface baudrate in Baud.
 			
 		Returns:
 			int: The return value, 0 is for success
@@ -6666,11 +7343,15 @@ class TLPMX:
 
 	def getDeviceBaudrate(self, baudrate):
 		"""
-		This function returns the baudrate that is used for the serial communication inside the instrument
+		Reads the baudrate used by the device for the serial interface. To read the baudrate used by the instrument driver (PC) use :func:`getDriverBaudrate` function.
 		
+		Default Serial Configuration: 115200 8N1
+		
+		Remarks:
+		(2) Requires a serial interface (RS232 or UART) on the connected powermeter
 		
 		Args:
-			baudrate(c_uint32 use with byref) : This parameter returns the baudrate in bist/sec.
+			baudrate(c_uint32 use with byref) : Device serial interface baudrate in Baud.
 			
 		Returns:
 			int: The return value, 0 is for success
@@ -6681,10 +7362,15 @@ class TLPMX:
 
 	def setDriverBaudrate(self, baudrate):
 		"""
-		This function sets the baudrate for the serial interface on the PC side
+		Sets the baud rate for the serial interface on the PC side. This does not affect the device itself. Call setDeviceBaudrate prior to this function. The baud rate configuration is not stored persistently and must be reconfigured before opening a connection to the device.
+		
+		Default Serial Configuration: 115200 8N1
+		
+		Remarks:
+		(1) It is mandatory that device baudrate configuration matches the instrument driver (PC) one. 
 		
 		Args:
-			baudrate(c_uint32) : This parameter specifies the baudrate in bits/sec.
+			baudrate(c_uint32) : Device driver (PC) serial interface baudrate in Baud.
 			
 		Returns:
 			int: The return value, 0 is for success
@@ -6695,120 +7381,16 @@ class TLPMX:
 
 	def getDriverBaudrate(self, baudrate):
 		"""
-		This function returns the baudrate that is used for the serial communication on the PC side
+		This function returns the baudrate that is used for the serial communication on the PC side. To query the baudrate of the device use :func:`getDeviceBaudrate` function. 
 		
 		
 		Args:
-			baudrate(c_uint32 use with byref) : This parameter returns the baudrate in bist/sec.
+			baudrate(c_uint32 use with byref) : Device driver (PC) baudrate in Baud
 			
 		Returns:
 			int: The return value, 0 is for success
 		"""
 		pInvokeResult = self.dll.TLPMX_getDriverBaudrate(self.devSession, baudrate)
-		self.__testForError(pInvokeResult)
-		return pInvokeResult
-
-	def listDirectory(self, path, offset):
-		"""
-		Browses flash file system content
-		
-		Notes:
-		(1) The function is only available on PM6x.
-		
-		
-		Args:
-			path(c_char_p) : path of folder to list. Has to end with wildcard.
-			offset(c_uint32) :  offset to list content. 0 for start.
-		Returns:
-			int: The return value, 0 is for success
-		"""
-		pInvokeResult = self.dll.TLPMX_listDirectory(self.devSession, path, offset)
-		self.__testForError(pInvokeResult)
-		return pInvokeResult
-
-	def fileOpen(self, path):
-		"""
-		Openes a file from flash file system for reading
-		
-		Notes:
-		(1) The function is only available on PM6x.
-		
-		
-		Args:
-			path(c_char_p) :  path of file to open
-		Returns:
-			int: The return value, 0 is for success
-		"""
-		pInvokeResult = self.dll.TLPMX_fileOpen(self.devSession, path)
-		self.__testForError(pInvokeResult)
-		return pInvokeResult
-
-	def fileRead(self, offset, length, asHex):
-		"""
-		Reads block out of flash file system file
-		
-		Notes:
-		(1) The function is only available on PM6x.
-		
-		
-		Args:
-			offset(c_uint32) : offset in file where to start reading. 0 for start.
-			length(c_uint32)
-			asHex(c_int16) :  Optional! 1 to return file content as hex string. Use 0 for binary files. Use 1 for text files (Default)
-		Returns:
-			int: The return value, 0 is for success
-		"""
-		pInvokeResult = self.dll.TLPMX_fileRead(self.devSession, offset, length, asHex)
-		self.__testForError(pInvokeResult)
-		return pInvokeResult
-
-	def fileClose(self):
-		"""
-		Call this method initially to open a file from device flash memory for reading via remote interface. It is the first command of the sequence SYST:FILE:OPEN?, SYST:FILE:READ? and SYST:FILE:CLOSE. Only one file can be opened for reading at the same time. If the memory is currely mounted to USB interface this method will result in an error.Binary and text files can be opened for reading.
-		
-		Notes:
-		(1) The function is only available on PM6x.
-		
-		Returns:
-			int: The return value, 0 is for success
-		"""
-		pInvokeResult = self.dll.TLPMX_fileClose(self.devSession)
-		self.__testForError(pInvokeResult)
-		return pInvokeResult
-
-	def deviceParamsImport(self, adapt, JSONData):
-		"""
-		Use this command to import a previously stored parameter set again. The command will parse the JSON input and apply the parameter value. To export parameter set use SYST:PARA:EXPO:JSON?. It is possible to import parameters within a sensor family. For example you might import parameters exported for a photodiode when another photodiode is currenlty connected. Use the adapt parameter to allow the command to change the parameters when out of range. When adaption is not allowed or input data is invalid for any other reason a SCPI error is enqueued. Use SYST:ERR? to check if import was successful.
-		If JSON input string is longer than 240 chars the input data needs to be split into multiple calls of this command. The JSON fragment data is buffered and reassembled in the device memory. Once all data is transmited (detected by curly bracket counting) it gets parsed and executed. You can obmit any buffered input data by sending magic character #. 
-		
-		Notes:
-		(1) The function is only available on PM6x, PM103, PM5020.
-		
-		
-		Args:
-			adapt(c_int16) : true to adapt parameters to ranges. False to generate error when out of range.
-			JSONData(c_char_p) :  device parameters as single line JSON format string. May be a substring of json line if larger 240 chars.
-		Returns:
-			int: The return value, 0 is for success
-		"""
-		pInvokeResult = self.dll.TLPMX_deviceParamsImport(self.devSession, adapt, JSONData)
-		self.__testForError(pInvokeResult)
-		return pInvokeResult
-
-	def deviceParamsExport(self, JSONData):
-		"""
-		Use this command to export the persistently stored device parameters as single line JSON string. Some parameters like zeroing are not exported as the value is not valid for future imports. Use SYST:PARA:IMPO:JSON to import the parameter set again.
-		
-		Notes:
-		(1) The function is only available on PM6x, PM103, PM5020.
-		
-		
-		Args:
-			JSONData(create_string_buffer(1024)) : device parameters as single line JSON string.
-		Returns:
-			int: The return value, 0 is for success
-		"""
-		pInvokeResult = self.dll.TLPMX_deviceParamsExport(self.devSession, JSONData)
 		self.__testForError(pInvokeResult)
 		return pInvokeResult
 
