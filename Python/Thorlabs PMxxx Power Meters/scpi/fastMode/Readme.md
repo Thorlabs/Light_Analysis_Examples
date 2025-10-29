@@ -1,6 +1,10 @@
 # Fast Mode Example
 This command line sample demonstrates how to query fast measurement stream of Thorlabs Power Meter. 
 Fast mode allows to fetch all measurement results of the meter as constant data stream. 
+### fastMode.py
+This example uses the anyvisa library.
+### fastMode_pyvisa.py
+This example uses the Pyvisa library. Switch driver to VISA.
 
 # Details 
 
@@ -21,7 +25,7 @@ serial interface to query fast measurement data. Also slow network connections c
 loss of data. 
 
 ## anyvisa python Library
-You can download anyvisa library wheel in this Github repository. Please refer to this [README](TODO) how to install it. 
+You can download anyvisa library wheel in this Github repository. 
 
 ## Supported Meters
 - PM103

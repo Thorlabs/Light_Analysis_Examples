@@ -331,10 +331,10 @@ div.scpiLongSpacer {
             var cls = 'jsonNumber';
             if (/^"/.test(match)) 
             {
-                if (/:$/.test(match)) 
+                if (/$/.test(match)) 
                 {
                     cls = 'jsonKey';
-                }
+                
                 else
                 {
                     cls = 'jsonString';
@@ -509,7 +509,7 @@ div.scpiLongSpacer {
   </div>
   <div class="pageBody">
     <div id="SCPI_Desc">
-      <div class="verInfo">V 1.0.1.3 generated 05 Apr 2024, 16:22:51</div>
+      <div class="verInfo">V 1.1.1.9 generated 25 Aug 2025, 15:21:26</div>
       <p>This is the description of the <a target="_blank" href="https://www.thorlabs.com/">Thorlabs</a> PM102 remote interface. This single channel industrial Power meter can be remotely controlled using the SCPI (Standard Commands for Programmable Instruments) interface.</p>
       <p>In 1975, the IEEE standardized a bus developed by Hewlett-Packard originally called HPIB (Hewlett-Packard Interface Bus), later changed to GPIB (General Purpose Interface Bus). 
         The standard was called IEEE 488 (IEEE 488.1) and it defined mechanical aspects of the bus. The later IEEE 488.2 defined its protocol properties. What was missing were set of 

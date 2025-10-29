@@ -1,9 +1,9 @@
 """
 Example Title: PMxxx using ctypes - Python 3.py
 Example Date of Creation(YYYY-MM-DD): 2023-02-07
-Example Date of Last Modification on Github: 2023-02-07
-Version of Python used for Testing and IDE: 3.10.0
-Version of the Thorlabs SDK used: Thorlabs Optical Power Meter Version 6.0
+Example Date of Last Modification on Github: 2025-10-20
+Version of Python used for Testing and IDE: 3.10.0, 3.13
+Version of the Thorlabs SDK used: Thorlabs Optical Power Meter Version 6.0, 7.0
 ==================
 Example Description: It connects to the power meter, makes the necessary settings and then reads and displays power values.
 """

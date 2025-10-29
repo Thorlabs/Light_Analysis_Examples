@@ -1,9 +1,9 @@
 """
 Example Thorlabs Power Meter JSON parameter export and import
 Example Date of Creation                            2024-04-08
-Example Date of Last Modification on Github         2024-04-08
-Version of Python                                   3.11.2
-Version of the Thorlabs SDK used                    anyvisa0.3.0
+Example Date of Last Modification on Github         2025-10-20
+Version of Python                                   3.11.2,3.13
+Version of the Thorlabs SDK used                    anyvisa 0.3.0, 0.3.3
 ==================
 This examples shows how to export all runtime parameters of the Thorlabs Power Meter in JSON
 format. After export the parameter set can be imported to the meter at any time again. 

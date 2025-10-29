@@ -1,8 +1,8 @@
 # Title: PM103E_ctypes_connectwithIP.py
 # Created Date: 2024-10-15
-# Last modified date: 2024-10-15
-# Python Version: 3.11
-# Thorlabs DLL version: Optical Power Monitor 6.2
+# Last modified date: 2025-10-25
+# Python Version: 3.11,3.13
+# Thorlabs DLL version: Optical Power Monitor 6.2, 7.0
 # Uses the Thorlabs TLPMX_64.dll in order to communicate with the power meters and shows how to connect PM103E using the IP of the powermeter
 
 from ctypes import *
