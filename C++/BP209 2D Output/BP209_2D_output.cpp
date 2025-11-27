@@ -1,7 +1,8 @@
-//Example Date of Creation(YYYY - MM - DD) 2024 - 04 - 24
-//Example Date of Last Modification on Github 2024 - 04 - 24
+﻿//Example Date of Creation(YYYY - MM - DD) 2024 - 04 - 24
+//Example Date of Last Modification on Github 2025 - 11 - 05
 //Version of C++ used for Testing and IDE: C++ 14, Visual Studio 2022
-//Version of the Thorlabs SDK used : Beam version 9.1.5787.560
+//Version of OpenCV: OpenCV 4.12.0
+//Version of the Thorlabs SDK used : Beam version 9.3
 //Example Description: The sample code shows how to control a BP209 beam profiler in C++. 
 //In the example the available beam profilers are found, a connection is established, several parameters are set, 
 //several output values are displayed and a 2D image is shown.
@@ -18,7 +19,7 @@ using namespace cv;
 // forward declaration
 void print_error_msg(ViStatus err);
 void Beam_Profile_Reconstruction();
-ViSession m_instrumentHandle;
+ViSession m_instrumentHandle = 0;
 
 //set the measured laser wavelengh unit: nm
 double wavelength = 633; 
@@ -55,50 +56,74 @@ int main(int argc, char* argv)
 		return 0;
 	}
 
+	ViChar modelName[256];
+	ViChar serialNo[256];
+	ViChar manufacturer[256];
+	ViBoolean isAvailable;
+	res = TLBP2_getRsrcInfo(0, 0, modelName, serialNo, manufacturer, &isAvailable);
+
 	// connect with the first device
 	res = TLBP2_init(resStr[0].resourceString, VI_TRUE, VI_TRUE, &m_instrumentHandle);
-	if ((res & _VI_ERROR) > 0)
+	if (res != VI_SUCCESS)
 	{
 		print_error_msg(res);
 		return 0;
 	}
-	char serialNo[128];
-	res = TLBP2_get_serial_number(m_instrumentHandle, serialNo);
-	printf("%s is connected. \n", serialNo);
+	
+	if (isAvailable)
+	{
+		printf("%s (SN: %s) is connected. \n", modelName, serialNo);
+	}
+	else
+	{
+		printf("%s (SN: %s) is not available.\n", modelName, serialNo);
+		// release the device
+		TLBP2_close(m_instrumentHandle);
+		return 0;
+	}
+	
 
 	// release the buffer for the resource strings
 	delete[] resStr;
 	
 	//set auto gain
 	res = TLBP2_set_auto_gain(m_instrumentHandle, VI_TRUE);
-	if ((res & _VI_ERROR) > 0)
+	if (res != VI_SUCCESS)
 	{
 		print_error_msg(res);
+		// release the device
+		TLBP2_close(m_instrumentHandle);
 		return 0;
 	}
 
 	//set bandwidth
 	ViReal64 bw_buffer[4] = { 125,125,125,125 };
 	res = TLBP2_set_bandwidths(m_instrumentHandle, bw_buffer);
-	if ((res & _VI_ERROR) > 0)
+	if (res != VI_SUCCESS)
 	{
 		print_error_msg(res);
+		// release the device
+		TLBP2_close(m_instrumentHandle);
 		return 0;
 	}
 	
 	//set wavelength
 	res = TLBP2_set_wavelength(m_instrumentHandle, wavelength);
-	if ((res & _VI_ERROR) > 0)
+	if (res != VI_SUCCESS)
 	{
 		print_error_msg(res);
+		// release the device
+		TLBP2_close(m_instrumentHandle);
 		return 0;
 	}
 
 	//set power factor
 	res = TLBP2_set_user_power_factor(m_instrumentHandle, powerCorrectionFactor);
-	if ((res & _VI_ERROR) > 0)
+	if (res != VI_SUCCESS)
 	{
 		print_error_msg(res);
+		// release the device
+		TLBP2_close(m_instrumentHandle);
 		return 0;
 	}
 
@@ -113,22 +138,26 @@ int main(int argc, char* argv)
 		res = TLBP2_set_scanning_method(m_instrumentHandle, 1, scanningMethod);
 		res = TLBP2_set_scanning_method(m_instrumentHandle, 2, scanningMethod);
 		res = TLBP2_set_scanning_method(m_instrumentHandle, 3, scanningMethod);
-		if ((res & _VI_ERROR) > 0)
+		if (res != VI_SUCCESS)
 		{
 			print_error_msg(res);
+			// release the device
+			TLBP2_close(m_instrumentHandle);
 			return 0;
 		}
 	}
 	else
 	{
-		printf("Invalid Input! The scanning method is set to slit scanning mode.\n");
+		printf("Invalid Input! The scanning method is set to slit scanning method.\n");
 		res = TLBP2_set_scanning_method(m_instrumentHandle, 0, 0);
 		res = TLBP2_set_scanning_method(m_instrumentHandle, 1, 0);
 		res = TLBP2_set_scanning_method(m_instrumentHandle, 2, 0);
 		res = TLBP2_set_scanning_method(m_instrumentHandle, 3, 0);
-		if ((res & _VI_ERROR) > 0)
+		if (res != VI_SUCCESS)
 		{
 			print_error_msg(res);
+			// release the device
+			TLBP2_close(m_instrumentHandle);
 			return 0;
 		}
 	}
@@ -140,25 +169,41 @@ int main(int argc, char* argv)
 		res = TLBP2_set_drum_speed_ex(m_instrumentHandle, 10, &sampleCount, &resolution);
 	else //knife edge mode
 		res = TLBP2_set_drum_speed_ex(m_instrumentHandle, 2, &sampleCount, &resolution);
-	if ((res & _VI_ERROR) > 0)
+	if (res != VI_SUCCESS)
 	{
 		print_error_msg(res);
+		// release the device
+		TLBP2_close(m_instrumentHandle);
 		return 0;
 	}
 
 	//set position correction
 	res = TLBP2_set_position_correction(m_instrumentHandle, VI_TRUE);
-	if ((res & _VI_ERROR) > 0)
+	if (res != VI_SUCCESS)
 	{
 		print_error_msg(res);
+		// release the device
+		TLBP2_close(m_instrumentHandle);
+		return 0;
+	}
+
+	//return all position coordinates from -4500 µm to 4500 µm and flip the x scans
+	res = TLBP2_setThorlabsBeamCompatibleCoordinateSystem(m_instrumentHandle, VI_TRUE);
+	if (res != VI_SUCCESS)
+	{
+		print_error_msg(res);
+		// release the device
+		TLBP2_close(m_instrumentHandle);
 		return 0;
 	}
 
 	//set speed correction
 	res = TLBP2_set_speed_correction(m_instrumentHandle, VI_TRUE);
-	if ((res & _VI_ERROR) > 0)
+	if (res != VI_SUCCESS)
 	{
 		print_error_msg(res);
+		// release the device
+		TLBP2_close(m_instrumentHandle);
 		return 0;
 	}
 	
@@ -169,12 +214,10 @@ int main(int argc, char* argv)
 		res = TLBP2_get_device_status(m_instrumentHandle, &device_status);
 	}
 
-	static BP2_SLIT_DATA slit_data[4], slit_data_kinfe[4]; /// BP2_MAX_SLIT_COUNT = 4
-	static BP2_CALCULATIONS calculation_result[4], calculation_result_knife[4];
 	static ViReal64 power_intensities[7500];
 	static ViBoolean slit_indices[4] = { VI_TRUE, VI_TRUE, VI_TRUE, VI_TRUE};
 	ViReal64 power;
-	ViReal32 powerSaturation;
+	ViReal32 powerSaturation,centroidPositionX, centroidPositionY,gaussianDiameterX,gaussianDiameterY;
 	ViUInt8 gain[4];
 	ViUInt8 gainPower;
 
@@ -183,7 +226,7 @@ int main(int argc, char* argv)
 	printf("Adjusting Gain...\n");
 	for (int i = 0; i < 10; i++)
 	{
-		res = TLBP2_get_slit_scan_data(m_instrumentHandle, slit_data, calculation_result, &power, &powerSaturation, power_intensities);
+		res = TLBP2_request_scan_data(m_instrumentHandle, &power, &powerSaturation, power_intensities);
 		res = TLBP2_get_gains(m_instrumentHandle, gain, &gainPower);
 		printf("Gain:\n");
 		printf("  25um slit x: %d, 25um slit y: %d\n", gain[0],gain[1]);
@@ -195,19 +238,25 @@ int main(int argc, char* argv)
 	if (scanningMethod == 0)//slit scanning mode
 	{
 		//Get the slit scan data
-		res = TLBP2_get_slit_scan_data(m_instrumentHandle, slit_data, calculation_result, &power, &powerSaturation, power_intensities);
+		res = TLBP2_request_scan_data(m_instrumentHandle, &power, &powerSaturation, power_intensities);
 		if (res == VI_SUCCESS)
 		{
+			TLBP2_get_slit_centroid(m_instrumentHandle, 2, VI_NULL, &centroidPositionX);
+			TLBP2_get_slit_centroid(m_instrumentHandle, 3, VI_NULL, &centroidPositionY);
+			TLBP2_get_slit_gaussian_fit(m_instrumentHandle, 2, VI_NULL, &gaussianDiameterX, VI_NULL, VI_NULL);
+			TLBP2_get_slit_gaussian_fit(m_instrumentHandle, 3, VI_NULL, &gaussianDiameterY, VI_NULL, VI_NULL);
 			printf("Corrected Power value: %.2f mW\n", power);
-			printf("5um Slit X Centroid Position: %.2f\n", calculation_result[2].centroidPosition);
-			printf("5um Slit Y Centroid Position: %.2f\n", calculation_result[3].centroidPosition);
-			printf("5um Slit X Gaussian Fit Diameter: %.2f\n", calculation_result[2].gaussianFitDiameter);
-			printf("5um Slit Y Gaussian Fit Diameter: %.2f\n", calculation_result[3].gaussianFitDiameter);
+			printf("5um Slit X Centroid Position: %.2f\n", centroidPositionX);
+			printf("5um Slit Y Centroid Position: %.2f\n", centroidPositionY);
+			printf("5um Slit X Gaussian Fit Diameter: %.2f\n", gaussianDiameterX);
+			printf("5um Slit Y Gaussian Fit Diameter: %.2f\n", gaussianDiameterY);
 			Beam_Profile_Reconstruction();
 		}
 	}
 	else//knife edge mode
 	{
+		static BP2_SLIT_DATA slit_data[4], slit_data_kinfe[4]; /// BP2_MAX_SLIT_COUNT = 4
+		static BP2_CALCULATIONS calculation_result[4], calculation_result_knife[4];
 		//Calculate the knife edge data from the slit data.
 		res = TLBP2_get_slit_scan_data(m_instrumentHandle, slit_data, calculation_result, &power, &powerSaturation, power_intensities);
 		res = TLBP2_get_knife_edge_reconstruction(m_instrumentHandle, slit_data, calculation_result, slit_indices, slit_data_kinfe, calculation_result_knife);
@@ -241,8 +290,6 @@ void Beam_Profile_Reconstruction()
 	static ViReal64 gaussianFitIntensitiesY[7500];
 	ViReal32 gaussianFitPercentageX, gaussianFitPercentageY;
 
-	//Request the scan data
-	TLBP2_request_scan_data(m_instrumentHandle, VI_NULL, VI_NULL, VI_NULL);
 	//Get the intensities from the 5um X slit and the 5um Y slit 
 	res = TLBP2_get_sample_intensities(m_instrumentHandle, 2, sampleIntensitiesX, samplePositionsX);
 	res = TLBP2_get_sample_intensities(m_instrumentHandle, 3, sampleIntensitiesY, samplePositionsY);
@@ -314,10 +361,12 @@ void Beam_Profile_Reconstruction()
 			reconstructionImage.at<uchar>(col, row) = (uchar)(255 * intensityTemp[row][col] / intensityMax);
 		}
 	}
+
 	imshow("X Intensity", IntensityXImage);
 	imshow("X Gaussian Fit Intensity", GaussianXImage);
 	imshow("2D Reconstruction", reconstructionImage);
-	waitKey(0);
+	
+	waitKey(8000);
 }
 
 // prints the error message from an error code
