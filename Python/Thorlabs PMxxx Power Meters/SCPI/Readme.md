@@ -27,7 +27,7 @@ For closer details refer to [Readme](scopeMode). Available for PM6x, PM103, PM10
 Minimal template script ```PMxxx_SCPI_OpenAnyvisa.py``` to open a known instrument resource using anyvisa library.
 
 ### Search Anyvisa
-Minimal template script ```PMxxx_SCPI_SearchAnyvisa.py``` to run instrument search and open one of the devices found using anvisa library.
+Minimal template script ```PMxxx_SCPI_SearchAnyvisa.py``` to run instrument search and open one of the devices found using anyvisa library.
 
 ## SCPI Command documentation
 For most of the Thorlabs Powermeter there is a detail [SCPI command documentation](commandDocu) in .html file format available. 
@@ -52,9 +52,10 @@ python -m pip install anyvisa*.whl
 
 ### National Instruments :tm: Visa
 
-If you want to control the Power Meter on Linux, with pyvisa library or with SCPI commands within your CVI or LabView application, 
-you have to install National Instruments :tm: Visa Runtime (May be installed already if you installed NI LabView or NI CVI). 
-Once installed you must switch the driver for the Power Meter manually by using Thorlabs Driver Switcher or Windows 
+If you want to control the Power Meter with the pyvisa library and with SCPI commands, 
+you have to install National Instruments :tm: Visa Runtime (May be installed already if you installed NI LabView or NI CVI).
+This works also on many Linux systems.
+On Windows, you must then switch the driver for the Power Meter manually by using Thorlabs Driver Switcher or Windows 
 Device Manager (Experts only). Once the runtime is installed and driver has been switched you can install pyvisa python library
 via command. 
 
@@ -62,4 +63,63 @@ via command.
 python -m pip install pyvisa
 ```
 
-Note: pyvisa does communicate with Thorlabs Ethernet or Bluetooth LE device interfaces.
+Note: pyvisa does not communicate with Thorlabs Ethernet or Bluetooth LE device interfaces.
+
+### Raspberry Pi 4 
+On Raspberry Pi with ARM Linux, both TLVisa and NI Visa do not work. Another approach is using the Pyvisa-Py backend.
+We tested the following procedure on Raspberry Pi 4, Linux 13 (Trixie), PM100D3.
+```
+sudo apt update && sudo apt upgrade -y
+```
+Most Raspberry Pi OS versions come with Python pre-installed. Check with:
+```
+python3 --version
+```
+If Python is not already installed:
+```
+sudo apt install python3 python3-pip -y
+```
+If libusb is not installed:
+```
+sudo apt install libusb-1.0-0-dev
+```
+Install Pyvisa and Pyvisa-Py:
+```
+sudo apt install python3-pyvisa
+sudo apt install python3-pyvisa-py
+sudo apt install python3-usb
+sudo apt install zeroconf 
+```
+In order to get the permission to acces the power meter, create usbgroup and add your user:
+```
+sudo groupadd usbgroup 
+sudo usermod -aG usbgroup $USER
+```
+then set a udev rule, open the following file to edit:
+```
+sudo nano /etc/udev/rules.d/99-usbgroup.rules
+```
+(create directory and file if it does not exist)
+Insert the following line into the file
+```
+SUBSYSTEM=="usb", GROUP="usbgroup", MODE="0666"
+```
+(This is for all USB devices. You can also set more specific rules)
+Reload and reboot to activate the rules
+```
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+sudo reboot
+```
+Plug in the powermeter and check with lsusb, if the device is present.
+Run in Python:
+```
+import pyvisa
+rm = pyvisa.ResourceManager('@py')
+print(rm.list_resources())
+inst = rm.open_resource('USB0::4883::32921::P000000064::0::INSTR')#substitute with the actual resource string that you get from the previous command
+print(inst.query('*IDN?'))
+print(inst.query('MEAS?'))
+```
+Also see the above ```PMxxx_SCPI_pyvisa.py```
+
