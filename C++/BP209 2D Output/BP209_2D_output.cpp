@@ -1,5 +1,5 @@
 ﻿//Example Date of Creation(YYYY - MM - DD) 2024 - 04 - 24
-//Example Date of Last Modification on Github 2025 - 11 - 05
+//Example Date of Last Modification on Github 2026 - 01 - 29
 //Version of C++ used for Testing and IDE: C++ 14, Visual Studio 2022
 //Version of OpenCV: OpenCV 4.12.0
 //Version of the Thorlabs SDK used : Beam version 9.3
@@ -177,6 +177,12 @@ int main(int argc, char* argv)
 		return 0;
 	}
 
+	//set calculation area to auto rectangle, and set the clip level to 1%
+	res = TLBP2_set_calculation_area(m_instrumentHandle, 0, VI_TRUE, 0.01f, 0.0f, 0.0f);
+	res = TLBP2_set_calculation_area(m_instrumentHandle, 1, VI_TRUE, 0.01f, 0.0f, 0.0f);
+	res = TLBP2_set_calculation_area(m_instrumentHandle, 2, VI_TRUE, 0.01f, 0.0f, 0.0f);
+	res = TLBP2_set_calculation_area(m_instrumentHandle, 3, VI_TRUE, 0.01f, 0.0f, 0.0f);
+
 	//set position correction
 	res = TLBP2_set_position_correction(m_instrumentHandle, VI_TRUE);
 	if (res != VI_SUCCESS)
@@ -269,7 +275,7 @@ int main(int argc, char* argv)
 			printf("25um Slit Y Gaussian Fit Diameter: %f\n", calculation_result_knife[1].gaussianFitDiameter);
 		}
 		else
-			printf("Fail to reconstruct the knife edge data\n");
+			printf("Fail to reconstrucion the knife edge data\n");
 	}
 
 	// release the device

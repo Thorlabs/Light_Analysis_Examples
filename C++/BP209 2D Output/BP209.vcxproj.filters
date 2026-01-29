@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BP209.cpp">
+    <ClCompile Include="BP209_2D_output.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

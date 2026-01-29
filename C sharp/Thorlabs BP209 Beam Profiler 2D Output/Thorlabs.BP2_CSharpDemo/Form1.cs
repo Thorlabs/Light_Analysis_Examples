@@ -1,6 +1,6 @@
 ﻿// Title: BP209 2D Reconstruction C Sharp Example. 
 // Created Date: 2024 - 10 - 12
-// Last modified date: 2025 - 11 - 26
+// Last modified date: 2026 - 01 - 29
 // .NET version: 4.8
 // Thorlabs SDK Version: Beam version 9.3
 // Notes: This example is based on the C sharp example which is installed to
@@ -91,6 +91,13 @@ namespace Thorlabs.BP2_CSharpDemo
 
             // return all position coordinates from -4500 µm to 4500 µm and flip the x scans
             this.status = this.bp2Device.setThorlabsBeamCompatibleCoordinateSystem(true);
+            
+            // set the calculation area to auto rectangle, and set the clip level to 1%
+            // which is the same as the software default settings
+            this.status = this.bp2Device.set_calculation_area(0,true,0.01f,0,0);
+            this.status = this.bp2Device.set_calculation_area(1,true,0.01f,0,0);
+            this.status = this.bp2Device.set_calculation_area(2,true,0.01f,0,0);
+            this.status = this.bp2Device.set_calculation_area(3,true,0.01f,0,0);
 
             // poll for a valid scan
             this.scanTimer = new Timer();
@@ -179,7 +186,6 @@ namespace Thorlabs.BP2_CSharpDemo
          if ((deviceStatus & 1) == 1 && 0 == this.bp2Device.request_scan_data(out power, out powerSaturation, null))
          {
             // get the peak position and centriod position
-
             this.bp2Device.get_slit_peak(0, out peakIndex1, out peakPositionSlit1, out peakIntensitySlit1);
             this.bp2Device.get_slit_peak(1, out peakIndex2, out peakPositionSlit2, out peakIntensitySlit2);
             this.bp2Device.get_scan_data_information(0, out sampleCount1, out darkLevelSlit1);
