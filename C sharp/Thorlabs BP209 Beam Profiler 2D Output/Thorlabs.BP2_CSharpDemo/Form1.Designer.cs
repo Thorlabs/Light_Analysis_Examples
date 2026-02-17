@@ -39,9 +39,11 @@ namespace Thorlabs.BP2_CSharpDemo
       private void InitializeComponent()
       {
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -199,9 +201,9 @@ namespace Thorlabs.BP2_CSharpDemo
             this.label4.Location = new System.Drawing.Point(9, 114);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(157, 20);
+            this.label4.Size = new System.Drawing.Size(162, 20);
             this.label4.TabIndex = 6;
-            this.label4.Text = "Centoid Position [µm]";
+            this.label4.Text = "Centroid Position [µm]";
             // 
             // textBox_peakIntensitySlit1
             // 
@@ -258,16 +260,28 @@ namespace Thorlabs.BP2_CSharpDemo
             chartArea1.AxisY.Title = "Intensity [digits]";
             chartArea1.Name = "ChartArea1";
             this.chart25um.ChartAreas.Add(chartArea1);
+            legend1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            legend1.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Column;
+            legend1.Name = "Legend1";
+            legend1.Position.Auto = false;
+            legend1.Position.Height = 11.79775F;
+            legend1.Position.Width = 24.06015F;
+            legend1.Position.X = 74F;
+            legend1.Position.Y = 8F;
+            this.chart25um.Legends.Add(legend1);
             this.chart25um.Location = new System.Drawing.Point(18, 178);
             this.chart25um.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chart25um.Name = "chart25um";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series1.Legend = "Legend1";
             series1.LegendText = "X";
             series1.LegendToolTip = "Samples of the 25µm slit in x direction";
             series1.Name = "Series1";
             series2.ChartArea = "ChartArea1";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series2.Legend = "Legend1";
+            series2.LegendText = "Y";
             series2.Name = "Series2";
             this.chart25um.Series.Add(series1);
             this.chart25um.Series.Add(series2);
@@ -288,14 +302,27 @@ namespace Thorlabs.BP2_CSharpDemo
             chartArea2.AxisY.Title = "Intensity [digits]";
             chartArea2.Name = "ChartArea1";
             this.chart5um.ChartAreas.Add(chartArea2);
+            legend2.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            legend2.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Column;
+            legend2.Name = "Legend1";
+            legend2.Position.Auto = false;
+            legend2.Position.Height = 11.79775F;
+            legend2.Position.Width = 24.06015F;
+            legend2.Position.X = 74F;
+            legend2.Position.Y = 8F;
+            this.chart5um.Legends.Add(legend2);
             this.chart5um.Location = new System.Drawing.Point(426, 178);
             this.chart5um.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chart5um.Name = "chart5um";
             series3.ChartArea = "ChartArea1";
             series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series3.Legend = "Legend1";
+            series3.LegendText = "X";
             series3.Name = "Series1";
             series4.ChartArea = "ChartArea1";
             series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series4.Legend = "Legend1";
+            series4.LegendText = "Y";
             series4.Name = "Series2";
             this.chart5um.Series.Add(series3);
             this.chart5um.Series.Add(series4);
@@ -403,9 +430,9 @@ namespace Thorlabs.BP2_CSharpDemo
             this.label9.Location = new System.Drawing.Point(9, 114);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(157, 20);
+            this.label9.Size = new System.Drawing.Size(162, 20);
             this.label9.TabIndex = 6;
-            this.label9.Text = "Centoid Position [µm]";
+            this.label9.Text = "Centroid Position [µm]";
             // 
             // textBox_peakIntensitySlit2
             // 

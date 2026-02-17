@@ -1,20 +1,22 @@
 ﻿// Title: BP209 2D Reconstruction C Sharp Example. 
 // Created Date: 2024 - 10 - 12
-// Last modified date: 2024 - 10 - 12
+// Last modified date: 2026 - 01 - 29
 // .NET version: 4.8
-// Thorlabs SDK Version: Beam version 9.1.5787.560
+// Thorlabs SDK Version: Beam version 9.3
 // Notes: This example is based on the C sharp example which is installed to
 // C:\Program Files (x86)\IVI Foundation\VISA\WinNT\TLBP2\Examples during software installation. 
 // This example has added the 2D reconstruction algorithm and the reconstructed beam image is displayed. 
 
 namespace Thorlabs.BP2_CSharpDemo
 {
-   using System;
+    using System;
+    using System.Data;
+    using System.Drawing;
+    using System.Drawing.Imaging;
+    using System.Runtime.InteropServices;
     using System.Text;
     using System.Windows.Forms;
-    using System.Drawing;
     using Thorlabs.TLBP2.Interop;
-    using System.Runtime.InteropServices;
 
     /// <summary>
     /// Initializes the form
@@ -37,16 +39,6 @@ namespace Thorlabs.BP2_CSharpDemo
       private Timer scanTimer = null;
 
       /// <summary>
-      /// array of data structures for each slit.
-      /// </summary>
-      private bp2_slit_data[] bp2SlitData = new bp2_slit_data[4];
-
-      /// <summary>
-      /// array of calculation structures for each slit.
-      /// </summary>
-      private bp2_calculations[] bp2Calculations = new bp2_calculations[4];
-
-      /// <summary>
       /// Initializes a new instance of the <see cref="Form1"/> class.
       /// </summary>
       public Form1()
@@ -58,9 +50,6 @@ namespace Thorlabs.BP2_CSharpDemo
  
          // implementation with driver functions
          this.ConnectToTheFirstDevice();
-
-         // alternative implementation
-         ////this.connectToTheFirstDeviceByRM();  
 
          if (this.bp2Device != null)
          {
@@ -89,7 +78,6 @@ namespace Thorlabs.BP2_CSharpDemo
             ushort sampleCount;
             double sampleResolution;
             this.status = this.bp2Device.clear_drum_speed_offset();
-            this.status = this.bp2Device.set_drum_speed(10.0);
             this.status = this.bp2Device.set_drum_speed_ex(10.0, out sampleCount, out sampleResolution);
 
             // activate the position correction to have the same calculation results as the Thorlabs Beam Application
@@ -101,11 +89,15 @@ namespace Thorlabs.BP2_CSharpDemo
             // activate the drum speed correction
             this.status = this.bp2Device.set_speed_correction(true);
 
-            // use the offset for 10Hz to be compatible with the release version 5.0
-            this.status = this.bp2Device.set_reference_position(0, 4, 100.0);
-            this.status = this.bp2Device.set_reference_position(1, 4, -100.0);
-            this.status = this.bp2Device.set_reference_position(2, 4, 100.0);
-            this.status = this.bp2Device.set_reference_position(3, 4, -100.0);
+            // return all position coordinates from -4500 µm to 4500 µm and flip the x scans
+            this.status = this.bp2Device.setThorlabsBeamCompatibleCoordinateSystem(true);
+            
+            // set the calculation area to auto rectangle, and set the clip level to 1%
+            // which is the same as the software default settings
+            this.status = this.bp2Device.set_calculation_area(0,true,0.01f,0,0);
+            this.status = this.bp2Device.set_calculation_area(1,true,0.01f,0,0);
+            this.status = this.bp2Device.set_calculation_area(2,true,0.01f,0,0);
+            this.status = this.bp2Device.set_calculation_area(3,true,0.01f,0,0);
 
             // poll for a valid scan
             this.scanTimer = new Timer();
@@ -153,22 +145,6 @@ namespace Thorlabs.BP2_CSharpDemo
       }
 
       /// <summary>
-      /// search for connected devices and connect to the first one.
-      /// Use the VISA resource manager and simple data types.
-      /// </summary>
-      private void ConnectToTheFirstDeviceByRM()
-      {
-         // get the resource string of the first device
-         string[] bp2Resources = BP2_ResourceManager.FindRscBP2();
-
-         if (bp2Resources.Length > 0)
-         {
-            // connect to the first device
-            this.bp2Device = new TLBP2(bp2Resources[0], false, false);
-         } 
-      }
-
-      /// <summary>
       /// poll for a new measurement and fill the structures with the calculation results.
       /// </summary>
       private void GetMeasurement()
@@ -177,7 +153,7 @@ namespace Thorlabs.BP2_CSharpDemo
          double drumSpeed;
          try
          {
-            if (0 == this.bp2Device.get_drum_speed(out drumSpeed))
+            if (0 == this.bp2Device.get_averaged_drum_speed(out drumSpeed))
             {
                this.textBox_drumSpeed.Text = drumSpeed.ToString("f2");
             }
@@ -200,70 +176,86 @@ namespace Thorlabs.BP2_CSharpDemo
             else if ((deviceStatus & 2) == 2)
                this.toolStripStatusLabel1.Text = "Instrument is ready";
          }
-
-         // the gain and drum speed will be corrected during the measurement
+         
          double power;
-         float powerWindowSaturation;
-         if ((deviceStatus & 1) == 1 &&
-             0 == this.bp2Device.get_slit_scan_data(this.bp2SlitData, this.bp2Calculations, out power, out powerWindowSaturation, null))
+         float powerSaturation;
+         ushort peakIndex1, peakIndex2,sampleCount1,sampleCount2,centroidIndexSlit1, centroidIndexSlit2;
+         float peakPositionSlit1, peakPositionSlit2, centroidPositionSlit1, centroidPositionSlit2, peakIntensitySlit1, peakIntensitySlit2;
+         float darkLevelSlit1, darkLevelSlit2;
+
+         if ((deviceStatus & 1) == 1 && 0 == this.bp2Device.request_scan_data(out power, out powerSaturation, null))
          {
-            this.textBox_peakPositionSlit1.Text      = this.bp2Calculations[0].PeakPosition.ToString("f2");
-            this.textBox_peakIntensitySlit1.Text = (this.bp2Calculations[0].PeakIntensity * 100.0f / ((float)0x7AFF - this.bp2SlitData[0].SlitDarkLevel)).ToString("f2");
-            this.textBox_centroidPositionSlit1.Text  = this.bp2Calculations[0].CentroidPos.ToString("f2");
+            // get the peak position and centriod position
+            this.bp2Device.get_slit_peak(0, out peakIndex1, out peakPositionSlit1, out peakIntensitySlit1);
+            this.bp2Device.get_slit_peak(1, out peakIndex2, out peakPositionSlit2, out peakIntensitySlit2);
+            this.bp2Device.get_scan_data_information(0, out sampleCount1, out darkLevelSlit1);
+            this.bp2Device.get_scan_data_information(1, out sampleCount2, out darkLevelSlit2);
+            this.bp2Device.get_slit_centroid(0, out centroidIndexSlit1,out centroidPositionSlit1);
+            this.bp2Device.get_slit_centroid(1, out centroidIndexSlit2, out centroidPositionSlit2);
 
-            this.textBox_peakPositionSlit2.Text = this.bp2Calculations[1].PeakPosition.ToString("f2");
-            this.textBox_peakIntensitySlit2.Text = (this.bp2Calculations[1].PeakIntensity * 100.0f / ((float)0x7AFF - this.bp2SlitData[1].SlitDarkLevel)).ToString("f2");
-            this.textBox_centroidPositionSlit2.Text = this.bp2Calculations[1].CentroidPos.ToString("f2");
+            this.textBox_peakPositionSlit1.Text = peakPositionSlit1.ToString("f2");
+            this.textBox_peakIntensitySlit1.Text = (peakIntensitySlit1 * 100.0f / ((float)0x7AFF - darkLevelSlit1)).ToString("f2");
+            this.textBox_centroidPositionSlit1.Text  = centroidPositionSlit1.ToString("f2");
 
-            this.textBox_powerSaturation.Text   = (powerWindowSaturation*100.0).ToString("f2");
+            this.textBox_peakPositionSlit2.Text = peakPositionSlit2.ToString("f2");
+            this.textBox_peakIntensitySlit2.Text = (peakIntensitySlit2 * 100.0f / ((float)0x7AFF - darkLevelSlit2)).ToString("f2");
+            this.textBox_centroidPositionSlit2.Text = centroidPositionSlit2.ToString("f2");
 
-            this.chart25um.Series[0].Points.DataBindXY(bp2SlitData[0].SlitSamplesPositions, bp2SlitData[0].SlitSamplesIntensities);
-            this.chart25um.Series[1].Points.DataBindXY(bp2SlitData[1].SlitSamplesPositions, bp2SlitData[1].SlitSamplesIntensities);
-            this.chart5um.Series[0].Points.DataBindXY(bp2SlitData[2].SlitSamplesPositions, bp2SlitData[2].SlitSamplesIntensities);
-            this.chart5um.Series[1].Points.DataBindXY(bp2SlitData[3].SlitSamplesPositions, bp2SlitData[3].SlitSamplesIntensities);
+            this.textBox_powerSaturation.Text   = (powerSaturation*100.0).ToString("f2");
 
-            //Calculate and display the 2D reconstruction image
-            Get2DReconstruction();
+            GetChartAnd2DReconstruction();
+
          }
       }
 
         /// <summary>
         /// Calculate the 2D reconstructed beam intensity distribution and display the image on the WinForm
         /// </summary>
-        private void Get2DReconstruction()
+        private void GetChartAnd2DReconstruction()
       {
-            double[] sampleIntensitiesX = new double[7500];
-            double[] sampleIntensitiesY = new double[7500];
-            double[] samplePositionX = new double[7500];
-            double[] samplePositionY = new double[7500];
-            double[] gaussianFitIntensitiesX = new double[7500];
-            double[] gaussianFitIntensitiesY = new double[7500];
-            double power;
-            float powerSaturation;
+            double[] sampleIntensities25umX = new double[7500];
+            double[] sampleIntensities25umY = new double[7500];
+            double[] samplePosition25umX = new double[7500];
+            double[] samplePosition25umY = new double[7500];
+            double[] sampleIntensities5umX = new double[7500];
+            double[] sampleIntensities5umY = new double[7500];
+            double[] samplePosition5umX = new double[7500];
+            double[] samplePosition5umY = new double[7500];
+            double[] gaussianFitIntensities25umX = new double[7500];
+            double[] gaussianFitIntensities25umY = new double[7500];
             float temp;
-
-            //Request the scan data
-            this.bp2Device.request_scan_data(out power,out powerSaturation,null);
+            
             //Get the intensities from the 25um X slit and the 25um Y slit
-            this.bp2Device.get_sample_intensities(0, sampleIntensitiesX, samplePositionX);
-            this.bp2Device.get_sample_intensities(1, sampleIntensitiesY, samplePositionY);
+            this.bp2Device.get_sample_intensities(0, sampleIntensities25umX, samplePosition25umX);
+            this.bp2Device.get_sample_intensities(1, sampleIntensities25umY, samplePosition25umY);
+
+            //Get the intensities from the 5um X slit and the 5um Y slit
+            this.bp2Device.get_sample_intensities(2, sampleIntensities5umX, samplePosition5umX);
+            this.bp2Device.get_sample_intensities(3, sampleIntensities5umY, samplePosition5umY);
+
+            //Chart display
+            this.chart25um.Series[0].Points.DataBindXY(samplePosition25umX, sampleIntensities25umX);
+            this.chart25um.Series[1].Points.DataBindXY(samplePosition25umY, sampleIntensities25umY);
+            this.chart5um.Series[0].Points.DataBindXY(samplePosition5umX, sampleIntensities5umX);
+            this.chart5um.Series[1].Points.DataBindXY(samplePosition5umY, sampleIntensities5umY);
 
             //Get the gaussian fit intensites from the 25um X slit and the 25um Y slit
-            this.bp2Device.get_slit_gaussian_fit(0, out temp,out temp,out temp,gaussianFitIntensitiesX);
-            this.bp2Device.get_slit_gaussian_fit(1, out temp, out temp, out temp, gaussianFitIntensitiesY);
+            this.bp2Device.get_slit_gaussian_fit(0, out temp,out temp,out temp, gaussianFitIntensities25umX);
+            this.bp2Device.get_slit_gaussian_fit(1, out temp, out temp, out temp, gaussianFitIntensities25umY);
 
             //2D reconstruction 
-            double[,] imageData = new double[750, 750];
+            int imageSize = 750;
+            double[,] imageData = new double[imageSize, imageSize];
             double imageDataMax = 0;
             int ixz, iyz;
-            for (int ix = 0; ix < 750; ix++)
+            for (int ix = 0; ix < imageSize; ix++)
             {
-                for (int iy = 0; iy < 750; iy++)
+                for (int iy = 0; iy < imageSize; iy++)
                 {
                     //2D reconstruction algorithm
-                    ixz = (750 - ix - 1) * 10;
-                    iyz = (750 - iy - 1) * 10;
-                    imageData[ix, iy] = sampleIntensitiesX[ixz] * gaussianFitIntensitiesX[ixz] * sampleIntensitiesY[iyz] * gaussianFitIntensitiesY[iyz];
+                    ixz = (imageSize - ix - 1) * 7500 / imageSize;
+                    iyz = (imageSize - iy - 1) * 7500 / imageSize;
+                    imageData[ix, iy] = sampleIntensities25umX[ixz] * gaussianFitIntensities25umX[ixz] * sampleIntensities25umY[iyz] * gaussianFitIntensities25umY[iyz];
 
                     //set the negative values to zero
                     if (imageData[ix, iy] < 0)
@@ -279,22 +271,29 @@ namespace Thorlabs.BP2_CSharpDemo
             }
 
             //Normalize intensity values and generate the Bitmap image
-            int imageGrayValue;
-            Bitmap bitmap = new Bitmap(750, 750);
-            for (int x = 0; x < 750; x++)
+            Bitmap bitmap = new Bitmap(imageSize, imageSize, PixelFormat.Format24bppRgb);
+            BitmapData bmpData = bitmap.LockBits(
+                new Rectangle(0, 0, imageSize, imageSize),ImageLockMode.WriteOnly,bitmap.PixelFormat);
+
+            int stride = bmpData.Stride;
+            byte[] pixelData = new byte[stride * imageSize];
+
+            for (int y = 0; y < imageSize; y++)
             {
-                for (int y = 0; y < 750; y++)
+                for (int x = 0; x < imageSize; x++)
                 {
-                    imageGrayValue = (int)(imageData[x, y] * 255 / imageDataMax);
-                    Color color = Color.FromArgb(imageGrayValue, imageGrayValue, imageGrayValue);
-                    bitmap.SetPixel(x, y, color);
+                    int gray = (int)(imageData[x, y] * 255 / imageDataMax);
+                    gray = Math.Min(255, Math.Max(0, gray));
+                    int pixelIndex = y * stride + x * 3;
+                    pixelData[pixelIndex + 0] = (byte)gray;
+                    pixelData[pixelIndex + 1] = (byte)gray;
+                    pixelData[pixelIndex + 2] = (byte)gray;
                 }
             }
 
-            // set the bitmap to the Image property
+            Marshal.Copy(pixelData, 0, bmpData.Scan0, pixelData.Length);
+            bitmap.UnlockBits(bmpData);
             this.reconstructionPicture.Image = bitmap;
-
-
         }
         /// <summary>
         /// If a new scan is available, get the data from the instrument and display the calculation results on the form.
@@ -329,5 +328,5 @@ namespace Thorlabs.BP2_CSharpDemo
             this.bp2Device.Dispose();
          }
       }
-   }
+    }
 }
