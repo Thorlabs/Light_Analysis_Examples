@@ -1,7 +1,7 @@
-﻿//Example Date of Creation(YYYY - MM - DD) 2025 - 03 - 13
-//Example Date of Last Modification on Github 2025 - 03 - 13
+﻿﻿//Example Date of Creation(YYYY - MM - DD) 2025 - 03 - 13
+//Example Date of Last Modification on Github 2026 - 04 - 15
 //Version of .NET Framework used for Testing: 4.8
-//Version of the ThorSpectra installation: 3.35
+//Version of the ThorSpectra installation: 3.38
 //Example Description: Benchmark Application Example is a Console Application, which connects to first available spectrometer and performs the following workflow:
 //-Sets acquisition parameters: Exposure and amount of frames for Hardware Averaging.
 //-Acquire single spectrum
@@ -35,10 +35,8 @@ internal static class Program
     {
         #region 0) Initialize workflow
 
-        // Use Console Logger instead of Console.WriteLine(string), because it can be shared with SDK of the Compact Spectrometers 
-        var logVerbosity = LogLevel.Information;
-        using ILoggerFactory factory = LoggerFactory.Create(builder => builder.SetMinimumLevel(logVerbosity).AddConsole());
-        ILogger logger = factory.CreateLogger(nameof(Program));
+        var logVerbosity = Microsoft.Extensions.Logging.LogLevel.Information;
+        Microsoft.Extensions.Logging.ILogger logger = CreateLogger(logVerbosity, withFileOutput: true);
 
         logger.LogInformation("Started .NET CSharp Example of Thorlabs Compact Spectrometer SDK.");
 
@@ -343,5 +341,27 @@ internal static class Program
 
             #endregion
         }
+    }
+
+    /// <summary>
+    /// Instantiate a Logger
+    /// </summary>
+    /// <param name="logVerbosity"></param>
+    /// <returns></returns>
+    private static Microsoft.Extensions.Logging.ILogger CreateLogger(LogLevel logVerbosity, bool withFileOutput)
+    {
+        /*
+         * The CCT SDK accepts Loggers from .NET Microsoft.Extensions.Logging libraries.
+         * E.g. when Microsoft.Extensions.Logging.Console NuGet package is referenced, a formatted Console Logger might be connected,
+         * Example code:
+         * 
+        
+        using ILoggerFactory factory = LoggerFactory.Create(builder => builder.SetMinimumLevel(logVerbosity).AddConsole());
+        return factory.CreateLogger(nameof(Program));
+
+        */
+
+        // demo call of Console.WriteLine(string) wrapped into ILogger interface, with optional file trace
+        return new Thorlabs.ManagedDevice.Trace.ExampleLogger(nameof(Program), logVerbosity, withFileOutput);
     }
 }
