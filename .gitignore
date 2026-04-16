@@ -4,7 +4,6 @@
 *.pdb
 *.vs
 *.lib
-*.dll
 *.cache
 *.user
 *.exe
