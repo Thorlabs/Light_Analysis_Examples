@@ -4,8 +4,10 @@
 *.pdb
 *.vs
 *.lib
+*.dll
 *.cache
 *.user
 *.exe
 *.ilk
 *.obj
+!Matlab/CCT Spectrometers/*.dll
