@@ -17,11 +17,13 @@ def main():
     try:
         #Opens a resource manager
         rm = pyvisa.ResourceManager()
+        print("Available resources:")
+        print(rm.list_resources())
 
         #Opens the connection to the device. The variable instr is the handle for the device.
-        # !!! In the USB number the serial number (P00...) and PID (0x8078) needs to be changed to the one of the connected device.
-        #Check with the Windows DEvice Manager
-        instr = rm.open_resource('USB0::0x1313::0x8078::P0007837::INSTR')
+        # !!! In the USB number the serial number (P00...) and PID (0x8099) needs to be changed to the one of the connected device.
+        #Use the output from the previous command
+        instr = rm.open_resource('USB0::0x1313::0x8099::P00000064::INSTR')
         
         #print the device information
         print(instr.query("SYST:SENS:IDN?"))
