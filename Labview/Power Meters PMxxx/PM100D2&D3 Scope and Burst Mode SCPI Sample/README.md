@@ -35,12 +35,12 @@ Tested with LabVIEW 2023 Q3, 32 Bit
 ![Burst Mode Front Panel](Front_Panel_Burst_Mode.png)
  
 ## Block Diagram - CW Mode
-![CW Mode Block Diagram](Block_Panel_CW_Mode.png)
+![CW Mode Block Diagram](Block_Diagram_CW_Mode.png)
 
 ## Block Diagram - Scope Mode
-![Scope Mode Block Diagram](Block_Panel_Scope_Mode.png)
+![Scope Mode Block Diagram](Block_Diagram_Scope_Mode.png)
 
 ## Block Diagram - Burst Mode
-![Burst Mode Block Diagram](Block_Panel_Burst_Mode.png)
+![Burst Mode Block Diagram](Block_Diagram_Burst_Mode.png)
 
 
