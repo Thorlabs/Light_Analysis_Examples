@@ -23,7 +23,7 @@ sudo apt install python3-pyvisa-py
 sudo apt install python3-usb
 sudo apt install zeroconf 
 ```
-In order to get the permission to acces the power meter, create usbgroup and add your user:
+In order to get the permission to access the power meter, create usbgroup and add your user:
 ```
 sudo groupadd usbgroup 
 sudo usermod -aG usbgroup $USER

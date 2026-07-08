@@ -7,7 +7,7 @@ anyvisa library. Some others use the third-party pyvisa python library based on 
 ## Included Examples
 
 ### Simple Example
-The example ```PMxxx_SCPI_pyvisa.py``` shows how to to open a powermeter connected with USB using the pyvisa library, make settings and get measurement values. It will not work for ethernet connection, check the anyvisa examples for that case. On Windows, switch the driver to NI VISA. This example was also tested on Linux Mint 22.2 with NI VISA installed.
+The example ```PMxxx_SCPI_pyvisa.py``` shows how to open a powermeter connected with USB using the pyvisa library, make settings and get measurement values. It will not work for ethernet connection, check the anyvisa examples for that case. On Windows, switch the driver to NI VISA. This example was also tested on Linux Mint 22.2 with NI VISA installed.
 
 ### Fast Mode
 Demonstrates how to query fast measurement stream of Thorlabs Power Meter. 
@@ -43,7 +43,7 @@ After installation your Power Meter will use the Thorlabs Visa TMC driver. This 
 like USB, Serial, Ethernet, Bluetooth and Bluetooth LE. Thorlabs Visa is available for Windows only at the moment. To use this driver in python
 you have to use anyvisa Python library. You will not find the device with pyvisa library.
 
-You can download the recent [aynvisa Python Wheel](anvisa) installer and install it with the command:
+You can download the recent [anyvisa Python Wheel](anyvisa) installer and install it with the command:
 
 ```
 python -m pip install anyvisa*.whl
