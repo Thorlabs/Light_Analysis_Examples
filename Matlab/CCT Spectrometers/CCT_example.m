@@ -1,18 +1,17 @@
 %% Header
 % Title: CCT_example.m
-% Created Date: 2025-12-10
-% Last modified date: 2025-12-10
+% Created Date: 2026-04-15
+% Last modified date: 2026-04-15
 % Matlab Version:R2023a
-% Thorlabs DLL version:1.0.20.4045
+% Thorlabs DLL version:1.0.35.5413
 %% Notes: The example shows how to connect to a CCT spectrometer, set the exposure time and acquire a spectrum
 % Tested with CCT11
 %
-
+scriptFolder = fileparts(mfilename('fullpath'));
 % Load the Compact Spectrometer SDK DLLs
-dll_path='C:\Program Files\Thorlabs\ThorSpectra';
-NET.addAssembly(fullfile(dll_path, 'Thorlabs.ManagedDevice.CompactSpectrographDriver.dll'));  
-NET.addAssembly(fullfile(dll_path, 'Thorlabs.ManagedDevice.dll'));  
-NET.addAssembly(fullfile(dll_path, 'Microsoft.Extensions.Logging.Abstractions.dll'));  
+NET.addAssembly(fullfile(scriptFolder, 'Microsoft.Extensions.Logging.Abstractions.dll')); 
+NET.addAssembly(fullfile(scriptFolder, 'Thorlabs.ManagedDevice.CompactSpectrographDriver.dll'));  
+NET.addAssembly(fullfile(scriptFolder, 'Thorlabs.ManagedDevice.dll'));  
 NET.addAssembly('System.Runtime');
 
 import Thorlabs.ManagedDevice.CompactSpectrographDriver.Workflow.StartupHelperCompactSpectrometer.*;
@@ -32,14 +31,14 @@ discoveredDevicestask.Wait();
 discoveredDevices=discoveredDevicestask.Result;
 
 for i=0:discoveredDevices.Count-1
-    disp("discovered devices:")
+    disp("Discovered devices:")
     disp(discoveredDevices.Item(i));
 end
 
 %if spectrometers are found
 if(discoveredDevices.Count>0)
 
-    disp("connecting to first device ...")
+    disp("Connecting to first device ...")
 
     Deviceid=discoveredDevices.Item(0);
     
@@ -49,7 +48,7 @@ if(discoveredDevices.Count>0)
     exposure=500; %exposure time in milliseconds
     exposure_result=spectrometer.SetManualExposureAsync(exposure,cancellationToken).Result;
     if exposure_result==1
-        disp(['exposure time is set to ',num2str(exposure),' ms']);
+        disp(['Exposure time is set to ',num2str(exposure),' ms']);
     end
    
     %acquire spectrum
@@ -57,19 +56,16 @@ if(discoveredDevices.Count>0)
     spectrumtask.Wait();
     spectrum=spectrumtask.Result;
 
-    %dispose startup helper
-    startupHelper.Dispose();
-
     %plot spectrum
     figure; plot(spectrum.Wavelength,spectrum.Intensity)
-    
-         
+          
 else
     disp("No CCT spectrometer connected")
 end
         
        
-   
+%dispose startup helper
+startupHelper.Dispose();
 
 
 

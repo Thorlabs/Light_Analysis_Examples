@@ -1,8 +1,8 @@
 """
 PMxxx_SCPI
 Example Date of Creation: 2023-10-09
-Example Date of Last Modification on Github: 2023-10-09
-Version of Python: 3.11
+Example Date of Last Modification on Github: 2026-04-21
+Version of Python: 3.13
 Version of the Thorlabs SDK used: -
 ==================
 Example Description: The example shows how to use SCPI commands in Python with pyvisa
@@ -17,11 +17,13 @@ def main():
     try:
         #Opens a resource manager
         rm = pyvisa.ResourceManager()
+        print("Available resources:")
+        print(rm.list_resources())
 
         #Opens the connection to the device. The variable instr is the handle for the device.
-        # !!! In the USB number the serial number (P00...) and PID (0x8078) needs to be changed to the one of the connected device.
-        #Check with the Windows DEvice Manager
-        instr = rm.open_resource('USB0::0x1313::0x8078::P0007837::INSTR')
+        # !!! In the USB number the serial number (P00...) and PID (0x8099) needs to be changed to the one of the connected device.
+        #Use the output from the previous command
+        instr = rm.open_resource('USB0::0x1313::0x8099::P00000064::INSTR')
         
         #print the device information
         print(instr.query("SYST:SENS:IDN?"))
