@@ -1,9 +1,9 @@
 """
 Example Title: PAX1000 using Pyvisa
 Example Date of Creation(YYYY-MM-DD): 2024-10-29
-Example Date of Last Modification on Github: 2024-10-29
-Version of Python used for Testing and IDE: 3.11
-Version of the Thorlabs SDK used: PAX1000 Software Version 1.4
+Example Date of Last Modification on Github: 2026-07-21
+Version of Python used for Testing and IDE: 3.13
+Version of the Thorlabs SDK used: PAX1000 Software Version 1.7
 ==================
 Example Description: This example shows how to read measurement values in binary format, using Pyvisa and SCPI commands
 """
@@ -17,15 +17,18 @@ import struct
 # create a resource manager
 rm = pyvisa.ResourceManager()
 
+print("Found devices:")
+print(rm.list_resources())  # list all connected devices
+
 # open the connection (replace '...' with your device address)
-device = rm.open_resource('USB0::0x1313::0x8031::E00000019::INSTR')
+device = rm.open_resource('USB0::0x1313::0x8031::M00470825::INSTR')
 
 # send the *IDN? command
 device.write('*IDN?') 
 # read the result
 result = device.read() 
 # print the result
-print(result)
+print(result, " connected")
 
 """
 Measurement modes:
@@ -41,19 +44,17 @@ Measurement modes:
     D2048:Value 9, 2 revolutions for one measurement, 2048 points for FFT
 """
 
-#INP:ROT:VEL 200.0
-device.write('INP:ROT:VEL 100')
-device.write('SENS:CALC 1')
+device.write('INP:ROT:VEL 50')#waveplate rotation velocity (1/s)
+device.write('SENS:CALC 1')#measurement mode
 
 device.write('INP:ROT:STAT 1') #Turn on motor
 
-print("Power up PAX -> Sleep 8 seconds")
 set = 0 
 while not set:
     time.sleep(0.5)
     set = int(device.query("INP:ROT:SETT?"))#Tests if motor speed is settled
 
-#time.sleep(8) # wait until PAX is running properly.
+
 print("Powered up! Let's go")
 
 def parseBinPax1000Data(bin:bytearray):
@@ -125,7 +126,7 @@ outputData = []
 
 for data in res:
     curRev = data[0] # revCount, waveplate half rotations count (Basic scan cycles).
-    curTime = data[1] # timeStamp, scan data acquisition timestamp (Arbitrary unit from device).
+    curTime = data[1] # timeStamp, scan data acquisition timestamp (ms).
     paxopmode = data[2] # Measurement mode
     statusFlags= data[3] # Scan evaluation flags
     gainIdx= data[4] # The index of the trans impedance amplifier (TIA) range that was used for a scan
