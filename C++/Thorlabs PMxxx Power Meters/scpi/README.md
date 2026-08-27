@@ -3,7 +3,7 @@ This example shows some of the functionality of PMXXX series power meter with SC
 It demonstrates how to connect the power meter, make settings, and get the power values.
 
 ## SCPI Command description
-You can find a SCPI command description for every Meter in the  [commandDocu](../../../Python/Thorlabs%20PMxxx%20Power%20Meters/scpi/commandDocu) folder. For example the PM103 [SCPI command description](https://htmlpreview.github.io/?https://github.com/Selanarixx/Light_Analysis_Examples/blob/develop/Python/Thorlabs%20PMxxx%20Power%20Meters/scpi/commandDocu/pm103.html) html file.
+You can find a SCPI command description for every Meter in the  [commandDocu](../../../Python/Thorlabs%20PMxxx%20Power%20Meters/SCPI/commandDocu) folder. For example the PM103 [SCPI command description](https://htmlpreview.github.io/?https://github.com/Thorlabs/Light_Analysis_Examples/blob/main/Python/Thorlabs%20PMxxx%20Power%20Meters/SCPI/commandDocu/pm103.html) html file.
 
 ## Instructions for Use
 
