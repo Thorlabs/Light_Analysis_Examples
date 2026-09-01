@@ -1,0 +1,7 @@
+# Grant the plugdev group access to Thorlabs USBTMC instruments
+# (power meters PM100x/PM103x/PM5020 etc., USB vendor id 0x1313).
+# Install with:
+#   sudo cp 99-thorlabs-usbtmc.rules /etc/udev/rules.d/
+#   sudo udevadm control --reload-rules
+#   sudo udevadm trigger
+KERNEL=="usbtmc*", ATTRS{idVendor}=="1313", MODE="0660", GROUP="plugdev"
