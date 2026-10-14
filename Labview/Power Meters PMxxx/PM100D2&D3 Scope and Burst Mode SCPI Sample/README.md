@@ -17,7 +17,7 @@ In this mode, measurements are triggered by the internal signal level of the sen
  
 ### 3. External-Triggered Burst Mode
 In this mode, measurements are triggered by an external TTL trigger source. **The maximum voltage is 5 V**. 
-* Trigger Configuration: The example sets ExtIO1 (IO1 on the PM100D3 AUX Connector) as the external trigger input port.
+* Trigger Configuration: The example sets ExtIO1 (IO1 on the PM100D3 AUX Connector) as the input pin.
 * Buffer & Speed: The scope mode stores up to 15000 samples with given averaging at max 100 kHz in an internal buffer. 
 * Hardware Compatibility Note: The PM100D2 is not equipped with an AUX connector and therefore does not support external-triggered Burst Mode.
  
