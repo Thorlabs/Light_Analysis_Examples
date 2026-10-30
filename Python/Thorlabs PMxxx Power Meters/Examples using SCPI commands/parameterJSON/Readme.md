@@ -39,3 +39,5 @@ You can download anyvisa library wheel in this Github repository. Please refer t
 - PM103E
 - PM5020
 - PM6x
+- PM100D2
+- PM100D3
