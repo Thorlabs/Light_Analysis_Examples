@@ -1,9 +1,9 @@
 """
 Thorlabs_OSA_example_03
 Example Date of Creation: 2024-04-24
-Example Date of Last Modification on Github: 2024-12-20
-Version of Python: 3.12.2
-Version of the Thorlabs SDK used: ThorSpectra 3.35
+Example Date of Last Modification on GitHub: 2026-11-02
+Version of Python: 3.14.3
+Version of the Thorlabs SDK used: ThorSpectra 3.40
 ==================
 Example Description: Load and plot spectrum or interferogram from an .spf2 file.
 """
@@ -33,7 +33,18 @@ y_unit_to_use = 'dBm (norm)'  # See the readme for possible units, e.g., 'dBm' o
 # Load a file containing measured data
 filetypes = (("SPF2 files", "*.spf2"), ("All files", "*.*"))
 filename = tkinter.filedialog.askopenfilename(filetypes=filetypes)
-measurements = pyOSA.core.load_spf2_file(filename)
+if not filename:
+    print("No file selected. Program will exit.")
+    sys.exit(0)
+
+try:
+    measurements = pyOSA.core.load_spf2_file(filename)
+except FileNotFoundError as exc:
+    print(exc)
+    sys.exit(1)
+except (OSError, RuntimeError, ValueError) as exc:
+    print(f"Could not load SPF2 file '{filename}': {exc}")
+    sys.exit(1)
 
 # For the purpose of this example, we want to use just a single spectrum or interferogram
 measurement = measurements[0]
@@ -43,8 +54,8 @@ if not measurement.is_valid():
 
 if measurement.is_spectrum():
 
-    # measurement contains a spectrum
-    measurement_type_str = 'Spectrum' # Used for the plot
+    # Measurement contains a spectrum
+    measurement_type_str = 'Spectrum'          # Used for the plot
 
     # Unit conversion - It is possible to convert the spectrum to specific x- and y-axis units
     measurement.convert_spectrum(x_unit=x_unit_to_use, y_unit=y_unit_to_use)
@@ -55,24 +66,32 @@ if measurement.is_spectrum():
     threshold = measurement.y_min + (measurement.y_max - measurement.y_min) * 0.5
     max_nr_of_found_peaks = 10  # Maximum nr of peaks found and returned
     min_peak_height_db = 3      # The min height, measured from the peak height and down, for a peak to be considered as peak
-    peaks = pyOSA.analysis.peak_track(measurement,
+    try:
+        peaks = pyOSA.analysis.peak_track(measurement,
                                           threshold=threshold,
                                           max_peaks=max_nr_of_found_peaks,
                                           min_peak_height_db=min_peak_height_db)
-    peak_centers, peak_heights, peak_widths, peak_lefts, peak_rights = peaks
+        peak_centers, peak_heights, peak_widths, peak_lefts, peak_rights = peaks
+    except pyOSA.AnalysisException as exc:
+        print(f"Peak track analysis failed: {exc}")
+        peak_centers = []
+        peak_heights = []
 
 elif measurement.is_interferogram():
 
     # Measurement contains an interferogram
-    measurement_type_str = 'Interferogram' # Used for the plot
+    measurement_type_str = 'Interferogram'     # Used for the plot
 
     # Wavelength meter applied on the interferogram
-    wavemeterdata = pyOSA.analysis.wavemeter(measurement, spectral_unit=x_unit_to_use)
-    wavemeter_value = wavemeterdata["wavelength"]
-    wavemeter_error = wavemeterdata["error"]
-    
-    print(f'The wavemeter detected the {pyOSA.units.get_formatted_x_quantity(x_unit_to_use).lower()} to '
-          f'{wavemeter_value} ± {wavemeter_error} {pyOSA.units.get_formatted_x_unit(x_unit_to_use)}\n')
+    try:
+        wavemeter_data = pyOSA.analysis.wavemeter(measurement, spectral_unit=x_unit_to_use)
+        wavemeter_value = wavemeter_data["wavelength"]
+        wavemeter_error = wavemeter_data["error"]
+
+        print(f'The wavemeter detected the {pyOSA.units.get_formatted_x_quantity(x_unit_to_use).lower()} to '
+              f'{wavemeter_value:.4f} ± {wavemeter_error:.8f} {pyOSA.units.get_formatted_x_unit(x_unit_to_use)}\n')
+    except pyOSA.AnalysisException as exc:
+        print(f"Wavemeter analysis failed: {exc}")
 
 else:
     print('Error: This file contains neither a spectrum nor an interferogram. Program will exit.')
