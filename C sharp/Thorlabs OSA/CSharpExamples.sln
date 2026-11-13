@@ -1,0 +1,57 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpExamples.Common", "CSharpExamples.Common\CSharpExamples.Common.csproj", "{1F8AD8BF-ADE6-48D1-A80E-C3AD9DF96201}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thorlabs_OSA_example_01", "Thorlabs_OSA_example_01\Thorlabs_OSA_example_01.csproj", "{DAF8AE94-E8AC-40F6-9833-1F22A7446601}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thorlabs_OSA_example_02", "Thorlabs_OSA_example_02\Thorlabs_OSA_example_02.csproj", "{DAF8AE94-E8AC-40F6-9833-1F22A7446602}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thorlabs_OSA_example_03", "Thorlabs_OSA_example_03\Thorlabs_OSA_example_03.csproj", "{DAF8AE94-E8AC-40F6-9833-1F22A7446603}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thorlabs_OSA_example_04", "Thorlabs_OSA_example_04\Thorlabs_OSA_example_04.csproj", "{DAF8AE94-E8AC-40F6-9833-1F22A7446604}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thorlabs_OSA_example_05", "Thorlabs_OSA_example_05\Thorlabs_OSA_example_05.csproj", "{DAF8AE94-E8AC-40F6-9833-1F22A7446605}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thorlabs_OSA_GUI", "Thorlabs_OSA_GUI\Thorlabs_OSA_GUI.csproj", "{DAF8AE94-E8AC-40F6-9833-1F22A74466FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F8AD8BF-ADE6-48D1-A80E-C3AD9DF96201}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F8AD8BF-ADE6-48D1-A80E-C3AD9DF96201}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F8AD8BF-ADE6-48D1-A80E-C3AD9DF96201}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F8AD8BF-ADE6-48D1-A80E-C3AD9DF96201}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A7446601}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A7446601}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A7446601}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A7446601}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A7446602}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A7446602}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A7446602}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A7446602}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A7446603}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A7446603}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A7446603}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A7446603}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A7446604}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A7446604}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A7446604}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A7446604}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A7446605}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A7446605}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A7446605}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A7446605}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A74466FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A74466FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A74466FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAF8AE94-E8AC-40F6-9833-1F22A74466FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
