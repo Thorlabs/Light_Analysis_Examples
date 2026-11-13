@@ -1,17 +1,15 @@
 """
 Thorlabs_OSA_example_02
 Example Date of Creation: 2024-04-24
-Example Date of Last Modification on Github: 2024-12-20
-Version of Python: 3.12.2
-Version of the Thorlabs SDK used: ThorSpectra 3.35
+Example Date of Last Modification on GitHub: 2026-11-02
+Version of Python: 3.14.3
+Version of the Thorlabs SDK used: ThorSpectra 3.40
 ==================
 Example Description: Measure spectra with different resolutions and sensitivities
 Save the result in .spf2 file format.
 """
 from itertools import product
-
 from matplotlib import pyplot as plt
-
 import pyOSA
 
 print('''
@@ -58,7 +56,7 @@ for res, sens in product(available_resolutions, available_sensitivities):
     # Loop over all resolutions and sensitivities
     osa.set_resolution(res)
     osa.set_sensitivity(sens)
-    print(f'Measuring a spectrum in {res} resolution and {sens} sensitivity') 
+    print(f'Measuring a spectrum in {res} resolution and {sens} sensitivity')
 
     acquisitions = osa.acquire(number_of_acquisitions=1, spectrum_averaging=5)
     acquisition = acquisitions[0]
@@ -76,13 +74,13 @@ for res, sens in product(available_resolutions, available_sensitivities):
     ax.plot(x, y)
     ax.set_xlabel(spectrum.get_xlabel())
     ax.set_ylabel(spectrum.get_ylabel())
-    ax.set_title(f'Spectrum read from {model} ({res} Res. & {sens} Sens.)')
+    ax.set_title(f'Spectrum read from {model} ({res} Res. & {sens} Sens.). Close fig to continue.')
     plt.tight_layout()
     plt.show()
 
     # Tip: save_file_spf2 can take as input a list of specs or just one spectrum
-    # Note that you need to change the path to get this to work 
+    # Note that you need to change the path to get this to work
     res_for_filename = res.replace(" ", "")
     sens_for_filename = sens.replace(" ", "")
     # Note: this path need to be changed to suit your computer
-    pyOSA.core.save_spf2_file(spectrum, f"C:\\temp\\spectrum_{model}_{res_for_filename}Res_{sens_for_filename}Sens.spf2") 
+    pyOSA.core.save_spf2_file(spectrum, f"C:\\temp\\spectrum_{model}_{res_for_filename}Res_{sens_for_filename}Sens.spf2")

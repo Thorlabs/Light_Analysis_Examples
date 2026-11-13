@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <ProjectReference Include="..\CSharpExamples.Common\CSharpExamples.Common.csproj" />
+  </ItemGroup>
+</Project>

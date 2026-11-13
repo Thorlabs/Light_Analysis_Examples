@@ -1,0 +1,17 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ThorSpectraPath Condition="'$(ThorSpectraPath)' == ''">$(ProgramW6432)\Thorlabs\ThorSpectra</ThorSpectraPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="ThorlabsOSAWrapper">
+      <HintPath>$(ThorSpectraPath)\ThorlabsOSAWrapper.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+</Project>
